@@ -3979,16 +3979,12 @@ a.manage-link {
 	box-shadow: 0 4px 10px 0 rgba(137, 137, 137, 0.25);
 }
 
-.attendance-time {
-	width: 35%;
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-
-}
 .activity-box {
 	position: relative;
 }
+
+
+
 .activity-list {
 	list-style: none;
 	margin: 0;
