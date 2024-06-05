@@ -5,10 +5,9 @@
     var $pageWrapper = $('.page-wrapper');
     var $slimScrolls = $('.slimscroll');
 
-    // Feather icons
     feather.replace();
 
-    // Sidebar Menu
+    // 사이드 메뉴 기능 관련 코드
     var Sidemenu = function() {
         this.$menuItem = $('#sidebar-menu a');
     };
@@ -16,6 +15,7 @@
     function init() {
         var $this = Sidemenu;
 
+        // 사이드 메뉴 클릭 이벤트 처리
         $('#sidebar-menu a').on('click', function(e) {
             var $parent = $(this).parent();
             if ($parent.hasClass('submenu')) {
@@ -206,6 +206,15 @@
             return false;
         });
     })();
+
+    // Disable right-click and specific keys
+    $(window).on("load", function() {
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(String.fromCharCode(e.keyCode))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+                return false;
+            }
+        };
+    });
 
     document.oncontextmenu = function() {
         return false;

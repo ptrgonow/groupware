@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어 - FM 메인</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+<body>
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                어흐으으 ㅠㅠ
+            </div>
+            <div class="row">
+                <!-- Invoices Chart -->
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Invoices</h5>
+                            <select id="invoicesSelect" class="form-control form-control-sm w-auto float-right">
+                                <option>Last Month</option>
+                                <option>Last 3 Months</option>
+                                <option>Last 6 Months</option>
+                                <option>Last 12 Months</option>
+                                <option>This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="invoicesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sales Chart -->
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Sales</h5>
+                            <select id="salesSelect" class="form-control form-control-sm w-auto float-right">
+                                <option>Last Month</option>
+                                <option>Last 3 Months</option>
+                                <option>Last 6 Months</option>
+                                <option>Last 12 Months</option>
+                                <option>This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Expenses Chart -->
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Expenses</h5>
+                            <select id="expensesSelect" class="form-control form-control-sm w-auto float-right">
+                                <option>Last Month</option>
+                                <option>Last 3 Months</option>
+                                <option>Last 6 Months</option>
+                                <option>Last 12 Months</option>
+                                <option>This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="expensesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profit and Loss Chart -->
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Profit and Loss</h5>
+                            <select id="profitLossSelect" class="form-control form-control-sm w-auto float-right">
+                                <option>Last Month</option>
+                                <option>Last 3 Months</option>
+                                <option>Last 6 Months</option>
+                                <option>Last 12 Months</option>
+                                <option>This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="profitLossChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank Accounts Chart -->
+                <div class="col-xl-12 col-md-12 chart-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Bank Accounts</h5>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="bank-accounts">
+                                <p>Checking: $3,621.93 <span>25 to review</span></p>
+                                <p>Savings: $200.00 <span>1 to review</span></p>
+                                <p>Mastercard: $304.96 <span>7 to review</span></p>
+                                <p>Visa: $0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/feather.min.js"></script>
+<script src="/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<script src="/js/main-finance.js"></script>
+</body>
+</html>

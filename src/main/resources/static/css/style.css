@@ -413,6 +413,34 @@ a.action_label4 svg {
 	padding: 1rem 0.75rem;
 	white-space: nowrap;
 }
+/*
+main-finance.html 의 CSS 추가 사항. 아래 2개.
+차트 박스 안의 오른쪽 상단에 지난달, 3개월전 등 옵션을 선택하는 <select> 요소의 너비를 컨텐츠에 맞게 자동 조정한다.
+w-auto 는 cs 유틸리티 클래스. width: auto 는 요소의 너비를 자동 설정.
+이 설정은 요소의 너비를 부모 요소나 (부모 > 자식 ~~> .container > .row > .col-md-6 > <select>태그)
+컨텐츠의 크기에 맞게 조정한다.
+* !important 는 css 규칙의 우선순위를 높여서 우선적으로 강제 적용하는 규칙이다.
+나중에 확인했을때 안지워져 있으면 내가 지울게//
+*/
+.custom-select.w-auto {
+	width: auto !important;
+}
+.chart-container {
+	position: relative;
+	height: 200px;
+}
+.bank-accounts {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+.bank-accounts p {
+	margin: 0;
+	display: flex;
+	justify-content: space-between;
+}
+/****************************************************************/
+
 .table  tr td label {
 	color: #3A3B3F;
 	font-size: 15px;
