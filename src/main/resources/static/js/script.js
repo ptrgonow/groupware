@@ -107,7 +107,7 @@
     // Slimscroll
     if ($slimScrolls.length > 0) {
         $slimScrolls.slimScroll({
-            height: 'auto',
+            height: '100%',
             width: '100%',
             position: 'right',
             size: '7px',
@@ -217,4 +217,5 @@
         }
         return true;
     });
+
 })(jQuery);
