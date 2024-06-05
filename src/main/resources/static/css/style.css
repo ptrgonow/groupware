@@ -1883,6 +1883,8 @@ button.bg-danger:hover {
 .header .header-left .logo img {
 	max-height: 45px;
 	width: auto;
+	margin-left: 2.5rem;
+	margin-bottom: 0.5rem;
 }
 .header-left .logo.logo-small {
 	display: none;
@@ -1892,6 +1894,7 @@ button.bg-danger:hover {
 }
 .header .dropdown-toggle:after {
 	display: none;
+
 }
 .mini-sidebar .sidebar-menu > .logout > li > a {
     display: inline-block;
@@ -2904,10 +2907,9 @@ html.menu-opened body {
     background-color: #2F47BA;
 }
 .sidebar-menu > ul > li > a img {
-	width: 25px;
-    background: #CBD1EE;
-    padding: 5px;
-    height: 25px;
+	width: 40px;
+    background: transparent;
+    height: 40px;
     border-radius: 5px;
 }
 .user-info a.menu-style {
@@ -4123,16 +4125,20 @@ span.leave-inactive {
 	display: -ms-flexbox;  
 	display: -webkit-flex;
     align-items: center;
-    background: url(../img/right-icon.png) no-repeat 96% 50%;
 }
 .leave-viewall.activit {
     padding: 7px 10px;
 }
+
+.leave-viewall a img {
+	width: 20px;
+}
+
 .activity-img {
     margin-right: 11px;
 }
 .activity-set:hover {
-    background: #f5f5f5 url(../img/right-icon.png) no-repeat 96% 50%;
+    background: #f5f5f5
 }
 .activity-content {
     display: flex;
@@ -6321,10 +6327,11 @@ label.logo-upload {
 		margin-bottom: 0;
 	}
 	.mini-sidebar .header-left .logo img {
-		height: auto;
-		max-height: 40px;
-		width: auto;
+		width: 2rem;
+		margin: 0;
+		transition: width 0.3s ease;
 	}
+
 	a.btn-emp ,a.btn-dash {
 		font-size: 16px;
 	}
