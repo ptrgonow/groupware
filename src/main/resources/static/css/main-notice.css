@@ -1,0 +1,124 @@
+
+.breadcrumb-path {
+
+}
+
+.calendar {
+    border-collapse: collapse;
+    width: 100%;
+}
+.calendar th,
+.calendar td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+.calendar th {
+    background-color: #f2f2f2;
+}
+.calendar td {
+    cursor: pointer;
+}
+.calendar td:hover {
+    background-color: #f0f0f0;
+}
+.today {
+    background-color: #f0f0f0;
+}
+
+/* CSS */
+.birthday {
+    background-color: #ffcccc; /* 생일인 사람의 배경색을 지정합니다. */
+    color: #000; /* 생일인 사람의 글자색을 지정합니다. */
+    font-weight: bold; /* 생일인 사람의 글자를 두껍게 표시합니다. */
+}
+
+/* 생일축하 핑크박스 */
+
+.breadcrumb-pink {
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: space-around;
+    padding:7px ;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px 0 rgba(137, 137, 137, 0.25);
+    background-color: pink;
+}
+
+
+
+
+/* 이번달 주요일정 */
+.breadcrumb-gray {
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: space-around;
+    padding:7px ;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px 0 rgba(137, 137, 137, 0.25);
+    background-color: #c0c0c0;
+}
+
+.table-responsive {
+
+    margin-top: 3rem ;
+
+
+}
+
+.table tbody tr:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+
+/* 생일+주요일정 박스 */
+.card-body-inner{
+    border: 2px solid #F2EEEE;
+    padding:30px 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+
+}
+
+/* 공지사항 테이블*/
+.gong {
+
+    margin-top: 2rem;
+
+}
+
+.gong tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* 공지사항 테이블 */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+
+
+
+

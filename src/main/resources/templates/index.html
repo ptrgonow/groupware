@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
     
+    <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
@@ -13,31 +14,225 @@
 </head>
 <body>
 
-
-
 <div class="main-wrapper">
-    <div th:replace="~{include/header/main-header :: header}"></div>
-    <div th:replace="~{include/side/main-side :: side}"></div>
+    
+    <div class="header">
+        
+        <div class="header-left">
+            <a href="/" class="logo">
+                <img src="/img/logo.jpeg" alt="Logo">
+            </a>
+            <a href="/" class="logo logo-small">
+                <img src="/img/logo.jpeg" alt="Logo">
+            </a>
+            <a href="javascript:void(0);" id="toggle_btn">
+            <span class="bar-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+            </span>
+            </a>
+        </div>
+        
+        
+        <a class="mobile_btn" id="mobile_btn">
+            <i class="fas fa-bars"></i>
+        </a>
+        
+        
+        <ul class="nav user-menu">
+            
+            <li class="nav-item dropdown">
+                
+                <a href="#" class="dropdown-toggle nav-link pr-0" data-toggle="dropdown">
+                    <i data-feather="bell"></i><span class="badge badge-pill"></span>
+                </a>
+                
+                <div class="dropdown-menu notifications">
+                    <div class="topnav-dropdown-header">
+                        <span class="notification-title">Notifications</span>
+                        <a href="javascript:void(0)" class="clear-noti"> Clear All</a>
+                    </div>
+                    <div class="noti-content">
+                        <ul class="notification-list">
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media">
+                                        <span class="avatar avatar-sm">
+                                        <img class="avatar-img rounded-circle" alt="" src="">
+                                        </span>
+                                        <div class="media-body">
+                                            <p class="noti-details">
+                                                <span class="noti-title">Brian Johnson</span>paid the invoice<span class="noti-title">#DF65485</span>
+                                            </p>
+                                            <p class="noti-time">
+                                                <span class="notification-time">4 mins ago</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media">
+                                        <span class="avatar avatar-sm">
+                                        <img class="avatar-img rounded-circle" alt="" src="">
+                                        </span>
+                                        <div class="media-body">
+                                            <p class="noti-details">
+                                                <span class="noti-title">Marie Canales</span> has accepted your estimate <span class="noti-title">#GTR458789</span>
+                                            </p>
+                                            <p class="noti-time">
+                                                <span class="notification-time">6 mins ago</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media">
+                                        <div class="avatar avatar-sm">
+                                            <span class="avatar-title rounded-circle bg-primary-light"><i class="far fa-user"></i></span>
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="noti-details">
+                                                <span class="noti-title">New user registered</span>
+                                            </p>
+                                            <p class="noti-time">
+                                                <span class="notification-time">8 mins ago</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media">
+                                        <span class="avatar avatar-sm">
+                                        <img class="avatar-img rounded-circle" alt="" src="">
+                                        </span>
+                                        <div class="media-body">
+                                            <p class="noti-details">
+                                                <span class="noti-title">Barbara Moore</span> declined the invoice <span class="noti-title">#RDW026896</span>
+                                            </p>
+                                            <p class="noti-time">
+                                                <span class="notification-time">12 mins ago</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-message">
+                                <a href="#">
+                                    <div class="media">
+                                        <div class="avatar avatar-sm">
+                                            <span class="avatar-title rounded-circle bg-info-light"><i class="far fa-comment"></i></span>
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="noti-details"><span class="noti-title">You have received a new message</span></p>
+                                            <p class="noti-time"><span class="notification-time">2 days ago</span></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="topnav-dropdown-footer">
+                        <a href="#">View all Notifications</a>
+                    </div>
+                </div>
+            </li>
+            
+            
+            <li class="nav-item dropdown has-arrow main-drop">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    <span class="user-img">
+                    <img src="" alt="">
+                    <span class="status online"></span>
+                    </span>
+                    <span>사용자이름</span>
+                </a>
+            </li>
+        </ul>
+    
+    </div>
+    
+    
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div class="sidebar-contents">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    
+                    
+                    <div class="mobile-show">
+                        <div class="offcanvas-menu">
+                            <div class="user-info align-center bg-theme text-center">
+                                <span class="lnr lnr-cross  text-white" id="mobile_btn_close">X</span>
+                                <a href="javascript:void(0)" class="d-block menu-style text-white">
+                                    <div class="user-avatar d-inline-block mr-3">
+                                        <img src="" alt="user avatar" class="rounded-circle" width="50">
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <ul>
+                        <li class="active">
+                            <a href="/"><img src="/img/home.png" alt="sidebar_img"><span>홈</span></a>
+                        </li>
+                        <li>
+                            <a href="/notice"><img src="/img/notice.png" alt="sidebar_img"><span>공지사항</span></a>
+                        </li>
+                        <li>
+                            <a href="/"><img src="/img/work.png" alt="sidebar_img"> <span>업무</span></a>
+                        </li>
+                        <li>
+                            <a href="/"><img src="/img/approval.png" alt="sidebar_img"> <span>전자결재</span></a>
+                        </li>
+                        <li>
+                            <a href="."><img src="/img/calendar.png" alt="sidebar_img"> <span>일정관리</span></a>
+                        </li>
+                        <li>
+                            <a href="/"><img src="/img/file.png" alt="sidebar_img"><span>문서함</span></a>
+                        </li>
+                        <li>
+                            <a href="/"><img src="/img/mypage.png" alt="sidebar_img"> <span>내 정보</span></a>
+                        </li>
+                    </ul>
+                    
+                    <ul class="logout">
+                        <li>
+                            <a href="/"><img src="/img/logout.png" alt="sidebar_img"><span>로그아웃</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
-                <h3>대시보드</h3>
+            
             
             </div>
             <div class="row mb-4">
                 <div class="col-xl-6 col-sm-12 col-12">
                     <div class="breadcrumb-path ">
-                        <h4>영역1</h4>
+                    
                     </div>
                 </div>
                 <div class="col-xl-6 col-sm-12 col-12">
                     <div class="row">
                         <div class="col-xl-6 col-sm-6 col-12">
-                            <h4>영역2</h4>
+                        
                         </div>
                         <div class="col-xl-6 col-sm-6 col-12">
-                            <h4>영역3</h4>
+                        
                         </div>
                     </div>
                 </div>
@@ -378,6 +573,7 @@
         </div>
     </div>
 </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="/js/popper.min.js"></script>
