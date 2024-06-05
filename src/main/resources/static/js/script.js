@@ -112,7 +112,7 @@
     // 슬림 스크롤 초기화
     if ($slimScrolls.length > 0) {
         $slimScrolls.slimScroll({
-            height: 'auto',
+            height: '100%',
             width: '100%',
             position: 'right',
             size: '7px',
@@ -216,4 +216,16 @@
             return false;
         });
     })();
+
+    document.oncontextmenu = function() {
+        return false;
+    };
+
+    $(document).on('mousedown', function(e) {
+        if (e.button == 2) {
+            return false;
+        }
+        return true;
+    });
+
 })(jQuery);

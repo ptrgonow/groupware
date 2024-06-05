@@ -2741,6 +2741,35 @@ html.menu-opened body {
 	padding: 25px 0 95px;
 	position: relative;
 }
+.sidebar-menu > ul > li.has-submenu {
+	display: inline-block;
+	width: 100%;
+
+}
+.sidebar-menu ul.dropdown-menu.side {
+	position: relative;
+	margin-left: 1.5rem;
+	text-align: center;
+	padding: 0;
+	box-shadow: none;
+	border: none;
+}
+
+
+.sidebar-menu ul.dropdown-menu.side > li {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+
+.sidebar-menu ul.dropdown-menu.side > li > a {
+	padding: 0;
+}
+
+.sidebar-menu ul.dropdown-menu.side > li > ul {
+	padding: 1rem 0 1rem;
+}
+
 .member-row{
 	border: 1px solid #EBECF1;
 	padding: 25px;
@@ -3940,16 +3969,12 @@ a.manage-link {
 	box-shadow: 0 4px 10px 0 rgba(137, 137, 137, 0.25);
 }
 
-.attendance-time {
-	width: 35%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-
-}
 .activity-box {
 	position: relative;
 }
+
+
+
 .activity-list {
 	list-style: none;
 	margin: 0;
