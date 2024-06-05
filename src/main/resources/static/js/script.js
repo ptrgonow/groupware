@@ -5,9 +5,10 @@
     var $pageWrapper = $('.page-wrapper');
     var $slimScrolls = $('.slimscroll');
 
+    // Feather icons
     feather.replace();
 
-    // 사이드 메뉴 기능 관련 코드
+    // Sidebar Menu
     var Sidemenu = function() {
         this.$menuItem = $('#sidebar-menu a');
     };
@@ -15,9 +16,9 @@
     function init() {
         var $this = Sidemenu;
 
-        // 사이드 메뉴 클릭 이벤트 처리
         $('#sidebar-menu a').on('click', function(e) {
-            if ($(this).parent().hasClass('submenu')) {
+            var $parent = $(this).parent();
+            if ($parent.hasClass('submenu')) {
                 e.preventDefault();
             }
             if (!$(this).hasClass('subdrop')) {
@@ -31,16 +32,14 @@
             }
         });
 
-        // 활성화된 메뉴 아이템 처리
         $('#sidebar-menu ul li.submenu a.active').parents('li:last').children('a:first').addClass('active').trigger('click');
     }
 
     init();
 
-    // 사이드바 오버레이 추가
+    // Sidebar overlay
     $('body').append('<div class="sidebar-overlay"></div>');
-
-    // 모바일 메뉴 버튼 클릭 이벤트 처리
+    
     $(document).on('click', '#mobile_btn', function() {
         $wrapper.toggleClass('slide-nav');
         $('.sidebar-overlay').toggleClass('opened');
@@ -48,35 +47,31 @@
         return false;
     });
 
-    // 사이드바 오버레이 클릭 이벤트 처리
     $(".sidebar-overlay").on("click", function() {
         $wrapper.removeClass('slide-nav');
         $(".sidebar-overlay").removeClass("opened");
         $('html').removeClass('menu-opened');
     });
 
-    // 모바일 메뉴 닫기 버튼 클릭 이벤트 처리
-    $("#mobile_btn_close").click(function() {
+    $("#mobile_btn_close").on('click', function() {
         $("html").removeClass("menu-opened");
         $(".main-wrapper").removeClass("slide-nav");
         $(".sidebar-overlay").removeClass("opened");
     });
 
-    // 페이지 높이 설정
-    if ($('.page-wrapper').length > 0) {
-        var height = $(window).height();
-        $(".page-wrapper").css("min-height", height);
-    }
-
-    // 창 크기 조정 시 페이지 높이 재설정
-    $(window).resize(function() {
-        if ($('.page-wrapper').length > 0) {
+    // Adjust page wrapper height
+    function adjustPageWrapperHeight() {
+        if ($pageWrapper.length > 0) {
             var height = $(window).height();
             $(".page-wrapper").css("min-height", height);
         }
-    });
+    }
 
-    // select2 초기화 (만약 select 요소가 있다면)
+    adjustPageWrapperHeight();
+
+    $(window).on('resize', adjustPageWrapperHeight);
+
+    // Select2
     if ($('.select').length > 0) {
         $('.select').select2({
             minimumResultsForSearch: -1,
@@ -84,7 +79,7 @@
         });
     }
 
-    // datetimepicker 초기화 (만약 datetimepicker 요소가 있다면)
+    // Datetimepicker
     if ($('.datetimepicker').length > 0) {
         $('.datetimepicker').datetimepicker({
             format: 'DD-MM-YYYY',
@@ -97,19 +92,19 @@
         });
     }
 
-    // 툴팁 초기화
+    // Tooltip
     if ($('[data-toggle="tooltip"]').length > 0) {
         $('[data-toggle="tooltip"]').tooltip();
     }
 
-    // 데이터 테이블 초기화 (만약 datatable 클래스가 있다면)
+    // Datatable
     if ($('.datatable').length > 0) {
         $('.datatable').DataTable({
             "bFilter": false,
         });
     }
 
-    // 슬림 스크롤 초기화
+    // Slimscroll
     if ($slimScrolls.length > 0) {
         $slimScrolls.slimScroll({
             height: 'auto',
@@ -121,36 +116,35 @@
             wheelStep: 10,
             touchScrollStep: 100
         });
+
         var wHeight = $(window).height() - 60;
         $slimScrolls.height(wHeight);
         $('.sidebar .slimScrollDiv').height(wHeight);
-        $(window).resize(function() {
+
+        $(window).on('resize', function() {
             var rHeight = $(window).height() - 60;
             $slimScrolls.height(rHeight);
             $('.sidebar .slimScrollDiv').height(rHeight);
         });
     }
 
-    // 비밀번호 토글 기능 (만약 toggle-password 클래스가 있다면)
-    if ($('.toggle-password').length > 0) {
-        $(document).on('click', '.toggle-password', function() {
-            $(this).toggleClass("fa-eye fa-eye-slash");
-            var input = $(".pass-input");
-            if (input.attr("type") == "password") {
-                input.attr("type", "text");
-            } else {
-                input.attr("type", "password");
-            }
-        });
-    }
+    // Toggle Password Visibility
+    $(document).on('click', '.toggle-password', function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $(".pass-input");
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
 
-    // 전체 체크박스 클릭 이벤트 처리 (만약 check_all 아이디가 있다면)
+    // Check all emails
     $(document).on('click', '#check_all', function() {
         $('.checkmail').click();
         return false;
     });
 
-    // 개별 체크박스 클릭 이벤트 처리 (만약 checkmail 클래스가 있다면)
     if ($('.checkmail').length > 0) {
         $('.checkmail').each(function() {
             $(this).on('click', function() {
@@ -159,25 +153,19 @@
         });
     }
 
-    // 메일 중요 표시 토글 (만약 mail-important 클래스가 있다면)
+    // Mark as important
     $(document).on('click', '.mail-important', function() {
-        $(this).find('i.fa').toggleClass('fa-star').toggleClass('fa-star-o');
+        $(this).find('i.fa').toggleClass('fa-star fa-star-o');
     });
 
-    // 사이드바 토글 버튼 클릭 이벤트 처리
+    // Toggle sidebar
     $(document).on('click', '#toggle_btn', function() {
-        if ($('body').hasClass('mini-sidebar')) {
-            $('body').removeClass('mini-sidebar');
-            $('.subdrop + ul').slideDown();
-        } else {
-            $('body').addClass('mini-sidebar');
-            $('.subdrop + ul').slideUp();
-        }
-        setTimeout(function() {}, 300);
+        $('body').toggleClass('mini-sidebar');
+        $('.subdrop + ul').slideToggle();
         return false;
     });
 
-    // 사이드바 확장/축소 기능 (마우스 오버 시)
+    // Expand menu on hover
     $(document).on('mouseover', function(e) {
         e.stopPropagation();
         if ($('body').hasClass('mini-sidebar') && $('#toggle_btn').is(':visible')) {
@@ -193,21 +181,24 @@
         }
     });
 
-    // 필터 검색 토글 (만약 filter_search 아이디가 있다면)
+    // Filter search
     $(document).on('click', '#filter_search', function() {
         $('#filter_inputs').slideToggle("slow");
     });
 
+    // Chat App
     var chatAppTarget = $('.chat-window');
     (function() {
         if ($(window).width() > 991)
             chatAppTarget.removeClass('chat-slide');
+
         $(document).on("click", ".chat-window .chat-users-list a.media", function() {
             if ($(window).width() <= 991) {
                 chatAppTarget.addClass('chat-slide');
             }
             return false;
         });
+
         $(document).on("click", "#back_user_list", function() {
             if ($(window).width() <= 991) {
                 chatAppTarget.removeClass('chat-slide');
@@ -215,4 +206,24 @@
             return false;
         });
     })();
+
+    // Disable right-click and specific keys
+    $(window).on("load", function() {
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(String.fromCharCode(e.keyCode))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+                return false;
+            }
+        };
+    });
+
+    document.oncontextmenu = function() {
+        return false;
+    };
+
+    $(document).on('mousedown', function(e) {
+        if (e.button == 2) {
+            return false;
+        }
+        return true;
+    });
 })(jQuery);
