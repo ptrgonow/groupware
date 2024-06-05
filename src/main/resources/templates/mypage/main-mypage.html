@@ -17,18 +17,60 @@
 
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
-    <div th:replace="~{include/side/main-side :: side}"></div>
+    <div th:replace="~{include/side/mypage-side :: side}"></div>
     
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
-                <h3>대시보드</h3>
-            
+                <h3>${이름}님의 마이페이지</h3>
             </div>
-            <div class="row mb-4">
+            
+            <div class="row mb-3">
                 <div class="col-xl-6 col-sm-12 col-12">
                     <div class="breadcrumb-path ">
-                        <h4>영역1</h4>
+                        <div class="attendance-time">
+                            <h5>출근 시간</h5>
+                            <span>09:00</span>
+                            <button class="btn btn-primary">출근</button>
+                            
+                            <h5>퇴근 시간</h5>
+                            <span>18:00</span>
+                            <button class="btn btn-danger">퇴근</button>
+                            
+                        </div>
+                        <div class="col-xl-7 d-flex mobile-h">
+                            <div class="card flex-fill">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title">차트 1</h5>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    
+                                    <div id="invoice_chart"></div>
+                                    
+                                    <div class="text-center text-muted">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="mt-4">
+                                                    <p class="mb-2 text-truncate"><i class="fas fa-circle text-primary mr-1"></i>데이터 1</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="mt-4">
+                                                    <p class="mb-2 text-truncate"><i class="fas fa-circle text-success mr-1"></i>데이터 2</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="mt-4">
+                                                    <p class="mb-2 text-truncate"><i class="fas fa-circle text-danger mr-1"></i>데이터 3</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xl-6 col-sm-12 col-12">
@@ -97,39 +139,6 @@
             <div class="row">
                 
                 
-                <div class="col-xl-6 d-flex mobile-h">
-                    <div class="card flex-fill">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">차트 1</h5>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            
-                            <div id="invoice_chart"></div>
-                            
-                            <div class="text-center text-muted">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-primary mr-1"></i>데이터 1</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-success mr-1"></i>데이터 2</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-danger mr-1"></i>데이터 3</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 
                 
                 <div class="col-xl-6 d-flex">
