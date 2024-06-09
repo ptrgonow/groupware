@@ -128,3 +128,4 @@ $RECYCLE.BIN/
 *.lnk
 /src/test/
 /src/main/resources/application.properties
+application.properties
