@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>결재 작성</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/approval-write.css">
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h3>전자결재 작성</h3>
+            </div>
+
+            <div class="ap-area">
+                <h5>기본 설정</h5>
+                <div class="file-content">
+                    <table class="file-select">
+                        <tr>
+                            <td class="t-select">결재 양식 종류</td>
+                            <td class="cont">
+                                <select>
+                                    <option value="">문서 선택</option>
+                                    <option value="">연차신청서</option>
+                                    <option value="">반차신청서</option>
+                                    <option value="">사유서</option>
+                                    <option value="">사직서</option>
+                                    <option value="">지출결의서</option>
+                                    <option value="">구매품의서</option>
+                                    <option value="">업무기안서</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="ap-writer">
+                        <table class="file-writer">
+                            <tr>
+                                <td class="t-select">기안자</td>
+                                <td class="cont">지다희</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="manager-area">
+                <div class="manager-select">
+                    <h5>결재 담당자</h5><button class="man-btn">조직도 검색</button> <!--트리구조로 만들어야 함-->
+                </div>
+
+                <div class="manager-content">
+                    <table class="man-table">
+                        <thead>
+                        <tr class="table-head">
+                            <th class="col-small">구분</th>
+                            <th>중간 결재자</th>
+                            <th>최종 결재자</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="table-title col-small">이름</td>
+                            <td>조직도 검색에서 선택한 이름</td>
+                            <td>조직도 검색에서 선택한 이름</td>
+                        </tr>
+                        <tr>
+                            <td class="table-title col-small">부서</td>
+                            <td>조직도 검색에서 선택한 이름의 부서</td>
+                            <td>조직도 검색에서 선택한 이름의 부서</td>
+                        </tr>
+                        <tr>
+                            <td class="table-title col-small">직급</td>
+                            <td>조직도 검색에서 선택한 이름의 직급</td>
+                            <td>조직도 검색에서 선택한 이름의 직급</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="doc-area">
+                    <form>
+                        <div class="doc-content">
+                            양식 만들기
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/feather.min.js"></script>
+<script src="/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/plugins/apexchart/apexcharts.min.js"></script>
+<script src="/plugins/apexchart/chart-data.js"></script>
+<script src="/js/script.js"></script>
+</body>
+</html>
