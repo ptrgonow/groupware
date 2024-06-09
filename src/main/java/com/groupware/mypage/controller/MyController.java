@@ -10,4 +10,6 @@ public class MyController {
     public String mypage() {
         return "mypage/main-mypage";
     }
+
+
 }

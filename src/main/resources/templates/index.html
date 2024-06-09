@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main-mypage.css">
 </head>
+
 <body>
-
-
 
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
@@ -101,31 +104,22 @@
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">차트 1</h5>
+                                <h5 class="card-title">근태 기록</h5>
                             </div>
                         </div>
                         <div class="card-body">
-                            
-                            <div id="invoice_chart"></div>
-                            
-                            <div class="text-center text-muted">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-primary mr-1"></i>데이터 1</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-success mr-1"></i>데이터 2</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-danger mr-1"></i>데이터 3</p>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="p-container">
+                                <div id="daily-progress-container" class="progressbar"></div>
+                                <div id="weekly-progress-container" class="progressbar"></div>
+                                
+                                
+                                <form id="attendance-form" class="form-inline" action="/att/insert" method="POST">
+                                    <input type="hidden" name="employee_code" value="EMP001">
+                                    <input type="hidden" name="action" id="action">
+                                    <input type="hidden" name="time" id="time">
+                                    <button type="button" id="start-button">출근하기</button>
+                                    <button type="button" id="end-button" disabled>퇴근하기</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -146,6 +140,7 @@
                         </div>
                     </div>
                 </div>
+            
             </div>
             
             
@@ -384,8 +379,9 @@
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/feather.min.js"></script>
 <script src="/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="/plugins/apexchart/apexcharts.min.js"></script>
-<script src="/plugins/apexchart/chart-data.js"></script>
+<script src="/js/ProgressBar.js"></script>
 <script src="/js/script.js"></script>
+<script src="/js/attendance.js"></script>
+
 </body>
 </html>
