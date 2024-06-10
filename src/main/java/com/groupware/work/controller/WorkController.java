@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WorkController {
 
-@GetMapping("/FM")
+@GetMapping("/fm")
 public String main() {
     return "work/FM/main-finance";
 }
-@GetMapping("/FM/eform")
+@GetMapping("/fm/eform")
     public String eform() {
     return "work/FM/eform-finance";
     }
-@GetMapping("/FM/eform-draft")
+@GetMapping("/fm/eform-draft")
     public String eformDraft() {
     return "work/FM/eform-draft";
 }

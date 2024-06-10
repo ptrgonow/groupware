@@ -1,23 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" th:fragment="side" >
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
     
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/style.css">
-    
 </head>
 <body>
 
-<div th:fragment="side" class="sidebar" id="sidebar">
+<div class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
         <div class="sidebar-contents">
             <div id="sidebar-menu" class="sidebar-menu">
@@ -48,7 +39,7 @@
                                 <a href="#">경영지원실</a>
                                 <ul>
                                     <li><a href="/hr">인사관리팀</a></li>
-                                    <li><a href="/FM">재무관리팀</a></li>
+                                    <li><a href="/fm">재무관리팀</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -71,6 +62,25 @@
                     </li>
                     <li>
                         <a th:href="${session.user != null} ? '/mypage' :'/no'"><img src="/img/mypage.png" alt="sidebar_img"><span>내 정보</span></a>
+                    </li>
+                    <li class="has-submenu">
+                        <a><img src="/img/work.png" alt="sidebar_img"><span>업무</span></a>
+                        <ul class="dropdown-menu side">
+                            <li>
+                                <a href="#">경영지원실</a>
+                                <ul>
+                                    <li><a href="/hr">인사관리팀</a></li>
+                                    <li><a href="/fm">재무관리팀</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">기획실</a>
+                                <ul>
+                                    <li><a href="/dev">개발 1팀</a></li>
+                                    <li><a href="/dev">개발 2팀</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
                 
