@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
-    
+
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main-hr.css">
 </head>
 <body>
 
@@ -18,40 +19,23 @@
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
-                <h3>대시보드</h3>
-            
+                <h3>업무 > 경영지원실 > 인사관리팀</h3>
+
             </div>
-            <div class="row mb-4">
-                <div class="col-xl-6 col-sm-12 col-12">
-                    <div class="breadcrumb-path ">
-                        <h4>영역1</h4>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-sm-12 col-12">
-                    <div class="row">
-                        <div class="col-xl-6 col-sm-6 col-12">
-                            <h4>영역2</h4>
-                        </div>
-                        <div class="col-xl-6 col-sm-6 col-12">
-                            <h4>영역3</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div class="row mb-4">
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card board1 fill1 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                            
+                                임직원 수
+                                <p class="widget">30</p>
                             </div>
-                            <div class="card_widget_img">
-                            
-                            </div>
+                            <div class="card_member_img"></div>
                         </div>
                     </div>
                 </div>
@@ -59,10 +43,12 @@
                     <div class="card board1 fill2 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                            
+                                새로운 요청
+                                <p class="widget">4</p>
+
                             </div>
-                            <div class="card_widget_img">
-                            
+                            <div class="card_notify_img">
+
                             </div>
                         </div>
                     </div>
@@ -71,10 +57,12 @@
                     <div class="card board1 fill3 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                            
+                                휴가자
+                                <p class="widget">3</p>
+
                             </div>
-                            <div class="card_widget_img">
-                            
+                            <div class="card_leave_img">
+
                             </div>
                         </div>
                     </div>
@@ -83,158 +71,274 @@
                     <div class="card board1 fill4 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                            
+                                현재 근무중
+                                <p class="widget">27</p>
+
                             </div>
-                            <div class="card_widget_img">
-                            
+                            <div class="card_working_img">
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
+
+
             <div class="row">
-                
-                
+
+
                 <div class="col-xl-6 d-flex mobile-h">
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">차트 1</h5>
+                                <h5 class="card-title">인원현황</h5>
+                                <a href="/registerPage" class="btn btn-primary">등록</a>
                             </div>
                         </div>
                         <div class="card-body">
-                            
-                            <div id="invoice_chart"></div>
-                            
-                            <div class="text-center text-muted">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-primary mr-1"></i>데이터 1</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-success mr-1"></i>데이터 2</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-danger mr-1"></i>데이터 3</p>
-                                        </div>
-                                    </div>
-                                </div>
+
+                            <div class="table-responsive">
+                                <table class="table custom-table no-footer">
+                                    <thead>
+                                    <tr>
+                                        <th>이름</th>
+                                        <th>부서</th>
+                                        <th>직급</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="table-img">
+                                                <a href="#">
+                                                    <img src="" alt="profile" class="img-table" /><label>홍길동</label>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="action_label2">대표 </label>
+                                        </td>
+                                        <td><label>CEO</label></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-img">
+                                                <a href="#">
+                                                    <img src="" alt="profile" class="img-table" /><label>유관순</label>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="action_label2">경영지원 </label>
+                                        </td>
+                                        <td><label>팀장</label></td>
+                                        <td class="tab-select">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-img">
+                                                <a href="#">
+                                                    <img src="" alt="profile" class="img-table" />
+                                                </a>
+                                                <label>김유신</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="action_label2">인사관리 </label>
+                                        </td>
+                                        <td><label>과장</label></td>
+                                        <td class="tab-select">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-img">
+                                                <a href="#">
+                                                    <img src="" alt="profile" class="img-table" />
+                                                </a>
+                                                <label>이성계</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="action_label2">개발 1팀 </label>
+                                        </td>
+                                        <td><label>팀장</label></td>
+                                        <td class="tab-select">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-img">
+                                                <a href="#">
+                                                    <img src="" alt="profile" class="img-table" />
+                                                </a>
+                                                <label>안중근</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="action_label2">개발 2팀 </label>
+                                        </td>
+                                        <td><label>대리</label></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-img">
+                                                <a href="#">
+                                                    <img src="" alt="profile" class="img-table" />
+                                                </a>
+                                                <label>장발장</label>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <label class="action_label2">개발 2팀 </label>
+                                        </td>
+                                        <td><label>대리</label></td>
+
+                                    </tr>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="col-xl-6 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">차트 2</h5>
+                                <h5 class="card-title">최근 출/퇴근</h5>
                             </div>
                         </div>
                         <div class="card-body">
-                            
-                            <div id="sales_chart"></div>
-                        
+                            <div class="card-body p-0">
+                                <div class="leave-set">
+                                <span class="leave-inactive">
+                                <i class="fas fa-briefcase"></i>
+                                </span>
+                                    <label>Mon, 16 Dec 2021</label>
+                                </div>
+                                <div class="leave-set">
+                                <span class="leave-active">
+                                <i class="fas fa-briefcase"></i>
+                                </span>
+                                    <label>Fri, 20 Dec 2021</label>
+                                </div>
+                                <div class="leave-set">
+                                <span class="leave-active">
+                                <i class="fas fa-briefcase"></i>
+                                </span>
+                                    <label>Wed, 25 Dec 2021</label>
+                                </div>
+                                <div class="leave-set">
+                                <span class="leave-inactive">
+                                <i class="fas fa-briefcase"></i>
+                                </span>
+                                    <label>Fri, 27 Dec 2021</label>
+                                </div>
+                                <div class="leave-set">
+                                <span class="leave-active">
+                                <i class="fas fa-briefcase"></i>
+                                </span>
+                                    <label>Tue, 31 Dec 2021</label>
+                                </div>
+                                <div class="leave-viewall">
+                                    <a href="#">View all <img src="/img/r-arrow.png" class="ml-2" alt="arrow" /></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
+
+
             <div class="row">
-                
-                
+
+
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header ">
-                            <h4 class="card-title">테이블 1</h4>
+                            <h4 class="card-title">새로운 요청</h4>
+                            <button class="go-approval" value="결재하기"></button>
                         </div>
                         <div class="card-body">
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
                                         <img src="" alt="avatar" />
                                     </div>
                                     <div class="team-content">
-                                        <label>이름</label>
-                                        <span>부서</span>
+                                        <label>김유신</label>
+                                        <span>인사관리</span>
+                                    </div>
+                                    <div class="request">
+                                        휴가신청_김유신
                                     </div>
                                 </div>
-                                <div class="team-action">
-                                    <ul>
-                                        <li><a href="#"><i data-feather="trash-2"></i></a></li>
-                                        <li><a href="#"><i data-feather="edit-2"></i></a></li>
-                                    </ul>
-                                </div>
+
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
                                         <img src="" alt="avatar" />
                                     </div>
                                     <div class="team-content">
-                                        <label>이름</label>
-                                        <span>부서</span>
+                                        <label>김철수</label>
+                                        <span>개발 2팀</span>
+                                    </div>
+                                    <div class="request">
+                                        조퇴 신청_김철수 사유 - 병원
                                     </div>
                                 </div>
-                                <div class="team-action">
-                                    <ul>
-                                        <li><a href="#"><i data-feather="trash-2"></i></a></li>
-                                        <li><a href="#"><i data-feather="edit-2"></i></a></li>
-                                    </ul>
-                                </div>
+
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
                                         <img src="" alt="avatar" />
                                     </div>
                                     <div class="team-content">
-                                        <label>이름</label>
-                                        <span>부서</span>
+                                        <label>박영희</label>
+                                        <span>개발 2팀</span>
+                                    </div>
+                                    <div class="request">
+                                        오전 반차 신청_박영희
                                     </div>
                                 </div>
-                                <div class="team-action">
-                                    <ul>
-                                        <li><a href="#"><i data-feather="trash-2"></i></a></li>
-                                        <li><a href="#"><i data-feather="edit-2"></i></a></li>
-                                    </ul>
-                                </div>
+
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
                                         <img src="" alt="avatar" />
                                     </div>
                                     <div class="team-content">
-                                        <label>이름</label>
-                                        <span>부서</span>
+                                        <label>이민수</label>
+                                        <span>개발 1팀</span>
+                                    </div>
+                                    <div class="request">
+                                        휴가신청_이민수
                                     </div>
                                 </div>
-                                <div class="team-action">
-                                    <ul>
-                                        <li><a href="#"><i data-feather="trash-2"></i></a></li>
-                                        <li><a href="#"><i data-feather="edit-2"></i></a></li>
-                                    </ul>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="col-xl-3 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header">
@@ -323,57 +427,8 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-xl-3 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
-                        <div class="card-header">
-                            <h4 class="card-title-dash">테이블 3</h4>
-                            <div class="dropdown">
-                                <button class="btn btn-action " type="button" id="roomsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="roomsBtn">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="leave-set">
-                                <span class="leave-inactive">
-                                <i class="fas fa-briefcase"></i>
-                                </span>
-                                <label>Mon, 16 Dec 2021</label>
-                            </div>
-                            <div class="leave-set">
-                                <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
-                                </span>
-                                <label>Fri, 20 Dec 2021</label>
-                            </div>
-                            <div class="leave-set">
-                                <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
-                                </span>
-                                <label>Wed, 25 Dec 2021</label>
-                            </div>
-                            <div class="leave-set">
-                                <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
-                                </span>
-                                <label>Fri, 27 Dec 2021</label>
-                            </div>
-                            <div class="leave-set">
-                                <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
-                                </span>
-                                <label>Tue, 31 Dec 2021</label>
-                            </div>
-                            <div class="leave-viewall">
-                                <a href="#">View all <img src="/img/r-arrow.png" class="ml-2" alt="arrow" /></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
             </div>
         </div>
     </div>

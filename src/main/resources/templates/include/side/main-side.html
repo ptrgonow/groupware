@@ -5,28 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
     
-    <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css">
-
+    
 </head>
 <body>
 
-
 <div th:fragment="side" class="sidebar" id="sidebar">
-    
     <div class="sidebar-inner slimscroll">
         <div class="sidebar-contents">
             <div id="sidebar-menu" class="sidebar-menu">
-                
-                
                 <div class="mobile-show">
                     <div class="offcanvas-menu">
                         <div class="user-info align-center bg-theme text-center">
-                            <span class="lnr lnr-cross  text-white" id="mobile_btn_close">X</span>
+                            <span class="lnr lnr-cross text-white" id="mobile_btn_close">X</span>
                             <a href="javascript:void(0)" class="d-block menu-style text-white">
                                 <div class="user-avatar d-inline-block mr-3">
                                     <img src="" alt="user avatar" class="rounded-circle" width="50">
@@ -35,41 +33,59 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
                 <ul>
-                    <li class="active">
+                    <li>
                         <a href="/"><img src="/img/home.png" alt="sidebar_img"><span>홈</span></a>
                     </li>
                     <li>
-                        <a href="/"><img src="/img/notice.png" alt="sidebar_img"><span>공지사항</span></a>
+                        <a href="#"><img src="/img/notice.png" alt="sidebar_img"><span>공지사항</span></a>
+                    </li>
+                    <li class="has-submenu">
+                        <a><img src="/img/work.png" alt="sidebar_img"><span>업무</span></a>
+                        <ul class="dropdown-menu side">
+                            <li>
+                                <a href="#">경영지원실</a>
+                                <ul>
+                                    <li><a href="/hr">인사관리팀</a></li>
+                                    <li><a href="#">재무관리팀</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">기획실</a>
+                                <ul>
+                                    <li><a href="#">개발 1팀</a></li>
+                                    <li><a href="#">개발 2팀</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="/"><img src="/img/work.png" alt="sidebar_img"> <span>업무</span></a>
+                        <a href="/approval"><img src="/img/approval.png" alt="sidebar_img"><span>전자결재</span></a>
                     </li>
                     <li>
-                        <a href="/"><img src="/img/approval.png" alt="sidebar_img"> <span>전자결재</span></a>
+                        <a href="#"><img src="/img/calendar.png" alt="sidebar_img"><span>일정관리</span></a>
                     </li>
                     <li>
-                        <a href="."><img src="/img/calendar.png" alt="sidebar_img"> <span>일정관리</span></a>
+                        <a href="/file"><img src="/img/file.png" alt="sidebar_img"><span>문서함</span></a>
                     </li>
                     <li>
-                        <a href="/"><img src="/img/file.png" alt="sidebar_img"><span>문서함</span></a>
-                    </li>
-                    <li>
-                        <a href="/mypage"><img src="/img/mypage.png" alt="sidebar_img"> <span>내 정보</span></a>
+                        <a href="/mypage"><img src="/img/mypage.png" alt="sidebar_img"><span>내 정보</span></a>
                     </li>
                 </ul>
                 
                 <ul class="logout">
                     <li>
-                        <a href="/"><img src="/img/logout.png" alt="sidebar_img"><span>로그아웃</span></a>
+                        <a href="#" class="logout-link"><img src="/img/logout.png" alt="sidebar_img"><span>로그아웃</span></a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/js/side.js"></script>
 
 </body>
 </html>

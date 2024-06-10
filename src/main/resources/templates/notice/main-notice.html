@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
-    
+
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main-notice.css">
 </head>
 <body>
 
@@ -18,39 +19,156 @@
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
-            <div class="page-name mb-4">
-                <h3>대시보드</h3>
-            
+            <div class="page-name mb-4"> <!-- 공지사항을 가운데 정렬 -->
+                <h3>공지사항</h3>
             </div>
-            <div class="row mb-4">
-                <div class="col-xl-6 col-sm-12 col-12">
-                    <div class="breadcrumb-path ">
-                        <h4>영역1</h4>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-sm-12 col-12">
-                    <div class="row">
-                        <div class="col-xl-6 col-sm-6 col-12">
-                            <h4>영역2</h4>
+
+
+
+            <div class="card-body-inner">
+
+
+
+                <div class="row mb-4">
+                    <div class="col-xl-6 col-sm-12 col-12">
+                        <div class="breadcrumb-pink text-center"> <!-- 메시지 가운데 정렬 -->
+                            <h4><b>생일 축하합니다</b></h4>
                         </div>
-                        <div class="col-xl-6 col-sm-6 col-12">
-                            <h4>영역3</h4>
+                        <div id="currentMonth" class="text-center mb-4"></div> <!-- 월 정보 표시 -->
+                        <!-- 간단한 캘린더를 표시할 테이블 -->
+                        <div class="calendar-wrapper">
+                            <table class="calendar">
+                                <thead>
+                                <tr>
+                                    <th>일</th>
+                                    <th>월</th>
+                                    <th>화</th>
+                                    <th>수</th>
+                                    <th>목</th>
+                                    <th>금</th>
+                                    <th>토</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- 각 날짜 셀은 여기에 추가될 것입니다. -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+
+
+
+                    <div class="col-xl-6 col-sm-12 col-12">
+
+                        <div class="breadcrumb-gray text-center">
+                            <h4>이번 달 주요 일정</h4>
+                        </div>
+
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>일정</th>
+                                    <th>날짜</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>웹사이트 리뉴얼 프로젝트 회의</td>
+                                    <td>6월 10일</td>
+                                </tr>
+                                <tr>
+                                    <td>마케팅 전략 발표</td>
+                                    <td>6월 15일</td>
+                                </tr>
+                                <tr>
+                                    <td>제품 론칭 이벤트</td>
+                                    <td>6월 25일</td>
+                                </tr>
+                                <!-- 추가적인 주요 일정 정보 -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
+
+
+            <div class="card-body-inner">
+
+                <div class="breadcrumb-gray text-center">
+                    <h2>공지 게시글</h2>
+                </div>
+
+                <table class="gong">
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>사무실 이전 안내</td>
+                        <td>관리자</td>
+                        <td>2024-06-05</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>프로젝트 진행 상황</td>
+                        <td>프로젝트 담당자</td>
+                        <td>2024-06-05</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>휴가 및 근무 시간 안내</td>
+                        <td>인사 담당자</td>
+                        <td>2024-06-04</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>주요 업무 관련</td>
+                        <td>팀장</td>
+                        <td>2024-06-04</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>기술 세미나 및 교육</td>
+                        <td>기술 교육 담당자</td>
+                        <td>2024-06-03</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>기타 공지</td>
+                        <td>관리자</td>
+                        <td>2024-06-03</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+
             <div class="row mb-4">
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card board1 fill1 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                            
+
                             </div>
                             <div class="card_widget_img">
-                            
+
                             </div>
                         </div>
                     </div>
@@ -59,10 +177,10 @@
                     <div class="card board1 fill2 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                            
+
                             </div>
                             <div class="card_widget_img">
-                            
+
                             </div>
                         </div>
                     </div>
@@ -71,10 +189,10 @@
                     <div class="card board1 fill3 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                            
+
                             </div>
                             <div class="card_widget_img">
-                            
+
                             </div>
                         </div>
                     </div>
@@ -83,82 +201,27 @@
                     <div class="card board1 fill4 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                            
+
                             </div>
                             <div class="card_widget_img">
-                            
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
+
+
+
             <div class="row">
-                
-                
-                <div class="col-xl-6 d-flex mobile-h">
-                    <div class="card flex-fill">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">차트 1</h5>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            
-                            <div id="invoice_chart"></div>
-                            
-                            <div class="text-center text-muted">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-primary mr-1"></i>데이터 1</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-success mr-1"></i>데이터 2</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-danger mr-1"></i>데이터 3</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                <div class="col-xl-6 d-flex">
-                    <div class="card flex-fill">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">차트 2</h5>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            
-                            <div id="sales_chart"></div>
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="row">
-                
-                
+
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
-                        <div class="card-header ">
+                        <div class="card-header">
                             <h4 class="card-title">테이블 1</h4>
                         </div>
                         <div class="card-body">
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -176,7 +239,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -194,7 +257,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -212,7 +275,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -233,97 +296,10 @@
                         </div>
                     </div>
                 </div>
-                
-                
-                <div class="col-xl-3 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
-                        <div class="card-header">
-                            <div class="">
-                                <h4 class="card-title">테이블 2</h4>
-                            </div>
-                        </div>
-                        <div class="card-body dash-activity">
-                            <div class="slimscroll activity_scroll">
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>2 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>3 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>4 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>5 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>6 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>2 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>3 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>4 hours ago</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="leave-viewall">
-                                <a href="#">View all <img src="/img/r-arrow.png" class="ml-2" alt="arrow"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+
+
+
+
                 <div class="col-xl-3 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header">
@@ -375,9 +351,40 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
+            <div class="row">
+
+                <div class="col-xl-6 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">차트 2</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <div id="sales_chart"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
         </div>
     </div>
 </div>
+
+
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="/js/popper.min.js"></script>
@@ -387,5 +394,43 @@
 <script src="/plugins/apexchart/apexcharts.min.js"></script>
 <script src="/plugins/apexchart/chart-data.js"></script>
 <script src="/js/script.js"></script>
+
+<script>
+    // 간단한 캘린더 표시를 위한 JavaScript
+    $(document).ready(function() {
+        var today = new Date();
+        var currentMonth = today.getMonth();
+        var currentYear = today.getFullYear();
+        var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        var firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+
+        var tbody = $('.calendar tbody');
+        var date = 1;
+
+        // 현재 월을 표시하는 요소에 월 정보 추가
+        $('#currentMonth').text((currentMonth + 1) + '월');
+
+        // 각 날짜 셀을 생성하여 테이블에 추가
+        for (var i = 0; i < 6; i++) {
+            var row = $('<tr></tr>');
+            for (var j = 0; j < 7; j++) {
+                if (i === 0 && j < firstDayOfMonth) {
+                    row.append('<td></td>');
+                } else if (date > daysInMonth) {
+                    break;
+                } else {
+                    var cell = $('<td>' + date + '</td>');
+                    if (date === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+                        cell.addClass('today');
+                    }
+                    row.append(cell);
+                    date++;
+                }
+            }
+            tbody.append(row);
+        }
+    });
+</script>
+
 </body>
 </html>
