@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
     
-    <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
@@ -60,13 +59,17 @@
                 
                 <ul class="logout">
                     <li>
-                        <a href="/"><img src="/img/logout.png" alt="sidebar_img"><span>로그아웃</span></a>
+                        <a href="#" class="logout-link" onclick="submitLogout(); return false;">
+                            <img src="/img/logout.png" alt="sidebar_img">
+                            <span>로그아웃</span>
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/js/side.js"></script>
 </body>
 </html>

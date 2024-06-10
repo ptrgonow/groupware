@@ -27,59 +27,8 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
-                <h3>안녕하세요, Patrick 님 !</h3>
+                <h3>안녕하세요, <span th:text="${user.name}">사용자</span> 님 !</h3>
             
-            </div>
-            
-            <div class="row mb-4">
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="card board1 fill1 ">
-                        <div class="card-body">
-                            <div class="card_widget_header">
-                            
-                            </div>
-                            <div class="card_widget_img">
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="card board1 fill2 ">
-                        <div class="card-body">
-                            <div class="card_widget_header">
-                            
-                            </div>
-                            <div class="card_widget_img">
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="card board1 fill3 ">
-                        <div class="card-body">
-                            <div class="card_widget_header">
-                            
-                            </div>
-                            <div class="card_widget_img">
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="card board1 fill4 ">
-                        <div class="card-body">
-                            <div class="card_widget_header">
-                            
-                            </div>
-                            <div class="card_widget_img">
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <div class="row">
@@ -91,8 +40,14 @@
                         </div>
                         <div class="card-body">
                             <div class="p-container">
-                                <div id="daily-progress" class="progressbar"></div>
-                                <div id="weekly-progress" class="progressbar"></div>
+                                <div id="daily-progress-container" class="progressbar"></div>
+                                <div id="weekly-progress-container" class="progressbar"></div>
+                                
+                                <form id="attendance-form" class="form-inline" action="/att/insert" method="POST">
+                                    <input type="hidden" name="employee_code" th:value="${user != null} ? ${user.employeeCode} : ''">
+                                    <input type="hidden" name="action" id="action">
+                                    <input type="hidden" name="time" id="time">
+                                </form>
                             </div>
                         
                         </div>
@@ -184,5 +139,8 @@
 <script src="/js/ProgressBar.js"></script>
 <script src="/js/script.js"></script>
 <script src="/js/attendance.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/side.js"></script>
+
 </body>
 </html>

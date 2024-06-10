@@ -20,7 +20,7 @@ public interface UserMapper {
     int insertUser(UserDTO user);
 
     // 아이디를 통해 직원 정보를 조회하는 쿼리
-    @Select("SELECT * FROM employee WHERE username = #{username}")
+    @Select("SELECT employee_code AS employeeCode, name, birth_date AS birthDate, address, department_id AS departmentId, position, status, created_at AS createdAt, username, password FROM employee WHERE username = #{username}")
     UserDTO findByUsername(String username);
 
 
