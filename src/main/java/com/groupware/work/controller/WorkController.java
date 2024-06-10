@@ -6,9 +6,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WorkController {
 
-@GetMapping("/work/FM")
-public String main(){
+@GetMapping("/FM")
+public String main() {
     return "work/FM/main-finance";
+}
+@GetMapping("/FM/eform")
+    public String eform() {
+    return "work/FM/eform-finance";
+    }
+@GetMapping("/FM/eform-draft")
+    public String eformDraft() {
+    return "work/FM/eform-draft";
+}
 
 @GetMapping("/hr")
 public String hr() {
@@ -21,4 +30,4 @@ public String registerPage() {
 }
 
 }
-}
+
