@@ -86,6 +86,7 @@ public class UserController {
         }
     }
 
+
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
         session.invalidate();

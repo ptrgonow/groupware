@@ -145,14 +145,15 @@
         </li>
         
         <li class="nav-item dropdown has-arrow main-drop">
-            <a href="/loginPage" class="dropdown-toggle nav-link">
-                    <span class="user-img">
-                    <img src="" alt="">
-                    <span class="status online"></span>
-                    </span>
-                <span id="username">로그인</span>
+            <a th:href="${session.user != null} ? '/mypage' : '/loginPage'" class="dropdown-toggle nav-link">
+            <span class="user-img">
+                <img src="" alt="">
+                <span class="status online"></span>
+            </span>
+                <span id="username" th:text="${session.user != null} ? ${session.user.name} : '로그인'">로그인</span>
             </a>
         </li>
+    
     </ul>
 </div>
 
