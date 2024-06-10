@@ -101,6 +101,38 @@
     background-color: #f2f2f2;
 }
 
+.gong td {
+    padding: 12px; /* 기본 패딩 유지 */
+    max-width: 150px; /* 원하는 최대 폭 설정 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 대해 생략 부호 (...) 표시 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+}
+
+.gong td:first-child { /* 번호 열 */
+    max-width: 20px; /* 원하는 최대 폭 설정 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 대해 생략 부호 (...) 표시 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+}
+
+
+.gong td:nth-child(3) { /* 세 번째 열(작성자) */
+    max-width: 30px;
+
+
+}
+
+.gong td:last-child { /* 작성일 열 */
+    max-width: 30px; /* 원하는 최대 폭 설정 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 대해 생략 부호 (...) 표시 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+}
+
+
+
+
 /* 공지사항 테이블 */
 
 table {
@@ -112,11 +144,13 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+    width: auto;
 }
 
 th {
     background-color: #f2f2f2;
 }
+
 
 
 
