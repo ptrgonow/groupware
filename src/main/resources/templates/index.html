@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/index.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/css/main-mypage.css">
 
+</head>
+  
+<body>
+  
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
@@ -24,87 +30,28 @@
                 <h3>대시보드</h3>
             </div>
 
-            <div class="row mb-4">
-                <div class="col-xl-6 col-sm-12 col-12">
-                    <div class="breadcrumb-path ">
-                        <h4>영역1</h4>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-sm-12 col-12">
-                    <div class="row">
-                        <div class="col-xl-6 col-sm-6 col-12">
-                            <h4>영역2</h4>
-                        </div>
-                        <div class="col-xl-6 col-sm-6 col-12">
-                            <h4>영역3</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="card board1 fill1 ">
-                        <div class="card-body">
-                            <div class="card_widget_header"></div>
-                            <div class="card_widget_img"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="card board1 fill2 ">
-                        <div class="card-body">
-                            <div class="card_widget_header"></div>
-                            <div class="card_widget_img"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="card board1 fill3 ">
-                        <div class="card-body">
-                            <div class="card_widget_header"></div>
-                            <div class="card_widget_img"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="card board1 fill4 ">
-                        <div class="card-body">
-                            <div class="card_widget_header"></div>
-                            <div class="card_widget_img"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col-xl-6 d-flex mobile-h">
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">차트 1</h5>
+                                <h5 class="card-title">근태 기록</h5>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id="invoice_chart"></div>
-                            <div class="text-center text-muted">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-primary mr-1"></i>데이터 1</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-success mr-1"></i>데이터 2</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-4">
-                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-danger mr-1"></i>데이터 3</p>
-                                        </div>
-                                    </div>
-                                </div>
+
+                            <div class="p-container">
+                                <div id="daily-progress-container" class="progressbar"></div>
+                                <div id="weekly-progress-container" class="progressbar"></div>
+                                
+                                <form id="attendance-form" class="form-inline" action="/att/insert" method="POST">
+                                    <input type="hidden" name="employee_code" th:value="${user != null} ? ${user.employeeCode} : ''">
+                                    <input type="hidden" name="action" id="action">
+                                    <input type="hidden" name="time" id="time">
+                                    <button type="button" id="start-button">출근하기</button>
+                                    <button type="button" id="end-button" disabled>퇴근하기</button>
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -122,6 +69,7 @@
                         </div>
                     </div>
                 </div>
+            
             </div>
 
             <div class="row">
@@ -288,101 +236,6 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-    const todoForm = document.getElementById('todo-form');
-    const todoInput = document.getElementById('todo-input');
-    const todoList = document.getElementById('todo-list');
-
-    // 할 일 목록을 로컬 스토리지에 저장
-    function saveTodos(todos) {
-        localStorage.setItem('todos', JSON.stringify(todos));
-    }
-
-    // 로컬 스토리지에서 할 일 목록을 불러옴
-    function loadTodos() {
-        const todos = localStorage.getItem('todos');
-        return todos ? JSON.parse(todos) : [];
-    }
-
-    // 할 일 목록을 화면에 표시
-    function renderTodos(todos) {
-        todoList.innerHTML = '';
-
-        todos.forEach(todo => {
-            const li = document.createElement('li');
-            li.className = "d-flex align-items-center justify-content-between mb-2";
-
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.className = "mr-2";
-            checkbox.checked = todo.completed;
-            checkbox.addEventListener('change', function() {
-                todo.completed = this.checked;
-                saveTodos(todos);
-                if (this.checked) {
-                    span.style.textDecoration = 'line-through';
-                } else {
-                    span.style.textDecoration = 'none';
-                }
-            });
-
-            const span = document.createElement('span');
-            span.textContent = todo.text;
-            if (todo.completed) {
-                span.style.textDecoration = 'line-through';
-            }
-
-            const button = document.createElement('button');
-            button.textContent = '삭제';
-            button.className = "btn btn-danger btn-sm ml-2";
-            button.addEventListener('click', function() {
-                const index = todos.indexOf(todo);
-                todos.splice(index, 1);
-                saveTodos(todos);
-                renderTodos(todos);
-            });
-
-            li.appendChild(checkbox);
-            li.appendChild(span);
-            li.appendChild(button);
-
-            todoList.appendChild(li);
-        });
-    }
-
-    // 페이지 로드 시 기존 할 일 목록을 불러와서 표시
-    document.addEventListener('DOMContentLoaded', function() {
-        const todos = loadTodos();
-        renderTodos(todos);
-
-        todoForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const todoText = todoInput.value.trim();
-
-            if (!todoText) {
-                return;
-            }
-
-            const newTodo = {
-                text: todoText,
-                completed: false
-            };
-
-            todos.push(newTodo);
-            saveTodos(todos);
-            renderTodos(todos);
-
-            todoInput.value = '';
-        });
-
-
-    });
-
-
-</script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/feather.min.js"></script>
@@ -390,7 +243,6 @@
 <script src="/js/ProgressBar.js"></script>
 <script src="/js/script.js"></script>
 <script src="/js/attendance.js"></script>
-<script src="/js/header.js"></script>
 <script src="/js/side.js"></script>
 
 </body>

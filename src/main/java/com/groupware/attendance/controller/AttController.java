@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +22,11 @@ public class AttController {
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<String> insertAttendance(@RequestParam String employee_code, @RequestParam String action, @RequestParam String time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-        LocalDateTime dateTime = LocalDateTime.parse(time, formatter);
+    public ResponseEntity<String> insertAttendance(@RequestParam String employee_code, @RequestParam String action) {
+        LocalDateTime dateTime = LocalDateTime.now();
+
+        // 로깅 추가
+        System.out.println("Current Server DateTime: " + dateTime);
 
         AttDTO attDTO = new AttDTO();
         attDTO.setEmployeeCode(employee_code);
@@ -39,8 +40,6 @@ public class AttController {
             attService.endAttendance(attDTO);
         }
         return ResponseEntity.ok("근태 기록이 성공적으로 저장되었습니다.");
-
-
     }
 
     @GetMapping("/status")
@@ -55,5 +54,4 @@ public class AttController {
         List<AttDTO> records = attService.getAttendanceRecords(employee_code);
         return ResponseEntity.ok(records);
     }
-
 }

@@ -1,0 +1,10 @@
+.row .mt-6 .top .content{
+    display: grid;
+    grid-template-columns:1fr 1fr;
+}
+.col-md-10 {
+    flex-grow: 1;
+}
+.member {
+    overflow: hidden;
+}

@@ -73,3 +73,7 @@ button {
 button:hover {
     background-color: #3a4a5c;
 }
+
+.form-group select, .form-group input[type="text"] {
+    height: 2rem;
+}
