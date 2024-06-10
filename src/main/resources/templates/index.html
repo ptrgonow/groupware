@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
-    
+
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
@@ -13,25 +13,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/main-mypage.css">
+
 </head>
-
+  
 <body>
-
+  
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>대시보드</h3>
-            
             </div>
-            
+
             <div class="row">
-                
-                
                 <div class="col-xl-6 d-flex mobile-h">
                     <div class="card flex-fill">
                         <div class="card-header">
@@ -40,6 +39,7 @@
                             </div>
                         </div>
                         <div class="card-body">
+
                             <div class="p-container">
                                 <div id="daily-progress-container" class="progressbar"></div>
                                 <div id="weekly-progress-container" class="progressbar"></div>
@@ -51,12 +51,12 @@
                                     <button type="button" id="start-button">출근하기</button>
                                     <button type="button" id="end-button" disabled>퇴근하기</button>
                                 </form>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                
+
                 <div class="col-xl-6 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
@@ -65,26 +65,20 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            
                             <div id="sales_chart"></div>
-                        
                         </div>
                     </div>
                 </div>
             
             </div>
-            
-            
+
             <div class="row">
-                
-                
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header ">
                             <h4 class="card-title">테이블 1</h4>
                         </div>
                         <div class="card-body">
-                            
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -102,7 +96,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -120,7 +114,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -138,7 +132,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -159,103 +153,40 @@
                         </div>
                     </div>
                 </div>
-                
-                
-                <div class="col-xl-3 col-sm-12 col-12 d-flex">
+
+                <!--  todo  -->
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
-                        <div class="card-header">
-                            <div class="">
-                                <h4 class="card-title">테이블 2</h4>
-                            </div>
+                        <div class="card-header text-center">
+                            <h4 class="card-title">ToDo List</h4>
                         </div>
+
                         <div class="card-body dash-activity">
-                            <div class="slimscroll activity_scroll">
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>2 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>3 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>4 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>5 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>6 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>2 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>3 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>4 hours ago</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <form id="todo-form" class="d-flex justify-content-center mb-3">
+                                <input type="text" id="todo-input" placeholder="할 일 작성하기" class="form-control mr-2">
+                                <button type="submit" class="btn btn-primary">Enter</button>
+                            </form>
+
+                            <ul id="todo-list" class="list-unstyled">
+                                <!-- 여기에 ToDo 아이템이 동적으로 추가될 것입니다. -->
+                            </ul>
+
+                            <!-- 모두 보기를 위한 링크 -->
                             <div class="leave-viewall">
-                                <a href="#">View all <img src="/img/r-arrow.png" class="ml-2" alt="arrow"></a>
+                                <a href="#">모두 보기 <img src="/img/r-arrow.png" class="ml-2" alt="arrow"></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-xl-3 col-sm-12 col-12 d-flex">
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header">
                             <h4 class="card-title-dash">테이블 3</h4>
                             <div class="dropdown">
-                                <button class="btn btn-action " type="button" id="roomsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-action" type="button" id="roomsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="roomsBtn">
@@ -266,31 +197,31 @@
                         <div class="card-body p-0">
                             <div class="leave-set">
                                 <span class="leave-inactive">
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Mon, 16 Dec 2021</label>
                             </div>
                             <div class="leave-set">
                                 <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Fri, 20 Dec 2021</label>
                             </div>
                             <div class="leave-set">
                                 <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Wed, 25 Dec 2021</label>
                             </div>
                             <div class="leave-set">
                                 <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Fri, 27 Dec 2021</label>
                             </div>
                             <div class="leave-set">
                                 <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Tue, 31 Dec 2021</label>
                             </div>
@@ -304,7 +235,6 @@
         </div>
     </div>
 </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
