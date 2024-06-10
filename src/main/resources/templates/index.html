@@ -4,27 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
-    
+
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
 
-
 <div class="main-wrapper">
-    
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>대시보드</h3>
-            
             </div>
+
             <div class="row mb-4">
                 <div class="col-xl-6 col-sm-12 col-12">
                     <div class="breadcrumb-path ">
@@ -42,61 +41,43 @@
                     </div>
                 </div>
             </div>
+
             <div class="row mb-4">
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card board1 fill1 ">
                         <div class="card-body">
-                            <div class="card_widget_header">
-                            
-                            </div>
-                            <div class="card_widget_img">
-                            
-                            </div>
+                            <div class="card_widget_header"></div>
+                            <div class="card_widget_img"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card board1 fill2 ">
                         <div class="card-body">
-                            <div class="card_widget_header">
-                            
-                            </div>
-                            <div class="card_widget_img">
-                            
-                            </div>
+                            <div class="card_widget_header"></div>
+                            <div class="card_widget_img"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card board1 fill3 ">
                         <div class="card-body">
-                            <div class="card_widget_header">
-                            
-                            </div>
-                            <div class="card_widget_img">
-                            
-                            </div>
+                            <div class="card_widget_header"></div>
+                            <div class="card_widget_img"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card board1 fill4 ">
                         <div class="card-body">
-                            <div class="card_widget_header">
-                            
-                            </div>
-                            <div class="card_widget_img">
-                            
-                            </div>
+                            <div class="card_widget_header"></div>
+                            <div class="card_widget_img"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
+
             <div class="row">
-                
-                
                 <div class="col-xl-6 d-flex mobile-h">
                     <div class="card flex-fill">
                         <div class="card-header">
@@ -105,9 +86,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            
                             <div id="invoice_chart"></div>
-                            
                             <div class="text-center text-muted">
                                 <div class="row">
                                     <div class="col-4">
@@ -130,8 +109,7 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
                 <div class="col-xl-6 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
@@ -140,25 +118,19 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            
                             <div id="sales_chart"></div>
-                        
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
+
             <div class="row">
-                
-                
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header ">
                             <h4 class="card-title">테이블 1</h4>
                         </div>
                         <div class="card-body">
-                            
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -176,7 +148,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -194,7 +166,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -212,7 +184,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -233,103 +205,40 @@
                         </div>
                     </div>
                 </div>
-                
-                
-                <div class="col-xl-3 col-sm-12 col-12 d-flex">
+
+                <!--  todo  -->
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
-                        <div class="card-header">
-                            <div class="">
-                                <h4 class="card-title">테이블 2</h4>
-                            </div>
+                        <div class="card-header text-center">
+                            <h4 class="card-title">ToDo List</h4>
                         </div>
+
                         <div class="card-body dash-activity">
-                            <div class="slimscroll activity_scroll">
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>2 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>3 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>4 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>5 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>6 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>2 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>3 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>4 hours ago</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <form id="todo-form" class="d-flex justify-content-center mb-3">
+                                <input type="text" id="todo-input" placeholder="할 일 작성하기" class="form-control mr-2">
+                                <button type="submit" class="btn btn-primary">Enter</button>
+                            </form>
+
+                            <ul id="todo-list" class="list-unstyled">
+                                <!-- 여기에 ToDo 아이템이 동적으로 추가될 것입니다. -->
+                            </ul>
+
+                            <!-- 모두 보기를 위한 링크 -->
                             <div class="leave-viewall">
-                                <a href="#">View all <img src="/img/r-arrow.png" class="ml-2" alt="arrow"></a>
+                                <a href="#">모두 보기 <img src="/img/r-arrow.png" class="ml-2" alt="arrow"></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-xl-3 col-sm-12 col-12 d-flex">
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header">
                             <h4 class="card-title-dash">테이블 3</h4>
                             <div class="dropdown">
-                                <button class="btn btn-action " type="button" id="roomsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-action" type="button" id="roomsBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="roomsBtn">
@@ -340,31 +249,31 @@
                         <div class="card-body p-0">
                             <div class="leave-set">
                                 <span class="leave-inactive">
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Mon, 16 Dec 2021</label>
                             </div>
                             <div class="leave-set">
                                 <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Fri, 20 Dec 2021</label>
                             </div>
                             <div class="leave-set">
                                 <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Wed, 25 Dec 2021</label>
                             </div>
                             <div class="leave-set">
                                 <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Fri, 27 Dec 2021</label>
                             </div>
                             <div class="leave-set">
                                 <span class="leave-active">
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Tue, 31 Dec 2021</label>
                             </div>
@@ -378,7 +287,100 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    const todoForm = document.getElementById('todo-form');
+    const todoInput = document.getElementById('todo-input');
+    const todoList = document.getElementById('todo-list');
 
+    // 할 일 목록을 로컬 스토리지에 저장
+    function saveTodos(todos) {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
+
+    // 로컬 스토리지에서 할 일 목록을 불러옴
+    function loadTodos() {
+        const todos = localStorage.getItem('todos');
+        return todos ? JSON.parse(todos) : [];
+    }
+
+    // 할 일 목록을 화면에 표시
+    function renderTodos(todos) {
+        todoList.innerHTML = '';
+
+        todos.forEach(todo => {
+            const li = document.createElement('li');
+            li.className = "d-flex align-items-center justify-content-between mb-2";
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = "mr-2";
+            checkbox.checked = todo.completed;
+            checkbox.addEventListener('change', function() {
+                todo.completed = this.checked;
+                saveTodos(todos);
+                if (this.checked) {
+                    span.style.textDecoration = 'line-through';
+                } else {
+                    span.style.textDecoration = 'none';
+                }
+            });
+
+            const span = document.createElement('span');
+            span.textContent = todo.text;
+            if (todo.completed) {
+                span.style.textDecoration = 'line-through';
+            }
+
+            const button = document.createElement('button');
+            button.textContent = '삭제';
+            button.className = "btn btn-danger btn-sm ml-2";
+            button.addEventListener('click', function() {
+                const index = todos.indexOf(todo);
+                todos.splice(index, 1);
+                saveTodos(todos);
+                renderTodos(todos);
+            });
+
+            li.appendChild(checkbox);
+            li.appendChild(span);
+            li.appendChild(button);
+
+            todoList.appendChild(li);
+        });
+    }
+
+    // 페이지 로드 시 기존 할 일 목록을 불러와서 표시
+    document.addEventListener('DOMContentLoaded', function() {
+        const todos = loadTodos();
+        renderTodos(todos);
+
+        todoForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const todoText = todoInput.value.trim();
+
+            if (!todoText) {
+                return;
+            }
+
+            const newTodo = {
+                text: todoText,
+                completed: false
+            };
+
+            todos.push(newTodo);
+            saveTodos(todos);
+            renderTodos(todos);
+
+            todoInput.value = '';
+        });
+
+
+    });
+
+
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="/js/popper.min.js"></script>
