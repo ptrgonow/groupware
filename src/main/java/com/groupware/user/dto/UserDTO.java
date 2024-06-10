@@ -10,6 +10,7 @@ public class UserDTO {
     private String birthDate;
     private String address;
     private int departmentId;
+    private String departmentName;
     private String position;
     private String status;
     private String createdAt;

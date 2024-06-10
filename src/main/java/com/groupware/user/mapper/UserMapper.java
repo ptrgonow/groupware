@@ -31,6 +31,9 @@ public interface UserMapper {
             "WHERE department_name NOT IN ('대표', '백엔드', '프론트엔드', '데이터 분석')")
     List<DeptDTO> getAllDepartments();
 
-
-
+    // 부서 아이디를 통해 부서 정보를 조회하는 쿼리
+    @Select("SELECT department_id AS departmentId, department_name AS departmentName, parent_department_id AS parentDepartmentId " +
+            "FROM department " +
+            "WHERE department_id = #{departmentId}")
+    DeptDTO findDepartmentById(int departmentId);
 }

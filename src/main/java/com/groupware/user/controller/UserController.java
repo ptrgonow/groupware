@@ -25,7 +25,7 @@ public class UserController {
 
     @GetMapping("/info")
     public ResponseEntity<UserDTO> getUserInfo(@RequestParam String employee_code) {
-        UserDTO user = userService.getUserInfo(employee_code);
+        UserDTO user = userService.getUserDetails(employee_code);
         if (user != null) {
             return ResponseEntity.ok(user);
         } else {

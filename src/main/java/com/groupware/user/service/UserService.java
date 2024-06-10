@@ -22,9 +22,12 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public UserDTO getUserInfo(String employeeCode) {
+    public UserDTO getUserDetails(String employeeCode) {
         UserDTO user = userMapper.findUserByEmployeeCode(employeeCode);
-        logger.info("Fetched user info: {}", user);
+        if (user != null) {
+            DeptDTO department = userMapper.findDepartmentById(user.getDepartmentId());
+            user.setDepartmentName(department.getDepartmentName());
+        }
         return user;
     }
 

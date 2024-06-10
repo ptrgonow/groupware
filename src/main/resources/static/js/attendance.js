@@ -148,7 +148,7 @@ function updateProgressBar(containerId, progressValue, hours) {
     const formattedTime = formatTime(hours);
 
     const bar = new ProgressBar.Circle(container, {
-        color: '#aaa',
+        color: '#000000',
         strokeWidth: 4,
         trailWidth: 1,
         easing: 'easeInOut',
@@ -157,7 +157,7 @@ function updateProgressBar(containerId, progressValue, hours) {
             value: `${formattedTime}\n${Math.round(progressValue * 100)}%`,
             autoStyleContainer: false
         },
-        from: {color: '#aaa', width: 1},
+        from: {color: '#ec5353', width: 3},
         to: {color: '#333', width: 4},
         step: function (state, circle) {
             circle.path.setAttribute('stroke', state.color);
