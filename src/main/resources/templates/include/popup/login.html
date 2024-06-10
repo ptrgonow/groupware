@@ -19,7 +19,7 @@
 <div class="container">
     <div class="screen">
         <div class="screen__content">
-            <form class="login" action="/user/login" method="POST">
+            <form class="login" action="/user/login" method="POST" id="loginForm">
                 <div class="login__field">
                     <i class="login__icon fas fa-user"></i>
                     <input type="text" name="username" class="login__input" placeholder="아이디">
@@ -28,7 +28,7 @@
                     <i class="login__icon fas fa-lock"></i>
                     <input type="password" name="password" class="login__input" placeholder="비밀번호">
                 </div>
-                <button class="button login__submit">
+                <button type="button" class="button login__submit" onclick="submitLoginForm()">
                     <span class="button__text">로그인</span>
                     <i class="button__icon fas fa-chevron-right"></i>
                 </button>
@@ -51,6 +51,6 @@
     </div>
 </div>
 
-
+<script src="/js/header.js"></script>
 </body>
 </html>
