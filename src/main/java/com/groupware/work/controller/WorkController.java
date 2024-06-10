@@ -16,4 +16,7 @@ public class WorkController {
         return "work/hr/hr-register";
     }
 
+    @GetMapping("/dev")
+    public String dev() {return "work/dev/main-dev";}
+
 }
