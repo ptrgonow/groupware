@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어</title>
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main-mypage.css">
+</head>
+
+<body>
+
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h3>직원 등록</h3>
+            
+            </div>
+            
+            <div class="row">
+                
+                <div class="col-xl-12 d-flex mobile-h">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <h5 class="card-title">직원 등록</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            
+                            <form id="registerForm" method="post" action="/user/register" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        
+                                        <div class="form-group">
+                                            
+                                            <label for="EmployeeCode">사원번호</label>
+                                            <input type="text" class="form-control" id="EmployeeCode" name="Employee_code" required>
+                                            
+                                            
+                                            <label for="name">이름</label>
+                                            <input type="text" class="form-control" id="name" name="name" required>
+                                            
+                                            <label for="birth">생년월일</label>
+                                            <input type="date" class="form-control" id="birth" name="birth_date" required>
+                                            
+                                            <label for="address">주소</label>
+                                            <input type="text" class="form-control" id="address" name="address" required>
+                                            
+                                            <label for="department">부서</label>
+                                            <select class="form-control" id="department" name="department" required>
+                                            
+                                            
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            
+            </div>
+        
+        
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/feather.min.js"></script>
+<script src="/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
