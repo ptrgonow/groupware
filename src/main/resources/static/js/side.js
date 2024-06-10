@@ -17,3 +17,4 @@ function submitLogout() {
         })
         .catch(error => console.error('Error:', error));
 }
+

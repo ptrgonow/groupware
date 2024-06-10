@@ -70,7 +70,7 @@
                         <a href="/file"><img src="/img/file.png" alt="sidebar_img"><span>문서함</span></a>
                     </li>
                     <li>
-                        <a href="/mypage"><img src="/img/mypage.png" alt="sidebar_img"><span>내 정보</span></a>
+                        <a th:href="${session.user != null} ? '/mypage' :'/no'"><img src="/img/mypage.png" alt="sidebar_img"><span>내 정보</span></a>
                     </li>
                 </ul>
                 
