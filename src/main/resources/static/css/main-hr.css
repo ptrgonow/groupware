@@ -80,3 +80,7 @@
 .depart{
     width: 550px;
 }
+.pb-0, .py-0 {
+    height: 470px;
+}
+

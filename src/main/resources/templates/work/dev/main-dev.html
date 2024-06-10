@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main-dev.css">
+</head>
+<body>
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}">
+    </div>
+    <div th:replace="~{include/side/main-side :: side}">
+    </div>
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h3>개발 1팀</h3>
+            </div>
+            <div class="row mt-6 top content">
+                <div class="col-md-8 col-8">
+                    <!-- card  -->
+                    <div class="card">
+                        <!-- card header  -->
+                        <div class="card-header bg-white py-4">
+                            <h4 class="mb-0">Active Projects</h4>
+                        </div>
+                        <!-- table  -->
+                        <div class="table-responsive">
+                            <table class="table text-nowrap mb-0">
+                                <thead class="table-light">
+                                <tr>
+                                    <th>
+                                        프로젝트명
+                                    </th>
+                                    <th>
+                                        진행시간
+                                    </th>
+                                    <th>
+                                        중요도
+                                    </th>
+                                    <th>
+                                        팀원
+                                    </th>
+                                    <th>
+                                        진행도
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="align-middle">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <div class="icon-shape icon-md border p-4 rounded-1">
+                                                    <img src="" alt="project logo1">
+                                                </div>
+                                            </div>
+                                            <div class="ms-3 lh-1">
+                                                <h5 class=" mb-1"><a href="#" class="text-inherit">팀 UI 디자인 개발</a></h5>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        47
+                                    </td>
+                                    <td class="align-middle">
+                                        <span class="badge bg-danger">High</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="avatar-group">
+										<span class="avatar avatar-sm">
+										<img alt="avatar" src="" class="rounded-circle">
+										</span>
+                                            <span class="avatar avatar-sm">
+										<img alt="avatar" src="" class="rounded-circle">
+										</span>
+                                            <span class="avatar avatar-sm">
+										<img alt="avatar" src="" class="rounded-circle">
+										</span>
+                                            <span class="avatar avatar-sm avatar-primary">
+										<span class="avatar-initials rounded-circle fs-6">+5</span>
+										</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-dark">
+                                        <div class="float-start me-3">
+                                            35%
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="progress" style="height: 5px;">
+                                                <div class="progress-bar" role="progressbar" style="width:35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <div class="icon-shape icon-md border p-4 rounded-1">
+                                                    <img src="" alt="project logo2">
+                                                </div>
+                                            </div>
+                                            <div class="ms-3 lh-1">
+                                                <h5 class=" mb-1"><a href="#" class="text-inherit">메신저 메시지 삭제 기능 추가</a></h5>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        89
+                                    </td>
+                                    <td class="align-middle">
+                                        <span class="badge bg-warning">Medium</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="avatar-group">
+										<span class="avatar avatar-sm">
+										<img alt="avatar" src="" class="rounded-circle">
+										</span>
+                                            <span class="avatar avatar-sm">
+										<img alt="avatar" src="" class="rounded-circle">
+										</span>
+                                            <span class="avatar avatar-sm">
+										<img alt="avatar" src="" class="rounded-circle">
+										</span>
+                                            <span class="avatar avatar-sm avatar-primary">
+										<span class="avatar-initials rounded-circle fs-6">+5</span>
+										</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-dark">
+                                        <div class="float-start me-3">
+                                            63%
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="progress" style="height: 5px;">
+                                                <div class="progress-bar" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <div class="icon-shape icon-md border p-4 rounded">
+                                                    <img src="" alt="project logo3">
+                                                </div>
+                                            </div>
+                                            <div class="ms-3 lh-1">
+                                                <h5 class=" mb-1"><a href="#" class="text-inherit">웹 디자인 시스템 구축</a>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        108
+                                    </td>
+                                    <td class="align-middle">
+                                        <span class="badge bg-success">Track</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="avatar-group">
+										<span class="avatar avatar-sm">
+										<img alt="avatar" src="" class="rounded-circle">
+										</span>
+                                            <span class="avatar avatar-sm">
+										<img alt="avatar" src="" class="rounded-circle">
+										</span>
+                                            <span class="avatar avatar-sm">
+										<img alt="avatar" src="" class="rounded-circle">
+										</span>
+                                            <span class="avatar avatar-sm avatar-primary">
+										<span class="avatar-initials rounded-circle fs-6">+5</span>
+										</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-dark">
+                                        <div class="float-start me-3">
+                                            100%
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="progress" style="height: 5px;">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <div class="card-header">
+                            <div class="">
+                                <h4 class="card-title">테이블 2</h4>
+                            </div>
+                        </div>
+                        <div class="card-body dash-activity">
+                            <div class="slimscroll activity_scroll">
+                                <div class="activity-set">
+                                    <div class="activity-img">
+                                        <img src="" alt="avatar">
+                                    </div>
+                                    <div class="activity-content">
+                                        <label>메인페이지 디자인 완료</label>
+                                        <span>2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-set">
+                                    <div class="activity-img">
+                                        <img src="" alt="avatar">
+                                    </div>
+                                    <div class="activity-content">
+                                        <label>대쉬보드 확인 부탁드려요~</label>
+                                        <span>3 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-set">
+                                    <div class="activity-img">
+                                        <img src="" alt="avatar">
+                                    </div>
+                                    <div class="activity-content">
+                                        <label>필요한 이미지파일 넣었습니다</label>
+                                        <span>4 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-set">
+                                    <div class="activity-img">
+                                        <img src="" alt="avatar">
+                                    </div>
+                                    <div class="activity-content">
+                                        <label>어제 회의한 내용 적용완료</label>
+                                        <span>5 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-set">
+                                    <div class="activity-img">
+                                        <img src="" alt="avatar">
+                                    </div>
+                                    <div class="activity-content">
+                                        <label>이전 버전 파일 전송해주세요</label>
+                                        <span>6 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-set">
+                                    <div class="activity-img">
+                                        <img src="" alt="avatar">
+                                    </div>
+                                    <div class="activity-content">
+                                        <label>Lorem ipsum dolor sit amet,</label>
+                                        <span>2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-set">
+                                    <div class="activity-img">
+                                        <img src="" alt="avatar">
+                                    </div>
+                                    <div class="activity-content">
+                                        <label>Lorem ipsum dolor sit amet,</label>
+                                        <span>3 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="activity-set">
+                                    <div class="activity-img">
+                                        <img src="" alt="avatar">
+                                    </div>
+                                    <div class="activity-content">
+                                        <label>Lorem ipsum dolor sit amet,</label>
+                                        <span>4 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="leave-viewall">
+                                <a href="#">View all <img src="/img/r-arrow.png" class="ml-2" alt="arrow"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-xl-8 col-8">
+                    <div class="row member">
+                        <div class="col-10 mb-5">
+                            <div class="card">
+                                <div class="card-header ">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h4 class="mb-0">Summary</h4>
+                                        </div>
+                                        <!-- dropdown  -->
+                                        <div>
+											<span class="dropdown dropstart">
+											<a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#!" data-bs-toggle="dropdown" aria-expanded="false">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+											</a>
+											<span class="dropdown-menu">
+											<a class="dropdown-item d-flex align-items-center" href="#!">Action</a>
+											<a class="dropdown-item d-flex align-items-center" href="#!">Another action</a>
+											<a class="dropdown-item d-flex align-items-center" href="#!">Something else here</a>
+											</span>
+											</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        Give a high-level overview of the product / project you re working on, its goals, etc..Elaborate on the target audience of your project/product, link out to additional resources. <br>
+                                        <br>
+                                        Vivamus pretium laoreet massa eu euismod. Nunc accumsan id odio sed luctus. Suspendisse a lacus sed ex consequat interdum quis non eros. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis labore nam fuga sapiente vel iste animiicta ab at placeat sint.
+                                    </p>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item px-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <h5 class="mb-0 ">Start Date</h5>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <p class="text-dark mb-0 ">
+                                                            3 Oct, 2023
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <h5 class="mb-0 ">Due Date</h5>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <p class="text-dark mb-0 ">
+                                                            15 Jan, 2023
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item px-0">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <h5 class="mb-0 ">Estimate Time</h5>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <p class="text-dark mb-0 ">
+                                                            12
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10 mb-5">
+                            <!-- card -->
+                            <div class="card">
+                                <!-- card body -->
+                                <div class="card-header">
+                                    <h4 class="mb-0">Upcoming Deadlines </h4>
+                                </div>
+                                <!-- table -->
+                                <div class="card-body">
+                                    <div class="table-responsive overflow-y-hidden table-card">
+                                        <table class="table mb-0 text-nowrap table-centered">
+                                            <thead class="table-light">
+                                            <tr>
+                                                <th>
+                                                    Member
+                                                </th>
+                                                <th>
+                                                    Task
+                                                </th>
+                                                <th>
+                                                    Deadline
+                                                </th>
+                                                <th>
+                                                    Workload
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-sm">
+                                                            <a href="#!"><img src="../assets/images/avatar/avatar-2.jpg" alt="Image" class="rounded-circle"></a>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <h5 class="mb-0"><a href="#!" class="text-inherit">Eleanor Pena</a></h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Design a Dash UI Figma
+                                                </td>
+                                                <td>
+                                                    30 Aug, 2023
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="progress flex-auto" style="height: 6px;">
+                                                            <div class="progress-bar bg-success " role="progressbar" style="width: 62%;" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <span>62%</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-sm">
+                                                            <a href="#!"><img src="../assets/images/avatar/avatar-3.jpg" alt="Image" class="rounded-circle"></a>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <h5 class="mb-0"><a href="#!" class="text-inherit">Marvin McKinney</a></h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Dash UI Webpack Workflow
+                                                </td>
+                                                <td>
+                                                    24 Sept, 2023
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="progress flex-auto" style="height: 6px;">
+                                                            <div class="progress-bar bg-success " role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <span>45%</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-sm">
+                                                            <a href="#!"><img src="../assets/images/avatar/avatar-4.jpg" alt="Image" class="rounded-circle"></a>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <h5 class="mb-0"><a href="#!" class="text-inherit">Wade Warren</a></h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Dash UI React version
+                                                </td>
+                                                <td>
+                                                    30 Sept, 2023
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="progress flex-auto" style="height: 6px;">
+                                                            <div class="progress-bar bg-success " role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <span>80%</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-sm">
+                                                            <a href="#!"><img src="../assets/images/avatar/avatar-5.jpg" alt="Image" class="rounded-circle"></a>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <h5 class="mb-0"><a href="#!" class="text-inherit"> Courtney Henry</a></h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Dash UI Documents Improve
+                                                </td>
+                                                <td>
+                                                    20 Dec, 2023
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="progress flex-auto" style="height: 6px;">
+                                                            <div class="progress-bar bg-success " role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <span>10%</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-sm">
+                                                            <a href="#!"><img src="../assets/images/avatar/avatar-6.jpg" alt="Image" class="rounded-circle"></a>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <h5 class="mb-0"><a href="#!" class="text-inherit">Brooklyn Simmons</a></h5>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Ecommerce Design Dash UI
+                                                </td>
+                                                <td>
+                                                    25 Jan, 2023
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="progress flex-auto" style="height: 6px;">
+                                                            <div class="progress-bar bg-success " role="progressbar" style="width: 8%;" aria-valuenow="8" aria-valuemin="0" aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <span>8%</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-4 col-12">
+                    <!-- card  -->
+                    <div class="card mb-5 bg-primary ">
+                        <!-- card body  -->
+                        <div class="card-body">
+                            <h4 class="mb-0 text-white">Launch Date </h4>
+                            <!-- dropdown  -->
+                            <div class="d-flex justify-content-between align-items-center mt-8">
+                                <div>
+                                    <h3 class="display-5 fw-bold text-white mb-1">121 Days</h3>
+                                    <p class="mb-0 text-white">
+                                        15 December, Friday
+                                    </p>
+                                </div>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-flag text-white icon-lg"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card  -->
+                    <div class="card mb-5 ">
+                        <!-- card body  -->
+                        <div class="card-header">
+                            <h4 class=" mb-0 ">Overall Progress </h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="progressChart" style="min-height: 328.7px;">
+                                <div id="apexcharts8o8j7qnx" class="apexcharts-canvas apexcharts8o8j7qnx apexcharts-theme-light" style="width: 279px; height: 328.7px;">
+                                    <svg id="SvgjsSvg1001" width="279" height="328.7" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><foreignobject x="0" y="0" width="279" height="328.7">
+                                        <div class="apexcharts-legend" xmlns="http://www.w3.org/1999/xhtml">
+                                        </div>
+                                    </foreignobject><g id="SvgjsG1003" class="apexcharts-inner apexcharts-graphical" transform="translate(-22.5, 0)"><defs id="SvgjsDefs1002"><clippath id="gridRectMask8o8j7qnx"><rect id="SvgjsRect1004" width="332" height="360" x="-4" y="-6" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clippath><clippath id="forecastMask8o8j7qnx"></clippath><clippath id="nonForecastMask8o8j7qnx"></clippath><clippath id="gridRectMarkerMask8o8j7qnx"><rect id="SvgjsRect1005" width="330" height="352" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clippath><lineargradient id="SvgjsLinearGradient1010" x1="0" y1="1" x2="1" y2="1"><stop id="SvgjsStop1011" stop-opacity="1" stop-color="var(--dashui-white)" offset="0"></stop><stop id="SvgjsStop1012" stop-opacity="1" stop-color="var(--dashui-info)" offset="1"></stop><stop id="SvgjsStop1013" stop-opacity="1" stop-color="var(--dashui-info)" offset="1"></stop></lineargradient><filter id="SvgjsFilter1015" filterunits="userSpaceOnUse" width="200%" height="200%" x="-50%" y="-50%"><feflood id="SvgjsFeFlood1016" flood-color="#000000" flood-opacity="0.35" result="SvgjsFeFlood1016Out" in="SourceGraphic"></feflood><fecomposite id="SvgjsFeComposite1017" in="SvgjsFeFlood1016Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite1017Out"></fecomposite><feoffset id="SvgjsFeOffset1018" dx="0" dy="-3" result="SvgjsFeOffset1018Out" in="SvgjsFeComposite1017Out"></feoffset><fegaussianblur id="SvgjsFeGaussianBlur1019" stddeviation="4 " result="SvgjsFeGaussianBlur1019Out" in="SvgjsFeOffset1018Out"></fegaussianblur><femerge id="SvgjsFeMerge1020" result="SvgjsFeMerge1020Out" in="SourceGraphic"><femergenode id="SvgjsFeMergeNode1021" in="SvgjsFeGaussianBlur1019Out"></femergenode><femergenode id="SvgjsFeMergeNode1022" in="[object Arguments]"></femergenode></femerge><feblend id="SvgjsFeBlend1023" in="SourceGraphic" in2="SvgjsFeMerge1020Out" mode="normal" result="SvgjsFeBlend1023Out"></feblend></filter><filter id="SvgjsFilter1026" filterunits="userSpaceOnUse" width="200%" height="200%" x="-50%" y="-50%"><feflood id="SvgjsFeFlood1027" flood-color="#000000" flood-opacity="0.24" result="SvgjsFeFlood1027Out" in="SourceGraphic"></feflood><fecomposite id="SvgjsFeComposite1028" in="SvgjsFeFlood1027Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite1028Out"></fecomposite><feoffset id="SvgjsFeOffset1029" dx="0" dy="3" result="SvgjsFeOffset1029Out" in="SvgjsFeComposite1028Out"></feoffset><fegaussianblur id="SvgjsFeGaussianBlur1030" stddeviation="4 " result="SvgjsFeGaussianBlur1030Out" in="SvgjsFeOffset1029Out"></fegaussianblur><femerge id="SvgjsFeMerge1031" result="SvgjsFeMerge1031Out" in="SourceGraphic"><femergenode id="SvgjsFeMergeNode1032" in="SvgjsFeGaussianBlur1030Out"></femergenode><femergenode id="SvgjsFeMergeNode1033" in="[object Arguments]"></femergenode></femerge><feblend id="SvgjsFeBlend1034" in="SourceGraphic" in2="SvgjsFeMerge1031Out" mode="normal" result="SvgjsFeBlend1034Out"></feblend></filter><lineargradient id="SvgjsLinearGradient1038" x1="0" y1="1" x2="1" y2="1"><stop id="SvgjsStop1039" stop-opacity="1" stop-color="var(--dashui-primary)" offset="0"></stop><stop id="SvgjsStop1040" stop-opacity="1" stop-color="var(--dashui-info)" offset="1"></stop><stop id="SvgjsStop1041" stop-opacity="1" stop-color="var(--dashui-info)" offset="1"></stop></lineargradient></defs><g id="SvgjsG1006" class="apexcharts-radialbar"><g id="SvgjsG1007"><g id="SvgjsG1008" class="apexcharts-tracks"><g id="SvgjsG1009" class="apexcharts-radialbar-track apexcharts-track" rel="1"><path id="apexcharts-radialbarTrack-0" d="M 79.14144737798999 246.85855262201 A 118.5939024390244 118.5939024390244 0 1 1 79.28793581245162 247.00478560877718 " fill="none" fill-opacity="1" stroke="var(--dashui-white)" stroke-opacity="1" stroke-linecap="round" stroke-width="15.378951219512194" stroke-dasharray="0" class="apexcharts-radialbar-area" filter="url(#SvgjsFilter1015)" data:pathorig="M 79.14144737798999 246.85855262201 A 118.5939024390244 118.5939024390244 0 1 1 79.28793581245162 247.00478560877718 "></path></g></g><g id="SvgjsG1024"><g id="SvgjsG1037" class="apexcharts-series apexcharts-radial-series" seriesname="series-1" rel="1" data:realindex="0"><path id="SvgjsPath1042" d="M 79.14144737798999 246.85855262201 A 118.5939024390244 118.5939024390244 0 1 1 246.85855262201 246.85855262201 " fill="none" fill-opacity="0.85" stroke="url(#SvgjsLinearGradient1038)" stroke-opacity="1" stroke-linecap="round" stroke-width="22.953658536585365" stroke-dasharray="0" class="apexcharts-radialbar-area apexcharts-radialbar-slice-0" data:angle="270" data:value="75" index="0" j="0" data:pathorig="M 79.14144737798999 246.85855262201 A 118.5939024390244 118.5939024390244 0 1 1 246.85855262201 246.85855262201 "></path></g><circle id="SvgjsCircle1025" r="110.9044268292683" cx="163" cy="163" class="apexcharts-radialbar-hollow" fill="var(--dashui-white)" filter="url(#SvgjsFilter1026)"></circle><g id="SvgjsG1035" class="apexcharts-datalabels-group" transform="translate(0, 0) scale(1)" style="opacity: 1;"><text id="SvgjsText1036" font-family="Helvetica, Arial, sans-serif" x="163" y="179" text-anchor="middle" dominant-baseline="auto" font-size="48px" font-weight="700" fill="var(--dashui-gray-800)" class="apexcharts-text apexcharts-datalabel-value" style="font-family: Helvetica, Arial, sans-serif;">75%</text></g></g></g></g><line id="SvgjsLine1043" x1="0" y1="0" x2="326" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1044" x1="0" y1="0" x2="326" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line></g></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row member list">
+                                <div class="col-12">
+                                    <!-- card  -->
+                                    <div class="card mb-2">
+                                        <!-- card body  -->
+                                            <!-- card  -->
+                                            <div class="card h-100">
+                                                <!-- card header  -->
+                                                <div class="card-header">
+                                                    <h4 class="mb-0">Upcoming task by Assignee</h4>
+                                                </div>
+                                                <!-- table  -->
+                                                <div class="card-body">
+                                                    <div class="table-responsive table-card">
+                                                        <table class="table text-nowrap mb-0 table-centered">
+                                                            <thead class="table-light">
+                                                            <tr>
+                                                                <th>
+                                                                    Tasks
+                                                                </th>
+                                                                <th>
+                                                                    End Date
+                                                                </th>
+                                                                <th>
+                                                                    Status
+                                                                </th>
+                                                                <th>
+                                                                    Progress
+                                                                </th>
+                                                                <th>
+                                                                    Assignee
+                                                                </th>
+                                                                <th>
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    Design Wireframes
+                                                                </td>
+                                                                <td>
+                                                                    Set end date
+                                                                </td>
+                                                                <td>
+                                                                    <span class="badge badge-primary-soft">In Review</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="taskWireframeChart">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <img src="../assets/images/avatar/avatar-11.jpg" alt="Image" class="avatar avatar-xs rounded-circle">
+                                                                </td>
+                                                                <td>
+																<span class="dropdown dropstart">
+																<a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#!" data-bs-toggle="dropdown" aria-expanded="false">
+																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+																</a>
+																<span class="dropdown-menu">
+																<a class="dropdown-item d-flex align-items-center" href="#!">Action</a>
+																<a class="dropdown-item d-flex align-items-center" href="#!">Another action</a>
+																<a class="dropdown-item d-flex align-items-center" href="#!">Something else here</a>
+																</span>
+																</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Prototype design
+                                                                </td>
+                                                                <td>
+                                                                    Aug 15, 2023
+                                                                </td>
+                                                                <td>
+                                                                    <span class="badge badge-info-soft">In Progress</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="taskPrototypeChart">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <img src="../assets/images/avatar/avatar-2.jpg" alt="Image" class="avatar avatar-xs rounded-circle">
+                                                                </td>
+                                                                <td>
+																<span class="dropdown dropstart">
+																<a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#!" data-bs-toggle="dropdown" aria-expanded="false">
+																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+																</a>
+																<span class="dropdown-menu">
+																<a class="dropdown-item d-flex align-items-center" href="#!">Action</a>
+																<a class="dropdown-item d-flex align-items-center" href="#!">Another action</a>
+																<a class="dropdown-item d-flex align-items-center" href="#!">Something else here</a>
+																</span>
+																</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Content Writing
+                                                                </td>
+                                                                <td>
+                                                                    Aug 16, 2023
+                                                                </td>
+                                                                <td>
+                                                                    <span class="badge badge-danger-soft ">Cancel</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="taskContentChart">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <img src="../assets/images/avatar/avatar-3.jpg" alt="Image" class="avatar avatar-xs rounded-circle">
+                                                                </td>
+                                                                <td>
+																<span class="dropdown dropstart">
+																<a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#!" data-bs-toggle="dropdown" aria-expanded="false">
+																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+																</a>
+																<span class="dropdown-menu">
+																<a class="dropdown-item" href="#!">Action</a>
+																<a class="dropdown-item" href="#!">Another action</a>
+																<a class="dropdown-item" href="#!">Something else here</a>
+																</span>
+																</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Figma to Bootstrap Conversion
+                                                                </td>
+                                                                <td>
+                                                                    Aug 18, 2023
+                                                                </td>
+                                                                <td>
+                                                                    <span class="badge badge-primary-soft ">In Review</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="taskFigmaChart">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <img src="../assets/images/avatar/avatar-5.jpg" alt="Image" class="avatar avatar-xs rounded-circle">
+                                                                </td>
+                                                                <td>
+																<span class="dropdown dropstart">
+																<a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#!" data-bs-toggle="dropdown" aria-expanded="false">
+																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+																</a>
+																<span class="dropdown-menu">
+																<a class="dropdown-item" href="#!">Action</a>
+																<a class="dropdown-item" href="#!">Another action</a>
+																<a class="dropdown-item" href="#!">Something else here</a>
+																</span>
+																</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    User Interface Design
+                                                                </td>
+                                                                <td>
+                                                                    Aug 18, 2023
+                                                                </td>
+                                                                <td>
+                                                                    <span class="badge badge-primary-soft text-primary">In Review</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="taskInterfaceChart">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <img src="../assets/images/avatar/avatar-6.jpg" alt="Image" class="avatar avatar-xs rounded-circle">
+                                                                </td>
+                                                                <td>
+																<span class="dropdown dropstart">
+																<a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#!" data-bs-toggle="dropdown" aria-expanded="false">
+																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+																</a>
+																<span class="dropdown-menu">
+																<a class="dropdown-item" href="#!">Action</a>
+																<a class="dropdown-item" href="#!">Another action</a>
+																<a class="dropdown-item" href="#!">Something else here</a>
+																</span>
+																</span>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/feather.min.js"></script>
+<script src="/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/hr-register.js"></script>
+</body>
+</html>
