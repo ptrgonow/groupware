@@ -217,6 +217,15 @@
         });
     })();
 
+    // Disable right-click and specific keys
+    $(window).on("load", function() {
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(String.fromCharCode(e.keyCode))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+                return false;
+            }
+        };
+    });
+
     document.oncontextmenu = function() {
         return false;
     };
@@ -226,6 +235,16 @@
             return false;
         }
         return true;
+    });
+
+    // FM 메인 화면 "결재 목록" 에서 전체 row(줄) 아무데나 클릭 시 다음 페이지 넘어가는 기능
+    document.addEventListener('DOMContentLoaded', function () {
+        var rows = document.querySelectorAll('.clickable-row');
+        rows.forEach(function (row) {
+            row.addEventListener('click', function () {
+                window.location = row.getAttribute('data-href');
+            });
+        });
     });
 
 })(jQuery);

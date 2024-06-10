@@ -13,6 +13,6 @@ public class FileController {
 
     @GetMapping("/file-vac")
     public String vac() {
-        return "file/file-vac";
+        return "file/eform-draft";
     }
 }
