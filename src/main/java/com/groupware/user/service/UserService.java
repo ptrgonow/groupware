@@ -1,11 +1,14 @@
 package com.groupware.user.service;
 
+import com.groupware.user.dto.DeptDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -35,4 +38,20 @@ public class UserService {
             return false;
         }
     }
+
+    public List<DeptDTO> getAllDepartments() {
+        List<DeptDTO> departments = userMapper.getAllDepartments();
+        logger.info("Fetched all departments: {}", departments);
+        return departments;
+    }
+
+    public UserDTO authenticate(String username, String password) {
+        UserDTO user = userMapper.findByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
+    }
+
+
 }

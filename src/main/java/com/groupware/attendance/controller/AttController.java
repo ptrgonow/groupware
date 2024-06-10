@@ -38,8 +38,9 @@ public class AttController {
             attDTO.setStatus("퇴근");
             attService.endAttendance(attDTO);
         }
-
         return ResponseEntity.ok("근태 기록이 성공적으로 저장되었습니다.");
+
+
     }
 
     @GetMapping("/status")

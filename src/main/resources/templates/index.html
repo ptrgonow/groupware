@@ -5,239 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
     
-    <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/main-mypage.css">
 </head>
-
 <body>
 
+
+
+
 <div class="main-wrapper">
-    
-    <div class="header">
-        
-        <div class="header-left">
-            <a href="/" class="logo">
-                <img src="/img/logo.jpeg" alt="Logo">
-            </a>
-            <a href="/" class="logo logo-small">
-                <img src="/img/logo.jpeg" alt="Logo">
-            </a>
-            <a href="javascript:void(0);" id="toggle_btn">
-            <span class="bar-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-            </span>
-            </a>
-        </div>
-        
-        
-        <a class="mobile_btn" id="mobile_btn">
-            <i class="fas fa-bars"></i>
-        </a>
-        
-        
-        <ul class="nav user-menu">
-            
-            <li class="nav-item dropdown">
-                
-                <a href="#" class="dropdown-toggle nav-link pr-0" data-toggle="dropdown">
-                    <i data-feather="bell"></i><span class="badge badge-pill"></span>
-                </a>
-                
-                <div class="dropdown-menu notifications">
-                    <div class="topnav-dropdown-header">
-                        <span class="notification-title">Notifications</span>
-                        <a href="javascript:void(0)" class="clear-noti"> Clear All</a>
-                    </div>
-                    <div class="noti-content">
-                        <ul class="notification-list">
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media">
-                                        <span class="avatar avatar-sm">
-                                        <img class="avatar-img rounded-circle" alt="" src="">
-                                        </span>
-                                        <div class="media-body">
-                                            <p class="noti-details">
-                                                <span class="noti-title">Brian Johnson</span>paid the invoice<span class="noti-title">#DF65485</span>
-                                            </p>
-                                            <p class="noti-time">
-                                                <span class="notification-time">4 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media">
-                                        <span class="avatar avatar-sm">
-                                        <img class="avatar-img rounded-circle" alt="" src="">
-                                        </span>
-                                        <div class="media-body">
-                                            <p class="noti-details">
-                                                <span class="noti-title">Marie Canales</span> has accepted your estimate <span class="noti-title">#GTR458789</span>
-                                            </p>
-                                            <p class="noti-time">
-                                                <span class="notification-time">6 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media">
-                                        <div class="avatar avatar-sm">
-                                            <span class="avatar-title rounded-circle bg-primary-light"><i class="far fa-user"></i></span>
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="noti-details">
-                                                <span class="noti-title">New user registered</span>
-                                            </p>
-                                            <p class="noti-time">
-                                                <span class="notification-time">8 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media">
-                                        <span class="avatar avatar-sm">
-                                        <img class="avatar-img rounded-circle" alt="" src="">
-                                        </span>
-                                        <div class="media-body">
-                                            <p class="noti-details">
-                                                <span class="noti-title">Barbara Moore</span> declined the invoice <span class="noti-title">#RDW026896</span>
-                                            </p>
-                                            <p class="noti-time">
-                                                <span class="notification-time">12 mins ago</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media">
-                                        <div class="avatar avatar-sm">
-                                            <span class="avatar-title rounded-circle bg-info-light"><i class="far fa-comment"></i></span>
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="noti-details"><span class="noti-title">You have received a new message</span></p>
-                                            <p class="noti-time"><span class="notification-time">2 days ago</span></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="topnav-dropdown-footer">
-                        <a href="#">View all Notifications</a>
-                    </div>
-                </div>
-            </li>
-            
-            
-            <li class="nav-item dropdown has-arrow main-drop">
-                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                    <span class="user-img">
-                    <img src="" alt="">
-                    <span class="status online"></span>
-                    </span>
-                    <span>사용자이름</span>
-                </a>
-            </li>
-        </ul>
-    
-    </div>
-    
-    
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-inner slimscroll">
-            <div class="sidebar-contents">
-                <div id="sidebar-menu" class="sidebar-menu">
-                    
-                    
-                    <div class="mobile-show">
-                        <div class="offcanvas-menu">
-                            <div class="user-info align-center bg-theme text-center">
-                                <span class="lnr lnr-cross  text-white" id="mobile_btn_close">X</span>
-                                <a href="javascript:void(0)" class="d-block menu-style text-white">
-                                    <div class="user-avatar d-inline-block mr-3">
-                                        <img src="" alt="user avatar" class="rounded-circle" width="50">
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
-                    <ul>
-                        <li class="active">
-                            <a href="/"><img src="/img/home.png" alt="sidebar_img"><span>홈</span></a>
-                        </li>
-                        <li>
-                            <a href="/notice"><img src="/img/notice.png" alt="sidebar_img"><span>공지사항</span></a>
-                        </li>
-                        <li>
-                            <a href="/"><img src="/img/work.png" alt="sidebar_img"> <span>업무</span></a>
-                        </li>
-                        <li>
-                            <a href="/"><img src="/img/approval.png" alt="sidebar_img"> <span>전자결재</span></a>
-                        </li>
-                        <li>
-                            <a href="."><img src="/img/calendar.png" alt="sidebar_img"> <span>일정관리</span></a>
-                        </li>
-                        <li>
-                            <a href="/"><img src="/img/file.png" alt="sidebar_img"><span>문서함</span></a>
-                        </li>
-                        <li>
-                            <a href="/"><img src="/img/mypage.png" alt="sidebar_img"> <span>내 정보</span></a>
-                        </li>
-                    </ul>
-                    
-                    <ul class="logout">
-                        <li>
-                            <a href="/"><img src="/img/logout.png" alt="sidebar_img"><span>로그아웃</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
     
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
-            
+                <h3>대시보드</h3>
             
             </div>
             <div class="row mb-4">
                 <div class="col-xl-6 col-sm-12 col-12">
                     <div class="breadcrumb-path ">
-                    
+                        <h4>영역1</h4>
                     </div>
                 </div>
                 <div class="col-xl-6 col-sm-12 col-12">
                     <div class="row">
                         <div class="col-xl-6 col-sm-6 col-12">
-                        
+                            <h4>영역2</h4>
                         </div>
                         <div class="col-xl-6 col-sm-6 col-12">
-                        
+                            <h4>영역3</h4>
                         </div>
                     </div>
                 </div>
@@ -301,22 +102,31 @@
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">근태 기록</h5>
+                                <h5 class="card-title">차트 1</h5>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="p-container">
-                                <div id="daily-progress-container" class="progressbar"></div>
-                                <div id="weekly-progress-container" class="progressbar"></div>
-                                
-                                
-                                <form id="attendance-form" class="form-inline" action="/att/insert" method="POST">
-                                    <input type="hidden" name="employee_code" value="EMP001">
-                                    <input type="hidden" name="action" id="action">
-                                    <input type="hidden" name="time" id="time">
-                                    <button type="button" id="start-button">출근하기</button>
-                                    <button type="button" id="end-button" disabled>퇴근하기</button>
-                                </form>
+                            
+                            <div id="invoice_chart"></div>
+                            
+                            <div class="text-center text-muted">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="mt-4">
+                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-primary mr-1"></i>데이터 1</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="mt-4">
+                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-success mr-1"></i>데이터 2</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="mt-4">
+                                            <p class="mb-2 text-truncate"><i class="fas fa-circle text-danger mr-1"></i>데이터 3</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -337,7 +147,6 @@
                         </div>
                     </div>
                 </div>
-            
             </div>
             
             
@@ -580,6 +389,8 @@
 <script src="/js/ProgressBar.js"></script>
 <script src="/js/script.js"></script>
 <script src="/js/attendance.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/side.js"></script>
 
 </body>
 </html>
