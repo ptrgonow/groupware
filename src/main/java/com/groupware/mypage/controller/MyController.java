@@ -25,8 +25,10 @@ public class MyController {
         }
         return "mypage/main-mypage";
     }
-    @GetMapping("/togo")
-    public String togo() {
-        return "todo";
+
+    @GetMapping("/todo")
+    public String todo() {
+        return "mypage/todo";
     }
 }
+
