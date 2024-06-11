@@ -30,3 +30,24 @@ $(document).ready(function() {
         }
     });
 });
+
+$(document).ready(function() {
+    $('#updateForm').on('submit', function(event) {
+        event.preventDefault(); // 폼의 기본 제출 동작을 방지
+
+        const formData = $(this).serialize(); // 폼 데이터를 직렬화
+
+        $.ajax({
+            url: '/user/update',
+            method: 'POST',
+            data: formData,
+            success: function(response) {
+                alert(response.message);
+                location.href = '/';
+            },
+            error: function(error) {
+                alert('업데이트 실패: ' + error);
+            }
+        });
+    });
+});

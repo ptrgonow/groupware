@@ -6,6 +6,7 @@ import com.groupware.user.dto.UserDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public interface UserMapper {
 
     // 사원번호를 통해 직원 정보를 조회하는 쿼리
-    @Select("SELECT employee_code AS employeeCode, name, birth_date AS birthDate, address, department_id AS departmentId, ps_cd, status, created_at AS createdAt, username FROM employee WHERE employee_code = #{employeeCode}")
+    @Select("SELECT employee_code AS employeeCode, name, birth_date AS birthDate, address, department_id AS departmentId, ps_cd, status, created_at AS createdAt, username, password FROM employee WHERE employee_code = #{employeeCode}")
     UserDTO findUserByEmployeeCode(String employeeCode);
 
     // 직원 정보를 등록하는 쿼리
@@ -41,4 +42,8 @@ public interface UserMapper {
     // 모든 직급 정보를 조회하는 쿼리
     @Select("SELECT ps_cd AS positionCode, ps_nm AS positionName FROM positions")
     List<PositionDTO> getAllPositions( );
+
+    // 직원 정보를 수정하는 쿼리
+    @Update("UPDATE employee SET birth_date = #{birthDate}, address = #{address}, username = #{username}, password = #{password} WHERE employee_code = #{employeeCode}")
+    int updateUser(UserDTO user);
 }
