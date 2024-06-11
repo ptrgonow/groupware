@@ -18,7 +18,7 @@ public interface UserMapper {
     UserDTO findUserByEmployeeCode(String employeeCode);
 
     // 직원 정보를 등록하는 쿼리
-    @Insert("INSERT INTO employee (employee_code, name, birth_date, address, department_id, ps_cd, status, created_at, username, password) VALUES (#{employeeCode}, #{name}, #{birthDate}, #{address}, #{departmentId}, #{ps_cd}, '퇴근', NOW(), #{username}, #{password})")
+    @Insert("INSERT INTO employee (employee_code, name, birth_date, address, department_id, ps_cd, status, created_at, username, password) VALUES (#{employeeCode}, #{name}, #{birthDate}, #{address}, #{departmentId}, #{ps_cd}, '재직중', NOW(), #{username}, #{password})")
     int insertUser(UserDTO user);
 
     // 아이디를 통해 직원 정보를 조회하는 쿼리

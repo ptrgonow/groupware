@@ -57,7 +57,6 @@ public class UserController {
         Map<String, String> response = new HashMap<>();
         if (userService.registerUser(user)) {
             response.put("message", "유저 등록 성공");
-            response.put("redirectUrl", "/success-page"); // 리다이렉트할 URL
             return ResponseEntity.ok(response);
         } else {
             response.put("message", "유저 등록 실패");
