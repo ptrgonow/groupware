@@ -1,56 +1,41 @@
-function addItem() {
-    let list = document.getElementById('todolist');
-    let todo = document.getElementById('item');
-    let listitem = document.createElement('li');
-    let xbtn = document.createElement('button');
-    let checkbox = document.createElement('input');
-    let wrapper = document.createElement('div');
+$(document).ready(function () {
+    $('#todo_form').on('submit', function (event) {
+        event.preventDefault();
 
-    listitem.className = 'list-group-item list-group-item-action list-group-item-warning d-flex justify-content-between align-items-center';
-    xbtn.className = 'close';
-    xbtn.innerHTML = '&times;';
-
-    xbtn.onclick = function(e) {
-        let pnode = e.target.parentNode;
-        list.removeChild(pnode);
-    }
-
-    checkbox.type = 'checkbox';
-    checkbox.className = 'mr-3';
-    checkbox.addEventListener('change', function() {
-        if (checkbox.checked) {
-            listitem.style.textDecoration = 'line-through';
-        } else {
-            listitem.style.textDecoration = 'none';
+        const content = $('#todo').val().trim();
+        if (content === '') {
+            alert('할 일을 입력하세요.');
+            return;
         }
+
+        const employeeCode = $('input[name="employeeCode"]').val();
+
+        const requestData = {
+            content: content,
+            employeeCode: employeeCode
+        };
+
+        $.ajax({
+            url: '/mypage/add',
+            type: 'POST',
+            data: requestData, // 데이터를 URL 인코딩 방식으로 보냄
+            success: function (data) {
+                if (data.success) {
+                    addTodoItem(content);
+                    $('#todo').val('');
+                } else {
+                    alert('할 일을 추가하는데 실패했습니다.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+                alert('할 일을 추가하는데 실패했습니다.');
+            }
+        });
     });
 
-    wrapper.className = 'd-flex align-items-center';
-    wrapper.appendChild(checkbox);
-    wrapper.appendChild(document.createTextNode(todo.value));
-    listitem.appendChild(wrapper);
-    listitem.appendChild(xbtn);
-    list.appendChild(listitem);
-
-    saveToDatabase(todo.value); // 서버로 데이터 전송
-
-    todo.value = '';
-    todo.focus();
-}
-
-function saveToDatabase(todoContent) {
-    fetch('/addTodo', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ content: todoContent })
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-}
+    function addTodoItem(content) {
+        const li = $('<li>').addClass('list-group-item d-flex justify-content-between align-items-center').text(content);
+        $('#todolist').append(li);
+    }
+});

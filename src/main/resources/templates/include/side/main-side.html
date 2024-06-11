@@ -40,11 +40,11 @@
                         <a href="#"><img src="/img/mypage.png" alt="sidebar_img"><span>내 정보</span></a>
                         
                         <ul class="dropdown-menu side">
-                            <li><a th:href="${session.user != null} ? '/mypage' :'/no'">근태</a></li>
+                            <li><a th:href="${session.user != null} ? '/mypage/myinfo' :'/no'">근태</a></li>
                             <li><a href="#">휴가 | 연차</a></li>
                             <li><a href="#">결재</a></li>
                             <li><a href="#">내 일정</a></li>
-                            <li><a href="/todo">Todo</a></li>
+                            <li><a th:href="${session.user != null} ? '/mypage/todo' :'/no'">to do</a></li>
                         </ul>
                     </li>
                 </ul>
