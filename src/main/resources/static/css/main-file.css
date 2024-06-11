@@ -3,6 +3,10 @@
     justify-content: center;
 }
 
+.d-flex{
+    align-items: center;
+}
+
 .form-control {
     margin-right: 10px;
 }
