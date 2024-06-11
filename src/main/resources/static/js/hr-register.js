@@ -1,16 +1,32 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const departmentSelect = document.getElementById('department');
+$(document).ready(function() {
+    const departmentSelect = $('#department');
+    const positionSelect = $('#position');
 
     // 부서 정보를 가져와서 옵션 태그에 추가
-    fetch('/user/dept')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(department => {
-                const option = document.createElement('option');
-                option.value = department.departmentId;
-                option.textContent = department.departmentName;
-                departmentSelect.appendChild(option);
+    $.ajax({
+        url: '/user/dept',
+        method: 'GET',
+        success: function(data) {
+            data.forEach(function(department) {
+                departmentSelect.append(new Option(department.departmentName, department.departmentId));
             });
-        })
-        .catch(error => console.error('Error fetching departments:', error));
+        },
+        error: function(error) {
+            console.error('Error fetching departments:', error);
+        }
+    });
+
+    // 포지션 정보를 가져와서 옵션 태그에 추가
+    $.ajax({
+        url: '/user/positions',
+        method: 'GET',
+        success: function(data) {
+            data.forEach(function(position) {
+                positionSelect.append(new Option(position.positionName, position.positionCode));
+            });
+        },
+        error: function(error) {
+            console.error('Error fetching positions:', error);
+        }
+    });
 });

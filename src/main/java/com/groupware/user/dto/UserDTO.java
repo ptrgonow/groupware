@@ -11,7 +11,7 @@ public class UserDTO {
     private String address;
     private int departmentId;
     private String departmentName;
-    private String position;
+    private String ps_cd;
     private String status;
     private String createdAt;
     private String username;

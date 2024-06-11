@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어</title>
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main-file.css">
+  
+</head>
+<body>
+
+
+
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h3>문서 보관함</h3>
+            </div>
+
+            <div class="file-search">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+
+            <!-- 테이블 -->
+            <div class="row">
+                <div class="col-xl-10 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr class="doc-head">
+                                <th scope="col">문서 번호</th>
+                                <th scope="col">결재 담당 부서</th>
+                                <th scope="col">결재 양식명</th>
+                                <th scope="col">첨부파일</th>
+                                <th scope="col">작성하기</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>9922</td>
+                                <td>인사</td>
+                                <td>연차신청서</td>
+                                <td>연차신청서_000.docx</td>
+                                <td><a href="file-vac"><i class="fa-solid fa-pen"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>9923</td>
+                                <td>인사</td>
+                                <td>반차신청서</td>
+                                <td>반차신청서_000.docx</td>
+                                <td><a href="#"><i class="fa-solid fa-pen"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>9924</td>
+                                <td>인사</td>
+                                <td>사유서</td>
+                                <td>사유서_000.docx</td>
+                                <td><a href="#"><i class="fa-solid fa-pen"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>9924</td>
+                                <td>인사</td>
+                                <td>사직서</td>
+                                <td>사직서_000.docx</td>
+                                <td><a href="#"><i class="fa-solid fa-pen"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>9925</td>
+                                <td>재무</td>
+                                <td>지출결의서</td>
+                                <td>지출결의서_000.docx</td>
+                                <td><a href="#"><i class="fa-solid fa-pen"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>9925</td>
+                                <td>재무</td>
+                                <td>구매폼의서</td>
+                                <td>구매폼의서_000.docx</td>
+                                <td><a href="#"><i class="fa-solid fa-pen"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>9925</td>
+                                <td>전체</td>
+                                <td>업무기안서</td>
+                                <td>업무기안서_000.docx</td>
+                                <td><a href="#"><i class="fa-solid fa-pen"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+</body>
+</html>
