@@ -457,7 +457,7 @@ w-auto 는 cs 유틸리티 클래스. width: auto 는 요소의 너비를 자동
 	align-items: center;
 	margin-top: 30px;
 }
-/* FM 메인 페이지 - 결재 테이블 row 전체 클릭 시 마우스 포인터 변환 */
+/* fm 메인 페이지 - 결재 테이블 row 전체 클릭 시 마우스 포인터 변환 */
 .clickable-row{
 	cursor: pointer;
 }

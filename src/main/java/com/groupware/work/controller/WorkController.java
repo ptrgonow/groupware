@@ -17,7 +17,7 @@ public class WorkController {
     }
     @GetMapping("/fm/eform-draft")
     public String eformDraft() {
-        return "work/FM/eform-draft";
+        return "work/fm/eform-draft";
     }
 
     @GetMapping("/hr")
