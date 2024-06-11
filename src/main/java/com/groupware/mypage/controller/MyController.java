@@ -26,5 +26,9 @@ public class MyController {
         return "mypage/main-mypage";
     }
 
-
+    @GetMapping("/todo")
+    public String todo() {
+        return "mypage/todo";
+    }
 }
+
