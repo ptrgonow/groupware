@@ -27,6 +27,6 @@ public class MyController {
     }
     @GetMapping("/togo")
     public String togo() {
-        return "/mypage/togo";
+        return "todo";
     }
 }

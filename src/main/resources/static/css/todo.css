@@ -1,0 +1,38 @@
+
+
+
+.all {
+
+    margin-top: 5rem;
+
+}
+
+.close:hover {
+    color: #ffa20b; /* 삭제 버튼 텍스트 색상 변경 */
+    background-color: #ffc56c; /* 삭제 버튼 배경색 변경 */
+}
+
+.input-group .form-control,
+.input-group .btn {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-group .form-control {
+    height: 40px; /* 높이를 지정해 줍니다 */
+}
+
+.input-group .btn {
+    height: 40px; /* 동일한 높이를 지정해 줍니다 */
+    width: 70px;
+}
+
+.container {
+    width: 30%; /* 컨테이너의 너비를 50%로 설정 */
+}
+
+.close:hover {
+    color: #ffa20b; /* 삭제 버튼 텍스트 색상 변경 */
+    background-color: #ffc56c; /* 삭제 버튼 배경색 변경 */
+}
