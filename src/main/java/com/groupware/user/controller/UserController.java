@@ -79,6 +79,7 @@ public class UserController {
             session.setAttribute("user", user);
             response.put("message", "로그인 성공");
             response.put("username", user.getName());
+            response.put("departmentName", user.getDepartmentName());
             return ResponseEntity.ok(response);
         } else {
             response.put("message", "로그인 실패");
@@ -89,6 +90,10 @@ public class UserController {
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
+        if (session == null || session.getAttribute("user") == null) {
+            return ResponseEntity.status(401).body("세션 정보가 없습니다. 로그인 해주세요.");
+        }
+
         session.invalidate();
         return ResponseEntity.ok("로그아웃 성공");
     }

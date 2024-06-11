@@ -217,14 +217,6 @@
         });
     })();
 
-    // Disable right-click and specific keys
-    $(window).on("load", function() {
-        document.onkeydown = function(e) {
-            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(String.fromCharCode(e.keyCode))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
-                return false;
-            }
-        };
-    });
 
     document.oncontextmenu = function() {
         return false;

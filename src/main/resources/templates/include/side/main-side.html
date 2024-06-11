@@ -1,12 +1,4 @@
-<!DOCTYPE html>
 <html lang="ko" th:fragment="side" >
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>그룹웨어</title>
-    
-</head>
-<body>
 
 <div class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
@@ -60,26 +52,15 @@
                     <li>
                         <a href="/file"><img src="/img/file.png" alt="sidebar_img"><span>문서함</span></a>
                     </li>
-                    <li>
-                        <a th:href="${session.user != null} ? '/mypage' :'/no'"><img src="/img/mypage.png" alt="sidebar_img"><span>내 정보</span></a>
-                    </li>
                     <li class="has-submenu">
-                        <a><img src="/img/work.png" alt="sidebar_img"><span>업무</span></a>
+                        <a href="#"><img src="/img/mypage.png" alt="sidebar_img"><span>내 정보</span></a>
+                        
                         <ul class="dropdown-menu side">
-                            <li>
-                                <a href="#">경영지원실</a>
-                                <ul>
-                                    <li><a href="/hr">인사관리팀</a></li>
-                                    <li><a href="/fm">재무관리팀</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">기획실</a>
-                                <ul>
-                                    <li><a href="/dev">개발 1팀</a></li>
-                                    <li><a href="/dev">개발 2팀</a></li>
-                                </ul>
-                            </li>
+                            <li><a th:href="${session.user != null} ? '/mypage' :'/no'">근태</a></li>
+                            <li><a href="#">휴가 | 연차</a></li>
+                            <li><a href="#">결재</a></li>
+                            <li><a href="#">내 일정</a></li>
+                            <li><a href="#">Todo</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -96,9 +77,4 @@
         </div>
     </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="/js/side.js"></script>
-
-</body>
 </html>

@@ -13,10 +13,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/main-header.css">
-
+    <link rel="stylesheet" href="/css/main-mypage.css">
+    
 </head>
-<body>
+
+
 
 <div class="header">
     
@@ -36,31 +39,20 @@
         </a>
     </div>
     
-    
     <a class="mobile_btn" id="mobile_btn">
-        <i class="fas fa-bars"></i>
+        <span class="material-symbols-outlined">menu</span>
     </a>
     
     <ul class="nav user-menu">
-        
         <li class="nav-item dropdown has-arrow main-drop">
             <a th:href="${session.user != null} ? '/mypage' : '/loginPage'" class="dropdown-toggle nav-link">
-            <span class="user-img">
-                <img src="" alt="">
-                <span class="status online"></span>
-            </span>
+                <span id="departmentName" th:text="${session.user != null} ? ${session.user.departmentName} : '부서명'"></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="username" th:text="${session.user != null} ? ${session.user.name} : '로그인'"></span>
             </a>
         </li>
     </ul>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/feather.min.js"></script>
-<script src="/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="/js/script.js"></script>
-<script src="/js/header.js"></script>
-</body>
+
+
 </html>

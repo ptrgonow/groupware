@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
     const startButton = $('#start-button');
     const endButton = $('#end-button');
@@ -7,13 +8,14 @@ $(document).ready(function() {
 
     function handleButtonClick(action) {
         actionInput.val(action);
+        $('#time').val(new Date().toISOString());
 
         if (action === 'start') {
-            startButton.prop('disabled', true);
-            endButton.prop('disabled', false);
+            startButton.removeClass('btn-show').addClass('btn-hide');
+            endButton.removeClass('btn-hide').addClass('btn-show');
         } else if (action === 'end') {
-            startButton.prop('disabled', false);
-            endButton.prop('disabled', true);
+            startButton.removeClass('btn-hide').addClass('btn-show');
+            endButton.removeClass('btn-show').addClass('btn-hide');
         }
 
         // AJAX 요청으로 폼 제출
@@ -28,11 +30,11 @@ $(document).ready(function() {
             error: function(xhr, status, error) {
                 console.error('폼 제출 중 오류 발생:', error);
                 if (action === 'start') {
-                    startButton.prop('disabled', false);
-                    endButton.prop('disabled', true);
+                    startButton.removeClass('btn-hide').addClass('btn-show');
+                    endButton.removeClass('btn-show').addClass('btn-hide');
                 } else if (action === 'end') {
-                    startButton.prop('disabled', true);
-                    endButton.prop('disabled', false);
+                    startButton.removeClass('btn-show').addClass('btn-hide');
+                    endButton.removeClass('btn-hide').addClass('btn-show');
                 }
             }
         });
@@ -52,11 +54,11 @@ $(document).ready(function() {
         type: 'GET',
         success: function(data) {
             if (data && data.status === '근무중') {
-                startButton.prop('disabled', true);
-                endButton.prop('disabled', false);
+                startButton.removeClass('btn-show').addClass('btn-hide');
+                endButton.removeClass('btn-hide').addClass('btn-show');
             } else if (data && data.status === '퇴근') {
-                startButton.prop('disabled', false);
-                endButton.prop('disabled', true);
+                startButton.removeClass('btn-hide').addClass('btn-show');
+                endButton.removeClass('btn-show').addClass('btn-hide');
             }
         },
         error: function(xhr, status, error) {

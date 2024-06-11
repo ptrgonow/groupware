@@ -21,26 +21,18 @@
         <div class="screen__content">
             <form class="login" action="/user/login" method="POST" id="loginForm">
                 <div class="login__field">
-                    <i class="login__icon fas fa-user"></i>
+                    <span class="material-symbols-outlined">account_circle</span>
                     <input type="text" name="username" class="login__input" placeholder="아이디">
                 </div>
                 <div class="login__field">
-                    <i class="login__icon fas fa-lock"></i>
+                    <span class="material-symbols-outlined">lock</span>
                     <input type="password" name="password" class="login__input" placeholder="비밀번호">
                 </div>
                 <button type="button" class="button login__submit" onclick="submitLoginForm()">
                     <span class="button__text">로그인</span>
-                    <i class="button__icon fas fa-chevron-right"></i>
+                    <span class="material-symbols-outlined">login</span>
                 </button>
             </form>
-            <div class="social-login">
-                <h3>log in via</h3>
-                <div class="social-icons">
-                    <a href="#" class="social-login__icon fab fa-instagram"></a>
-                    <a href="#" class="social-login__icon fab fa-facebook"></a>
-                    <a href="#" class="social-login__icon fab fa-twitter"></a>
-                </div>
-            </div>
         </div>
         <div class="screen__background">
             <span class="screen__background__shape screen__background__shape4"></span>
@@ -51,6 +43,7 @@
     </div>
 </div>
 
-<script src="/js/header.js"></script>
+
+<script src="/js/login.js"></script>
 </body>
 </html>

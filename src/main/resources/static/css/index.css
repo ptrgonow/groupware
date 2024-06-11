@@ -1,3 +1,31 @@
+
+
+.btn-hide {
+    display: none;
+}
+.btn-show {
+    display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .card-header .input-group {
     margin-bottom: 0; /* 입력 필드와 버튼 사이의 여백 제거 */
 }

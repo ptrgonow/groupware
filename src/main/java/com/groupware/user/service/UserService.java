@@ -51,6 +51,8 @@ public class UserService {
     public UserDTO authenticate(String username, String password) {
         UserDTO user = userMapper.findByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
+            DeptDTO department = userMapper.findDepartmentById(user.getDepartmentId());
+            user.setDepartmentName(department.getDepartmentName());
             return user;
         }
         return null;

@@ -47,6 +47,7 @@ Version      : 3.0
 html {
 	height: 100%;
 }
+
 body {
 	background-color: #f7f8f9;
 	color: #455560;
@@ -2782,7 +2783,19 @@ html.menu-opened body {
 	height: 100%;
 	min-height: 100%;
 	transition: all 0.2s ease-in-out 0s;
-} 
+}
+
+.sidebar-contents {
+	height: 100%;
+}
+
+.sidebar-menu {
+    display: grid;
+    height: 100%;
+    align-content: space-between;
+}
+
+
 .sidebar-menu ul {
 	font-size: 15px;
 	list-style-type: none;
