@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    
+
     <title></title>
 
 </head>
@@ -10,13 +10,13 @@
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>대시보드</h3>
             </div>
-            
+
             <div class="row">
                 <div class="col-xl-6 d-flex mobile-h">
                     <div class="card flex-fill">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-xl-6 d-flex mobile-h">
                     <div class="card flex-fill">
                         <div class="card-header">
@@ -55,14 +55,14 @@
                             </div>
                         </div>
                         <div class="card-body">
-                        
-                        
+
+
                         </div>
                     </div>
                 </div>
-            
+
             </div>
-            
+
             <div class="row">
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
@@ -70,49 +70,26 @@
                             <h4 class="card-title">공지 사항</h4>
                         </div>
                         <div class="card-body">
-                        
-                        
+
+
                         </div>
                     </div>
                 </div>
-                
-                <!--  todo  -->
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
-                        <div class="card-header text-center">
-                            <h4 class="card-title">todo list</h4>
-                        </div>
-                        
-                        <div class="card-body dash-activity">
-                            <form id="todo-form" class="d-flex justify-content-center mb-3">
-                                <input type="text" id="todo-input" placeholder="할 일 작성하기" class="form-control mr-2">
-                                <button type="submit" class="btn btn-primary">Enter</button>
-                            </form>
-                            
-                            <ul id="todo-list" class="list-unstyled">
-                                <!-- 여기에 ToDo 아이템이 동적으로 추가될 것입니다. -->
-                            </ul>
-                            
-                            <!-- 모두 보기를 위한 링크 -->
-                            <div class="leave-viewall">
-                                <a href="#">모두 보기<img src="/img/r-arrow.png" class="ml-2" alt="arrow"></a>
+
+
+
+                <div class="row">
+                    <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                        <div class="card card-list flex-fill">
+                            <div class="card-header">
+                                <h4 class="card-title-dash">테이블 3</h4>
+
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
-                        <div class="card-header">
-                            <h4 class="card-title-dash">테이블 3</h4>
-                        
-                        </div>
-                        <div class="card-body">
-                            
-                            <div class="leave-viewall">
-                                <a href="#">모두 보기<img src="/img/r-arrow.png" class="ml-2" alt="arrow" /></a>
+                            <div class="card-body">
+
+                                <div class="leave-viewall">
+                                    <a href="#">모두 보기<img src="/img/r-arrow.png" class="ml-2" alt="arrow" /></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,6 +100,8 @@
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+
+
 </body>
 </html>
 

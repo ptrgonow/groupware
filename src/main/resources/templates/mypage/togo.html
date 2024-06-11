@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/togo.css">
+</head>
+<body>
+<div th:replace="~{include/header/main-header :: header}"></div>
+<div th:replace="~{include/side/main-side :: side}"></div>
+
+
+
+<div class="all">
+    <div class="container shadow mx-auto mt-5 p-5 w-70">
+        <h2>ToDoList</h2>
+        <hr>
+        <div class="input-group">
+            <input id="item" class="form-control" type="text" placeholder="할 일을 입력하세요." onkeydown="if(event.keyCode==13) addItem()">
+            <button id="newBtn" type="button" class="btn btn-info" onclick="addItem()">Enter</button>
+        </div>
+        <hr>
+        <ul id="todolist" class="list-group"></ul>
+    </div>
+</div>
+
+
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="js/togo.js"></script>
+</body>
+</html>
