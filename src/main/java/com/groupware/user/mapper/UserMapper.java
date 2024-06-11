@@ -1,6 +1,7 @@
 package com.groupware.user.mapper;
 
 import com.groupware.user.dto.DeptDTO;
+import com.groupware.user.dto.PositionDTO;
 import com.groupware.user.dto.UserDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -36,4 +37,8 @@ public interface UserMapper {
             "FROM department " +
             "WHERE department_id = #{departmentId}")
     DeptDTO findDepartmentById(int departmentId);
+
+    // 모든 직급 정보를 조회하는 쿼리
+    @Select("SELECT ps_cd AS positionCode, ps_nm AS positionName FROM positions")
+    List<PositionDTO> getAllPositions( );
 }

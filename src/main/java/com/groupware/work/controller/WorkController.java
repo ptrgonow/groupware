@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WorkController {
 
     @GetMapping("/fm")
-    public String main() {
-        return "work/FM/main-finance";
+    public String fm() {
+        return "work/fm/main-finance";
     }
 
     @GetMapping("/fm/eform")
     public String eform() {
-        return "work/FM/eform-finance";
+        return "work/fm/eform-finance";
     }
     @GetMapping("/fm/eform-draft")
     public String eformDraft() {
-        return "work/fm/eform-draft";
+        return "file/eform-draft";
     }
 
     @GetMapping("/hr")

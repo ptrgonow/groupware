@@ -4,22 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
-    
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/main-mypage.css">
+
 </head>
 <body>
 
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
+    
+    <link rel="stylesheet" href="/css/main-mypage.css">
     
     <div class="page-wrapper">
         <div class="content container-fluid">
@@ -82,7 +75,7 @@
                             <h4 class="card-title">정보 수정</h4>
                         </div>
                         <div class="card-body">
-                            <form id="registerForm" method="post" action="/user/update" enctype="multipart/form-data">
+                            <form id="updateForm" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
@@ -102,7 +95,7 @@
                                             <input type="text" class="form-control-sm" id="department" name="departmentName" th:value="${user != null} ? ${user.departmentName} : ''" readonly>
                                             
                                             <label for="position">직급</label>
-                                            <input type="text" class="form-control-sm" id="position" name="position" th:value="${user != null} ? ${user.position} : ''" readonly>
+                                            <input type="text" class="form-control-sm" id="position" name="position" th:value="${user != null} ? ${user.ps_cd} : ''" readonly>
                                             
                                             <label for="username">아이디</label>
                                             <input type="text" class="form-control-sm" id="username" name="username" th:value="${user != null} ? ${user.username} : ''">
@@ -124,17 +117,6 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/feather.min.js"></script>
-<script src="/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="/js/ProgressBar.js"></script>
-<script src="/js/script.js"></script>
-<script src="/js/attendance.js"></script>
-<script src="/js/login.js"></script>
-<script src="/js/hr-register.js"></script>
-<script src="/js/side.js"></script>
-
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 </body>
 </html>

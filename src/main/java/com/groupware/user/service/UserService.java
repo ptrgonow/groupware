@@ -1,6 +1,7 @@
 package com.groupware.user.service;
 
 import com.groupware.user.dto.DeptDTO;
+import com.groupware.user.dto.PositionDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,9 @@ public class UserService {
         return null;
     }
 
-
+    public List<PositionDTO> getAllPositions( ) {
+        List<PositionDTO> positions = userMapper.getAllPositions();
+        logger.info("Fetched all positions: {}", positions);
+        return positions;
+    }
 }

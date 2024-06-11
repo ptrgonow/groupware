@@ -1,25 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>그룹웨어</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/main-dev.css">
-</head>
+    <title></title></head>
 <body>
 <div class="main-wrapper">
-    <div th:replace="~{include/header/main-header :: header}">
-    </div>
-    <div th:replace="~{include/side/main-side :: side}">
-    </div>
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    <link rel="stylesheet" href="/css/main-dev.css">
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
@@ -583,12 +570,7 @@
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/feather.min.js"></script>
-<script src="/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="/js/script.js"></script>
-<script src="/js/hr-register.js"></script>
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 </body>
 </html>

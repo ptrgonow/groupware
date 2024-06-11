@@ -1,10 +1,12 @@
 package com.groupware.user.controller;
 
 import com.groupware.user.dto.DeptDTO;
+import com.groupware.user.dto.PositionDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +41,7 @@ public class UserController {
                                                             @RequestParam("birth_date") String birthDate,
                                                             @RequestParam("address") String address,
                                                             @RequestParam("department_id") int departmentId,
-                                                            @RequestParam("position") String position,
+                                                            @RequestParam("ps_cd") String position,
                                                             @RequestParam("username") String username,
                                                             @RequestParam("password") String password) {
         UserDTO user = new UserDTO();
@@ -48,7 +50,7 @@ public class UserController {
         user.setBirthDate(birthDate);
         user.setAddress(address);
         user.setDepartmentId(departmentId);
-        user.setPosition(position);
+        user.setPs_cd(position);
         user.setUsername(username);
         user.setPassword(password);
 
@@ -68,6 +70,13 @@ public class UserController {
         List<DeptDTO> departments = userService.getAllDepartments();
         return ResponseEntity.ok(departments);
     }
+
+    @GetMapping("/positions")
+    public ResponseEntity<List<PositionDTO>> getAllPositions() {
+        List<PositionDTO> positions = userService.getAllPositions();
+        return ResponseEntity.ok(positions);
+    }
+
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestParam("username") String username,
@@ -97,5 +106,22 @@ public class UserController {
         session.invalidate();
         return ResponseEntity.ok("로그아웃 성공");
     }
+
+    @GetMapping("/dInfo")
+    public ResponseEntity<Map<String, Object>> getUserDepartmentInfo(HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        Map<String, Object> response = new HashMap<>();
+
+        if (user != null) {
+            response.put("departmentId", user.getDepartmentId());
+            response.put("departmentName", user.getDepartmentName());
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
+
+
+
 
 }
