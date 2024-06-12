@@ -4,12 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
-    
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
 </head>
 <body>
 
@@ -45,50 +41,28 @@
                                 <th scope="col">업로드 날짜</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr th:each="dto : ${fList}">
-                                <td><input type="checkbox" th:value="${dto.fileCd}"></td>
-                                <td th:text="${dto.fileCd}"></td>
-                                <td th:text="${dto.title}"></td>
-                                <td th:text="${dto.departmentName}"></td>
-                                <td th:text="${dto.updatedAt.substring(0,10)}"></td>
-                            </tr>
+                            <tbody id="file-list">
+
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <!-- 문서 등록, 삭제 버튼 -->
-                <div class="file-btn" th:if="${user.departmentId == 3}">
-                    <button type="button" class="btn btn-outline">문서 등록</button>
-                    <button type="button" class="btn btn-danger">문서 삭제</button>
-                </div>
+            </div>
+            <!-- 문서 등록, 삭제 버튼 -->
+            <div class="file-btn" th:if="${user.departmentId == 3}">
+                <button type="button" class="btn btn-outline">문서 등록</button>
+                <button type="button" class="btn btn-danger">문서 삭제</button>
             </div>
 
-
-
-
             <!-- 페이징 -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <div id="paging-container"></div>
+            <div id="pagination"></div>
+
         </div>
     </div>
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/main-file.js"></script>
 </body>
 </html>
