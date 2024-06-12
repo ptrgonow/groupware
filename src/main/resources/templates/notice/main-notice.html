@@ -25,37 +25,7 @@
             </div>
 
             <div class="row mb-4">
-                <div class="col-md-6">
-                    <div class="card-body-inner">
 
-                        <div class="breadcrumb-pink text-center">
-
-                            <h4>생일자 명단</h4>
-                            <div id="calendar" class="calendar mt-3">
-                                <div class="month">
-                                    <div class="prev" onclick="moveMonth(-1)">&#10094;</div>
-                                    <div class="month-name">June 2024</div>
-                                    <div class="next" onclick="moveMonth(1)">&#10095;</div>
-                                </div>
-
-                                <div class="weekdays">
-                                    <div>일</div>
-                                    <div>월</div>
-                                    <div>화</div>
-                                    <div>수</div>
-                                    <div>목</div>
-                                    <div>금</div>
-                                    <div>토</div>
-                                </div>
-
-                                <div class="days"></div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
 
                 <div class="col-md-6">
                     <div class="card-body-inner">
@@ -93,9 +63,9 @@
                         </div>
                     </div>
 
-                    <a href="notice-write" class="cocoBtn1">주요일정 작성</a>
 
-                    <a href="notice-write" class="cocoBtn2">공지사항 작성</a>
+
+                    <a href="notice-write" class="cocoBtn">공지사항 작성</a>
 
 
                 </div>
@@ -114,9 +84,17 @@
                         <th>작성일</th>
                     </tr>
                     </thead>
-                    
-                    <tbody id="notice_cont"></tbody>
-                    
+
+                    <tbody id="notice_cont">
+                    <tr th:each="notice : ${notices}">
+                        <td th:text="${notice.notice_id}">ID</td>
+                        <td th:text="${notice.title}">Title</td>
+                        <td th:text="${notice.content}">Content</td>
+                        <td th:text="${notice.created_at}"></td>
+                    </tr>
+                    </tbody>
+
+
                 </table>
             </div>
         </div>

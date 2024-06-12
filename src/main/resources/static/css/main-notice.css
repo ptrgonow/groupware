@@ -33,28 +33,13 @@
     font-weight: bold; /* 생일인 사람의 글자를 두껍게 표시합니다. */
 }
 
-/* 생일축하 핑크박스 */
-
-.breadcrumb-pink {
-    display: flex;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    align-items: center;
-    justify-content: space-around;
-    padding:7px ;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px 0 rgba(137, 137, 137, 0.25);
-    background-color: #fff3f3;
-}
 
 
 
 
 /* 이번달 주요일정 */
 .breadcrumb-gray {
-    display: flex;
+
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -216,7 +201,7 @@ th {
 
 
 /* 버튼 기본 스타일 */
-.cocoBtn1, .cocoBtn2 {
+.cocoBtn {
     display: inline-block;
     padding: 10px 20px;
     width: 300px; /* 버튼의 너비를 조정 */
@@ -228,36 +213,39 @@ th {
     border: none;
     border-radius: 10px;
     transition: background-color 0.3s, box-shadow 0.3s;
-    margin-right: 5rem;
+    margin-left: 15rem;
     background-color: #455560;
     color: #ffffff;
 
 }
 
 /* 버튼 기본 배경색과 텍스트 색상 */
-.cocoBtn1-default, .cocoBtn2-default {
+.cocoBtn-default {
     background-color: #6b6b6b;
     color: #000000;
 }
 
 /* 버튼 호버 효과 */
-.cocoBtn1:hover, .cocoBtn2:hover {
+.cocoBtn:hover {
     background-color: #d9d9d9;
     color: #737373;
 }
 
 /* 버튼 그림자 효과 */
-.cocoBtn1-shadow, .cocoBtn2-shadow {
+.cocoBtn-shadow {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* 버튼 커서 효과 */
-.cocoBtn1:hover, .cocoBtn2:hover {
+.cocoBtn:hover {
     transform: translateY(-1px);
 }
 
 /* 버튼 활성 상태 스타일 */
-.cocoBtn1:active, .cocoBtn2:active {
+.cocoBtn:active {
     transform: translateY(2px);
 }
+
+
+
 
