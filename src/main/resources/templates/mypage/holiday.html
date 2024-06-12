@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
-    
-</head>
+
+</head>approval
 <body>
 
 <div class="main-wrapper">
@@ -24,7 +24,10 @@
                 <div class="col-xl-8 col-sm-12 col-12 ">
                     <div class="card card-list flex-fill">
                         <div class="card-header">
-                                <h4 class="card-title">잔여 연차 / 휴가</h4>
+                            <h4 th:text="${user != null} ? ${user.name} : '사용자'"></h4> 님의 잔여 연차는 <span th:text="${user != null} ? ${holiday.dayoff} : '0'"></span>일 입니다.
+                        </div>
+                        <div class="card-header">
+                            <h4 th:text="${user != null} ? ${user.name} : '사용자'"></h4> 님의 잔여 휴가는 <span th:text="${user != null} ? ${holiday.vacation} : '0'"></span>일 입니다.
                         </div>
                         <div class="card-body dash-activity">
                             <div class="slimscroll activity_scroll">
@@ -42,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            
+        
         </div>
     </div>
 </div>
