@@ -13,5 +13,6 @@ public class ProjectDTO {
     private int department_id;
     private String description;
     private String create_at;
+    private String employee_code;
 
 }

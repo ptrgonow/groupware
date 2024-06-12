@@ -19,9 +19,9 @@ public class WorkService {
         this.workMapper = workMapper;
     }
 
-    public List<ProjectDTO> getProjects() {
+    public List<ProjectDTO> getProjects(String employee_code) {
 
-        return workMapper.getProjects();
+        return workMapper.getProjects(employee_code);
     }
 
     public List<ProjectFeedDTO> getFeed(int projectId) {
