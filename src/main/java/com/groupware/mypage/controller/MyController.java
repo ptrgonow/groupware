@@ -66,5 +66,12 @@ public class MyController {
         }
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/holiday")
+    public String holidayPage(Model model, HttpSession session) {
+
+        return "mypage/holiday";
+    }
+
 }
 
