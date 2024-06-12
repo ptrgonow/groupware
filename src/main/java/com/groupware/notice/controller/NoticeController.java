@@ -8,4 +8,6 @@ public class NoticeController {
 
     @GetMapping("/notice")
     public String notice() {return "notice/main-notice"; }
+    @GetMapping("/notice-write")
+    public String noticeWrite() {return "notice/notice-write"; }
 }

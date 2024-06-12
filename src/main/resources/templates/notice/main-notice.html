@@ -14,8 +14,6 @@
 </head>
 <body>
 
-
-
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
@@ -26,30 +24,45 @@
                 <h3>공지사항</h3>
             </div>
 
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card-body-inner">
 
-
-            <div class="card-body-inner">
-
-
-
-                <div class="row mb-4">
-                    <div class="col-xl-6 col-sm-12 col-12">
                         <div class="breadcrumb-pink text-center">
-                            <h4>생일 축하합니다</h4>
+
+                            <h4>생일자 명단</h4>
+                            <div id="calendar" class="calendar mt-3">
+                                <div class="month">
+                                    <div class="prev" onclick="moveMonth(-1)">&#10094;</div>
+                                    <div class="month-name">June 2024</div>
+                                    <div class="next" onclick="moveMonth(1)">&#10095;</div>
+                                </div>
+
+                                <div class="weekdays">
+                                    <div>일</div>
+                                    <div>월</div>
+                                    <div>화</div>
+                                    <div>수</div>
+                                    <div>목</div>
+                                    <div>금</div>
+                                    <div>토</div>
+                                </div>
+
+                                <div class="days"></div>
+
+                            </div>
                         </div>
-                       
+
                     </div>
 
+                </div>
 
-
-                    <div class="col-xl-6 col-sm-12 col-12">
-
+                <div class="col-md-6">
+                    <div class="card-body-inner">
                         <div class="breadcrumb-gray text-center">
                             <h4>이번 달 주요 일정</h4>
                         </div>
-
                         <div class="table-responsive">
-
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -70,24 +83,32 @@
                                     <td>제품 론칭 이벤트</td>
                                     <td>6월 25일</td>
                                 </tr>
+                                <tr>
+                                    <td>클라이언트 회의</td>
+                                    <td>6월 30일</td>
+                                </tr>
                                 <!-- 추가적인 주요 일정 정보 -->
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
 
-                </div>
+                    <a href="notice-write" class="cocoBtn1">주요일정 작성</a>
 
+                    <a href="notice-write" class="cocoBtn2">공지사항 작성</a>
+
+
+                </div>
             </div>
 
 
-            <div class="card-body-inner">
 
+
+
+            <div class="card-body-inner">
                 <div class="breadcrumb-gray text-center">
                     <h2>공지사항</h2>
                 </div>
-
                 <table class="gong">
                     <thead>
                     <tr>
@@ -136,15 +157,13 @@
                     </tr>
                     </tbody>
                 </table>
-
             </div>
-
-            
-            
         </div>
     </div>
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/notice.js"></script>
+
 </body>
 </html>

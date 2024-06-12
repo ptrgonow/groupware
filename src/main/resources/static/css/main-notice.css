@@ -46,7 +46,7 @@
     padding:7px ;
     border-radius: 10px;
     box-shadow: 0 4px 10px 0 rgba(137, 137, 137, 0.25);
-    background-color: pink;
+    background-color: #fff3f3;
 }
 
 
@@ -152,7 +152,112 @@ th {
 }
 
 
+.calendar {
+    width: 100%;
+    max-width: 400px;
+    margin-left: 12rem; /* 오른쪽으로 20px 이동 */
+    margin-top: 2rem;
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+
+}
+
+.month {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+
+}
+
+.month-name {
+    font-size: 1.5em;
+}
+
+.prev, .next {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.weekdays {
+    display: flex;
+
+    color: #1d2124;
+}
+
+.weekdays div {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+}
+
+.days {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.day {
+    width: 14.28%;
+    padding: 20px 0;
+    text-align: center;
+    border: 1px solid #f0f0f0;
+    cursor: pointer;
+}
+
+.day:hover {
+    background-color: #f0f0f0;
+}
 
 
 
+/* 버튼 기본 스타일 */
+.cocoBtn1, .cocoBtn2 {
+    display: inline-block;
+    padding: 10px 20px;
+    width: 300px; /* 버튼의 너비를 조정 */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-right: 5rem;
+    background-color: #455560;
+    color: #ffffff;
+
+}
+
+/* 버튼 기본 배경색과 텍스트 색상 */
+.cocoBtn1-default, .cocoBtn2-default {
+    background-color: #6b6b6b;
+    color: #000000;
+}
+
+/* 버튼 호버 효과 */
+.cocoBtn1:hover, .cocoBtn2:hover {
+    background-color: #d9d9d9;
+    color: #737373;
+}
+
+/* 버튼 그림자 효과 */
+.cocoBtn1-shadow, .cocoBtn2-shadow {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 버튼 커서 효과 */
+.cocoBtn1:hover, .cocoBtn2:hover {
+    transform: translateY(-1px);
+}
+
+/* 버튼 활성 상태 스타일 */
+.cocoBtn1:active, .cocoBtn2:active {
+    transform: translateY(2px);
+}
 
