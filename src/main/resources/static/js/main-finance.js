@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Initialize Charts
-    var invoicesChart = initChart('invoicesChart', 'bar', chartData.invoices.labels, chartData.invoices.data['Last Month']);
+    var invoicesChart = initChart('invoicesChart', 'horizontalBar', chartData.invoices.labels, chartData.invoices.data['Last Month']);
     var salesChart = initChart('salesChart', 'line', chartData.sales.labels, chartData.sales.data['Last Month']);
     var expensesChart = initChart('expensesChart', 'doughnut', chartData.expenses.labels, chartData.expenses.data['Last Month']);
     var profitLossChart = initChart('profitLossChart', 'pie', chartData.profitLoss.labels, chartData.profitLoss.data['Last Month']);
@@ -105,4 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
         chart.data.datasets[0].data = data;
         chart.update();
     }
+
+    // fm 메인 화면 "결재 목록" 에서 전체 row(줄) 아무데나 클릭 시 다음 페이지 넘어가는 기능
+    document.addEventListener('DOMContentLoaded', function () {
+        var rows = document.querySelectorAll('.clickable-row');
+        rows.forEach(function (row) {
+            row.addEventListener('click', function () {
+                window.location = row.getAttribute('data-href');
+            });
+        });
+    });
 });
