@@ -5,6 +5,7 @@ import com.groupware.schedule.service.SchdService;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,11 +18,10 @@ import java.util.List;
 @RequestMapping("/sc")
 public class SchdController {
 
-    private final UserService userService;
     private final SchdService schdService;
 
-    public SchdController(UserService userService, SchdService schdService) {
-        this.userService = userService;
+    @Autowired
+    public SchdController(SchdService schdService) {
         this.schdService = schdService;
     }
 
@@ -29,7 +29,6 @@ public class SchdController {
     public String mainSchedule(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
-            user = userService.getUserDetails(user.getEmployeeCode());
             session.setAttribute("employeeCode", user.getEmployeeCode());
             session.setAttribute("departmentId", user.getDepartmentId());
             model.addAttribute("user", user);
@@ -53,9 +52,6 @@ public class SchdController {
         if (employeeCode == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-
-        // 디버깅 로그 추가
-        System.out.println("Received Schedule: " + schedule);
 
         if (schedule.getStartTime() == null) {
             return new ResponseEntity<>("Start time cannot be null", HttpStatus.BAD_REQUEST);

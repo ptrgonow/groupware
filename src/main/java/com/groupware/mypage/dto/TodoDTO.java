@@ -10,5 +10,6 @@ public class TodoDTO {
     private String employeeCode;
     private String status;
     private String createdAt;
+    private boolean completed;
 
 }

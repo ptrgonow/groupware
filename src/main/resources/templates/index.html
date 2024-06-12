@@ -2,15 +2,18 @@
 <html lang="ko">
 <head>
 
-    <title></title>
+    <title>그룹웨어</title>
 
 </head>
 
 <body>
 <div class="main-wrapper">
+    
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-
+    <link rel="stylesheet" href="/css/todo.css">
+    <link rel="stylesheet" href="/css/schedule.css">
+    
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
@@ -55,8 +58,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-
-
+                            <div id='calendar'></div>
                         </div>
                     </div>
                 </div>
@@ -82,24 +84,10 @@
                             <h4 class="card-title">todo list</h4>
                         </div>
 
-                        <div class="card-body dash-activity">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
-                        <div class="card-header">
-                            <h4 class="card-title-dash">테이블 3</h4>
-                        
-                        </div>
                         <div class="card-body">
-                            
-                            <div class="leave-viewall">
-                                <a href="#">모두 보기<img src="/img/r-arrow.png" class="ml-2" alt="arrow" /></a>
+                            <div class="list-group">
+                                <ul id="todolist" class="list-group"></ul>
+                                <div id="pagination-mini" class=" "></div>
                             </div>
                         </div>
                     </div>
@@ -110,6 +98,8 @@
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/schedule.js"></script>
+<script src="/js/todo.js"></script>
 </body>
 </html>
 

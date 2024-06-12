@@ -86,9 +86,6 @@ $(document).ready(function() {
                         const checkIn = new Date(record.checkIn);
                         const checkOut = record.checkOut ? new Date(record.checkOut) : new Date();
 
-                        console.log(`Record: ${JSON.stringify(record)}`);
-                        console.log(`CheckIn: ${checkIn}, CheckOut: ${checkOut}`);
-
                         if (checkIn.toDateString() === today.toDateString()) {
                             dailyHours += (checkOut - checkIn) / (1000 * 60 * 60);
                         }
@@ -97,9 +94,6 @@ $(document).ready(function() {
                             weeklyHours += (checkOut - checkIn) / (1000 * 60 * 60);
                         }
                     });
-
-                    console.log(`Daily Hours: ${dailyHours}`);
-                    console.log(`Weekly Hours: ${weeklyHours}`);
 
                     // 일일 근무 시간 퍼센트 계산 (최대 8시간 기준)
                     const dailyProgressValue = Math.min(dailyHours / 8, 1);
@@ -150,7 +144,7 @@ function updateProgressBar(containerId, progressValue, hours) {
     const formattedTime = formatTime(hours);
 
     const bar = new ProgressBar.Circle(container, {
-        color: '#000000',
+        color: '#000',
         strokeWidth: 4,
         trailWidth: 1,
         easing: 'easeInOut',
@@ -159,8 +153,8 @@ function updateProgressBar(containerId, progressValue, hours) {
             value: `${formattedTime}\n${Math.round(progressValue * 100)}%`,
             autoStyleContainer: false
         },
-        from: {color: '#ec5353', width: 3},
-        to: {color: '#333', width: 4},
+        from: {color: '#4e85de', width: 3},
+        to: {color: '#ff1b1b', width: 4},
         step: function (state, circle) {
             circle.path.setAttribute('stroke', state.color);
             circle.path.setAttribute('stroke-width', state.width);
@@ -176,7 +170,7 @@ function updateProgressBar(containerId, progressValue, hours) {
     bar.text.style.fontFamily = '"Noto Sans", "Roboto", sans-serif';
     bar.text.style.textAlign = 'center';
 
-    bar.animate(progressValue);  // 0.0에서 1.0 사이의 숫자
+    bar.animate(progressValue);
 }
 
 function formatTime(hours) {

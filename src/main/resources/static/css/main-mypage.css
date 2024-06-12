@@ -63,7 +63,7 @@ body {
     font-size: 0.8rem;
 }
 
-#regi-btn button {
+#regi-btn {
     width: 150px;
     height: 3rem;
     background-color: #455560;
@@ -74,14 +74,13 @@ body {
     font-size: 1rem;
     font-weight: 500;
     vertical-align: middle;
-    transition: background-color 0.3s;
 }
 
-#regi-btn button:hover {
+#regi-btn:hover {
     color: #000;
     border: 1px solid #455560;
     background-color: transparent;
-    transition: background-color 0.3s ease-in-out;
+    transition: all 0.3s ease;
 }
 
 .form-group select, .form-group input[type="text"] {
@@ -90,4 +89,9 @@ body {
 
 .form-text {
     color: red;
+}
+
+.card-list .card-header {
+    justify-content: center;
+    gap: 1rem;
 }

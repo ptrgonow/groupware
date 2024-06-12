@@ -13,7 +13,6 @@ public interface MyMapper {
     @Select("SELECT todo_id AS todoId, content, employee_code AS employeeCode, created_at AS createdAt, status FROM todo WHERE employee_code = #{employeeCode} ORDER BY todo_id DESC")
     List<TodoDTO> getAllTodoList(String employeeCode);
 
-
     @Insert("INSERT INTO todo (content, employee_code, created_at, status) VALUES (#{content}, #{employeeCode}, NOW(), default)")
     boolean addTodo(TodoDTO todo);
 

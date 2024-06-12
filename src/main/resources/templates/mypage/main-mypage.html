@@ -21,21 +21,21 @@
             </div>
             
             <div class="row">
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
-                        <div class="card-header ">
-                            <h4 class="card-title">근태 기록</h4>
+                <div class="col-xl-6 d-flex mobile-h">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">근태 기록</h5>
+                            </div>
                         </div>
                         <div class="card-body">
-                            <div class="p-container">
-                                <div id="daily-progress-container" class="progressbar"></div>
-                                <div id="weekly-progress-container" class="progressbar"></div>
-                                
-                                <form id="attendance-form" class="form-inline" action="/att/insert" method="POST">
-                                    <input type="hidden" name="employee_code" th:value="${user != null} ? ${user.employeeCode} : ''">
-                                    <input type="hidden" name="action" id="action">
-                                    <input type="hidden" name="time" id="time">
-                                </form>
+                            <div class="card-img-top">
+                                <div class="progress-c">
+                                    <span>일간</span>
+                                    <div id="daily-progress-container" class="progressbar"></div>
+                                    <span>주간</span>
+                                    <div id="weekly-progress-container" class="progressbar"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,20 +48,12 @@
                                 <h4 class="card-title">잔여 연차 / 휴가</h4>
                             </div>
                         </div>
-                        <div class="card-body dash-activity">
-                            <div class="slimscroll activity_scroll">
-                                <div class="activity-set">
-                                    <div class="activity-img">
-                                        <img src="" alt="avatar">
-                                    </div>
-                                    <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>2 hours ago</span>
-                                    </div>
-                                </div>
+                        <div class="card-body">
+                            <div class="card-header">
+                                <span th:text="${user != null} ? ${user.name} : '사용자'"></span> 님의 잔여 연차는 <span th:text="${user != null} ? ${holiday.dayoff} : '0'"></span>일 입니다.
                             </div>
-                            <div class="leave-viewall">
-                                <a href="#">View all <img src="/img/r-arrow.png" class="ml-2" alt="arrow"></a>
+                            <div class="card-header">
+                                <span th:text="${user != null} ? ${user.name} : '사용자'"></span> 님의 잔여 휴가는 <span th:text="${user != null} ? ${holiday.vacation} : '0'"></span>일 입니다.
                             </div>
                         </div>
                     </div>
@@ -106,7 +98,7 @@
                                     </div>
                                 </div>
                                 <div class="text-end">
-                                    <button type="submit" class="btn btn-primary">수정</button>
+                                    <button type="submit" id="regi-btn" class="btn">수정</button>
                                 </div>
                             </form>
                         </div>

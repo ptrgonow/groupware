@@ -24,7 +24,11 @@ public class MyService {
     }
 
     public List<TodoDTO> getTodoList(String employeeCode) {
-        return myMapper.getAllTodoList(employeeCode);
+        List<TodoDTO> todoList = myMapper.getAllTodoList(employeeCode);
+        for (TodoDTO todo : todoList) {
+            todo.setCompleted("y".equalsIgnoreCase(todo.getStatus()));
+        }
+        return todoList;
     }
 
     public Map<String, Object> addTodoList(TodoDTO todo) {

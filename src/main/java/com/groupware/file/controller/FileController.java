@@ -42,7 +42,6 @@ public class FileController {
     public String search(@RequestParam String search, Model model) {
         List<FileDTO> searchList = fileService.searchList();
 
-
         return "file/search-file";
     }
 
@@ -50,9 +49,6 @@ public class FileController {
     public String vac() {
         return "file/eform-draft";
     }
-
-
-
 
 
 }

@@ -19,7 +19,7 @@
                             <h5 class="card-title">Todo</h5>
                         </div>
                         <div class="card-body">
-                            <div class="row d-flex justify-content-center align-items-center">
+                            <div id="td-con" class="row d-flex justify-content-center align-items-center">
                                 <div class="col-xl-5 col-12 mb-3">
                                     <form id="form-group" class="w-100">
                                         <input type="hidden" name="employeeCode" th:value="${session.user.employeeCode}" />
@@ -31,15 +31,17 @@
                                             <button id="todo_btn" type="submit" class="btn btn-info d-none d-xl-inline-block">등록</button>
                                         </div>
                                         <div class="mt-2 d-xl-none text-end">
-                                            <button id="todo_btn" type="submit" class="btn btn-info">등록</button>
+                                            <button id="todo_mbtn" type="submit" class="btn btn-info">등록</button>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="col-xl-5 col-12">
+                                <div id="list" class="col-xl-5 col-12">
                                     <h4>List</h4>
                                     <div class="list-group">
                                         <ul id="todolist" class="list-group"></ul>
+                                        
                                     </div>
+                                    <div id="pagination-mini" class=" "></div>
                                 </div>
                             </div>
                         </div>

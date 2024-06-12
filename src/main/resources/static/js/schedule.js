@@ -6,7 +6,7 @@ $(document).ready(function() {
     var calendarEl = $('#calendar')[0];
     var dayCalendarEl = $('#day-calendar')[0];
 
-    function setupCalendar(calendarEl, initialView, selectHandler, eventClickHandler) {
+    function setupCalendar(calendarEl, initialView, selectHandler, eventClickHandler, filterFunction) {
         return new FullCalendar.Calendar(calendarEl, {
             initialView: initialView,
             timeZone: 'local',
@@ -29,7 +29,7 @@ $(document).ready(function() {
                     url: '/sc/list',
                     method: 'GET',
                     success: function(events) {
-                        successCallback(events);
+                        successCallback(filterFunction(events));
                     },
                     error: function() {
                         alert('일정 목록을 불러오는 데 실패했습니다.');
@@ -43,6 +43,20 @@ $(document).ready(function() {
                 var eventType = info.event.extendedProps.type;
                 info.el.style.backgroundColor = getColorForType(eventType);
             },
+        });
+    }
+
+    function filterMonthly(events) {
+        return events; // 필터링을 하지 않음
+    }
+
+    function filterDaily(events) {
+        var today = new Date();
+        return events.filter(function(event) {
+            var eventDate = new Date(event.start);
+            return eventDate.getFullYear() === today.getFullYear() &&
+                eventDate.getMonth() === today.getMonth() &&
+                eventDate.getDate() === today.getDate();
         });
     }
 
@@ -199,14 +213,20 @@ $(document).ready(function() {
         });
     }
 
-    var calendar = setupCalendar(calendarEl, 'dayGridMonth', function(info) {
-        handleSelect(info, true);
-    }, handleEventClick);
+    // Calendar 초기화
+    var calendar, dayCalendar;
 
-    var dayCalendar = setupCalendar(dayCalendarEl, 'timeGridDay', function(info) {
-        handleSelect(info, false);
-    }, handleEventClick);
+    if (calendarEl) {
+        calendar = setupCalendar(calendarEl, 'dayGridMonth', function(info) {
+            handleSelect(info, true);
+        }, handleEventClick, filterMonthly);
+        calendar.render();
+    }
 
-    calendar.render();
-    dayCalendar.render();
+    if (dayCalendarEl) {
+        dayCalendar = setupCalendar(dayCalendarEl, 'timeGridDay', function(info) {
+            handleSelect(info, false);
+        }, handleEventClick, filterDaily);
+        dayCalendar.render();
+    }
 });

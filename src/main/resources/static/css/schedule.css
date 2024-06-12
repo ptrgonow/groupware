@@ -1,3 +1,40 @@
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap";
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+
+body {
+    background-color: #f7f8f9;
+    color: #455560;
+    font-family: 'Noto Sans', 'Roboto', sans-serif;
+    font-size: 0.9375rem;
+    height: 100%;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+a {
+    color: #455560;
+    text-decoration: none;
+}
+
+.fc-day-sun a {
+    color: red;
+}
+
+.fc-day-sat a {
+    color: blue;
+}
+
+.page-wrapper {
+    height: 100vh;
+}
+
+
 .fc-col-header-cell-cushion {
     text-decoration: none;
     color: #000;
@@ -22,7 +59,6 @@
     font-size: 1rem;
     font-weight: 500;
     vertical-align: middle;
-    transition: background-color 0.3s;
 }
 
 #deleteEventBtn {
@@ -37,7 +73,6 @@
     font-size: 1rem;
     font-weight: 500;
     vertical-align: middle;
-    transition: background-color 0.3s;
 }
 
 
@@ -45,14 +80,14 @@
     color: #000;
     border: 1px solid #455560;
     background-color: transparent;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 }
 
 #deleteEventBtn:hover {
     color: #000;
     border: 1px solid #455560;
     background-color: transparent;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 }
 
 .btn-close {
@@ -77,37 +112,8 @@
     overflow-y: auto; /* 이벤트가 많을 경우 스크롤바 추가 */
 }
 
-.fc-daygrid-event {
-    background-color: var(--fc-event-bg-color); /* 이벤트 배경색 */
-    color: var(--fc-event-text-color); /* 이벤트 텍스트 색상 */
-    border: 1px solid var(--fc-event-border-color); /* 이벤트 테두리 색상 */
-}
-
 .fc-daygrid-day-events .fc-event-title {
     white-space: nowrap; /* 이벤트 제목 줄 바꿈 방지 */
     overflow: hidden;
     text-overflow: ellipsis; /* 제목이 길 경우 생략 표시 */
-}
-
-.fc-popover {
-    background: var(--fc-page-bg-color);
-    border: 1px solid var(--fc-border-color);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.fc-popover-header {
-    background: var(--fc-neutral-bg-color);
-    display: flex;
-    justify-content: space-between;
-    padding: 3px 4px;
-}
-
-.fc-popover-header .fc-popover-title {
-    margin: 0 2px;
-}
-
-.fc-popover-header .fc-popover-close {
-    cursor: pointer;
-    opacity: 0.65;
-    font-size: 1.1em;
 }
