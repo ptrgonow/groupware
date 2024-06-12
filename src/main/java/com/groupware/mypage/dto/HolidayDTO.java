@@ -5,4 +5,8 @@ import lombok.Data;
 @Data
 public class HolidayDTO {
 
+    private String dayoff;
+    private String vacation;
+
+
 }

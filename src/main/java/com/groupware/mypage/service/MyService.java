@@ -36,6 +36,10 @@ public class MyService {
         }
     }
 
+    public HolidayDTO getHolidayList(String employeeCode) {
+
+        return myMapper.holidayCount(employeeCode);
+    }
 
 
 }

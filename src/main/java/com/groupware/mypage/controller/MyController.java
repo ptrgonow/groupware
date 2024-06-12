@@ -70,6 +70,11 @@ public class MyController {
     @GetMapping("/holiday")
     public String holidayPage(Model model, HttpSession session) {
 
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("holiday", myService.getHolidayList(user.getEmployeeCode()));
+        }
         return "mypage/holiday";
     }
 

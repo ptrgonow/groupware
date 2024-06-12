@@ -1,5 +1,6 @@
 package com.groupware.mypage.mapper;
 
+import com.groupware.mypage.dto.HolidayDTO;
 import com.groupware.mypage.dto.TodoDTO;
 import com.groupware.user.dto.UserDTO;
 import org.apache.ibatis.annotations.Insert;
@@ -20,7 +21,7 @@ public interface MyMapper {
 
     // 사원번호를 통해 입사일, 연차, 휴가일을 조회하는 쿼리
     @Select("SELECT hiredate, dayoff, vacation FROM employee WHERE employee_code = #{employeeCode}")
-    UserDTO holidayCount(String employeeCode);
+    HolidayDTO holidayCount(String employeeCode);
 
 
 
