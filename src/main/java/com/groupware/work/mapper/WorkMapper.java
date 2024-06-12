@@ -11,10 +11,12 @@ import java.util.List;
 @Mapper
 public interface WorkMapper {
 
-    @Select("select * from projects")
-    List<ProjectDTO> getProjects(
+    @Select("SELECT p.* " +
+            "FROM projects p " +
+            "JOIN project_member pm ON p.project_id = pm.project_id " +
+            "WHERE pm.employee_code = #{employeeCode}")
+    List<ProjectDTO> getProjects(@Param("employeeCode") String employeeCode);
 
-    );
 
     @Select("SELECT pf.project_id, pf.feed_content, e.name, pf.create_at " +
             "FROM project_feed pf " +

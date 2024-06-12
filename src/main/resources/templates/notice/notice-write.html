@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="all">
+    <div class="write_title">
+        <form action="#" method="POST">
+            <div class="titleCen">
+                <h2>공지사항 작성</h2>
+                <hr>
+            </div>
+
+            <label class="header" for="title-input">제목</label>
+            <input type="text" id="title-input" placeholder="제목을 입력하세요" name="title">
+
+            <div class="category">
+                <label class="header" for="category">카테고리</label>
+                <select name="category" id="category">
+                    <option value="option1">이벤트</option>
+                    <option value="option2">이용방법</option>
+                    <option value="option3">신고</option>
+                </select>
+            </div>
+
+            <!-- CKEditor 영역 -->
+            <div id="editor-container">
+                <textarea name="text" id="editor"></textarea>
+            </div>
+
+            <!-- 등록 버튼 -->
+            <p><input type="submit" value="등록" onclick="alert('작성완료')"></p>
+            <p><button type="button" onclick="goBack()">목록</button></p>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -13,8 +13,10 @@ public class UserDTO {
     private String departmentName;
     private String ps_cd;
     private String status;
-    private String createdAt;
+    private String hiredate;
     private String username;
     private String password;
+    private String dayoff;
+    private String vacation;
 
 }

@@ -1,25 +1,13 @@
 package com.groupware.work.controller;
 
-import com.groupware.work.dev.dto.ProjectDTO;
-import com.groupware.work.service.WorkService;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.ResponseEntity;
+import com.groupware.user.dto.UserDTO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.net.http.HttpResponse;
-import java.util.List;
 
 @Controller
 public class WorkController {
-
-    private final WorkService workService;
-
-    public WorkController(WorkService workService) {
-        this.workService = workService;
-    }
 
     @GetMapping("/fm")
     public String fm() {
@@ -47,16 +35,12 @@ public class WorkController {
     }
 
     @GetMapping("/dev")
-    public String dev(Model model) {
-        return "work/dev/main-dev"; // 템플릿 파일 경로만 반환
-    }
+    public String dev(Model model, HttpSession session) {
 
-    @GetMapping("/dev/projects")
-    @ResponseBody
-    public ResponseEntity<List<ProjectDTO>> dev() {
-        List<ProjectDTO> projectList = workService.getProjects();
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        model.addAttribute("employeeCode", user.getEmployeeCode());
 
-        return ResponseEntity.ok(projectList);
+        return "work/dev/main-dev";
     }
 
 

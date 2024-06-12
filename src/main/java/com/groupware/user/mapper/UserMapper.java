@@ -46,4 +46,5 @@ public interface UserMapper {
     // 직원 정보를 수정하는 쿼리
     @Update("UPDATE employee SET birth_date = #{birthDate}, address = #{address}, username = #{username}, password = #{password} WHERE employee_code = #{employeeCode}")
     int updateUser(UserDTO user);
+
 }

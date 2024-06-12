@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어</title>
+
+</head>approval
+<body>
+
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    
+    <link rel="stylesheet" href="/css/main-mypage.css">
+    
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h3>안녕하세요, <span th:text="${user != null} ? ${user.name} : '사용자'"></span> 님 !</h3>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-8 col-sm-12 col-12 ">
+                    <div class="card card-list flex-fill">
+                        <div class="card-header">
+                            <h4 th:text="${user != null} ? ${user.name} : '사용자'"></h4> 님의 잔여 연차는 <span th:text="${user != null} ? ${holiday.dayoff} : '0'"></span>일 입니다.
+                        </div>
+                        <div class="card-header">
+                            <h4 th:text="${user != null} ? ${user.name} : '사용자'"></h4> 님의 잔여 휴가는 <span th:text="${user != null} ? ${holiday.vacation} : '0'"></span>일 입니다.
+                        </div>
+                        <div class="card-body dash-activity">
+                            <div class="slimscroll activity_scroll">
+                                <div class="activity-set">
+                                    <div class="activity-img">
+                                        <img src="" alt="avatar">
+                                    </div>
+                                    <div class="activity-content">
+                                        <label>Lorem ipsum dolor sit amet,</label>
+                                        <span>2 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+</body>
+</html>

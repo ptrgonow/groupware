@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="employee-code" th:content="${employeeCode}">
     <title>그룹웨어</title>
 
 </head>
@@ -10,6 +11,7 @@
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
+    
     <link rel="stylesheet" href="/css/main-dev.css">
 
     <div class="page-wrapper">
