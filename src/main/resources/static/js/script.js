@@ -229,14 +229,6 @@
         return true;
     });
 
-    // fm 메인 화면 "결재 목록" 에서 전체 row(줄) 아무데나 클릭 시 다음 페이지 넘어가는 기능
-    document.addEventListener('DOMContentLoaded', function () {
-        var rows = document.querySelectorAll('.clickable-row');
-        rows.forEach(function (row) {
-            row.addEventListener('click', function () {
-                window.location = row.getAttribute('data-href');
-            });
-        });
-    });
+
 
 })(jQuery);
