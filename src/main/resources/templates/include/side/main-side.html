@@ -7,12 +7,7 @@
                 <div class="mobile-show">
                     <div class="offcanvas-menu">
                         <div class="user-info align-center bg-theme text-center">
-                            <span class="lnr lnr-cross text-white" id="mobile_btn_close">X</span>
-                            <a href="javascript:void(0)" class="d-block menu-style text-white">
-                                <div class="user-avatar d-inline-block mr-3">
-                                    <img src="" alt="user avatar" class="rounded-circle" width="50">
-                                </div>
-                            </a>
+                            <span class="lnr lnr-cross" id="mobile_btn_close">X</span>
                         </div>
                     </div>
                 </div>
@@ -25,13 +20,13 @@
                         <a href="/notice"><img src="/img/notice.png" alt="sidebar_img"><span>공지사항</span></a>
                     </li>
                     <li>
-                        <a href="#" id="workPage" onclick="navigateToWorkPage()"><img src="/img/work.png" alt="sidebar_img"><span>업무</span></a>
+                        <a id="workPage" onclick="navigateToWorkPage()"><img src="/img/work.png" alt="sidebar_img"><span>업무</span></a>
                     </li>
                     <li>
                         <a href="/approval"><img src="/img/approval.png" alt="sidebar_img"><span>전자결재</span></a>
                     </li>
                     <li>
-                        <a href="#"><img src="/img/calendar.png" alt="sidebar_img"><span>일정관리</span></a>
+                        <a href="/sc/schedule"><img src="/img/calendar.png" alt="sidebar_img"><span>일정관리</span></a>
                     </li>
                     <li>
                         <a href="/file"><img src="/img/file.png" alt="sidebar_img"><span>문서함</span></a>
@@ -40,11 +35,10 @@
                         <a href="#"><img src="/img/mypage.png" alt="sidebar_img"><span>내 정보</span></a>
                         
                         <ul class="dropdown-menu side">
-                            <li><a th:href="${session.user != null} ? '/mypage' :'/no'">근태</a></li>
+                            <li><a th:href="${session.user != null} ? '/mypage/myinfo' :'/no'">근태</a></li>
                             <li><a href="#">휴가 | 연차</a></li>
                             <li><a href="#">결재</a></li>
-                            <li><a href="#">내 일정</a></li>
-                            <li><a href="#">Todo</a></li>
+                            <li><a th:href="${session.user != null} ? '/mypage/todo' :'/no'">to do</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -57,7 +57,6 @@ public class UserController {
         Map<String, String> response = new HashMap<>();
         if (userService.registerUser(user)) {
             response.put("message", "유저 등록 성공");
-            response.put("redirectUrl", "/success-page"); // 리다이렉트할 URL
             return ResponseEntity.ok(response);
         } else {
             response.put("message", "유저 등록 실패");
@@ -88,7 +87,6 @@ public class UserController {
             session.setAttribute("user", user);
             response.put("message", "로그인 성공");
             response.put("username", user.getName());
-            response.put("departmentName", user.getDepartmentName());
             return ResponseEntity.ok(response);
         } else {
             response.put("message", "로그인 실패");
@@ -118,6 +116,36 @@ public class UserController {
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Map<String, String>> updateUser(
+            @RequestParam("employee_code") String employeeCode,
+            @RequestParam("birth_date") String birthDate,
+            @RequestParam("address") String address,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            HttpSession session) {
+
+        UserDTO user = new UserDTO();
+        user.setEmployeeCode(employeeCode);
+        user.setBirthDate(birthDate);
+        user.setAddress(address);
+        user.setUsername(username);
+        user.setPassword(password);
+
+        boolean updateSuccess = userService.updateUser(user);
+
+        Map<String, String> response = new HashMap<>();
+        if (updateSuccess) {
+            // 세션 업데이트
+            session.setAttribute("user", user);
+            response.put("message", "업데이트 성공");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "업데이트 실패");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 

@@ -64,4 +64,17 @@ public class UserService {
         logger.info("Fetched all positions: {}", positions);
         return positions;
     }
+
+    public boolean updateUser(UserDTO user) {
+        int result = userMapper.updateUser(user);
+        if (result == 1) {
+            logger.info("유저 정보 수정 성공: {}", user);
+            return true;
+        } else {
+            logger.error("유저 정보 수정 실패: {}", user);
+            return false;
+        }
+    }
+
+
 }

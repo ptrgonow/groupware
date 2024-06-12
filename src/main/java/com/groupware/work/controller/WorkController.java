@@ -22,8 +22,8 @@ public class WorkController {
     }
 
     @GetMapping("/fm")
-    public String main() {
-        return "work/FM/main-finance";
+    public String fm() {
+        return "work/fm/main-finance";
     }
 
     @GetMapping("/fm/eform")

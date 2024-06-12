@@ -19,7 +19,7 @@
 <div class="container">
     <div class="screen">
         <div class="screen__content">
-            <form class="login" action="/user/login" method="POST" id="loginForm">
+            <form class="login" id="loginForm">
                 <div class="login__field">
                     <span class="material-symbols-outlined">account_circle</span>
                     <input type="text" name="username" class="login__input" placeholder="아이디">
@@ -28,7 +28,7 @@
                     <span class="material-symbols-outlined">lock</span>
                     <input type="password" name="password" class="login__input" placeholder="비밀번호">
                 </div>
-                <button type="button" class="button login__submit" onclick="submitLoginForm()">
+                <button type="submit" class="button login__submit">
                     <span class="button__text">로그인</span>
                     <span class="material-symbols-outlined">login</span>
                 </button>
@@ -43,7 +43,7 @@
     </div>
 </div>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="/js/login.js"></script>
 </body>
 </html>

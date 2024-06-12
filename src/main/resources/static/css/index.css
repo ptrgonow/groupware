@@ -1,5 +1,4 @@
 
-
 .btn-hide {
     display: none;
 }
@@ -7,83 +6,23 @@
     display: inline-block;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.card-header .input-group {
-    margin-bottom: 0; /* 입력 필드와 버튼 사이의 여백 제거 */
+button {
+    width: 150px;
+    height: 3rem;
+    background-color: #455560;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    vertical-align: middle;
+    transition: background-color 0.3s;
 }
 
-.card-header .input-group input[type="text"],
-.card-header .input-group button {
-    height: 38px; /* Bootstrap의 기본 높이와 동일하게 설정 */
-    padding: 0.375rem 0.75rem; /* Bootstrap의 기본 패딩 값으로 설정 */
-    font-size: 1rem; /* Bootstrap의 기본 글꼴 크기로 설정 */
-    line-height: 1.5; /* Bootstrap의 기본 줄 간격으로 설정 */
-}
-
-#todo-form {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem; /* 하단 여백 */
-}
-
-#todo-input {
-    height: 38px; /* 기본 Bootstrap 버튼 높이와 맞추기 */
-    padding: 0.375rem 0.75rem; /* 기본 Bootstrap 패딩 값 */
-    font-size: 1rem; /* 기본 Bootstrap 글꼴 크기 */
-    line-height: 1.5; /* 기본 Bootstrap 줄 간격 */
-    border: 1px solid #ced4da; /* 기본 Bootstrap 테두리 스타일 */
-    border-radius: 0.25rem; /* 기본 Bootstrap 테두리 반경 */
-}
-
-#todo-form button {
-    height: 38px; /* 기본 Bootstrap 버튼 높이와 맞추기 */
-    padding: 0.375rem 0.75rem; /* 기본 Bootstrap 패딩 값 */
-    font-size: 1rem; /* 기본 Bootstrap 글꼴 크기 */
-    line-height: 1.5; /* 기본 Bootstrap 줄 간격 */
-    border-radius: 0.25rem; /* 기본 Bootstrap 테두리 반경 */
-}
-
-#todo-form input[type="text"] {
-    border-top-right-radius: 0; /* 오른쪽 테두리 반경 제거 */
-    border-bottom-right-radius: 0; /* 오른쪽 테두리 반경 제거 */
-}
-
-#todo-form button {
-    border-top-left-radius: 0; /* 왼쪽 테두리 반경 제거 */
-    border-bottom-left-radius: 0; /* 왼쪽 테두리 반경 제거 */
-    margin-left: -1px; /* 버튼과 인풋 필드 사이의 테두리 중복을 제거 */
-}
-
-#todo-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem; /* 항목 사이의 간격 */
-}
-
-#todo-list li button {
-    margin-left: auto; /* 삭제 버튼을 맨 오른쪽으로 이동 */
-}
-
-.dash-activity {
-    padding-left: 15px; /* 기본 Bootstrap 여백과 일치시킴 */
-    padding-right: 15px;
+button:hover {
+    color: #000;
+    border: 1px solid #455560;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
 }
