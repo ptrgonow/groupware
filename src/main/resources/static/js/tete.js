@@ -45,6 +45,30 @@ $(document).ready(function() {
             $('#deleteEventBtn').show();
             $('#eventModal').modal('show');
         },
+        eventDrop: function(info) {
+            var updatedEvent = {
+                title: info.event.title,
+                start: info.event.start.toISOString(),
+                end: info.event.end ? info.event.end.toISOString() : null,
+                description: info.event.extendedProps.description,
+                employeeCode: employee_code,
+                departmentId: department_id,
+                type: info.event.extendedProps.type
+            };
+            updateEvent(updatedEvent, info.event.id);
+        },
+        eventResize: function(info) {
+            var updatedEvent = {
+                title: info.event.title,
+                start: info.event.start.toISOString(),
+                end: info.event.end ? info.event.end.toISOString() : null,
+                description: info.event.extendedProps.description,
+                employeeCode: employee_code,
+                departmentId: department_id,
+                type: info.event.extendedProps.type
+            };
+            updateEvent(updatedEvent, info.event.id);
+        },
         eventDidMount: function(info) {
             var eventType = info.event.extendedProps.type;
             info.el.style.backgroundColor = getColorForType(eventType);
@@ -87,7 +111,7 @@ $(document).ready(function() {
 
         if (currentEvent) {
             eventData.id = currentEvent.id;
-            updateEvent(eventData, currentEvent.id); // currentEvent.id 추가
+            updateEvent(eventData);
         } else {
             createEvent(eventData);
         }
