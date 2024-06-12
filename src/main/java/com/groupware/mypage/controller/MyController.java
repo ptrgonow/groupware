@@ -53,6 +53,7 @@ public class MyController {
     public ResponseEntity<Map<String, Object>> addTodo(@RequestParam("content") String content,
                                                        @RequestParam("employeeCode") String employeeCode) {
         Map<String, Object> response;
+
         try {
             TodoDTO todo = new TodoDTO();
             todo.setContent(content);
@@ -66,6 +67,18 @@ public class MyController {
         }
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/delete")
+    public ResponseEntity<Map<String, Object>> deleteTodo(@RequestParam("todoId") int todoId) {
+        boolean isDeleted = myService.deleteTodoList(todoId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", isDeleted);
+        return ResponseEntity.ok(response);
+    }
+
+
+
+
 
     @GetMapping("/holiday")
     public String holidayPage(Model model, HttpSession session) {

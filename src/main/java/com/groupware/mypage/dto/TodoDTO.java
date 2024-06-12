@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class TodoDTO {
 
+    private int todoId;
     private String content;
     private String employeeCode;
     private String status;

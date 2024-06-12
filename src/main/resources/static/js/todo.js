@@ -1,4 +1,8 @@
+
 $(document).ready(function () {
+
+
+
     $('#todo_form').on('submit', function (event) {
         event.preventDefault();
 
@@ -39,9 +43,28 @@ $(document).ready(function () {
         toggleDeleteBtn();
     });
 
+
+
     $('#todolist').on('click', '.delete-btn', function() {
-        $(this).parent().remove();
-        toggleDeleteBtn();
+
+        var todoId = $(this).siblings('input[name="todoId"]').val(); // 삭제 버튼의 형제 요소 중 hidden input에서 todoId 값을 가져옴
+
+        $.ajax({
+            url: '/mypage/delete',
+            type: 'POST',
+            data: {todoId: todoId},
+            success: function(data) {
+                if (data.success) {
+                    $('.todo-checkbox:checked').parent().remove();
+                    toggleDeleteBtn();
+                } else {
+                    alert('할 일을 삭제하는데 실패했습니다.');
+                }
+            },
+            error: function() {
+                alert('서버와 통신 중 오류가 발생했습니다.');
+            }
+        });
     });
 
     function addTodoItem(content) {
