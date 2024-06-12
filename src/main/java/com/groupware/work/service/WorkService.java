@@ -28,4 +28,9 @@ public class WorkService {
 
         return workMapper.getFeed(projectId);
     }
+
+    public ProjectDTO getProjectInfo(int projectId){
+
+        return workMapper.getProjectInfo(projectId);
+    }
 }
