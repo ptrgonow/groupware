@@ -5,6 +5,8 @@ import com.groupware.user.dto.PositionDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
 
     private final UserService userService;
 
@@ -85,10 +90,12 @@ public class UserController {
         Map<String, String> response = new HashMap<>();
         if (user != null) {
             session.setAttribute("user", user);
+            logger.info("User {} logged in. Session ID: {}", user.getUsername(), session.getId());
             response.put("message", "로그인 성공");
             response.put("username", user.getName());
             return ResponseEntity.ok(response);
         } else {
+            logger.info("Login failed for username: {}", username);
             response.put("message", "로그인 실패");
             return ResponseEntity.badRequest().body(response);
         }

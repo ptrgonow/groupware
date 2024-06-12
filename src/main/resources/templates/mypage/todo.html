@@ -9,41 +9,53 @@
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
     <link rel="stylesheet" href="/css/todo.css">
-
+    
     <div class="page-wrapper">
         <div class="content container-fluid">
-            <div class="page-name mb-4">
-                <h3>To do</h3>
-            </div>
-            <div class="row">
-                <div class="col-xl-5 mobile-h">
-                    <form id="todo_form">
-                        <input type="hidden" name="employeeCode" th:value="${session.user.employeeCode}" />
-                        <div class="input-group">
-                            <input id="todo" class="form-control" type="text" name="content" placeholder="할 일을 입력하세요.">
-                            <button id="todo_btn" type="submit" class="btn btn-info">Enter</button>
+            <div class="col-xl-12 mobile-h">
+                
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <h5 class="card-title">todo</h5>
                         </div>
-                    </form>
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-5 mobile-h">
-                    <h4>list</h4>
-                    <ul id="todolist" class="list-group">
-                        <li th:each="todo : ${todoList}" class="list-group-item d-flex justify-content-between align-items-center">
-                            <input type="checkbox" class="form-check-input todo-checkbox">
-                            <input type="hidden" class="todo-id" name="todoId" th:value="${todo.todoId}">
-                            <span th:text="${todo.content}"></span>
-                            <button class="btn btn-danger delete-btn">삭제</button>
-                        </li>
-                    </ul>
+                    </div>
+                    
+                    <div class="col-xl-12 mobile-h d-flex justify-content-center align-items-center">
+                        
+                        
+                        <div class="card-body col-xl-12 mobile-h d-flex justify-content-center align-items-center">
+                            
+                            <div class="col-xl-5">
+                                <h4>list</h4>
+                                
+                                <div class="list-group">
+                                    <ul id="todolist" class="list-group">
+                                    
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-5">
+                                <form id="form-group">
+                                    <input type="hidden" name="employeeCode" th:value="${session.user.employeeCode}" />
+                                    <div class="input-group">
+                                        <input id="todo" class="form-control" type="text" name="content" placeholder="할 일을 입력하세요.">
+                                        <button id="todo_btn" type="submit" class="btn btn-info">Enter</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                        </div>
+                        
+                        
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/todo.js"></script>
 </body>
