@@ -40,13 +40,26 @@ public class MyService {
         return myMapper.deleteTodoList(todoId);
     }
 
-
-
-
-
     public HolidayDTO getHolidayList(String employeeCode) {
         return myMapper.holidayCount(employeeCode);
     }
+
+    public Map<String, Object> updateTodoList(TodoDTO todo) {
+
+        boolean result = myMapper.updateTodoList(todo);
+        if (result) {
+            return Map.of("success", true, "message", "할 일 수정 성공");
+        } else {
+            return Map.of("success", false, "message", "할 일 수정 실패");
+        }
+    }
+
+    public boolean updateTodoStatus(int todoId, boolean completed) {
+        String status = completed ? "y" : "w";
+        return myMapper.updateTodoStatus(todoId, status);
+    }
+
+
 
 
 }

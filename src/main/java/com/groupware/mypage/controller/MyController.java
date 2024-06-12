@@ -52,7 +52,6 @@ public class MyController {
         return "mypage/todo";
     }
 
-
     @GetMapping("/list")
     public ResponseEntity<Map<String, Object>> getTodoList(HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
@@ -69,7 +68,6 @@ public class MyController {
         }
         return ResponseEntity.ok(response);
     }
-
 
     @PostMapping("/add")
     public ResponseEntity<Map<String, Object>> addTodo(@RequestParam("content") String content,
@@ -90,6 +88,37 @@ public class MyController {
         }
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/update")
+    public ResponseEntity<Map<String, Object>> updateTodo(@RequestParam("todoId") int todoId,
+                                                          @RequestParam("content") String content) {
+        Map<String, Object> response;
+
+        try {
+            TodoDTO todo = new TodoDTO();
+            todo.setTodoId(todoId);
+            todo.setContent(content);
+
+            response = myService.updateTodoList(todo);
+        } catch (Exception e) {
+            logger.error("Error updating todo", e);
+            response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "할 일을 수정하는 데 실패했습니다.");
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/updateStatus")
+    public ResponseEntity<Map<String, Object>> updateTodoStatus(@RequestParam("todoId") int todoId,
+                                                                @RequestParam("completed") boolean completed) {
+        System.out.println("===================== todoId ================= " + todoId);
+        boolean isUpdated = myService.updateTodoStatus(todoId, completed);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", isUpdated);
+        return ResponseEntity.ok(response);
+    }
+
 
     @PostMapping("/delete")
     public ResponseEntity<Map<String, Object>> deleteTodo(@RequestParam("todoId") int todoId) {

@@ -3,10 +3,7 @@ package com.groupware.mypage.mapper;
 import com.groupware.mypage.dto.HolidayDTO;
 import com.groupware.mypage.dto.TodoDTO;
 import com.groupware.user.dto.UserDTO;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -27,6 +24,12 @@ public interface MyMapper {
     //  id를 통해 할 일을 삭제하는 쿼리
     @Delete("DELETE FROM todo WHERE todo_id = #{todoId}")
     boolean deleteTodoList(int todoId);
+
+    @Update("UPDATE todo SET content = #{content} WHERE todo_id = #{todoId}")
+    boolean updateTodoList(TodoDTO todo);
+
+    @Update("UPDATE todo SET status = #{status} WHERE todo_id = #{todoId}")
+    boolean updateTodoStatus(@Param("todoId") int todoId, @Param("status") String status);
 
 
 }

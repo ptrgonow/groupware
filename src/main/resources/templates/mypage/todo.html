@@ -12,49 +12,45 @@
     
     <div class="page-wrapper">
         <div class="content container-fluid">
-            <div class="col-xl-12 mobile-h">
-                
-                <div class="card flex-fill">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <h5 class="card-title">todo</h5>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card flex-fill">
+                        <div class="card-header text-center">
+                            <h5 class="card-title">Todo</h5>
                         </div>
-                    </div>
-                    
-                    <div class="col-xl-12 mobile-h d-flex justify-content-center align-items-center">
-                        
-                        
-                        <div class="card-body col-xl-12 mobile-h d-flex justify-content-center align-items-center">
-                            
-                            <div class="col-xl-5">
-                                <h4>list</h4>
-                                
-                                <div class="list-group">
-                                    <ul id="todolist" class="list-group">
-                                    
-                                    </ul>
+                        <div class="card-body">
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <div class="col-xl-5 col-12 mb-3">
+                                    <form id="form-group" class="w-100">
+                                        <input type="hidden" name="employeeCode" th:value="${session.user.employeeCode}" />
+                                        <div class="input-group">
+                                            <div class="form-floating flex-grow-1">
+                                                <input id="todo" class="form-control" type="text" name="content" placeholder=" " aria-describedby="todoLabel">
+                                                <label for="todo" id="todoLabel">할 일을 입력하세요</label>
+                                            </div>
+                                            <button id="todo_btn" type="submit" class="btn btn-info d-none d-xl-inline-block">등록</button>
+                                        </div>
+                                        <div class="mt-2 d-xl-none text-end">
+                                            <button id="todo_btn" type="submit" class="btn btn-info">등록</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-xl-5 col-12">
+                                    <h4>List</h4>
+                                    <div class="list-group">
+                                        <ul id="todolist" class="list-group"></ul>
+                                    </div>
                                 </div>
                             </div>
-                            
-                            <div class="col-xl-5">
-                                <form id="form-group">
-                                    <input type="hidden" name="employeeCode" th:value="${session.user.employeeCode}" />
-                                    <div class="input-group">
-                                        <input id="todo" class="form-control" type="text" name="content" placeholder="할 일을 입력하세요.">
-                                        <button id="todo_btn" type="submit" class="btn btn-info">Enter</button>
-                                    </div>
-                                </form>
-                            </div>
-                            
                         </div>
-                        
-                        
-                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
 </div>
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/todo.js"></script>
