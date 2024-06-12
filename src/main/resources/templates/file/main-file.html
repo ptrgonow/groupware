@@ -25,8 +25,8 @@
             </div>
 
             <div class="file-search">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" name="file-search" id="fileSearchList">
+                    <input class="form-control me-2" id="file-search-form" type="search" placeholder="양식명을 입력하세요" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
@@ -38,29 +38,53 @@
                         <table class="table table-hover">
                             <thead>
                             <tr class="doc-head">
+                                <th scope="col"><input type="checkbox" id="file-select"></th>
                                 <th scope="col">문서 번호</th>
-                                <th scope="col">업로드 날짜</th>
-                                <th scope="col">결재 담당 부서</th>
                                 <th scope="col">결재 양식명</th>
+                                <th scope="col">결재 담당 부서</th>
+                                <th scope="col">업로드 날짜</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="dto : ${fileList}">
+                            <tr th:each="dto : ${fList}">
+                                <td><input type="checkbox" th:value="${dto.fileCd}"></td>
                                 <td th:text="${dto.fileCd}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${dto.createdBy}"></td>
                                 <td th:text="${dto.title}"></td>
-                                <td th:text="${dto.fileUrl}"></td>
+                                <td th:text="${dto.departmentName}"></td>
+                                <td th:text="${dto.updatedAt.substring(0,10)}"></td>
                             </tr>
                             </tbody>
                         </table>
-
-                        <div class="reg-btn">
-
-                        </div>
                     </div>
                 </div>
+                <!-- 문서 등록, 삭제 버튼 -->
+                <div class="file-btn" th:if="${user.departmentId == 3}">
+                    <button type="button" class="btn btn-outline">문서 등록</button>
+                    <button type="button" class="btn btn-danger">문서 삭제</button>
+                </div>
             </div>
+
+
+
+
+            <!-- 페이징 -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
