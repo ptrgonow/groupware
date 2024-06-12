@@ -68,22 +68,22 @@
 }
 
 /* 버튼 */
-.file-btn{
-    padding-left: 900px;
+.file-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-right: 140px;
 }
 
-.btn.btn-outline{
+.btn.btn-outline, .btn.btn-danger {
     width: 90px;
     height: 40px;
     background-color: #2F47BA;
     font-size: 14px;
     color: white;
+    margin-left: 10px;
 }
 
-.btn.btn-danger{
-    width: 90px;
-    height: 40px;
+.btn.btn-danger {
     background-color: #ff3833;
-    font-size: 14px;
-    color: white;
 }
