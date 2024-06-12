@@ -12,7 +12,6 @@
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/schedule.css">
     
     <div class="page-wrapper">
@@ -46,7 +45,7 @@
                         </div>
                         
                         <div class="card-body">
-                            <div id="schedule-list"></div>
+                            <div id='day-calendar'></div>
                         </div>
                     
                     </div>
@@ -63,7 +62,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="eventModalLabel">이벤트 등록</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
             </div>
             <div class="modal-body">
                 <form id="eventForm">
@@ -76,13 +75,14 @@
                         <textarea class="form-control" id="eventDescription" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="eventStart">시작 날짜</label>
-                        <input type="date" class="form-control" id="eventStart" required>
+                        <label for="eventStart">시작</label>
+                        <input type="datetime-local" class="form-control" id="eventStart" required>
                     </div>
                     <div class="form-group">
-                        <label for="eventEnd">종료 날짜</label>
-                        <input type="date" class="form-control" id="eventEnd">
+                        <label for="eventEnd">종료</label>
+                        <input type="datetime-local" class="form-control" id="eventEnd">
                     </div>
+                    
                     <div class="form-group">
                         <label for="eventType">유형</label>
                         <select class="form-control" id="eventType" required>
@@ -94,7 +94,7 @@
                             <option value="휴가">휴가</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">등록</button>
+                    <button type="submit" class="btn btn-primary" id="submitEventBtn">등록</button>
                     <button type="button" class="btn btn-danger" id="deleteEventBtn" style="display: none;">삭제</button>
                 </form>
             </div>

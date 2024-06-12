@@ -27,5 +27,4 @@ public class SchdDTO {
     @JsonProperty("departmentId")
     private int departmentId;
     private String type;
-
 }

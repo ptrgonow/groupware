@@ -4,28 +4,62 @@ $(document).ready(function() {
     var currentEvent;
 
     var calendarEl = $('#calendar')[0];
+    var dayCalendarEl = $('#day-calendar')[0];
+
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         timeZone: 'local',
         locale: 'ko',
         height: 'auto',
         headerToolbar: {
-            left: 'today',
-            right: 'prev,next'
+            start: 'today',
+            end: 'prev,next'
         },
         buttonText: {
-            today: '오늘',
+            today: '오늘'
         },
-        editable: true,
+        editable: false,
+        eventResizableFromStart: false,
         selectable: true,
-        dayMaxEvents: true,
-        events: '/sc/list', // 서버에서 일정 목록을 가져옴
-
+        droppable: false,
+        events: function(info, successCallback, failureCallback) {
+            $.ajax({
+                url: '/sc/list',
+                method: 'GET',
+                success: function(events) {
+                    successCallback(events);
+                },
+                error: function() {
+                    alert('일정 목록을 불러오는 데 실패했습니다.');
+                    failureCallback();
+                }
+            });
+        },
         select: function(info) {
+            var startDate = new Date(info.start);
+            var endDate = new Date(info.start);
+
+            // 시작 시간을 전일의 시작으로 설정
+            startDate.setHours(0, 0, 0, 0);
+            // 종료 시간을 전일의 종료로 설정
+            endDate.setHours(23, 59, 59, 999);
+
+            var startString = startDate.getFullYear() + '-' +
+                ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + startDate.getDate()).slice(-2) + 'T' +
+                ('0' + startDate.getHours()).slice(-2) + ':' +
+                ('0' + startDate.getMinutes()).slice(-2);
+
+            var endString = endDate.getFullYear() + '-' +
+                ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + endDate.getDate()).slice(-2) + 'T' +
+                ('0' + endDate.getHours()).slice(-2) + ':' +
+                ('0' + endDate.getMinutes()).slice(-2);
+
             $('#eventTitle').val('');
             $('#eventDescription').val('');
-            $('#eventStart').val(info.startStr);
-            $('#eventEnd').val(info.endStr ? info.endStr.slice(0, -1) : info.startStr);
+            $('#eventStart').val(startString);
+            $('#eventEnd').val(endString);
             $('#eventType').val('');
             $('#deleteEventBtn').hide();
             $('#eventModalLabel').text('이벤트 등록');
@@ -35,10 +69,25 @@ $(document).ready(function() {
         },
         eventClick: function(info) {
             currentEvent = info.event;
+            var startDate = new Date(info.event.start);
+            var endDate = info.event.end ? new Date(info.event.end) : null;
+
+            var startString = startDate.getFullYear() + '-' +
+                ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + startDate.getDate()).slice(-2) + 'T' +
+                ('0' + startDate.getHours()).slice(-2) + ':' +
+                ('0' + startDate.getMinutes()).slice(-2);
+
+            var endString = endDate ? endDate.getFullYear() + '-' +
+                ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + endDate.getDate()).slice(-2) + 'T' +
+                ('0' + endDate.getHours()).slice(-2) + ':' +
+                ('0' + endDate.getMinutes()).slice(-2) : '';
+
             $('#eventTitle').val(info.event.title);
             $('#eventDescription').val(info.event.extendedProps.description);
-            $('#eventStart').val(info.event.start.toISOString().slice(0, 10));
-            $('#eventEnd').val(info.event.end ? info.event.end.toISOString().slice(0, 10) : '');
+            $('#eventStart').val(startString);
+            $('#eventEnd').val(endString);
             $('#eventType').val(info.event.extendedProps.type);
             $('#eventModalLabel').text('이벤트 수정');
             $('#submitEventBtn').text('수정');
@@ -50,30 +99,121 @@ $(document).ready(function() {
             info.el.style.backgroundColor = getColorForType(eventType);
         }
     });
-    calendar.render();
 
-    function formatDateTime(date) {
-        var d = new Date(date);
-        return d.getFullYear() + '-' +
-            ('0' + (d.getMonth() + 1)).slice(-2) + '-' +
-            ('0' + d.getDate()).slice(-2) + 'T' +
-            ('0' + d.getHours()).slice(-2) + ':' +
-            ('0' + d.getMinutes()).slice(-2) + ':' +
-            ('0' + d.getSeconds()).slice(-2);
-    }
+    var dayCalendar = new FullCalendar.Calendar(dayCalendarEl, {
+        initialView: 'timeGridDay',
+        timeZone: 'local',
+        locale: 'ko',
+        height: 'auto',
+        headerToolbar: {
+            start: 'today',
+            end: 'prev,next'
+        },
+        buttonText: {
+            today: '오늘'
+        },
+        editable: false,
+        eventResizableFromStart: false,
+        selectable: true,
+        droppable: false,
+        events: function(info, successCallback, failureCallback) {
+            $.ajax({
+                url: '/sc/list',
+                method: 'GET',
+                success: function(events) {
+                    successCallback(events);
+                },
+                error: function() {
+                    alert('일정 목록을 불러오는 데 실패했습니다.');
+                    failureCallback();
+                }
+            });
+        },
+        select: function(info) {
+            var isAllDay = info.allDay;
+            var startDate = new Date(info.start);
+            var endDate = new Date(info.start);
+
+            if (isAllDay) {
+                // all-day 클릭 시 전일 시간 설정
+                startDate.setHours(0, 0, 0, 0);
+                endDate.setHours(23, 59, 59, 999);
+            }
+
+            var startString = startDate.getFullYear() + '-' +
+                ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + startDate.getDate()).slice(-2) + 'T' +
+                ('0' + startDate.getHours()).slice(-2) + ':' +
+                ('0' + startDate.getMinutes()).slice(-2);
+
+            var endString = endDate.getFullYear() + '-' +
+                ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + endDate.getDate()).slice(-2) + 'T' +
+                ('0' + endDate.getHours()).slice(-2) + ':' +
+                ('0' + endDate.getMinutes()).slice(-2);
+
+            $('#eventTitle').val('');
+            $('#eventDescription').val('');
+            $('#eventStart').val(startString);
+            $('#eventEnd').val(endString);
+            $('#eventType').val('');
+            $('#deleteEventBtn').hide();
+            $('#eventModalLabel').text('이벤트 등록');
+            $('#submitEventBtn').text('등록');
+            $('#eventModal').modal('show');
+            currentEvent = null;
+        },
+        eventClick: function(info) {
+            currentEvent = info.event;
+            var startDate = new Date(info.event.start);
+            var endDate = info.event.end ? new Date(info.event.end) : null;
+
+            var startString = startDate.getFullYear() + '-' +
+                ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + startDate.getDate()).slice(-2) + 'T' +
+                ('0' + startDate.getHours()).slice(-2) + ':' +
+                ('0' + startDate.getMinutes()).slice(-2);
+
+            var endString = endDate ? endDate.getFullYear() + '-' +
+                ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + endDate.getDate()).slice(-2) + 'T' +
+                ('0' + endDate.getHours()).slice(-2) + ':' +
+                ('0' + endDate.getMinutes()).slice(-2) : '';
+
+            $('#eventTitle').val(info.event.title);
+            $('#eventDescription').val(info.event.extendedProps.description);
+            $('#eventStart').val(startString);
+            $('#eventEnd').val(endString);
+            $('#eventType').val(info.event.extendedProps.type);
+            $('#eventModalLabel').text('이벤트 수정');
+            $('#submitEventBtn').text('수정');
+            $('#deleteEventBtn').show();
+            $('#eventModal').modal('show');
+        },
+        eventDidMount: function(info) {
+            var eventType = info.event.extendedProps.type;
+            info.el.style.backgroundColor = getColorForType(eventType);
+        }
+    });
+
+    calendar.render();
+    dayCalendar.render();
 
     $('#eventForm').off('submit').on('submit', function(e) {
         e.preventDefault();
         var title = $('#eventTitle').val();
         var description = $('#eventDescription').val();
-        var startTime = $('#eventStart').val() + 'T00:00:00';
-        var endTime = $('#eventEnd').val() ? $('#eventEnd').val() + 'T23:59:59' : null;
+        var startTime = $('#eventStart').val();
+        var endTime = $('#eventEnd').val();
         var type = $('#eventType').val();
 
         if (!startTime) {
-            alert("시작 날짜를 입력하세요.");
+            alert("시작 날짜 및 시간을 입력하세요.");
             return;
         }
+
+        startTime = startTime + ":00";
+        endTime = endTime ? endTime + ":00" : null;
 
         var eventData = {
             title: title,
@@ -87,7 +227,7 @@ $(document).ready(function() {
 
         if (currentEvent) {
             eventData.id = currentEvent.id;
-            updateEvent(eventData, currentEvent.id); // currentEvent.id 추가
+            updateEvent(eventData, currentEvent.id);
         } else {
             createEvent(eventData);
         }
@@ -109,7 +249,8 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify(eventData),
             success: function() {
-                loadEvents();
+                calendar.refetchEvents();
+                dayCalendar.refetchEvents();
                 alert('이벤트가 생성되었습니다.');
             },
             error: function() {
@@ -125,7 +266,8 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify(eventData),
             success: function() {
-                loadEvents();
+                calendar.refetchEvents();
+                dayCalendar.refetchEvents();
                 alert('이벤트가 업데이트되었습니다.');
             },
             error: function() {
@@ -139,46 +281,13 @@ $(document).ready(function() {
             url: '/sc/delete/' + eventId,
             method: 'DELETE',
             success: function() {
-                loadEvents();
+                calendar.refetchEvents();
+                dayCalendar.refetchEvents();
                 alert('이벤트가 삭제되었습니다.');
             },
             error: function() {
                 alert('이벤트 삭제에 실패했습니다.');
             }
-        });
-    }
-
-    function loadEvents() {
-        $.ajax({
-            url: '/sc/list',
-            method: 'GET',
-            success: function(events) {
-                calendar.removeAllEvents();
-                calendar.addEventSource(events);
-                updateScheduleList(events);
-            },
-            error: function() {
-                alert('일정 목록을 불러오는 데 실패했습니다.');
-            }
-        });
-    }
-
-    function formatDate(dateString) {
-        var date = new Date(dateString);
-        return date.getFullYear() + '-' +
-            ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
-            ('0' + date.getDate()).slice(-2);
-    }
-
-    function updateScheduleList(events) {
-        var scheduleList = $('#schedule-list');
-        scheduleList.empty();
-        events.forEach(function(event) {
-            var start = formatDate(event.start);
-            var end = formatDate(event.end);
-            var eventItem = $('<div class="event-item"></div>');
-            eventItem.text(event.title + ' (' + start + ' - ' + end + ')');
-            scheduleList.append(eventItem);
         });
     }
 
@@ -192,6 +301,4 @@ $(document).ready(function() {
             default: return 'grey';
         }
     }
-
-    loadEvents(); // 페이지 로드 시 이벤트 목록을 불러옵니다.
 });
