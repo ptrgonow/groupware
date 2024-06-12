@@ -36,8 +36,15 @@ public class MyService {
         }
     }
 
-    public HolidayDTO getHolidayList(String employeeCode) {
+    public boolean deleteTodoList(int todoId) {
+        return myMapper.deleteTodoList(todoId);
+    }
 
+
+
+
+
+    public HolidayDTO getHolidayList(String employeeCode) {
         return myMapper.holidayCount(employeeCode);
     }
 
