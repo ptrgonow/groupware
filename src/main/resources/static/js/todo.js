@@ -18,7 +18,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/mypage/add',
             type: 'POST',
-            data: requestData, // 데이터를 URL 인코딩 방식으로 보냄
+            data: requestData,
             success: function (data) {
                 if (data.success) {
                     addTodoItem(content);
@@ -34,8 +34,27 @@ $(document).ready(function () {
         });
     });
 
+    $('#todolist').on('change', '.todo-checkbox', function() {
+        $(this).parent().toggleClass('completed');
+        toggleDeleteBtn();
+    });
+
+    $('#todolist').on('click', '.delete-btn', function() {
+        $(this).parent().remove();
+        toggleDeleteBtn();
+    });
+
     function addTodoItem(content) {
-        const li = $('<li>').addClass('list-group-item d-flex justify-content-between align-items-center').text(content);
+        const li = $('<li>').addClass('list-group-item d-flex justify-content-between align-items-center').append(
+            $('<input>').attr('type', 'checkbox').addClass('form-check-input todo-checkbox'),
+            $('<span>').text(content),
+            $('<button>').addClass('btn btn-danger delete-btn').text('삭제')
+        );
         $('#todolist').append(li);
+    }
+
+    function toggleDeleteBtn() {
+        const allChecked = $('.todo-checkbox:checked').length > 0;
+        $('.delete-btn').prop('disabled', !allChecked);
     }
 });
