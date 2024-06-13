@@ -1,25 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
+    let test = /*[[${test}]]*/ null;
+    alert(test);
     // Chart Data
     var chartData = {
-
         invoices: {
             labels: ['Overdue', 'Not Due Yet', 'Paid', 'Not Deposited', 'Deposited'],
             data: {
-                'Last Month': [1525.50, 3756.02, 2062.52, 1629.70],
-                'Last 3 Months': [3000, 6000, 4000, 2000],
-                'Last 6 Months': [5000, 7000, 6000, 3000],
-                'Last 12 Months': [8000, 10000, 9000, 4000],
-                'This Year': [10000, 12000, 11000, 5000]
+                'Last Month': [1525.50, 3756.02, 2062.52, 1629.70, 320],
+                'Last 3 Months': [3000, 6000, 4000, 2000, 320],
+                'Last 6 Months': [5000, 7000, 6000, 3000, 320],
+                'Last 12 Months': [8000, 10000, 9000, 4000, 320],
+                'This Year': [10000, 12000, 11000, 5000, 320]
             }
         },
         expenses: {
-            labels: ['Miscellaneous', 'Maintenance and Repairs', 'Rent or Lease', 'Salary'],
+            labels: ['Miscellaneous', 'Salary', 'Maintenance and Repairs', 'Rent or Lease', 'Utilities', 'General Supplies'],
             data: {
-                'Last Month': [2666, 940, 900, 2447],
-                'Last 3 Months': [5000, 2000, 1800, 4500],
-                'Last 6 Months': [7000, 3000, 2700, 6000],
-                'Last 12 Months': [10000, 4000, 3600, 8000],
-                'This Year': [12000, 5000, 4500, 10000]
+                'Last Month': [2666, 940, 900, 2447, 940, 900],
+                'Last 3 Months': [5000, 2000, 1800, 4500, 940, 900],
+                'Last 6 Months': [7000, 3000, 2700, 6000, 940, 900],
+                'Last 12 Months': [10000, 4000, 3600, 8000, 940, 900],
+                'This Year': [12000, 5000, 4500, 10000, 940, 900]
             }
         },
         profitLoss: {
@@ -41,8 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Last 12 Months': [2500, 4000, 3100, 3700, 4300, 4700],
                 'This Year': [3000, 4600, 3600, 4200, 4800, 5200]
             }
-        },
-
+        }
     };
 
     // Initialize Charts
@@ -51,6 +51,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var expensesChart = initChart('expensesChart', 'doughnut', chartData.expenses.labels, chartData.expenses.data['Last Month']);
     var profitLossChart = initChart('profitLossChart', 'pie', chartData.profitLoss.labels, chartData.profitLoss.data['Last Month']);
 
+    // Fetch and update expenses chart
+    fetch('/fm/expenses')
+        .then(response => response.json())
+        .then(data => {
+            const labels = data.map(d => d.itemName);
+            const amounts = data.map(d => parseFloat(d.amount));
+            updateChart(expensesChart, labels, amounts);
+        });
 
     // Event Listeners for Dropdowns
     document.getElementById('invoicesSelect').addEventListener('change', function() {
@@ -65,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('salesSelect').addEventListener('change', function() {
         updateChart(salesChart, chartData.sales.labels, chartData.sales.data[this.value]);
     });
-
 
     // Function to Initialize Chart
     function initChart(chartId, type, labels, data) {
@@ -84,30 +91,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 maintainAspectRatio: false,
                 legend: {
                     position: 'left',
-                },
+                }
             }
         });
     }
 
-
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('/api/expenses')
-            .then(response => response.json())
-            .then(data => {
-                const labels = data.map(d => d.itemName);
-                const amounts = data.map(d => parseFloat(d.amount));
-                updateChart(expensesChart, labels, amounts);
-            });
-    });
     // Function to Update Chart
     function updateChart(chart, labels, data) {
         chart.data.labels = labels;
         chart.data.datasets[0].data = data;
         chart.update();
     }
-
-
 });
+
 $(document).ready(function() {
     // 이벤트 위임 방식으로 클릭 이벤트 처리
     $(document).on('click', '.clickable-row', function() {

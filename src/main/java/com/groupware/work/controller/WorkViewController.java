@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WorkViewController {
 
     @GetMapping("/fm")
-    public String fm() {
+    public String fm(Model model) {
+        model.addAttribute("test", 120);
         return "work/fm/main-finance";
     }
 
