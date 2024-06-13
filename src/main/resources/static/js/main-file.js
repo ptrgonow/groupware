@@ -1,48 +1,64 @@
 $(document).ready(function(){
     $.ajax({
-        url: '/file/fmain',
+        url: '/file/flist',
         type: 'GET',
-        data: {},
         dataType: 'json',
         success: function(data){
-            $('#file-list').pagination({
-                dataSource: data,
+            $('#pagination').pagination({
+                dataSource: data.fileList,
                 pageSize: 5,
                 callback: function (data, pagination) {
                     let html = '';
                     $.each(data, function(index, item) {
-                        html += '<tr>`\n' +
-                                '    <td><input type="checkbox"></td>\n' +
-                                '    <td>${item.fileCd}</td>\n' +
-                                '    <td>${item.title}</td>\n' +
-                                '    <td>${item.departmentName}"></td>\n' +
-                                '    <td>${item.updatedAt.substring(0,10)}</td>\n' +
-                            '     </tr>';
+
+                        html += `<tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>${item.fileCd}</td>
+                                    <td>${item.title}</td>
+                                    <td>${item.departmentName}</td>
+                                    <td></td>
+                                    <td>${item.updatedAt.substring(0,10)}</td>
+                                 </tr>`;
                     });
+                    $('#file-list').html(html);
                 }
             });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("Error fetching data: ", textStatus, errorThrown);
         }
     });
 });
 
-/*
-$('#file-list').pagination({
-    dataSource: [],
-    pageSize: 5,
-    autoHidePrevious: true,
-    autoHideNext: true,
-    callback: function(data, pagination) {
-    // html 템플릿 넣기
-        const html = '';
-        $.each(data, function (index, item) {
-            html += `'<tr>`\n' +
-                                '    <td><input type="checkbox" th:value="${dto.fileCd}"></td>\n' +
-                                '    <td th:text="${dto.fileCd}"></td>\n' +
-                                '    <td th:text="${dto.title}"></td>\n' +
-                                '    <td th:text="${dto.departmentName}"></td>\n' +
-                                '    <td th:text="${dto.updatedAt.substring(0,10)}"></td>\n' +
-                            '     </tr>'
-        })
-}
-})
-*/
+// 검색처리
+$(document).ready(function(){
+    $('#fileSearchList').on('submit', function(event){
+        event.preventDefault();
+        const searchQuery = $('#file-search-form').val();
+
+        $.ajax({
+            url: '/file/search',
+            type: 'GET',
+            data: { title: searchQuery },
+            dataType: 'json',
+            success: function(data){
+                let html = '';
+                $.each(data.searchList, function(index, item) {
+
+                    html += `<tr>
+                                <td><input type="checkbox"></td>
+                                <td>${item.fileCd}</td>
+                                <td>${item.title}</td>
+                                <td>${item.departmentName}</td>
+                                <td></td>
+                                <td>${item.updatedAt.substring(0,10)}</td>
+                             </tr>`;
+                });
+                $('#file-list').html(html);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("Error fetching data: ", textStatus, errorThrown);
+            }
+        });
+    });
+});

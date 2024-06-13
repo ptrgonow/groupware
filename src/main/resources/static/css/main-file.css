@@ -78,7 +78,7 @@
 .btn.btn-outline, .btn.btn-danger {
     width: 90px;
     height: 40px;
-    background-color: #2F47BA;
+    background-color: #5a6268;
     font-size: 14px;
     color: white;
     margin-left: 10px;
@@ -86,4 +86,11 @@
 
 .btn.btn-danger {
     background-color: #ff3833;
+}
+
+/* 페이징 */
+#pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
