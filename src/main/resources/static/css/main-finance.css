@@ -1,0 +1,170 @@
+/* main-finance.css */
+/* .main-wrapper */
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* .page-wrapper */
+.page-wrapper {
+    flex: 1;
+    padding: 20px;
+    background-color: #f7f8f9;
+}
+
+/* .content.container-fluid */
+.content.container-fluid {
+    padding: 20px;
+}
+
+/* .page-name.mb-4 */
+.page-name.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+/* .ap-summary */
+.ap-summary {
+    margin-bottom: 20px;
+}
+
+/* .chart-container */
+.chart-container {
+    position: relative;
+    height: 200px;
+}
+
+/* ------------------------------------.card-------------------------------------- */
+.card {
+    background: #fff;
+    box-shadow: 0 4px 10px 0 rgb(137 137 137 / 25%);
+    margin-bottom: 30px;
+    border-radius: 10px;
+    border: 0;
+}
+
+/* .card-header */
+.card-header {
+    border-color: rgba(137, 137, 137, 0.25);
+    background-color: #fff;
+    padding: 25px;
+}
+
+/* .card-title */
+.card-title {
+    margin-bottom: 0;
+}
+
+/* .card-body */
+.card-body {
+    position: relative;
+    padding: 25px;
+}
+
+/* .pending-approvals */
+.pending-approvals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* .table.table-hover */
+.table.table-hover {
+    color: #333;
+    max-width: 100%;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.table.table-hover tbody tr:hover {
+    background-color: #f6f6f7;
+}
+
+/* .status-cont */
+.status-cont {
+    text-align: center;
+}
+
+/* .write-status */
+.write-status {
+    font-weight: bold;
+}
+
+/* .pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+}
+
+/* .page-item */
+.page-item {
+    margin: 0 5px;
+}
+
+.page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+/* .page-link */
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+/* .new-write */
+.new-write {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+/* .row */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+/* .col-xl-6.col-md-6 */
+.col-xl-6.col-md-6 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* #invoicesSelect, #salesSelect, #expensesSelect, #profitLossSelect */
+#invoicesSelect, #salesSelect, #expensesSelect, #profitLossSelect {
+    width: auto !important;
+}
+
+@keyframes text{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 0;
+    }
+}
+
+
+
+
