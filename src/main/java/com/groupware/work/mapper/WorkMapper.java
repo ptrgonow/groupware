@@ -2,6 +2,8 @@ package com.groupware.work.mapper;
 
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.dto.ProjectFeedDTO;
+import com.groupware.work.dev.dto.ProjectMemberDTO;
+import com.groupware.work.dev.dto.ProjectTaskDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -28,5 +30,16 @@ public interface WorkMapper {
     @Select("select description, start_date, end_date from projects " +
             "where project_id = #{project_id}")
     ProjectDTO getProjectInfo(@Param("project_id") int projectId);
+
+    @Select("SELECT e.employee_code, e.name " +
+            "FROM project_members pm " +
+            "JOIN employee e ON pm.employee_code = e.employee_code " +
+            "WHERE pm.project_id = #{projectId}")
+    List<ProjectMemberDTO> getProjectMembers(@Param("projectId") int projectId);
+
+    @Select("select pt.*, e.name from project_tasks pt" +
+            "join project_members pm on pt.employee_code = pm.employee_code" +
+            "where pt.project_id = #{projectId}")
+    List<ProjectTaskDTO> getProjectTasks(@Param("projectId") int projectId);
 
 }

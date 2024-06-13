@@ -112,6 +112,7 @@ $(document).ready(function() {
         });
         $('#projectTableBody').html(html);
 
+
         // 프로젝트 행 클릭 시 피드 가져오기 (이벤트 위임)
         $('#projectTableBody').on('click', 'tr', function () {
             const projectId = $(this).data('projectId');
