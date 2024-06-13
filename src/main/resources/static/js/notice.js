@@ -1,57 +1,51 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const daysElement = document.querySelector('.calendar .days');
-    const monthElement = document.querySelector('.calendar .month-name');
-    const prevElement = document.querySelector('.calendar .prev');
-    const nextElement = document.querySelector('.calendar .next');
+document.addEventListener('DOMContentLoaded', function () {
+    const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
+    const pageLinks = document.querySelectorAll('.page-link');
 
-    let currentMonth = new Date().getMonth();
-    let currentYear = new Date().getFullYear();
-
-    function updateCalendar() {
-        daysElement.innerHTML = '';
-        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-        const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
-        const today = new Date();
-
-        monthElement.textContent = `${currentYear}년 ${currentMonth + 1}월`;
-
-        for (let i = 0; i < firstDay; i++) {
-            const emptyDiv = document.createElement('div');
-            emptyDiv.classList.add('day');
-            daysElement.appendChild(emptyDiv);
+    // 이전 페이지로 이동하는 이벤트 리스너
+    prevPageBtn.addEventListener('click', function () {
+        const currentPage = parseInt(prevPageBtn.dataset.currentPage);
+        if (currentPage > 1) {
+            fetchPage(currentPage - 1);
         }
+    });
 
-        for (let i = 1; i <= lastDate; i++) {
-            const dayDiv = document.createElement('div');
-            dayDiv.classList.add('day');
-            dayDiv.textContent = i;
-            if (
-                today.getFullYear() === currentYear &&
-                today.getMonth() === currentMonth &&
-                today.getDate() === i
-            ) {
-                dayDiv.classList.add('today');
+    // 다음 페이지로 이동하는 이벤트 리스너
+    nextPageBtn.addEventListener('click', function () {
+        const currentPage = parseInt(nextPageBtn.dataset.currentPage);
+        fetchPage(currentPage + 1);
+    });
+
+    // 각 페이지로 이동하는 이벤트 리스너
+    pageLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const pageNumber = parseInt(link.textContent);
+            fetchPage(pageNumber);
+        });
+    });
+
+    function fetchPage(pageNumber) {
+        const itemsPerPage = 5; // 한 페이지에 보여줄 데이터의 수
+
+        $.ajax({
+            url: "/get-data",
+            type: "GET",
+            data: {
+                page: pageNumber,
+                limit: itemsPerPage // 한 페이지에 보여줄 아이템 수를 서버에 전달
+            },
+            success: function (response) {
+                displayData(response);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
             }
-            daysElement.appendChild(dayDiv);
-        }
+        });
     }
 
-    function moveMonth(delta) {
-        currentMonth += delta;
-        if (currentMonth < 0) {
-            currentMonth = 11;
-            currentYear--;
-        } else if (currentMonth > 11) {
-            currentMonth = 0;
-            currentYear++;
-        }
-        updateCalendar();
+    function displayData(data) {
+        // 서버로부터 받은 데이터를 페이지에 표시하는 로직을 여기에 추가합니다.
     }
-
-    prevElement.addEventListener('click', () => moveMonth(-1));
-    nextElement.addEventListener('click', () => moveMonth(1));
-
-    updateCalendar();
-
 });
-

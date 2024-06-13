@@ -24,6 +24,70 @@
                 <h3>공지사항</h3>
             </div>
 
+
+
+            <div class="card-body-inner">
+                <div class="breadcrumb-gray text-center">
+                    <h2>공지사항</h2>
+                </div>
+                <table class="gong">
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th style="width: 30%;">제목</th>
+                        <th style="width: 40%;">내용</th>
+                        <th>작성일</th>
+                    </tr>
+                    </thead>
+                    <tbody id="notice_cont">
+                    <tr th:each="notice : ${notices}">
+                        <td th:text="${notice.notice_id}">ID</td>
+                        <td th:text="${notice.title}">Title</td>
+                        <td th:text="${notice.content}">Content</td>
+                        <td th:text="${notice.created_at}"></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <!-- 페이징 -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <!-- 백엔드에서 전달받은 총 페이지 수를 기반으로 페이지 버튼을 동적으로 생성 -->
+                        <!-- 페이지 버튼의 숫자와 링크는 백엔드에서 전달받은 페이지 정보를 기반으로 생성해야 합니다. -->
+                        <!-- 여기서는 간단히 5 페이지까지만 생성하는 예시를 드리겠습니다. -->
+                        <!-- 실제로는 백엔드에서 전달받은 총 페이지 수를 기반으로 생성해야 합니다. -->
+                        <!-- 페이지 버튼은 페이지를 변경할 수 있는 링크여야 하며, 해당 페이지에 맞게 백엔드로 요청을 보내야 합니다. -->
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+
+            </div>
+
+
+            <!-- <div th:if="${user != null && user.departmentId == 3}"> -->
+                <!-- 여기에 사용자 부서 ID가 3일 때 렌더링될 HTML 요소를 작성하세요 -->
+            <a href="notice-write" class="cocoBtn">공지사항 작성</a>
+          <!--   </div> -->
+
+
             <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="card-body-inner">
@@ -63,34 +127,12 @@
                 </div>
             </div>
 
-            <div class="card-body-inner">
-                <div class="breadcrumb-gray text-center">
-                    <h2>공지사항</h2>
-                </div>
-                <table class="gong">
-                    <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th style="width: 30%;">제목</th>
-                        <th style="width: 40%;">내용</th>
-                        <th>작성일</th>
-                    </tr>
-                    </thead>
-                    <tbody id="notice_cont">
-                    <tr th:each="notice : ${notices}">
-                        <td th:text="${notice.notice_id}">ID</td>
-                        <td th:text="${notice.title}">Title</td>
-                        <td th:text="${notice.content}">Content</td>
-                        <td th:text="${notice.created_at}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <a href="notice-write" class="cocoBtn">공지사항 작성</a>
         </div>
+
     </div>
+
 </div>
+
 
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
