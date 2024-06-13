@@ -29,19 +29,17 @@ $(document).ready(function() {
             droppable: false,
 
             events: function(info, successCallback, failureCallback) {
-                waitForSession().then(function() {
-                    $.ajax({
-                        url: '/sc/list',
-                        method: 'GET',
-                        success: function(events) {
-                            // 필터링 적용
-                            successCallback(filterFunction(events, info.start, info.end));
-                        },
-                        error: function() {
-                            alert('일정 목록을 불러오는 데 실패했습니다.');
-                            failureCallback();
-                        }
-                    });
+                $.ajax({
+                    url: '/sc/list',
+                    method: 'GET',
+                    success: function(events) {
+                        // 필터링 적용
+                        successCallback(filterFunction(events, info.start, info.end));
+                    },
+                    error: function() {
+                        alert('일정 목록을 불러오는 데 실패했습니다.');
+                        failureCallback();
+                    }
                 });
             },
             select: selectHandler,
@@ -264,3 +262,4 @@ $(document).ready(function() {
         initializeCalendars();
     });
 });
+
