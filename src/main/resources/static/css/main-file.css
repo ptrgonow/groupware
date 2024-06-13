@@ -68,6 +68,21 @@
 }
 
 /* 버튼 */
+.btn-area{
+    display: flex;
+}
+
+.modal-footer{
+    display: flex;
+    justify-content: center;
+}
+
+.btn.btn-light-reg{
+    background-color: #2F47BA;
+    color: white;
+    width: 90px;
+}
+
 .file-btn {
     display: flex;
     justify-content: flex-end;
