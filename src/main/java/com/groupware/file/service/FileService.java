@@ -22,7 +22,7 @@ public class FileService {
         return fileMapper.selectAll();
     }
 
-    public List<FileDTO> searchList(){
-        return fileMapper.searchList();
+    public List<FileDTO> searchList(String title){
+        return fileMapper.searchList(title);
     }
 }

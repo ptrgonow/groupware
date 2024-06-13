@@ -105,15 +105,3 @@ a {
     background-color: transparent;
     border: none;
 }
-
-.fc-daygrid-day-events {
-    /* 커스텀 스타일 추가 */
-    max-height: 100px; /* 이벤트 영역의 최대 높이 설정 */
-    overflow-y: auto; /* 이벤트가 많을 경우 스크롤바 추가 */
-}
-
-.fc-daygrid-day-events .fc-event-title {
-    white-space: nowrap; /* 이벤트 제목 줄 바꿈 방지 */
-    overflow: hidden;
-    text-overflow: ellipsis; /* 제목이 길 경우 생략 표시 */
-}

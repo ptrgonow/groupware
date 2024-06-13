@@ -4,13 +4,17 @@ import com.groupware.file.dto.FileDTO;
 import com.groupware.file.service.FileService;
 import com.groupware.user.dto.UserDTO;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/file")
@@ -37,12 +41,47 @@ public class FileController {
         return "file/main-file";
     }
 
-    // 검색 했을 때 보여질 페이지
-    @GetMapping("/search")
-    public String search(@RequestParam String search, Model model) {
-        List<FileDTO> searchList = fileService.searchList();
+    @GetMapping("/flist")
+    public ResponseEntity<Map<String, Object>> getFileList(HttpSession session) {
 
-        return "file/search-file";
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        List<FileDTO> fileList = fileService.selectAll();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", user);
+        response.put("departmentName", user.getDepartmentName());
+        response.put("fileList", fileList);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    // 검색 했을 때 보여질 요청
+    @GetMapping("/search")
+    public ResponseEntity<Map<String, Object>> search(@RequestParam String title, HttpSession session) {
+        List<FileDTO> searchList = fileService.searchList(title);
+
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", user);
+        response.put("departmentName", user.getDepartmentName());
+        response.put("searchList", searchList);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    }
+
+    // 문서 등록하기 버튼을 클릭했을 때 페이지
+    @GetMapping("/reg")
+    public String reg(){
+        return "file/file-reg";
     }
 
     @GetMapping("/vac")
