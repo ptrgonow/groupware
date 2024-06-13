@@ -3,6 +3,7 @@ package com.groupware.work.dev.service;
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.dto.ProjectFeedDTO;
 import com.groupware.work.dev.dto.ProjectMemberDTO;
+import com.groupware.work.dev.dto.ProjectTaskDTO;
 import com.groupware.work.dev.mapper.DevMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,4 +39,7 @@ public class DevService {
         return workMapper.getProjectMembers(projectId);
     }
 
+    public List<ProjectTaskDTO> getProjectTasks(int projectId){
+        return workMapper.getProjectTasks(projectId);
+    }
 }

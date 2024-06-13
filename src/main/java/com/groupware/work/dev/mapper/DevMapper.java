@@ -37,9 +37,13 @@ public interface DevMapper {
             "WHERE pm.project_id = #{projectId}")
     List<ProjectMemberDTO> getProjectMembers(@Param("projectId") int projectId);
 
-    @Select("select pt.*, e.name from project_tasks pt" +
-            "join project_members pm on pt.employee_code = pm.employee_code" +
-            "where pt.project_id = #{projectId}")
+    @Select("SELECT pt.*, e.name " +
+            "FROM project_tasks pt " +
+            "JOIN project_members pm ON pt.project_id = pm.project_id AND pt.employee_code = pm.employee_code " +
+            "JOIN employee e ON pm.employee_code = e.employee_code " +
+            "WHERE pt.project_id = #{projectId}")
     List<ProjectTaskDTO> getProjectTasks(@Param("projectId") int projectId);
+
+
 
 }

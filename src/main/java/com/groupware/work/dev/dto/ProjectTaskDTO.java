@@ -10,5 +10,6 @@ public class ProjectTaskDTO {
     private String created_at;
     private String employee_code;
     private int progress;
-
+    private String task_content;
+    private String name;
 }
