@@ -67,6 +67,7 @@ $(document).ready(function() {
                                     `;
                                 });
                                 $('#projectFeedContainer').html(feedHtml); // 피드 내용 업데이트
+
                             },
                             error: function () {
                                 console.error('피드를 가져오는 중 오류 발생');
@@ -109,14 +110,48 @@ $(document).ready(function() {
                             </ul>
                         `;
 
-                                $('#projectInfoContainer').html(projectInfoHtml);
-                                console.log(project.description);
+                            $('#projectInfoContainer').html(projectInfoHtml); // 프로젝트 정보 업데이트
+
+                            let projectProgressHtml = `
+                            <div>
+                                <h3 class="display-5 fw-bold text-white mb-1">${diffDays} Days</h3>
+                                <p class="mb-0 text-white">
+                                   Today : ${today.toLocaleDateString()}
+                                </p>
+                            </div>
+                        `;
+                            $('#projectProgressContainer').html(projectProgressHtml); // 진행시간 및 오늘 날짜 업데이트
+                        },
+                        error: function () {
+                            console.error('프로젝트 정보와 진행도를 가져오는 중 오류 발생');
+                        }
+                    });
+                        // 팀원 정보 가져오기
+                        $.ajax({
+                            url: `/projects/${projectId}/members`, // 팀원 정보 엔드포인트
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(members) {
+                                let membersHtml = '';
+                                members.forEach(member => {
+                                    membersHtml += `
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="ms-2">
+                                                        <h5 class="mb-0"><a href="#" class="text-dark">${member.name}</a></h5>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                    `;
+                                });
+                                $('#projectMemberList').html(membersHtml); // 팀원 목록 업데이트
                             },
-                            error: function () {
-                                console.error('프로젝트 정보를 가져오는 중 오류 발생');
+                            error: function() {
+                                console.error('팀원 정보를 가져오는 중 오류 발생');
                             }
                         });
-                    });
+                });
+
                 },
                 error: function () {
                     console.error('프로젝트 목록을 가져오는 중 오류 발생');
