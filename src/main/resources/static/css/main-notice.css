@@ -49,7 +49,13 @@
     padding:7px ;
     border-radius: 10px;
     box-shadow: 0 4px 10px 0 rgba(137, 137, 137, 0.25);
-    background-color: #c0c0c0;
+    background-color: #2f47ba;
+}
+
+.breadcrumb-gray h4 {
+
+    color: white;
+
 }
 
 .table-responsive {
@@ -137,70 +143,13 @@ th {
 }
 
 
-.calendar {
-    width: 100%;
-    max-width: 400px;
-    margin-left: 12rem; /* 오른쪽으로 20px 이동 */
-    margin-top: 2rem;
-    background-color: #fff;
-    border: 1px solid #dcdcdc;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-
-}
-
-.month {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-
-}
-
-.month-name {
-    font-size: 1.5em;
-}
-
-.prev, .next {
-    font-size: 1.5em;
-    cursor: pointer;
-}
-
-.weekdays {
-    display: flex;
-
-    color: #1d2124;
-}
-
-.weekdays div {
-    flex: 1;
-    text-align: center;
-    padding: 10px 0;
-    font-weight: bold;
-}
-
-.days {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.day {
-    width: 14.28%;
-    padding: 20px 0;
-    text-align: center;
-    border: 1px solid #f0f0f0;
-    cursor: pointer;
-}
-
-.day:hover {
-    background-color: #f0f0f0;
-}
 
 
 
-/* 버튼 기본 스타일 */
+
+
+/* 공지사항 작성 버튼 기본 스타일 */
+
 .cocoBtn {
     display: inline-block;
     padding: 10px 20px;
@@ -213,7 +162,7 @@ th {
     border: none;
     border-radius: 10px;
     transition: background-color 0.3s, box-shadow 0.3s;
-    margin-left: 15rem;
+    margin-left: 40rem;
     background-color: #455560;
     color: #ffffff;
 
@@ -245,6 +194,18 @@ th {
 .cocoBtn:active {
     transform: translateY(2px);
 }
+
+
+.breadcrumb-gray h2 {
+
+    color: white;
+
+}
+
+
+
+
+
 
 
 

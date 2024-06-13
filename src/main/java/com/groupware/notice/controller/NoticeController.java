@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -24,10 +25,16 @@ public class NoticeController {
         return "notice/notice-write";
     }
 
+    @PostMapping("/notice-write")
+    public String processNoticeWrite(NoticeDTO noticeDTO) {
+        noticeService.addNotice(noticeDTO);
+        return "redirect:/notice";
+    }
+
     @GetMapping("/notice")
     public String noticeList(Model model) {
         List<NoticeDTO> notices = noticeService.getAllNotices();
         model.addAttribute("notices", notices);
-        return "/notice/main-notice";
+        return "notice/main-notice";
     }
 }

@@ -10,16 +10,19 @@ import java.util.List;
 @Service
 public class NoticeService {
 
-    private static NoticeMapper noticeMapper = null;
+    private final NoticeMapper noticeMapper;
 
     @Autowired
     public NoticeService(NoticeMapper noticeMapper) {
-        NoticeService.noticeMapper = noticeMapper;
+        this.noticeMapper = noticeMapper;
     }
 
     public List<NoticeDTO> getAllNotices() {
         return noticeMapper.getAllNotices();
     }
 
-
+    public void addNotice(NoticeDTO noticeDTO) {
+        noticeDTO.setContent(noticeDTO.getContent());
+        noticeMapper.insertNotice(noticeDTO);
+    }
 }
