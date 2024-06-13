@@ -6,8 +6,17 @@ $(document).ready(function() {
     var calendarEl = $('#calendar')[0];
     var dayCalendarEl = $('#day-calendar')[0];
 
+    let debounceTimer;
+
+    function debounce(func, delay) {
+        return function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => func.apply(this, arguments), delay);
+        };
+    }
+
     function setupCalendar(calendarEl, initialView, selectHandler, eventClickHandler, filterFunction) {
-        return new FullCalendar.Calendar(calendarEl, {
+        var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: initialView,
             timeZone: 'local',
             locale: 'ko',
@@ -24,39 +33,44 @@ $(document).ready(function() {
             selectable: true,
             droppable: false,
 
-            events: function(info, successCallback, failureCallback) {
+            events: debounce(function(info, successCallback, failureCallback) {
                 $.ajax({
                     url: '/sc/list',
                     method: 'GET',
                     success: function(events) {
-                        successCallback(filterFunction(events));
+                        // 필터링 적용
+                        successCallback(filterFunction(events, info.start, info.end));
                     },
                     error: function() {
                         alert('일정 목록을 불러오는 데 실패했습니다.');
                         failureCallback();
                     }
                 });
-            },
+            }, 300), // 300ms 디바운스 시간
             select: selectHandler,
             eventClick: eventClickHandler,
             eventDidMount: function(info) {
                 var eventType = info.event.extendedProps.type;
                 info.el.style.backgroundColor = getColorForType(eventType);
             },
+            datesSet: debounce(function() {
+                calendar.refetchEvents();
+            }, 300) // 300ms 디바운스 시간
         });
+
+        calendar.render();
+        return calendar;
     }
 
     function filterMonthly(events) {
         return events; // 필터링을 하지 않음
     }
 
-    function filterDaily(events) {
-        var today = new Date();
+    function filterDaily(events, start, end) {
+        // 날짜 범위로 필터링
         return events.filter(function(event) {
             var eventDate = new Date(event.start);
-            return eventDate.getFullYear() === today.getFullYear() &&
-                eventDate.getMonth() === today.getMonth() &&
-                eventDate.getDate() === today.getDate();
+            return eventDate >= start && eventDate < end;
         });
     }
 
@@ -220,13 +234,11 @@ $(document).ready(function() {
         calendar = setupCalendar(calendarEl, 'dayGridMonth', function(info) {
             handleSelect(info, true);
         }, handleEventClick, filterMonthly);
-        calendar.render();
     }
 
     if (dayCalendarEl) {
         dayCalendar = setupCalendar(dayCalendarEl, 'timeGridDay', function(info) {
             handleSelect(info, false);
         }, handleEventClick, filterDaily);
-        dayCalendar.render();
     }
 });
