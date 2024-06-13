@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Chart Data
     var chartData = {
+
         invoices: {
             labels: ['Overdue', 'Not Due Yet', 'Paid', 'Not Deposited', 'Deposited'],
             data: {
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         expenses: {
-            labels: ['Miscellaneous', 'Maintenance and Repairs', 'Rent or Lease', 'Everything Else'],
+            labels: ['Miscellaneous', 'Maintenance and Repairs', 'Rent or Lease', 'Salary'],
             data: {
                 'Last Month': [2666, 940, 900, 2447],
                 'Last 3 Months': [5000, 2000, 1800, 4500],
@@ -41,16 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'This Year': [3000, 4600, 3600, 4200, 4800, 5200]
             }
         },
-        bankAccounts: {
-            labels: ['Checking', 'Savings', 'Mastercard', 'Visa'],
-            data: {
-                'Last Month': [-3621.93, 200, 304.96, 0],
-                'Last 3 Months': [-4000, 300, 500, 0],
-                'Last 6 Months': [-4500, 400, 600, 0],
-                'Last 12 Months': [-5000, 500, 700, 0],
-                'This Year': [-5500, 600, 800, 0]
-            }
-        }
+
     };
 
     // Initialize Charts
@@ -58,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var salesChart = initChart('salesChart', 'line', chartData.sales.labels, chartData.sales.data['Last Month']);
     var expensesChart = initChart('expensesChart', 'doughnut', chartData.expenses.labels, chartData.expenses.data['Last Month']);
     var profitLossChart = initChart('profitLossChart', 'pie', chartData.profitLoss.labels, chartData.profitLoss.data['Last Month']);
-    var bankAccountsChart = initChart('bankAccountsChart', 'bar', chartData.bankAccounts.labels, chartData.bankAccounts.data['Last Month']);
+
 
     // Event Listeners for Dropdowns
     document.getElementById('invoicesSelect').addEventListener('change', function() {
@@ -73,9 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('salesSelect').addEventListener('change', function() {
         updateChart(salesChart, chartData.sales.labels, chartData.sales.data[this.value]);
     });
-    document.getElementById('bankAccountsSelect').addEventListener('change', function() {
-        updateChart(bankAccountsChart, chartData.bankAccounts.labels, chartData.bankAccounts.data[this.value]);
-    });
+
 
     // Function to Initialize Chart
     function initChart(chartId, type, labels, data) {
@@ -99,6 +89,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/expenses')
+            .then(response => response.json())
+            .then(data => {
+                const labels = data.map(d => d.itemName);
+                const amounts = data.map(d => parseFloat(d.amount));
+                updateChart(expensesChart, labels, amounts);
+            });
+    });
     // Function to Update Chart
     function updateChart(chart, labels, data) {
         chart.data.labels = labels;
@@ -106,13 +106,11 @@ document.addEventListener('DOMContentLoaded', function() {
         chart.update();
     }
 
-    // fm 메인 화면 "결재 목록" 에서 전체 row(줄) 아무데나 클릭 시 다음 페이지 넘어가는 기능
-    document.addEventListener('DOMContentLoaded', function () {
-        var rows = document.querySelectorAll('.clickable-row');
-        rows.forEach(function (row) {
-            row.addEventListener('click', function () {
-                window.location = row.getAttribute('data-href');
-            });
-        });
+
+});
+$(document).ready(function() {
+    // 이벤트 위임 방식으로 클릭 이벤트 처리
+    $(document).on('click', '.clickable-row', function() {
+        window.location = $(this).data('href');
     });
 });
