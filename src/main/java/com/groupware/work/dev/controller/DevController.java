@@ -1,9 +1,9 @@
-package com.groupware.work.controller;
+package com.groupware.work.dev.controller;
 
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.dto.ProjectFeedDTO;
 import com.groupware.work.dev.dto.ProjectMemberDTO;
-import com.groupware.work.service.WorkService;
+import com.groupware.work.dev.devService.DevService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
-public class WorkRestController {
+public class DevController {
 
-    private final WorkService workService;
+    private final DevService workService;
 
     @Autowired
-    public WorkRestController(WorkService workService) {
+    public DevController(DevService workService) {
         this.workService = workService;
     }
 

@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class WorkController {
+public class WorkViewController {
 
     @GetMapping("/fm")
     public String fm() {
