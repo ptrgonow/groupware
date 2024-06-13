@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어 - FM 메인</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="/css/file-eform.css">
     <link rel="stylesheet" href="/css/main-finance.css">
-
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
 
 </head>
 <body>
@@ -24,7 +22,7 @@
                 어흐으으 ㅠㅠㅠㅠㅠㅠㅠㅠ
             </div>
             <div class="ap-summary">
-                <!-- Bank Accounts Chart -->
+                <!-- Approval Chart in Pending Status -->
                 <div class="chart-container">
                     <div class="card">
                         <div class="card-header">
@@ -58,7 +56,7 @@
                                         </div>
                                     </div>
                                     -->
-                                    <tr class="clickable-row" data-href="/FM/eform">
+                                    <tr class="clickable-row" data-href="/fm/eform">
                                         <th scope="row">10</th>
                                         <td>2024-06-09</td>
                                         <td>연차신청서</td>
@@ -112,44 +110,6 @@
             </div>
 
             <div class="row">
-                <!-- Invoices Chart -->
-                <div class="col-xl-6 col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">Invoices</h5>
-                            <select id="invoicesSelect" class="form-control form-control-sm w-auto float-right">
-                                <option>Last Month</option>
-                                <option>Last 3 Months</option>
-                                <option>Last 6 Months</option>
-                                <option>Last 12 Months</option>
-                                <option>This Year</option>
-                            </select>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="invoicesChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <!-- Sales Chart -->
-                <div class="col-xl-6 col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">Sales</h5>
-                            <select id="salesSelect" class="form-control form-control-sm w-auto float-right">
-                                <option>Last Month</option>
-                                <option>Last 3 Months</option>
-                                <option>Last 6 Months</option>
-                                <option>Last 12 Months</option>
-                                <option>This Year</option>
-                            </select>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="salesChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
                 <!-- Expenses Chart -->
                 <div class="col-xl-6 col-md-6">
                     <div class="card">
@@ -183,6 +143,44 @@
                         </div>
                         <div class="card-body">
                             <canvas id="profitLossChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Invoices Chart -->
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Invoices</h5>
+                            <select id="invoicesSelect" class="form-control form-control-sm w-auto float-right">
+                                <option>Last Month</option>
+                                <option>Last 3 Months</option>
+                                <option>Last 6 Months</option>
+                                <option>Last 12 Months</option>
+                                <option>This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="invoicesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sales Chart -->
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Sales</h5>
+                            <select id="salesSelect" class="form-control form-control-sm w-auto float-right">
+                                <option>Last Month</option>
+                                <option>Last 3 Months</option>
+                                <option>Last 6 Months</option>
+                                <option>Last 12 Months</option>
+                                <option>This Year</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="salesChart"></canvas>
                         </div>
                     </div>
                 </div>
