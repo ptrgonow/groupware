@@ -1,4 +1,4 @@
-package com.groupware.work.mapper;
+package com.groupware.work.dev.devMapper;
 
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.dto.ProjectFeedDTO;
@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 @Mapper
-public interface WorkMapper {
+public interface DevMapper {
 
     @Select("SELECT p.* " +
             "FROM projects p " +

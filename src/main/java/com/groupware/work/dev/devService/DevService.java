@@ -1,22 +1,21 @@
-package com.groupware.work.service;
+package com.groupware.work.dev.devService;
 
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.dto.ProjectFeedDTO;
 import com.groupware.work.dev.dto.ProjectMemberDTO;
-import com.groupware.work.mapper.WorkMapper;
-import org.apache.ibatis.annotations.Param;
+import com.groupware.work.dev.devMapper.DevMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class WorkService {
+public class DevService {
 
-    private final WorkMapper workMapper;
+    private final DevMapper workMapper;
 
     @Autowired
-    public WorkService(WorkMapper workMapper) {
+    public DevService(DevMapper workMapper) {
         this.workMapper = workMapper;
     }
 
