@@ -1,4 +1,4 @@
-package com.groupware.work.fm.dto.fmMapper;
+package com.groupware.work.fm.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

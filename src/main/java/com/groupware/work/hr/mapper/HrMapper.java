@@ -1,4 +1,4 @@
-package com.groupware.work.hr.hrMapper;
+package com.groupware.work.hr.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

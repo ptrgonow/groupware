@@ -1,4 +1,4 @@
-package com.groupware.work.hr.hrService;
+package com.groupware.work.hr.service;
 
 import org.springframework.stereotype.Service;
 

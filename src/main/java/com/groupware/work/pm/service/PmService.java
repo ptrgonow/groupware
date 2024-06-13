@@ -1,4 +1,4 @@
-package com.groupware.work.pm.pmService;
+package com.groupware.work.pm.service;
 
 import org.springframework.stereotype.Service;
 

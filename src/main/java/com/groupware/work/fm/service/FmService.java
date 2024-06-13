@@ -1,4 +1,4 @@
-package com.groupware.work.fm.dto.fmService;
+package com.groupware.work.fm.service;
 
 import org.springframework.stereotype.Service;
 

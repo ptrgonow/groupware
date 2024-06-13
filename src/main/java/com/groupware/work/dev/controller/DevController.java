@@ -3,7 +3,7 @@ package com.groupware.work.dev.controller;
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.dto.ProjectFeedDTO;
 import com.groupware.work.dev.dto.ProjectMemberDTO;
-import com.groupware.work.dev.devService.DevService;
+import com.groupware.work.dev.service.DevService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

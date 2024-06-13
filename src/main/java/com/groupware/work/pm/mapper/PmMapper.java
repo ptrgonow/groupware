@@ -1,4 +1,4 @@
-package com.groupware.work.pm.pmMapper;
+package com.groupware.work.pm.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

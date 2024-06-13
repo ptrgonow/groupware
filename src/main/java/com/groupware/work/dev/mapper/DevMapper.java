@@ -1,4 +1,4 @@
-package com.groupware.work.dev.devMapper;
+package com.groupware.work.dev.mapper;
 
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.dto.ProjectFeedDTO;

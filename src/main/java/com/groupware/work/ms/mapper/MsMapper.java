@@ -1,4 +1,4 @@
-package com.groupware.work.ms.msMapper;
+package com.groupware.work.ms.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

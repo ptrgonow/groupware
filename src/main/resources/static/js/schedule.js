@@ -38,11 +38,14 @@ $(document).ready(function() {
                     url: '/sc/list',
                     method: 'GET',
                     success: function(events) {
-                        // 필터링 적용
                         successCallback(filterFunction(events, info.start, info.end));
                     },
-                    error: function() {
-                        alert('일정 목록을 불러오는 데 실패했습니다.');
+                    error: function(xhr, status, error) {
+                        let errorMessage = '일정 목록을 불러오는 데 실패했습니다.';
+                        if (xhr.status === 401) {
+                            errorMessage = '인증에 실패했습니다. 로그인 후 다시 시도해 주세요.';
+                        }
+                        alert(errorMessage);
                         failureCallback();
                     }
                 });
@@ -189,8 +192,12 @@ $(document).ready(function() {
                 dayCalendar.refetchEvents();
                 alert('이벤트가 생성되었습니다.');
             },
-            error: function() {
-                alert('이벤트 생성에 실패했습니다.');
+            error: function(xhr, status, error) {
+                let errorMessage = '이벤트 생성에 실패했습니다.';
+                if (xhr.status === 401) {
+                    errorMessage = '인증에 실패했습니다. 로그인 후 다시 시도해 주세요.';
+                }
+                alert(errorMessage);
             }
         });
     }
@@ -206,8 +213,12 @@ $(document).ready(function() {
                 dayCalendar.refetchEvents();
                 alert('이벤트가 업데이트되었습니다.');
             },
-            error: function() {
-                alert('이벤트 업데이트에 실패했습니다.');
+            error: function(xhr, status, error) {
+                let errorMessage = '이벤트 업데이트에 실패했습니다.';
+                if (xhr.status === 401) {
+                    errorMessage = '인증에 실패했습니다. 로그인 후 다시 시도해 주세요.';
+                }
+                alert(errorMessage);
             }
         });
     }
@@ -221,8 +232,12 @@ $(document).ready(function() {
                 dayCalendar.refetchEvents();
                 alert('이벤트가 삭제되었습니다.');
             },
-            error: function() {
-                alert('이벤트 삭제에 실패했습니다.');
+            error: function(xhr, status, error) {
+                let errorMessage = '이벤트 삭제에 실패했습니다.';
+                if (xhr.status === 401) {
+                    errorMessage = '인증에 실패했습니다. 로그인 후 다시 시도해 주세요.';
+                }
+                alert(errorMessage);
             }
         });
     }
