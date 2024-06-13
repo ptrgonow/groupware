@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"/>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    <link rel="stylesheet" href="/css/file-reg.css">
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h3>문서 등록하기</h3>
+            </div>
+
+            <!-- 테이블 -->
+            <div class="row">
+                <div class="col-xl-10 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <form>
+                            <table>
+                                <tr>
+                                    <td>문서 번호</td>
+                                    <td><input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>결재 양식명</td>
+                                    <td><input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>결재 담당 부서</td>
+                                    <td><input type="text"></td>
+                                </tr>
+                                <tr>
+                                    <td>첨부파일</td>
+                                    <td><input type="file"></td>
+                                </tr>
+                            </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- 문서 등록, 삭제 버튼 -->
+            <div class="file-btn">
+                <button type="button" class="btn btn-outline">등록하기</button>
+                <button type="button" class="btn btn-danger">뒤로가기</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/paginationjs@2.1.5/dist/pagination.min.js"></script>
+<script src="/js/main-file.js"></script>
+</body>
+</html>
