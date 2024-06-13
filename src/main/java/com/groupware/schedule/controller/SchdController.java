@@ -3,9 +3,8 @@ package com.groupware.schedule.controller;
 import com.groupware.schedule.dto.SchdDTO;
 import com.groupware.schedule.service.SchdService;
 import com.groupware.user.dto.UserDTO;
-import com.groupware.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,14 +15,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/sc")
+@RequiredArgsConstructor
 public class SchdController {
 
     private final SchdService schdService;
-
-    @Autowired
-    public SchdController(SchdService schdService) {
-        this.schdService = schdService;
-    }
 
     @GetMapping("/schedule")
     public String mainSchedule(Model model, HttpSession session) {
@@ -38,10 +33,8 @@ public class SchdController {
 
     @GetMapping("/list")
     public ResponseEntity<List<SchdDTO>> getAllSchedules(HttpSession session) {
-        String employeeCode = (String) session.getAttribute("employeeCode");
-        if (employeeCode == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        String employeeCode = user.getEmployeeCode();
         List<SchdDTO> schedules = schdService.getAllSchedules(employeeCode);
         return new ResponseEntity<>(schedules, HttpStatus.OK);
     }

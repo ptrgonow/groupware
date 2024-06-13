@@ -3,6 +3,7 @@ package com.groupware.work.dev.controller;
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.dto.ProjectFeedDTO;
 import com.groupware.work.dev.dto.ProjectMemberDTO;
+import com.groupware.work.dev.dto.ProjectTaskDTO;
 import com.groupware.work.dev.service.DevService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,13 @@ public class DevController {
     public ResponseEntity<List<ProjectMemberDTO>> getProjectMembers(@PathVariable int projectId) {
         List<ProjectMemberDTO> members = workService.getProjectMembers(projectId);
         return ResponseEntity.ok(members);
+    }
+
+    @GetMapping("/{projectId}/tasks")
+    public ResponseEntity<List<ProjectTaskDTO>> getProjectTasks(@PathVariable int projectId){
+        List<ProjectTaskDTO> tasks = workService.getProjectTasks(projectId);
+        System.out.println(tasks);
+        return ResponseEntity.ok(tasks);
     }
 
 }

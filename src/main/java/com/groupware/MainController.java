@@ -18,6 +18,12 @@ public class MainController {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
             model.addAttribute("user", user);
+            model.addAttribute("employeeCode", user.getEmployeeCode());
+            model.addAttribute("departmentId", user.getDepartmentId());
+            System.out.println("User is set in session with employee code: " + user.getEmployeeCode());
+            System.out.println("User is set in session with department id: " + user.getDepartmentId());
+        } else {
+            System.out.println("User is not set in session");
         }
         return "index";
     }

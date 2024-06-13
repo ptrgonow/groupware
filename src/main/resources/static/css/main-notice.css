@@ -202,11 +202,23 @@ th {
 
 }
 
+.card-body-inner {
+
+    margin-top: 1rem;
 
 
 
+}
 
+/* 페이징 */
 
+.pagination {
 
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center; /* 가로 방향으로 가운데 정렬합니다. */
+    align-items: center;
+    text-align: center;
+}
 
 

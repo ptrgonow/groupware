@@ -31,6 +31,7 @@
                             <table class="table text-nowrap mb-0">
                                 <thead class="table-light">
                                 <tr>
+                                    <th>No.</th>
                                     <th>프로젝트명</th>
                                     <th>진행도</th>
                                 </tr>
@@ -52,12 +53,10 @@
                         </div>
                         <div class="card-body dash-activity">
 
-                            <div class="slimscroll activity_scroll" id="projectFeedContainer"> </div>
+                            <div class="activity_scroll" id="projectFeedContainer"> </div>
 
                             </div>
-                            <div class="leave-viewall">
-                                <a href="#">View all <img src="/img/r-arrow.png" class="ml-2" alt="arrow"></a>
-                            </div>
+                        <div id="feedPaginationContainer"></div>
                         </div>
                     </div>
                 </div>
@@ -132,9 +131,7 @@
                             <h4 class=" mb-0 ">담당 작업 </h4>
                         </div>
                         <!-- card body  -->
-                        <div class="card-body">
-                        
-                        </div>
+                        <div class="card-body" id="projectTaskContainer">
                     </div>
                 </div>
             </div>
