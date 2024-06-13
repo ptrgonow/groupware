@@ -50,8 +50,51 @@
             </div>
             <!-- 문서 등록, 삭제 버튼 -->
             <div class="file-btn" th:if="${user.departmentId == 3}">
-                <button type="button" class="btn btn-outline">문서 등록</button>
-                <button type="button" class="btn btn-danger">문서 삭제</button>
+                <div class="btn-area">
+                        <button type="button" class="btn btn-outline"
+                                data-bs-toggle="modal" data-bs-target="#fileRegModal">문서 등록</button>
+
+                        <!-- 등록 모달 -->
+                        <div class="modal fade" id="fileRegModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title fs-5" id="exampleModalLabel">문서함 등록</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" th:action="@{/file/reg}" enctype="multipart/form-data">
+                                            <input type="hidden" name="id">
+                                            <input type="hidden" name="fileCd">
+                                            <div class="mb-3">
+                                                <label for="title" class="col-form-label">결재 양식명:</label>
+                                                <input type="text" class="form-control" id="title" name="title">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="createdBy" class="col-form-label">결재 담당 부서:</label>
+                                                <input type="text" class="form-control" id="createdBy"
+                                                       th:value="${user.departmentName}" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="fileUrl" class="col-form-label">첨부파일:</label>
+                                                <input type="file" id="fileUrl" name="fileUrl">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light-reg">등록하기</button>
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="" class="btn btn-danger">문서 삭제</button>
+                </div>
+            </div>
+
+            <!-- 페이징 -->
+            <div id="paging-container">
+                <div id="pagination"></div>
             </div>
 
 

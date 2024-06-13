@@ -25,4 +25,8 @@ public class FileService {
     public List<FileDTO> searchList(String title){
         return fileMapper.searchList(title);
     }
+
+    public int insertFile(FileDTO file) {
+        return fileMapper.insertFile(file);
+    }
 }

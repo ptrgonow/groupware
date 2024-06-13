@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -79,8 +80,18 @@ public class FileController {
     }
 
     // 문서 등록하기 버튼을 클릭했을 때 페이지
-    @GetMapping("/reg")
-    public String reg(){
+    @PostMapping("/reg")
+    public String reg(Model model, HttpSession session,
+                      @RequestParam("title") String title,
+                      @RequestParam("fileUrl") String fileUrl){
+
+        UserDTO user = (UserDTO) session.getAttribute("user");
+
+        if (user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("departmentName", user.getDepartmentName());
+        }
+
         return "file/file-reg";
     }
 

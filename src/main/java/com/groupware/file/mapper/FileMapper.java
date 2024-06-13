@@ -1,6 +1,7 @@
 package com.groupware.file.mapper;
 
 import com.groupware.file.dto.FileDTO;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -23,5 +24,10 @@ public interface FileMapper {
             "JOIN department d ON t.created_by = d.department_id " +
             "WHERE t.title LIKE CONCAT('%', #{title}, '%')")
     List<FileDTO> searchList(@Param("title") String title);
+
+    // 문서 등록
+    @Insert("INSERT INTO templates(id, title, file_url, created_by, updated_at, file_cd) " +
+            "VALUES(#{title}, #{file_url}, #{created_by}, #{updated_at}, #{file_cd})")
+    int insertFile(FileDTO file);
 
 }
