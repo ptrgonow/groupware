@@ -70,10 +70,14 @@
 
 /* .table.table-hover */
 .table.table-hover {
+    text-align: center;
     color: #333;
     max-width: 100%;
     margin-bottom: 0;
     width: 100%;
+}
+.table .table-hover th{
+    text-align: center;
 }
 
 .table.table-hover tbody tr:hover {
