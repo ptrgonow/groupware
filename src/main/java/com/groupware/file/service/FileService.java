@@ -26,7 +26,11 @@ public class FileService {
         return fileMapper.searchList(title);
     }
 
-    public int insertFile(FileDTO file) {
-        return fileMapper.insertFile(file);
+    public void insertFile(FileDTO file) {
+        fileMapper.insertFile(file);
+    }
+
+    public void deleteFile(int id) {
+        fileMapper.deleteFile(id);
     }
 }

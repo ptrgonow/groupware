@@ -2,16 +2,16 @@ package com.groupware.file.controller;
 
 import com.groupware.file.dto.FileDTO;
 import com.groupware.file.service.FileService;
+import com.groupware.user.dto.DeptDTO;
 import com.groupware.user.dto.UserDTO;
+import com.groupware.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,22 +22,25 @@ import java.util.Map;
 public class FileController {
 
     private final FileService fileService;
+    private final UserService userService;
 
-    public FileController(FileService fileService) {
+    public FileController(FileService fileService, UserService userService) {
         this.fileService = fileService;
+        this.userService = userService;
     }
 
     @GetMapping("/fMain")
     public String file(Model model, HttpSession session) {
 
         List<FileDTO> fileList = fileService.selectAll();
+        List<DeptDTO> deptList = userService.getAllDepartments();
         UserDTO user = (UserDTO) session.getAttribute("user");
 
         if (user != null) {
             model.addAttribute("user", user);
-            model.addAttribute("departmentName", user.getDepartmentName());
         }
         model.addAttribute("fList", fileList);
+        model.addAttribute("dList", deptList);
 
         return "file/main-file";
     }
@@ -54,10 +57,10 @@ public class FileController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("user", user);
-        response.put("departmentName", user.getDepartmentName());
+        response.put("departmentName", userService.getAllDepartments());
         response.put("fileList", fileList);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return ResponseEntity.ok(response);
     }
 
     // 검색 했을 때 보여질 요청
@@ -79,26 +82,48 @@ public class FileController {
 
     }
 
-    // 문서 등록하기 버튼을 클릭했을 때 페이지
-    @PostMapping("/reg")
-    public String reg(Model model, HttpSession session,
-                      @RequestParam("title") String title,
-                      @RequestParam("fileUrl") String fileUrl){
+    // 부서 이름 가져오기
+    @GetMapping("/departments")
+    public ResponseEntity<List<DeptDTO>> getDepartments() {
+        List<DeptDTO> deptList = userService.getAllDepartments();
+        return ResponseEntity.ok(deptList);
+    }
 
+    // 문서 등록하기 버튼을 클릭했을 때
+    @PostMapping("/reg")
+    public ResponseEntity<Map<String, Object>> reg(@RequestParam String fileCd,
+                                                   @RequestParam String title,
+                                                   @RequestParam String department_name,
+                                                   HttpSession session) {
+
+        List<DeptDTO> deptList = userService.getAllDepartments();
         UserDTO user = (UserDTO) session.getAttribute("user");
 
-        if (user != null) {
-            model.addAttribute("user", user);
-            model.addAttribute("departmentName", user.getDepartmentName());
-        }
+        FileDTO file = new FileDTO();
+        file.setTitle(title);
+        file.setFileCd(fileCd);
+        file.setCreatedBy(department_name);
 
-        return "file/file-reg";
+        fileService.insertFile(file);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("deptList", deptList);
+
+        return ResponseEntity.ok(response);
     }
+
+    // 문서 삭제
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        fileService.deleteFile(id);
+
+        return ResponseEntity.ok("삭제 성공");
+    }
+
 
     @GetMapping("/vac")
     public String vac() {
         return "file/eform-draft";
     }
-
 
 }

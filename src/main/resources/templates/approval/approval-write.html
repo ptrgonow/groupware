@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>결재 작성</title>
 
+    <link rel="stylesheet" href="/css/approval-write.css">
 </head>
 <body>
 
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <link rel="stylesheet" href="/css/approval-write.css">
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
@@ -50,48 +51,24 @@
                     <h5>결재 담당자</h5><button class="man-btn">조직도 검색</button> <!--트리구조로 만들어야 함-->
                 </div>
 
-                <div class="manager-content">
-                    <table class="man-table">
-                        <thead>
-                        <tr class="table-head">
-                            <th class="col-small">구분</th>
-                            <th>중간 결재자</th>
-                            <th>최종 결재자</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td class="table-title col-small">이름</td>
-                            <td>조직도 검색에서 선택한 이름</td>
-                            <td>조직도 검색에서 선택한 이름</td>
-                        </tr>
-                        <tr>
-                            <td class="table-title col-small">부서</td>
-                            <td>조직도 검색에서 선택한 이름의 부서</td>
-                            <td>조직도 검색에서 선택한 이름의 부서</td>
-                        </tr>
-                        <tr>
-                            <td class="table-title col-small">직급</td>
-                            <td>조직도 검색에서 선택한 이름의 직급</td>
-                            <td>조직도 검색에서 선택한 이름의 직급</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <!-- ckeditor -->
+                <div id="editor"></div>
 
-                <div class="doc-area">
-                    <form>
-                        <div class="doc-content">
-                            양식 만들기
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
 </div>
 
-
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+
+<!-- ckeditor -->
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 </body>
 </html>
