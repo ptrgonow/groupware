@@ -4,28 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
-
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/main-notice.css">
 </head>
 <body>
 
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-
+    
+    <link rel="stylesheet" href="/css/main-notice.css">
+    
     <div class="page-wrapper">
         <div class="content container-fluid">
-            <div class="page-name mb-4"> <!-- 공지사항을 가운데 정렬 -->
+            <div class="page-name mb-4">
                 <h3>공지사항</h3>
             </div>
-
-
-
+            
             <div class="card-body-inner">
                 <div class="breadcrumb-gray text-center">
                     <h2>공지사항</h2>
@@ -34,59 +27,26 @@
                     <thead>
                     <tr>
                         <th>번호</th>
-                        <th style="width: 30%;">제목</th>
-                        <th style="width: 40%;">내용</th>
+                        <th>제목</th>
+                        <th>내용</th>
                         <th>작성일</th>
                     </tr>
                     </thead>
                     <tbody id="notice_cont">
-                    <tr th:each="notice : ${notices}">
-                        <td th:text="${notice.notice_id}">ID</td>
-                        <td th:text="${notice.title}">Title</td>
-                        <td th:text="${notice.content}">Content</td>
-                        <td th:text="${notice.created_at}"></td>
-
+                    <tr th:each="nList : ${notices}">
+                        <td th:text="${nList.notice_id}">ID</td>
+                        <td th:text="${nList.title}">Title</td>
+                        <td th:text="${nList.content}">Content</td>
+                        <td th:text="${#dates.format(nList.created_at, 'yyyy-MM-dd')}"></td>
                     </tr>
                     </tbody>
                 </table>
-
-
-                <!-- 페이징 -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <!-- 백엔드에서 전달받은 총 페이지 수를 기반으로 페이지 버튼을 동적으로 생성 -->
-                        <!-- 페이지 버튼의 숫자와 링크는 백엔드에서 전달받은 페이지 정보를 기반으로 생성해야 합니다. -->
-                        <!-- 여기서는 간단히 5 페이지까지만 생성하는 예시를 드리겠습니다. -->
-                        <!-- 실제로는 백엔드에서 전달받은 총 페이지 수를 기반으로 생성해야 합니다. -->
-                        <!-- 페이지 버튼은 페이지를 변경할 수 있는 링크여야 하며, 해당 페이지에 맞게 백엔드로 요청을 보내야 합니다. -->
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-
-
-
+                <div id="pagination-notice"></div>
             </div>
-
-
-            <!-- <div th:if="${user != null && user.departmentId == 3}"> -->
-                <!-- 여기에 사용자 부서 ID가 3일 때 렌더링될 HTML 요소를 작성하세요 -->
-            <a href="notice-write" class="cocoBtn">공지사항 작성</a>
-          <!--   </div> -->
-
+            
+             <div th:if="${user.departmentId == 3}">
+                 <a href="/nt/writepage" class="cocoBtn">공지사항 작성</a>
+             </div>
 
             <div class="row mb-4">
                 <div class="col-md-6">
@@ -126,17 +86,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </div>
-
-
-
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/notice.js"></script>
-
 </body>
 </html>

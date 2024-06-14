@@ -2,6 +2,8 @@ package com.groupware.notice.controller;
 
 import com.groupware.notice.dto.NoticeDTO;
 import com.groupware.notice.service.NoticeService;
+import com.groupware.user.dto.UserDTO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,7 @@ public class NoticeController {
         this.noticeService = noticeService;
     }
 
-    @GetMapping("/notice-write")
+    @GetMapping("/writepage")
     public String noticeWrite() {
         return "notice/notice-write";
     }
@@ -34,8 +36,10 @@ public class NoticeController {
     }
 
     @GetMapping("/nMain")
-    public String noticeList(Model model) {
+    public String noticeList(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
         List<NoticeDTO> notices = noticeService.getAllNotices();
+        model.addAttribute("user", user);
         model.addAttribute("notices", notices);
         return "notice/main-notice";
     }

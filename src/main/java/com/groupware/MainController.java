@@ -1,30 +1,41 @@
 package com.groupware;
 
+import com.groupware.notice.dto.NoticeDTO;
+import com.groupware.notice.service.NoticeService;
 import com.groupware.user.dto.UserDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class MainController {
+
+    private final NoticeService noticeService;
+
 
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
+
         UserDTO user = (UserDTO) session.getAttribute("user");
+        List<NoticeDTO> nDTO = noticeService.getAllNotices();
+
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("employeeCode", user.getEmployeeCode());
             model.addAttribute("departmentId", user.getDepartmentId());
-            System.out.println("User is set in session with employee code: " + user.getEmployeeCode());
-            System.out.println("User is set in session with department id: " + user.getDepartmentId());
+            model.addAttribute("nList", nDTO);
         } else {
-            System.out.println("User is not set in session");
+            return "redirect:/loginPage";
         }
+
         return "index";
     }
 

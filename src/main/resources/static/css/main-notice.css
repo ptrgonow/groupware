@@ -1,39 +1,7 @@
 
-.breadcrumb-path {
-
-}
-
-.calendar {
-    border-collapse: collapse;
-    width: 100%;
-}
-.calendar th,
-.calendar td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-.calendar th {
-    background-color: #f2f2f2;
-}
-.calendar td {
-    cursor: pointer;
-}
-.calendar td:hover {
-    background-color: #f0f0f0;
-}
 .today {
     background-color: #f0f0f0;
 }
-
-/* CSS */
-.birthday {
-    background-color: #ffcccc; /* 생일인 사람의 배경색을 지정합니다. */
-    color: #000; /* 생일인 사람의 글자색을 지정합니다. */
-    font-weight: bold; /* 생일인 사람의 글자를 두껍게 표시합니다. */
-}
-
-
 
 
 
@@ -135,7 +103,6 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
-    width: auto;
 }
 
 th {
@@ -212,13 +179,15 @@ th {
 
 /* 페이징 */
 
-.pagination {
-
-    margin-top: 3rem;
+#pagination-notice {
+    position: relative;
+    bottom: 0;
+    margin-top: 2rem;
+    width: 100%;
     display: flex;
-    justify-content: center; /* 가로 방향으로 가운데 정렬합니다. */
-    align-items: center;
-    text-align: center;
+    justify-content: center;
 }
 
-
+.card-body-inner ul li {
+    margin-right: 0;
+}

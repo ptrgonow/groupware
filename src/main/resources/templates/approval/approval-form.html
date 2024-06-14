@@ -34,21 +34,30 @@
                                                     <tr>
                                                         <th>문서번호</th>
                                                         <td>
-                                                            <input type="text" class="form-control" id="ap-docNo" name="docNo" placeholder=" " required>
-                                                        </td>
-                                                        <th>기안부서</th>
-                                                        <td>
-                                                            <input type="text" class="form-control" id="ap-dept" name="dept" placeholder=" " required>
+                                                            <select class="form-select" id="ap-doc-no" name="docNo" required>
+                                                                <option value="" selected>문서 선택</option>
+                                                            </select>
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <th>기안부서</th>
+                                                        <td>
+                                                            <input type="text" class="form-control" id="ap-dept" name="dept" th:value="${user.departmentName}" readonly>
+                                                        </td>
                                                         <th>기안자</th>
                                                         <td>
-                                                            <input type="text" class="form-control" id="ap-writer" name="writer" placeholder=" " required>
+                                                            <input type="text" class="form-control" id="ap-writer" name="writer" th:value="${user.name}" readonly>
                                                         </td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>기안일</th>
                                                         <td>
-                                                            <input type="text" class="form-control" id="ap-createAt" name="createAt" placeholder=" " required>
+                                                            <input type="date" class="form-control" id="ap-createAt" name="createAt"
+                                                                   th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" readonly>
+                                                        </td>
+                                                        <th>마감일</th>
+                                                        <td>
+                                                            <input type="date" class="form-control" id="ap-dueDate" name="endAt">
                                                         </td>
                                                     </tr>
                                                     </tbody>

@@ -17,12 +17,10 @@ $(document).ready(function() {
             locale: 'ko',
             height: 'auto',
             headerToolbar: {
-                start: 'today',
+                start: 'title',
                 end: 'prev,next'
             },
-            buttonText: {
-                today: '오늘'
-            },
+
             editable: false,
             eventResizableFromStart: false,
             selectable: true,
