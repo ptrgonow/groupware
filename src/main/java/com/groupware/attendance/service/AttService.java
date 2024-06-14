@@ -4,6 +4,9 @@ import com.groupware.attendance.dto.AttDTO;
 import com.groupware.attendance.mapper.AttMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,5 +41,48 @@ public class AttService {
 
     public List<AttDTO> getAttendanceRecords(String employeeCode) {
         return attMapper.getAttendanceRecords(employeeCode);
+    }
+
+    public List<AttDTO> workTimeCal(String employeeCode) {
+        List<AttDTO> records = attMapper.getFirstAndLastAttendance(employeeCode);
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        for (AttDTO attDTO : records) {
+            if (attDTO == null) {
+                System.out.println("attDTO is null in the records list.");
+                continue;
+            }
+
+            LocalDateTime firstCheckIn = attDTO.getFirstCheckIn();
+            LocalDateTime lastCheckOut = attDTO.getLastCheckOut();
+
+            if (firstCheckIn != null && lastCheckOut != null) {
+                Duration duration = Duration.between(firstCheckIn, lastCheckOut);
+                long hours = duration.toHours();
+                long minutes = duration.toMinutes() % 60;
+
+                attDTO.setHoursWorked(hours);
+                attDTO.setMinutesWorked(minutes);
+                System.out.println("Calculated work time for " + employeeCode + ": " + hours + " hours " + minutes + " minutes");
+            } else {
+                System.out.println("First check-in or last check-out is null for " + employeeCode);
+                attDTO.setHoursWorked(0);
+                attDTO.setMinutesWorked(0);
+            }
+
+            if (attDTO.getAttendanceDate() != null) {
+                attDTO.setFormattedAttendanceDate(attDTO.getAttendanceDate().format(dateFormatter));
+            }
+            if (firstCheckIn != null) {
+                attDTO.setFormattedFirstCheckIn(firstCheckIn.format(timeFormatter));
+            }
+            if (lastCheckOut != null) {
+                attDTO.setFormattedLastCheckOut(lastCheckOut.format(timeFormatter));
+            }
+        }
+
+        return records;
     }
 }

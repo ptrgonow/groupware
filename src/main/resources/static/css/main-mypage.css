@@ -95,3 +95,66 @@ body {
     justify-content: center;
     gap: 1rem;
 }
+
+
+
+.at-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.at-tbl thead tr th {
+    background-color: #879096;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-weight: 700;
+    border-bottom: 2px solid #495057;
+}
+
+
+.at-tbl .col-number {
+    width: 10%;
+}
+
+.at-tbl .col-title {
+    width: 40%;
+}
+
+.at-tbl .col-author {
+    width: 15%;
+}
+
+.at-tbl .col-date {
+    width: 20%;
+}
+
+.at-tbl .col-status {
+    width: 10%;
+}
+
+.at-tbl tbody tr td {
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px;
+    color: #495057;
+}
+
+.at-tbl tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.at-tbl tbody tr:hover {
+    background-color: #e6e6ea;
+}
+
+.at-tbl tbody tr td {
+    text-align: center;
+}
+
+#pagination-work {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}

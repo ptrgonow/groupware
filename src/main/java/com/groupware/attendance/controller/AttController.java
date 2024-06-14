@@ -2,8 +2,11 @@ package com.groupware.attendance.controller;
 
 import com.groupware.attendance.dto.AttDTO;
 import com.groupware.attendance.service.AttService;
+import com.groupware.user.dto.UserDTO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -24,9 +27,6 @@ public class AttController {
     @PostMapping("/insert")
     public ResponseEntity<String> insertAttendance(@RequestParam String employee_code, @RequestParam String action) {
         LocalDateTime dateTime = LocalDateTime.now();
-
-        // 로깅 추가
-        System.out.println("Current Server DateTime: " + dateTime);
 
         AttDTO attDTO = new AttDTO();
         attDTO.setEmployeeCode(employee_code);
@@ -54,4 +54,5 @@ public class AttController {
         List<AttDTO> records = attService.getAttendanceRecords(employee_code);
         return ResponseEntity.ok(records);
     }
+
 }

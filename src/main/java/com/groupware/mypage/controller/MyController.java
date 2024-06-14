@@ -1,9 +1,10 @@
 package com.groupware.mypage.controller;
 
+import com.groupware.attendance.dto.AttDTO;
+import com.groupware.attendance.service.AttService;
 import com.groupware.mypage.dto.TodoDTO;
 import com.groupware.mypage.service.MyService;
 import com.groupware.user.dto.UserDTO;
-import com.groupware.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,26 +27,27 @@ public class MyController {
 
     private static final Logger logger = LoggerFactory.getLogger(MyController.class);
 
-    private final UserService userService;
+    private final AttService attService;
     private final MyService myService;
 
-    public MyController(UserService userService, MyService myService) {
-        this.userService = userService;
+    public MyController(AttService attService, MyService myService) {
+        this.attService = attService;
         this.myService = myService;
     }
 
     @GetMapping("/myinfo")
     public String myPage(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        if (user != null) {
-            user = userService.getUserDetails(user.getEmployeeCode());
-            model.addAttribute("user", user);
-            model.addAttribute("holiday", myService.getHolidayList(user.getEmployeeCode()));
-        } else {
-            return "redirect:/loginPage";
-        }
+        model.addAttribute("user", user);
+        model.addAttribute("holiday", myService.getHolidayList(user.getEmployeeCode()));
+
+        List<AttDTO> workRecords = attService.workTimeCal(user.getEmployeeCode());
+        model.addAttribute("workRecord", workRecords);
+
+
         return "mypage/main-mypage";
     }
+
 
     @GetMapping("/todo")
     public String todoPage() {

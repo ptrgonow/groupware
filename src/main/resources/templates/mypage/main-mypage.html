@@ -44,7 +44,7 @@
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header">
-                            <div class="">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="card-title">잔여 연차 / 휴가</h4>
                             </div>
                         </div>
@@ -61,10 +61,49 @@
             </div>
             
             <div class="row">
+                
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title">근태 기록</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="work_table" class="at-tbl">
+                                <thead>
+                                <tr>
+                                    <th>날짜</th>
+                                    <th>출근시간</th>
+                                    <th>퇴근시간</th>
+                                    <th>근무시간</th>
+                                </tr>
+                                </thead>
+                                
+                                <tbody id="work_record_body">
+                                <tr th:each="work : ${workRecord}">
+                                    <td th:text="${work.formattedAttendanceDate != null ? work.formattedAttendanceDate : 'N/A'}"></td>
+                                    <td th:text="${work.formattedFirstCheckIn != null ? work.formattedFirstCheckIn : 'N/A'}"></td>
+                                    <td th:text="${work.formattedLastCheckOut != null ? work.formattedLastCheckOut : 'N/A'}"></td>
+                                    <td th:text="${work.hoursWorked} + '시간 ' + ${work.minutesWorked} + '분'"></td>
+                                </tr>
+                                <tr th:if="${workRecord.isEmpty()}">
+                                    <td colspan="4">출근 기록이 없습니다.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="pagination-work"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header ">
-                            <h4 class="card-title">정보 수정</h4>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">내 정보</h5>
+                            </div>
                         </div>
                         <div class="card-body">
                             <form id="updateForm" enctype="multipart/form-data">
@@ -108,10 +147,10 @@
         </div>
     </div>
 </div>
-
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/ProgressBar.js"></script>
 <script src="/js/attendance.js"></script>
+<script src="/js/mypage.js"></script>
 <script src="/js/hr-register.js"></script>
 </body>
 </html>
