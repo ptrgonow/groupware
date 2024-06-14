@@ -1,13 +1,12 @@
+
 document.addEventListener('DOMContentLoaded', function() {
-    let test = /*[[${test}]]*/ null;
-    alert(test);
     // Chart Data
     var chartData = {
         invoices: {
             labels: ['Overdue', 'Not Due Yet', 'Paid', 'Not Deposited', 'Deposited'],
             data: {
                 'Last Month': [1525.50, 3756.02, 2062.52, 1629.70, 320],
-                'Last 3 Months': [3000, 6000, 4000, 2000, 320],
+                'Last 3 Months': [300, 600, 400, 200, 320],
                 'Last 6 Months': [5000, 7000, 6000, 3000, 320],
                 'Last 12 Months': [8000, 10000, 9000, 4000, 320],
                 'This Year': [10000, 12000, 11000, 5000, 320]
@@ -16,11 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
         expenses: {
             labels: ['Miscellaneous', 'Salary', 'Maintenance and Repairs', 'Rent or Lease', 'Utilities', 'General Supplies'],
             data: {
-                'Last Month': [2666, 940, 900, 2447, 940, 900],
-                'Last 3 Months': [5000, 2000, 1800, 4500, 940, 900],
-                'Last 6 Months': [7000, 3000, 2700, 6000, 940, 900],
-                'Last 12 Months': [10000, 4000, 3600, 8000, 940, 900],
-                'This Year': [12000, 5000, 4500, 10000, 940, 900]
+                'Last Month': [2666, 940, 900, 2447, 1940, test],
+                'Last 3 Months': [5000, 2000, 1800, 6500, 940, test],
+                'Last 6 Months': [1000, 3000, 5700, 6000, 940, test],
+                'Last 12 Months': [10000, 4000, 6600, 8000, 940, test],
+                'This Year': [12000, 5000, 4500, 10000, 940, test]
             }
         },
         profitLoss: {
