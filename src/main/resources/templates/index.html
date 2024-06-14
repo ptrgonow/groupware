@@ -5,19 +5,19 @@
     <title>그룹웨어</title>
     <meta name="employee-code" th:content="${user.employeeCode}">
     <meta name="department-id" th:content="${user.departmentId}">
-    
+
 </head>
 
 <body>
 <div class="main-wrapper">
-    
+
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/todo.css">
     <link rel="stylesheet" href="/css/schedule.css">
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
@@ -75,13 +75,41 @@
                         <div class="card-header">
                             <h4 class="card-title">공지 사항</h4>
                         </div>
+
                         <div class="card-body">
+                            <table class="gong">
 
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th style="width: 30%;">제목</th>
+                                    <th style="width: 40%;">내용</th>
+                                    <th>작성일</th>
+                                </tr>
+                                </thead>
 
+                                <tbody>
+                                <tr th:each="notice, rowStat : ${notices}">
+                                    <td th:text="${rowStat.index + 1}">1</td>
+                                    <td th:text="${notice.title}">Title</td>
+                                    <td th:text="${notice.content}">Content</td>
+                                    <td th:text="${notice.created_at}"></td>
+                                </tr>
+                                </tbody>
+
+                            </table>
                         </div>
+
+                        <div id="dataContainer">
+                            <!-- 여기에 페이징을 통해 표시될 데이터가 자동으로 추가됩니다. -->
+                        </div>
+
+
                     </div>
                 </div>
-                
+
+
+
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header text-center">
@@ -94,6 +122,7 @@
                                 <div id="pagination-mini"></div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -101,11 +130,15 @@
     </div>
 </div>
 
+
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/ProgressBar.js"></script>
 <script src="/js/attendance.js"></script>
 <script src="/js/schedule.js"></script>
 <script src="/js/todo.js"></script>
+<script src="/js/notice.js"></script>
+
+
 </body>
 </html>
 

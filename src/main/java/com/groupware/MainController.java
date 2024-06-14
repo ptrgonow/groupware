@@ -1,5 +1,7 @@
 package com.groupware;
 
+import com.groupware.notice.dto.NoticeDTO;
+import com.groupware.notice.service.NoticeService;
 import com.groupware.user.dto.UserDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -9,17 +11,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @Controller
 public class MainController {
 
+    private final NoticeService noticeService;
+
+    public MainController(NoticeService noticeService) {
+        this.noticeService = noticeService;
+    }
+
     @GetMapping("/")
     public String index(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
+        List<NoticeDTO> nlist = noticeService.getAllNotices();
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("employeeCode", user.getEmployeeCode());
             model.addAttribute("departmentId", user.getDepartmentId());
+            model.addAttribute("notices", nlist);
             System.out.println("User is set in session with employee code: " + user.getEmployeeCode());
             System.out.println("User is set in session with department id: " + user.getDepartmentId());
         } else {

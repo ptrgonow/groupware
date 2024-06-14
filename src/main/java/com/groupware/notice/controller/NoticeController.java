@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -29,8 +31,9 @@ public class NoticeController {
 
     @PostMapping("/notice-write")
     public String processNoticeWrite(NoticeDTO noticeDTO) {
+        noticeDTO.setCreated_at(String.valueOf(LocalDateTime.now()));  // 생성 시간을 현재 시간으로 설정
         noticeService.addNotice(noticeDTO);
-        return "redirect:/notice";
+        return "redirect:/nt/nMain";
     }
 
     @GetMapping("/nMain")
@@ -39,6 +42,5 @@ public class NoticeController {
         model.addAttribute("notices", notices);
         return "notice/main-notice";
     }
-
 
 }
