@@ -2,6 +2,7 @@ package com.groupware.approval.mapper;
 
 
 import com.groupware.approval.dto.DeptTreeDTO;
+import com.groupware.approval.dto.DocNoDTO;
 import com.groupware.approval.dto.EmployeeDTO;
 import com.groupware.approval.dto.PositionsDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -40,5 +41,10 @@ public interface ApMapper {
             "ps_nm AS psNm " +
             "FROM positions")
     List<PositionsDTO> selectAllPositions();
+
+    @Select("SELECT file_cd AS docNo, " +
+            "title AS docName " +
+            "FROM templates")
+    List<DocNoDTO> selectAllDocNo( );
 
 }

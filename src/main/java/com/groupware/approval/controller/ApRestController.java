@@ -1,6 +1,7 @@
 package com.groupware.approval.controller;
 
 import com.groupware.approval.dto.DeptTreeDTO;
+import com.groupware.approval.dto.DocNoDTO;
 import com.groupware.approval.dto.EmployeeDTO;
 import com.groupware.approval.dto.PositionsDTO;
 import com.groupware.approval.service.ApService;
@@ -43,6 +44,22 @@ public class ApRestController {
                     .body(Collections.singletonMap("error", "데이터를 가져오는 중 오류가 발생했습니다."));
         }
     }
+
+    @GetMapping("/docno")
+    public ResponseEntity<Map<String, Object>> getDocNo() {
+        try {
+            List<DocNoDTO> docNoList = apService.getDocNo();
+
+            Map<String, Object> doc = new HashMap<>();
+            doc.put("docNos", docNoList);
+            return ResponseEntity.ok(doc);
+        } catch (Exception e) {
+            // Error logging and handling
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.singletonMap("error", "데이터를 가져오는 중 오류가 발생했습니다."));
+        }
+    }
+
 
 
 }

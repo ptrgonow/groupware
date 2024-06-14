@@ -1,52 +1,41 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const prevPageBtn = document.getElementById('prevPage');
-    const nextPageBtn = document.getElementById('nextPage');
-    const pageLinks = document.querySelectorAll('.page-link');
 
-    // 이전 페이지로 이동하는 이벤트 리스너
-    prevPageBtn.addEventListener('click', function () {
-        const currentPage = parseInt(prevPageBtn.dataset.currentPage);
-        if (currentPage > 1) {
-            fetchPage(currentPage - 1);
+document.addEventListener("DOMContentLoaded", function() {
+    // 테이블의 데이터를 JavaScript 배열로 가져오기
+    var notices = [];
+    document.querySelectorAll('#notice_cont tr').forEach(function(row) {
+        var notice = {
+            notice_id: row.cells[0].innerText,
+            title: row.cells[1].innerText,
+            content: row.cells[2].innerText,
+            created_at: row.cells[3].innerText
+        };
+        notices.push(notice);
+    });
+
+    // 페이지네이션 설정
+    $('#pagination-notice').pagination({
+        dataSource: notices,
+        pageSize: 6,
+        callback: function(data, pagination) {
+            var html = renderTable(data);
+            $('#notice_cont').html(html);
         }
     });
 
-    // 다음 페이지로 이동하는 이벤트 리스너
-    nextPageBtn.addEventListener('click', function () {
-        const currentPage = parseInt(nextPageBtn.dataset.currentPage);
-        fetchPage(currentPage + 1);
-    });
-
-    // 각 페이지로 이동하는 이벤트 리스너
-    pageLinks.forEach(function (link) {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const pageNumber = parseInt(link.textContent);
-            fetchPage(pageNumber);
+    function renderTable(data) {
+        var html = '';
+        data.forEach(function(item) {
+            html +=
+                `
+                    <tr>
+                        <td>${item.notice_id}</td>
+                        <td>${item.title}</td>
+                        <td>${item.content}</td>
+                        <td>${item.created_at}</td>
+                    </tr>
+                `;
         });
-    });
-
-    function fetchPage(pageNumber) {
-        const itemsPerPage = 5; // 한 페이지에 보여줄 데이터의 수
-
-        $.ajax({
-            url: "/get-data",
-            type: "GET",
-            data: {
-                page: pageNumber,
-                limit: itemsPerPage // 한 페이지에 보여줄 아이템 수를 서버에 전달
-            },
-            success: function (response) {
-                displayData(response);
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-
-    function displayData(data) {
-        // 서버로부터 받은 데이터를 페이지에 표시하는 로직을 여기에 추가합니다.
+        return html;
     }
 
     function setupNoticePagination(totalItems, noticeList) {

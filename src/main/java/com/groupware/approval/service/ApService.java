@@ -1,6 +1,7 @@
 package com.groupware.approval.service;
 
 import com.groupware.approval.dto.DeptTreeDTO;
+import com.groupware.approval.dto.DocNoDTO;
 import com.groupware.approval.dto.EmployeeDTO;
 import com.groupware.approval.dto.PositionsDTO;
 import com.groupware.approval.mapper.ApMapper;
@@ -27,4 +28,7 @@ public class ApService {
         return apMapper.selectAllPositions();
     }
 
+    public List<DocNoDTO> getDocNo( ) {
+        return apMapper.selectAllDocNo();
+    }
 }
