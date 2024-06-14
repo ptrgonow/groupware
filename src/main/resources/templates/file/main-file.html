@@ -60,35 +60,43 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h3 class="modal-title fs-5" id="exampleModalLabel">문서함 등록</h3>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="post" th:action="@{/file/reg}" enctype="multipart/form-data">
-                                            <input type="hidden" name="id">
-                                            <input type="hidden" name="fileCd">
+                                        <form id="fileReg" method="post" th:action="@{/file/fMain}">
+                                            <div class="mb-3">
+                                                <label for="title" class="col-form-label">문서번호:</label>
+                                                <input type="text" class="form-control" id="fileCd" name="fileCd">
+                                            </div>
                                             <div class="mb-3">
                                                 <label for="title" class="col-form-label">결재 양식명:</label>
                                                 <input type="text" class="form-control" id="title" name="title">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="createdBy" class="col-form-label">결재 담당 부서:</label>
-                                                <input type="text" class="form-control" id="createdBy"
-                                                       th:value="${user.departmentName}" readonly>
+                                                <label for="departmentSelect" class="col-form-label">결재 담당 부서:</label>
+                                                <select id="departmentSelect" name="department_name">
+                                                    <option value="">부서를 선택하세요</option>
+                                                    <option th:each="department : ${dList}"
+                                                            th:value="${department.departmentId}"
+                                                            th:text="${department.departmentName}">
+                                                    </option>
+                                                </select>
                                             </div>
+                                            <!--
                                             <div class="mb-3">
                                                 <label for="fileUrl" class="col-form-label">첨부파일:</label>
                                                 <input type="file" id="fileUrl" name="fileUrl">
                                             </div>
+                                            -->
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-light-reg">등록하기</button>
-                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+                                                <button type="submit" class="btn btn-light-reg">등록하기</button>
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="cancelButton">취소</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button type="" class="btn btn-danger">문서 삭제</button>
+                        <button type="button" class="btn btn-danger" id="deleteButton">문서 삭제</button>
                 </div>
             </div>
 

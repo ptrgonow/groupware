@@ -59,6 +59,10 @@
     justify-content: center;
 }
 
+.manager-select{
+    margin-bottom: 20px;
+}
+
 .man-table{
     height: 200px;
 }

@@ -1,10 +1,7 @@
 package com.groupware.file.mapper;
 
 import com.groupware.file.dto.FileDTO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -26,8 +23,12 @@ public interface FileMapper {
     List<FileDTO> searchList(@Param("title") String title);
 
     // 문서 등록
-    @Insert("INSERT INTO templates(id, title, file_url, created_by, updated_at, file_cd) " +
-            "VALUES(#{title}, #{file_url}, #{created_by}, #{updated_at}, #{file_cd})")
-    int insertFile(FileDTO file);
+    @Insert("INSERT INTO templates(title, file_url, created_by, created_at, updated_at, file_cd) " +
+            "VALUES(#{title}, null, #{createdBy}, NOW(), NOW(), #{fileCd})")
+    void insertFile(FileDTO file);
+
+    // 문서 삭제
+    @Delete("DELETE FROM templates WHERE id=#{id}")
+    void deleteFile(int id);
 
 }
