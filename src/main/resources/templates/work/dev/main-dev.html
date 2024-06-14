@@ -18,6 +18,7 @@
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>개발 1팀</h3>
+                <button class="cocoBtn" data-bs-toggle="modal" data-bs-target="editProjectsModal">프로젝트 수정</button>
             </div>
 
             <div class="row">
@@ -36,11 +37,11 @@
                                     <th>진행도</th>
                                 </tr>
                                 </thead>
-                                <tbody id="projectTableBody">
+                                <tbody class="projectTableBody">
                                 </tbody>
                             </table>
                         </div><div class="card-footer d-flex justify-content-center">
-                        <div id="paginationContainer"></div></div>
+                        <div class="paginationContainer"></div></div>
                         </div>
                     </div>
                 </div>
@@ -53,10 +54,10 @@
                         </div>
                         <div class="card-body dash-activity">
 
-                            <div class="activity_scroll" id="projectFeedContainer"> </div>
+                            <div class="projectFeedContainer"> </div>
 
                             </div>
-                        <div id="feedPaginationContainer"></div>
+                        <div class="feedPaginationContainer"></div>
                         </div>
                     </div>
                 </div>
@@ -77,7 +78,7 @@
                             
                             </div>
                         </div>
-                        <div class="card-body" id="projectInfoContainer">
+                        <div class="projectInfoContainer">
 
                         </div>
                     </div>
@@ -102,7 +103,7 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                    <div id="projectMemberList"></div></td>
+                                    <div class="projectMemberList"></div></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -119,7 +120,7 @@
                             <h4 class="mb-0 text-white">진행시간</h4>
 
                             <div class="d-flex justify-content-between align-items-center mt-8">
-                                <div id="projectProgressContainer">
+                                <div class="projectProgressContainer">
                                 </div>
                             </div>
                         </div>
@@ -131,14 +132,20 @@
                             <h4 class=" mb-0 ">담당 작업 </h4>
                         </div>
                         <!-- card body  -->
-                        <div class="card-body" id="projectTaskContainer">
+                        <div class="projectTaskContainer">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="editProjectsModal" tabindex="-1" aria-labelledby="projectDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div id="editProjects"></div>
+        </div>
+    </div>
+</div>
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/main-dev.js"></script>
 </body>
