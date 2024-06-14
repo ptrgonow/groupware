@@ -37,4 +37,49 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         return html;
     }
+
+    function setupNoticePagination(totalItems, noticeList) {
+        $('#demo').pagination({
+            dataSource: noticeList,
+            pageSize: 5,
+            showPageNumbers: true,
+            showNavigator: true,
+            callback: function(data, pagination) {
+                var noticeContainer = $('#notice-list');
+                noticeContainer.empty();
+                data.forEach(function(notice, index) {
+                    var listItem = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${notice.title}</td>
+                        <td>${notice.content}</td>
+                        <td>${notice.created_at}</td>
+                    </tr>`;
+                    noticeContainer.append(listItem);
+                });
+            }
+        });
+    }
+
+    function loadNotices() {
+        $.ajax({
+            url: '/nt/notices',
+            type: 'GET',
+            success: function(response) {
+                setupNoticePagination(response.length, response);
+            },
+            error: function() {
+                alert('공지사항 데이터를 가져오는 데 실패했습니다.');
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        loadNotices();
+    });
+
+
+
+
+
 });

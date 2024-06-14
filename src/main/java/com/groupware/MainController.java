@@ -27,11 +27,13 @@ public class MainController {
         UserDTO user = (UserDTO) session.getAttribute("user");
         List<NoticeDTO> nDTO = noticeService.getAllNotices();
 
+
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("employeeCode", user.getEmployeeCode());
             model.addAttribute("departmentId", user.getDepartmentId());
             model.addAttribute("nList", nDTO);
+
         } else {
             return "redirect:/loginPage";
         }

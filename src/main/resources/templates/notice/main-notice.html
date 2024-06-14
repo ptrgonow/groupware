@@ -33,12 +33,12 @@
                     </tr>
                     </thead>
                     <tbody id="notice_cont">
-                    <tr th:each="nList : ${notices}">
-                        <td th:text="${nList.notice_id}">ID</td>
-                        <td th:text="${nList.title}">Title</td>
-                        <td th:text="${nList.content}">Content</td>
-                        <td th:text="${#dates.format(nList.created_at, 'yyyy-MM-dd')}"></td>
-                    </tr>
+                      <tr th:each="nList : ${notices}">
+                          <td th:text="${nList.notice_id}">ID</td>
+                          <td th:text="${nList.title}">Title</td>
+                          <td th:text="${nList.content}">Content</td>
+                          <td th:text="${#dates.format(nList.created_at, 'yyyy-MM-dd')}"></td>
+                      </tr>
                     </tbody>
                 </table>
                 <div id="pagination-notice"></div>
@@ -93,3 +93,5 @@
 <script src="/js/notice.js"></script>
 </body>
 </html>
+
+
