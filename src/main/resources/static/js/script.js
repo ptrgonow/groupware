@@ -84,19 +84,6 @@
         });
     }
 
-    // datetimepicker 초기화 (만약 datetimepicker 요소가 있다면)
-    if ($('.datetimepicker').length > 0) {
-        $('.datetimepicker').datetimepicker({
-            format: 'DD-MM-YYYY',
-            icons: {
-                up: "fas fa-angle-up",
-                down: "fas fa-angle-down",
-                next: 'fas fa-angle-right',
-                previous: 'fas fa-angle-left'
-            }
-        });
-    }
-
     // 툴팁 초기화
     if ($('[data-toggle="tooltip"]').length > 0) {
         $('[data-toggle="tooltip"]').tooltip();
@@ -191,11 +178,6 @@
             }
             return false;
         }
-    });
-
-    // 필터 검색 토글 (만약 filter_search 아이디가 있다면)
-    $(document).on('click', '#filter_search', function() {
-        $('#filter_inputs').slideToggle("slow");
     });
 
     // 채팅 창 관련 코드 (만약 chat-window 클래스가 있다면)

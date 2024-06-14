@@ -1,24 +1,39 @@
 package com.groupware.approval.controller;
 
-import com.groupware.approval.dto.ApDTO;
-import com.groupware.approval.service.ApService;
+
+import com.groupware.user.dto.UserDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
+@RequestMapping("/ap")
 public class ApController {
 
-    @GetMapping("/approval")
-    public String approval() {
-        return "/approval/main-approval";
+    @GetMapping("/aMain")
+    public String approval(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+
+        if(user != null) {
+            model.addAttribute("user", user);
+            return "/approval/main-approval";
+        }
+        return "redirect:/loginPage";
     }
 
-    @GetMapping("/approval-write")
-    public String write() {
-        return "/approval/approval-write";
+    @GetMapping("/write")
+    public String write(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+
+        if(user != null) {
+            model.addAttribute("user", user);
+            return "/approval/approval-form";
+        }
+        return "redirect:/loginPage";
     }
+
+
 }

@@ -27,7 +27,7 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    @GetMapping("/fmain")
+    @GetMapping("/fMain")
     public String file(Model model, HttpSession session) {
 
         List<FileDTO> fileList = fileService.selectAll();

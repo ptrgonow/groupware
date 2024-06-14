@@ -85,9 +85,8 @@
     text-decoration: line-through;
 }
 
-
 .col-xl-12 {
-    height: 600px; /* 원하는 높이로 설정 */
+    height: 600px;
 }
 
 .card {
@@ -117,4 +116,18 @@
 
 #list {
     height: 100%;
+}
+
+
+
+@media screen and (max-width: 992px) {
+
+    .row {
+        height: 100vh;
+    }
+
+    .col-xl-12 {
+        height: 100%
+    }
+
 }

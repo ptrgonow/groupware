@@ -7,10 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/nt")
 public class NoticeController {
 
     private final NoticeService noticeService;
@@ -31,7 +33,7 @@ public class NoticeController {
         return "redirect:/notice";
     }
 
-    @GetMapping("/notice")
+    @GetMapping("/nMain")
     public String noticeList(Model model) {
         List<NoticeDTO> notices = noticeService.getAllNotices();
         model.addAttribute("notices", notices);

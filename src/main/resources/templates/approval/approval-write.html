@@ -5,20 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>결재 작성</title>
 
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/approval-write.css">
 </head>
 <body>
 
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-
+    
+    <link rel="stylesheet" href="/css/approval-write.css">
+    
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
@@ -34,13 +29,6 @@
                             <td class="cont">
                                 <select>
                                     <option value="" selected>문서 선택</option>
-                                    <option value="">연차신청서</option>
-                                    <option value="">반차신청서</option>
-                                    <option value="">사유서</option>
-                                    <option value="">사직서</option>
-                                    <option value="">지출결의서</option>
-                                    <option value="">구매품의서</option>
-                                    <option value="">업무기안서</option>
                                 </select>
                             </td>
                         </tr>

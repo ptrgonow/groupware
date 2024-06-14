@@ -1,4 +1,4 @@
-package com.groupware.work.fm.dto;
+package com.groupware.approval.dto;
 
 import lombok.Data;
 

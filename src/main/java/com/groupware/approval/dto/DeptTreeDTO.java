@@ -1,9 +1,10 @@
-package com.groupware.work.fm.dto;
+package com.groupware.approval.dto;
 
 import lombok.Data;
 
 @Data
-public class DepartmentDTO {
+public class DeptTreeDTO {
+
     private int departmentId;
     private String departmentName;
     private Integer parentDepartmentId;

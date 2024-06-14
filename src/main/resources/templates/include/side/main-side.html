@@ -1,5 +1,11 @@
 <html lang="ko" th:fragment="side" >
 
+<style type="text/css">
+    #side-menu > li {
+        cursor: pointer;
+    }
+</style>
+
 <div class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
         <div class="sidebar-contents">
@@ -12,31 +18,30 @@
                     </div>
                 </div>
 
-                <ul>
+                <ul id="side-menu">
                     <li>
                         <a href="/"><img src="/img/home.png" alt="sidebar_img"><span>홈</span></a>
                     </li>
                     <li>
-                        <a href="/notice"><img src="/img/notice.png" alt="sidebar_img"><span>공지사항</span></a>
+                        <a href="/nt/nMain"><img src="/img/notice.png" alt="sidebar_img"><span>공지사항</span></a>
                     </li>
                     <li>
-                        <a id="workPage" onclick="navigateToWorkPage()"><img src="/img/work.png" alt="sidebar_img"><span>업무</span></a>
+                        <a href="#" id="workPage" onclick="navigateToWorkPage()"><img src="/img/work.png" alt="sidebar_img"><span>업무</span></a>
                     </li>
                     <li>
-                        <a href="/approval"><img src="/img/approval.png" alt="sidebar_img"><span>전자결재</span></a>
+                        <a href="/ap/aMain"><img src="/img/approval.png" alt="sidebar_img"><span>전자결재</span></a>
                     </li>
                     <li>
-                        <a href="/sc/schedule"><img src="/img/calendar.png" alt="sidebar_img"><span>일정관리</span></a>
+                        <a href="/sc/sMain"><img src="/img/calendar.png" alt="sidebar_img"><span>일정관리</span></a>
                     </li>
                     <li>
-                        <a href="/file/fmain"><img src="/img/file.png" alt="sidebar_img"><span>문서함</span></a>
+                        <a href="/file/fMain"><img src="/img/file.png" alt="sidebar_img"><span>문서함</span></a>
                     </li>
                     <li class="has-submenu">
                         <a href="#"><img src="/img/mypage.png" alt="sidebar_img"><span>내 정보</span></a>
                         
                         <ul class="dropdown-menu side">
-                            <li><a th:href="${session.user != null} ? '/mypage/myinfo' :'/no'">근태</a></li>
-                            <li><a href="#">결재</a></li>
+                            <li><a th:href="${session.user != null} ? '/mypage/myinfo' :'/no'">기본 정보</a></li>
                             <li><a th:href="${session.user != null} ? '/mypage/todo' :'/no'">to do</a></li>
                         </ul>
                     </li>
