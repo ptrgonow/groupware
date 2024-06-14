@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     // 성공 콜백 함수들
     function handleProjectListSuccess(projectList) {
-        $('#paginationContainer').pagination({
+        $('.paginationContainer').pagination({
             dataSource: projectList,
             pageSize: 3,
             callback: function (data, pagination) {
@@ -40,7 +40,7 @@ $(document).ready(function() {
                 </div>
             `;
         });
-        $('#projectFeedContainer').html(feedHtml); // 피드 내용 업데이트
+        $('.projectFeedContainer').html(feedHtml); // 피드 내용 업데이트
     }
 
     function handleProjectInfoSuccess(project) {
@@ -69,17 +69,17 @@ $(document).ready(function() {
             </ul>
         `;
 
-        $('#projectInfoContainer').html(projectInfoHtml);
+        $('.projectInfoContainer').html(projectInfoHtml);
         console.log(project.description);
         let projectProgressHtml = `
             <div>
                 <h3 class="display-5 fw-bold text-white mb-1">${diffDays} Days</h3>
-                <p class="mb-0 text-white">
+                <<p class="mb-0 text-white">
                    Today : ${today.toLocaleDateString()}
-                </p>
+                </p>>
             </div>
         `;
-        $('#projectProgressContainer').html(projectProgressHtml); // 진행시간 및 오늘 날짜 업데이트
+        $('.projectProgressContainer').html(projectProgressHtml); // 진행시간 및 오늘 날짜 업데이트
 
     }
     // 팀원 정보 가져오기 성공 콜백 함수
@@ -96,7 +96,7 @@ $(document).ready(function() {
                     </td>
             `;
         });
-        $('#projectMemberList').html(membersHtml); // 팀원 목록 업데이트
+        $('.projectMemberList').html(membersHtml); // 팀원 목록 업데이트
     }
     // 프로젝트 목록 렌더링 함수
     function renderProjectList(data) {
@@ -130,15 +130,87 @@ $(document).ready(function() {
                 </tr>`;
                 // 모든 프로젝트의 진행률 계산이 완료된 후에 테이블 업데이트
 
-                    $('#projectTableBody').html(html);
-
-                    // 프로젝트 행 클릭 이벤트 핸들러 (기존 로직과 동일)
-                    // ...
+                    $('.projectTableBody').html(html);
 
             }, function() {
                 console.error('작업 목록을 가져오는 중 오류 발생');
             });
         });
+        function handleModalSuccess(response) {
+            console.log(response.info.description);
+            const infos = response.info;
+            const tasks = response.tasks;
+            const members = response.members;
+
+            let modalHtml = `
+        <div class="modal-header">
+            </div>
+        <div class="modal-body">
+            <div class="mb-3">
+            <label for="project_name" class="form-label">프로젝트명</label>
+            <input type="text" class="form-control" id="project_name" name="project_name" value="${infos.project_name}">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">설명</label>
+            <textarea class="form-control" id="description" name="description">${infos.description}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="start_date" class="form-label">시작일</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" value="${infos.start_date}">
+        </div>
+        <div class="mb-3">
+            <label for="end_date" class="form-label">종료일</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" value="${infos.end_date}">
+        </div>
+            
+            <label class="form-label">팀원</label>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>목록</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${members.map(member => `
+                            <td>${member.name}</td> 
+                    `).join('')}
+                </tbody>
+            </table>
+            <label class="form-label">담당 작업</label>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>작업 내용</th>
+                        <th>담당자</th>
+                        <th>진행률</th>
+                    </tr>
+                </thead>
+                <tbody>
+            ${tasks.map(task => `
+                <tr>
+                    <td><input type="text" class="form-control taskContentInput" name="taskContents" value="${task.task_content}"></td>
+                    <td>
+                        <select class="form-select taskAssigneeSelect" name="taskAssignees">
+                            ${members.map(member => `
+                                <option value="${member.employee_code}" ${task.employee_code === member.employee_code ? 'selected' : ''}>${member.name}</option>
+                            `).join('')}
+                        </select>
+                    </td>
+                    <td><input type="number" class="form-control taskProgressInput" name="taskProgresses" value="${task.progress}" min="0" max="100"></td>
+                    <td><button type="button" class="btn btn-danger btn-sm removeTaskRow">삭제</button></td>
+                </tr>
+            `).join('')}
+            </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            <button type="button" class="btn btn-primary" id="saveProjectChangesBtn" data-project-id="${infos.projectId}">수정</button> 
+        </div>
+    `;
+            $('#editProjects').html(modalHtml);
+            $('#editProjectsModal').modal('show'); // 모달 열기 (ID 수정)
+        }
 
         function handleTasksSuccess(tasks) {
             let taskHtml = `
@@ -170,18 +242,18 @@ $(document).ready(function() {
                 </tr>
             `;
             });
-            $('#projectTaskContainer').html(taskHtml); // 담당 작업 정보 업데이트
+            $('.projectTaskContainer').html(taskHtml); // 담당 작업 정보 업데이트
         }
 
         // 프로젝트 행 클릭 시 피드 가져오기 (이벤트 위임)
-        $('#projectTableBody').on('click', 'tr', function () {
+        $('.projectTableBody').on('click', 'tr', function () {
             const projectId = $(this).data('projectId');
             console.log("projectId:", projectId); // 클릭된 프로젝트 ID 확인
 
             // 피드 가져오기
             // 피드 가져오기 (페이징 처리)
             getAjaxData(`/projects/${projectId}/feeds`, 'GET', {}, function(feedList) {
-                $('#feedPaginationContainer').pagination({
+                $('.feedPaginationContainer').pagination({
                     dataSource: feedList,
                     pageSize: 5, // 페이지당 피드 개수
                     callback: function(data, pagination) {
@@ -193,15 +265,21 @@ $(document).ready(function() {
             });
 
             // 프로젝트 정보 가져오기
-            getAjaxData(`/projects/${projectId}/projectInfo`, 'GET', {}, handleProjectInfoSuccess, function () {
+            getAjaxData(`/projects/${projectId}/projectInfo`, 'GET', {}, handleProjectInfoSuccess, function (project) {
                 console.error('프로젝트 정보를 가져오는 중 오류 발생');
             });
             // 팀원 정보 가져오기
-            getAjaxData(`/projects/${projectId}/members`, 'GET', {}, handleMembersSuccess, function () {
+            getAjaxData(`/projects/${projectId}/members`, 'GET', {}, handleMembersSuccess, function (members) {
                 console.error('팀원 정보를 가져오는 중 오류 발생');
             });
-            getAjaxData(`/projects/${projectId}/tasks`, 'GET', {}, handleTasksSuccess, function () {
+            getAjaxData(`/projects/${projectId}/tasks`, 'GET', {}, handleTasksSuccess, function (tasks) {
                 console.error('담당 작업 정보를 가져오는 중 오류 발생');
+            });
+
+            getAjaxData(`/projects/${projectId}/editProject`, 'GET', {}, function(response) { // response로 변경
+                handleModalSuccess(response); // projectId 대신 response 전달
+            }, function () {
+                console.error('프로젝트 수정 정보를 가져오는 중 오류 발생');
             });
         });
     }
@@ -210,4 +288,5 @@ $(document).ready(function() {
     getAjaxData('/projects/list', 'GET', {employeeCode: employee_code}, handleProjectListSuccess, function () {
         console.error('프로젝트 목록을 가져오는 중 오류 발생');
     });
+
 });

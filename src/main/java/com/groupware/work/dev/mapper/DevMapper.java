@@ -1,9 +1,6 @@
 package com.groupware.work.dev.mapper;
 
-import com.groupware.work.dev.dto.ProjectDTO;
-import com.groupware.work.dev.dto.ProjectFeedDTO;
-import com.groupware.work.dev.dto.ProjectMemberDTO;
-import com.groupware.work.dev.dto.ProjectTaskDTO;
+import com.groupware.work.dev.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -27,7 +24,7 @@ public interface DevMapper {
             "ORDER BY pf.feed_id")
     List<ProjectFeedDTO> getFeed(@Param("project_id") int projectId);
 
-    @Select("select description, start_date, end_date from projects " +
+    @Select("select description, start_date, end_date, project_name from projects " +
             "where project_id = #{project_id}")
     ProjectDTO getProjectInfo(@Param("project_id") int projectId);
 
@@ -44,6 +41,8 @@ public interface DevMapper {
             "WHERE pt.project_id = #{projectId}")
     List<ProjectTaskDTO> getProjectTasks(@Param("projectId") int projectId);
 
-
+    @Select("select p.*, pm.*, pt.* from projects p join project_members pm on p.project_id = pm.project_id " +
+            "join project_tasks pt on p.project_id = pt.project_id where p.project_id = #{projectId}")
+    List<ProjectEditDTO> editProject(@Param("projectId") int projectId);
 
 }
