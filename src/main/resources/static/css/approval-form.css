@@ -131,9 +131,7 @@ p {
     height: 300px;
 }
 
-
-#receiver,
-#ccReceiver {
+#receiver {
     display: flex;
     align-items: center;
 }
