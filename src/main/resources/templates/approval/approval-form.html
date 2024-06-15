@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결재 상신</title>
+    <meta name="employeeCode" th:content="${user.employeeCode}">
+    <meta name="departmentCode" th:content="${user.departmentId}">
+    <meta name="departmentName" th:content="${user.departmentName}">
+    <meta name="positionCode" th:content="${user.ps_cd}">
+    
+</head>
 <body>
 
-
 <div class="main-wrapper">
-    
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
     
@@ -21,9 +29,21 @@
                             <h5 class="card-title">결재 상신</h5>
                         </div>
                         <div class="card-body">
-                            <div id="td-con" class="row d-flex justify-content-center align-items-center">
+                            <div id="td-con" class="row d-flex justify-content-center">
                                 <div class="col-xl-4 col-12 mb-3">
-                                    <div id="jstree-div" class=""></div>
+                                    <div class="jstree-div">
+                                        <h4>조직도</h4>
+                                        <div id="jstree-div"></div>
+                                    </div>
+                                    <div class="ap-div" style="display:none;">
+                                        <h4>결재선</h4>
+                                        <div id="ap-div"></div>
+                                    </div>
+                                    <div class="cc-div" style="display:none;">
+                                        <h4>수신참조</h4>
+                                        <div id="cc-div"></div>
+                                    </div>
+                                    
                                 </div>
                                 <div class="col-xl-8 col-12 mb-3">
                                     <form id="form-group" class="w-100" action="/approval/send" method="POST">
@@ -32,7 +52,7 @@
                                                 <table class="table table-borderless">
                                                     <tbody>
                                                     <tr>
-                                                        <th>문서번호</th>
+                                                        <th>문서종류</th>
                                                         <td>
                                                             <select class="form-select" id="ap-doc-no" name="docNo" required>
                                                                 <option value="" selected>문서 선택</option>
@@ -60,6 +80,14 @@
                                                             <input type="date" class="form-control" id="ap-dueDate" name="endAt">
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <th>결재선<span id="toggle-ap" class="plus-btn">+</span></th>
+                                                        <td id="inputContainer" class="append"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>참조<span id="toggle-cc" class="plus-btn">+</span></th>
+                                                        <td id="cc" class="append"></td>
+                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -82,10 +110,7 @@
             </div>
         </div>
     </div>
-
-
 </div>
-
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>

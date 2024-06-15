@@ -87,8 +87,9 @@ body {
 }
 
 
-#jstree-div {
-
+#jstree-div,
+#ap-div,
+#cc-div {
     height: 100%;
     overflow-y: auto;
     border: 1px solid #ccc;
@@ -128,4 +129,42 @@ p {
 
 .ck-content[dir=ltr] .table tr.ap-text {
     height: 300px;
+}
+
+
+#receiver,
+#ccReceiver {
+    display: flex;
+    align-items: center;
+}
+
+.remove-btn {
+    font-size: 1.25rem;
+    margin-left: 10px;
+    cursor: pointer;
+    color: red;
+}
+
+.plus-btn {
+    font-size: 1.25rem;
+    margin-left: 10px;
+    cursor: pointer;
+    color: blue;
+}
+
+.append {
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.jstree-div h4,
+.ap-div h4,
+.cc-div h4 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    margin-top: 1rem;
 }

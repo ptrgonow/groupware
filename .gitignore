@@ -129,3 +129,4 @@ $RECYCLE.BIN/
 /src/test/
 /src/main/resources/application.properties
 application.properties
+/src/main/resources/static/js/tt.js
