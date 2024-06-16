@@ -32,7 +32,7 @@ public class NoticeController {
     }
 
 
-    @GetMapping("/nMain")
+    @GetMapping("/nmain")
     public String noticeList(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         List<NoticeDTO> notices = noticeService.getAllNotices();

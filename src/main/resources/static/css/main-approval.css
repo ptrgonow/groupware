@@ -22,29 +22,29 @@ body {
 }
 
 .row {
-    height: 45vh;
+    height: auto; /* Adjust height for rows */
 }
 
 .card {
     height: 100%;
+    margin-bottom: 1rem; /* Add margin between cards */
 }
 
 .card-body {
     display: flex;
     justify-content: center;
     text-align: center;
+    flex-direction: column;
     padding: 1.25rem;
     width: 100%;
     height: 100%;
 }
 
 .card .card-header h5.card-title {
-
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 1.25rem;
     margin-top: 1rem;
-
 }
 
 .ap-tbl {
@@ -62,13 +62,12 @@ body {
     border-bottom: 2px solid #495057;
 }
 
-
 .ap-tbl .col-number {
-    width: 10%;
+    width: 12%;
 }
 
 .ap-tbl .col-title {
-    width: 40%;
+    width: 30%;
 }
 
 .ap-tbl .col-author {
@@ -76,11 +75,11 @@ body {
 }
 
 .ap-tbl .col-date {
-    width: 20%;
+    width: 25%;
 }
 
 .ap-tbl .col-status {
-    width: 10%;
+    width: 18%;
 }
 
 .ap-tbl tbody tr td {
@@ -120,9 +119,67 @@ body {
     transition: all 0.2s;
 }
 
+#w-btn {
+    position: relative;
+    bottom: 2rem;
+}
+
+#floating-btn {
+    position: fixed;
+    bottom: 5rem;
+    right: 5rem;
+    z-index: 1000;
+}
+
+#floating-btn img {
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+#floating-btn img:hover {
+    transform: scale(1.1);
+    transition: all 0.2s;
+}
+
+
+#pagination-coAp,
+#pagination-cuAp,
+#pagination-myAp,
+#pagination-toAp {
+    position: relative;
+    bottom: 0;
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.card-body-inner ul li {
+    margin-right: 0;
+}
+
+#toAp-tbody tr:hover,
+#myAp-tbody tr:hover,
+#cuAp-tbody tr:hover,
+#coAp-tbody tr:hover {
+    cursor: pointer;
+}
+
+
+
+
 
 /* 반응형 테이블 */
 @media (max-width: 768px) {
+    .row {
+        flex-direction: column; /* Stack the rows */
+    }
+
+    .col-xl-6 {
+        width: 100%; /* Make columns take full width */
+    }
+
     .ap-tbl thead {
         display: none;
     }
@@ -173,5 +230,4 @@ body {
     .ap-tbl .col-status {
         width: 100%;
     }
-
 }

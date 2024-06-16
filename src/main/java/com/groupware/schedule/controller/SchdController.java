@@ -20,7 +20,7 @@ public class SchdController {
 
     private final SchdService schdService;
 
-    @GetMapping("/sMain")
+    @GetMapping("/smain")
     public String mainSchedule(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {

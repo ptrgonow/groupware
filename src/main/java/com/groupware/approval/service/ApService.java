@@ -40,14 +40,6 @@ public class ApService {
 
     @Transactional
     public void createApproval(ApprovalDTO approvalDTO, List<String> approvalPath, List<String> approvalReferences, List<String> approvalConsensus) {
-
-        System.out.println("----------service----------");
-        System.out.println(approvalDTO);
-        System.out.println(approvalPath);
-        System.out.println(approvalReferences);
-        System.out.println(approvalConsensus);
-        System.out.println("---------------------------");
-
         approvalDTO.setStatus("미결");
         apMapper.insertApproval(approvalDTO);
 
@@ -79,7 +71,6 @@ public class ApService {
             apMapper.insertApprovalConsensus(consensusDTO);
         }
     }
-
 
     @Transactional
     public void updateApprovalStatus(int approvalId, String employeeCode, String newStatus) {
@@ -115,5 +106,13 @@ public class ApService {
                 apMapper.updateApprovalConsensusStatus(nextConsensus);
             }
         }
+    }
+
+    public List<ApprovalDTO> selectMyConsensusApprovals(String employeeCode) {
+        return apMapper.selectMyConsensusApprovals(employeeCode);
+    }
+
+    public List<ApprovalDTO> selectMyCompletedApprovals(String employeeCode) {
+        return apMapper.selectMyCompletedApprovals(employeeCode);
     }
 }

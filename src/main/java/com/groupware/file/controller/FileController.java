@@ -29,7 +29,7 @@ public class FileController {
         this.userService = userService;
     }
 
-    @GetMapping("/fMain")
+    @GetMapping("/fmain")
     public String file(Model model, HttpSession session) {
 
         List<FileDTO> fileList = fileService.selectAll();
