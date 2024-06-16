@@ -30,25 +30,23 @@
                                 <table class="ap-tbl">
                                     
                                     <thead>
-                                    <tr>
-                                        <th class="col-number">번호</th>
-                                        <th class="col-title">제목</th>
-                                        <th class="col-author">기안자</th>
-                                        <th class="col-date">기안일</th>
-                                        <th class="col-status">상태</th>
-                                    </tr>
+                                        <tr>
+                                            <th class="col-number">번호</th>
+                                            <th class="col-title">제목</th>
+                                            <th class="col-author">기안자</th>
+                                            <th class="col-date">기안일</th>
+                                            <th class="col-status">상태</th>
+                                        </tr>
                                     </thead>
                                     
                                     <tbody id="toAp-tbody">
-                                    
-                                    <tr>
-                                        <td class="col-number">1</td>
-                                        <td class="col-title">테스트</td>
-                                        <td class="col-author">홍길동</td>
-                                        <td class="col-date">2021-09-01</td>
-                                        <td class="col-status">미결</td>
-                                    </tr>
-                                    
+                                        <tr th:each="approval : ${mySubmissions}">
+                                            <td th:text="${approval.approvalId}"></td>
+                                            <td th:text="${approval.fileCd}"></td>
+                                            <td th:text="${approval.employeeCode}"></td>
+                                            <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
+                                            <td th:text="${approval.status}"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <div class="text-right">
@@ -71,25 +69,23 @@
                                 <table class="ap-tbl">
                                     
                                     <thead>
-                                    <tr>
-                                        <th class="col-number">번호</th>
-                                        <th class="col-title">제목</th>
-                                        <th class="col-author">기안자</th>
-                                        <th class="col-date">기안일</th>
-                                        <th class="col-status">상태</th>
-                                    </tr>
+                                        <tr>
+                                            <th class="col-number">번호</th>
+                                            <th class="col-title">제목</th>
+                                            <th class="col-author">기안자</th>
+                                            <th class="col-date">기안일</th>
+                                            <th class="col-status">상태</th>
+                                        </tr>
                                     </thead>
                                     
                                     <tbody id="myAp-tbody">
-                                    
-                                    <tr>
-                                        <td class="col-number">1</td>
-                                        <td class="col-title">테스트</td>
-                                        <td class="col-author">홍길동</td>
-                                        <td class="col-date">2021-09-01</td>
-                                        <td class="col-status">미결</td>
-                                    </tr>
-                                    
+                                        <tr th:each="approval : ${myPendingApprovals}">
+                                            <td th:text="${approval.approvalId}"></td>
+                                            <td th:text="${approval.fileCd}"></td>
+                                            <td th:text="${approval.employeeCode}"></td>
+                                            <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
+                                            <td th:text="${approval.status}"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -101,7 +97,7 @@
         
         </div>
     </div>
-    
+
 </div>
 
 
