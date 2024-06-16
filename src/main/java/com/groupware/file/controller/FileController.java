@@ -1,12 +1,14 @@
 package com.groupware.file.controller;
 
 import com.groupware.file.dto.FileDTO;
+import com.groupware.file.mapper.FileMapper;
 import com.groupware.file.service.FileService;
 import com.groupware.user.dto.DeptDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.User;
+import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,12 +26,12 @@ public class FileController {
     private final FileService fileService;
     private final UserService userService;
 
-    public FileController(FileService fileService, UserService userService) {
+    public FileController(FileService fileService, UserService userService, FileMapper fileMapper) {
         this.fileService = fileService;
         this.userService = userService;
     }
 
-    @GetMapping("/fMain")
+    @GetMapping("/fmain")
     public String file(Model model, HttpSession session) {
 
         List<FileDTO> fileList = fileService.selectAll();
@@ -75,10 +77,10 @@ public class FileController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("user", user);
-        response.put("departmentName", user.getDepartmentName());
+        response.put("departmentName", userService.getAllDepartments());
         response.put("searchList", searchList);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return ResponseEntity.ok(response);
 
     }
 
@@ -99,6 +101,14 @@ public class FileController {
         List<DeptDTO> deptList = userService.getAllDepartments();
         UserDTO user = (UserDTO) session.getAttribute("user");
 
+        // 문서 번호 존재 확인 여부
+        boolean isFileExists = fileService.existFileCd(fileCd);
+        if(isFileExists) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            return ResponseEntity.ok(response);
+        }
+
         FileDTO file = new FileDTO();
         file.setTitle(title);
         file.setFileCd(fileCd);
@@ -108,14 +118,17 @@ public class FileController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("deptList", deptList);
+        response.put("success", true);
 
         return ResponseEntity.ok(response);
     }
 
     // 문서 삭제
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable int id) {
-        fileService.deleteFile(id);
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> delete(@RequestBody List<Integer> ids) {
+        for (Integer id : ids) {
+            fileService.deleteFile(id);
+        }
 
         return ResponseEntity.ok("삭제 성공");
     }

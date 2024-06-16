@@ -30,6 +30,10 @@ public class FileService {
         fileMapper.insertFile(file);
     }
 
+    public boolean existFileCd(String fileCd) {
+        return fileMapper.existFileCd(fileCd);
+    }
+
     public void deleteFile(int id) {
         fileMapper.deleteFile(id);
     }
