@@ -11,6 +11,14 @@ body {
     overflow-x: hidden;
 }
 
+.card-body {
+
+    display: grid;
+    position: relative;
+    align-items: center;
+    padding: 25px;
+}
+
 .card-img-top {
     display: grid;
     align-items: center;
@@ -61,6 +69,10 @@ body {
     text-align: center;
     font-family: 'Noto Sans', 'Roboto', sans-serif;
     font-size: 0.8rem;
+}
+
+.regi {
+    text-align: center;
 }
 
 #regi-btn {
@@ -157,4 +169,19 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 2rem;
+}
+
+#info {
+    display: grid;
+    position: relative;
+    align-items: center;
+    padding: 25px;
+    justify-content: center;
+}
+
+#info > form {
+    display: grid;
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
 }

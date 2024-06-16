@@ -156,6 +156,7 @@ $(document).ready(function (format) {
                 data: JSON.stringify(formData),
                 success: function(response) {
                     alert("결재가 성공적으로 제출되었습니다.");
+                    window.location.href = "/ap/amain";
                 },
                 error: function(error) {
                     alert("오류 발생: " + error.responseText);
@@ -209,7 +210,7 @@ $(document).ready(function (format) {
         if (!isAlreadyAdded(containerSelector, employeeName)) {
             addNewInput(containerSelector, employeeName, employeeCode);
         } else {
-            showMessage('이미 추가된 사람입니다.');
+            showMessage('해당 직원은 추가되어 있습니다.');
         }
     }
 

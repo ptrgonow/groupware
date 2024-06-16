@@ -58,13 +58,6 @@ public class ApRestController {
     @PostMapping("/send")
     public ResponseEntity<String> handleApproval(@RequestBody ApprovalRequest approvalRequest) {
         try {
-            System.out.println("----------controller----------");
-            System.out.println(approvalRequest.getApprovalDTO());
-            System.out.println(approvalRequest.getApprovalPath());
-            System.out.println(approvalRequest.getApprovalReferences());
-            System.out.println(approvalRequest.getApprovalConsensus());
-            System.out.println("------------------------------");
-
             apService.createApproval(
                     approvalRequest.getApprovalDTO(),
                     approvalRequest.getApprovalPath(),

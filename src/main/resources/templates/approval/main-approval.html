@@ -9,99 +9,155 @@
 <body>
 
 <div class="main-wrapper">
-    
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
     
     <link rel="stylesheet" href="/css/main-approval.css">
     
-    
     <div class="page-wrapper">
         <div class="content container-fluid">
-            
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-xl-6">
                     <div class="card flex-fill">
                         <div class="card-header text-center">
-                            <h5 class="card-title">결재 상신</h5>
+                            <h5 class="card-title">상신 목록</h5>
                         </div>
                         <div class="card-body">
-                            <div id="toAp-list" class="col-xl-11 col-12 mb-3">
+                            <div id="toAp-list" class="col-xl-12 col-12 mb-3">
                                 <table class="ap-tbl">
-                                    
                                     <thead>
-                                        <tr>
-                                            <th class="col-number">번호</th>
-                                            <th class="col-title">제목</th>
-                                            <th class="col-author">기안자</th>
-                                            <th class="col-date">기안일</th>
-                                            <th class="col-status">상태</th>
-                                        </tr>
+                                    <tr>
+                                        <th class="col-number">번호</th>
+                                        <th class="col-title">제목</th>
+                                        <th class="col-author">기안자</th>
+                                        <th class="col-date">기안일</th>
+                                        <th class="col-status">상태</th>
+                                    </tr>
                                     </thead>
-                                    
                                     <tbody id="toAp-tbody">
-                                        <tr th:each="approval : ${mySubmissions}">
-                                            <td th:text="${approval.approvalId}"></td>
-                                            <td th:text="${approval.fileCd}"></td>
-                                            <td th:text="${approval.employeeCode}"></td>
-                                            <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
-                                            <td th:text="${approval.status}"></td>
-                                        </tr>
+                                    <tr th:each="approval, stat : ${mySubmissions}" data-approval-id="${approval.approvalId}">
+                                        <td th:text="${stat.index + 1}"></td>
+                                        <td th:text="${approval.fileCd}"></td>
+                                        <td th:text="${approval.employeeName}"></td>
+                                        <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
+                                        <td th:text="${approval.status}"></td>
+                                    </tr>
                                     </tbody>
                                 </table>
-                                <div class="text-right">
-                                    <a href="/ap/write" class="btn">작성</a>
-                                </div>
+                                <div id="pagination-toAp"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-xl-12">
+                <div class="col-xl-6">
                     <div class="card flex-fill">
                         <div class="card-header text-center">
                             <h5 class="card-title">결재 목록</h5>
                         </div>
                         <div class="card-body">
-                            <div id="myAp-list" class="col-xl-11 col-12 mb-3">
+                            <div id="myAp-list" class="col-xl-12 col-12 mb-3">
                                 <table class="ap-tbl">
-                                    
                                     <thead>
-                                        <tr>
-                                            <th class="col-number">번호</th>
-                                            <th class="col-title">제목</th>
-                                            <th class="col-author">기안자</th>
-                                            <th class="col-date">기안일</th>
-                                            <th class="col-status">상태</th>
-                                        </tr>
+                                    <tr>
+                                        <th class="col-number">번호</th>
+                                        <th class="col-title">제목</th>
+                                        <th class="col-author">기안자</th>
+                                        <th class="col-date">기안일</th>
+                                        <th class="col-status">상태</th>
+                                    </tr>
                                     </thead>
-                                    
                                     <tbody id="myAp-tbody">
-                                        <tr th:each="approval : ${myPendingApprovals}">
-                                            <td th:text="${approval.approvalId}"></td>
-                                            <td th:text="${approval.fileCd}"></td>
-                                            <td th:text="${approval.employeeCode}"></td>
-                                            <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
-                                            <td th:text="${approval.status}"></td>
-                                        </tr>
+                                    <tr th:each="approval, stat : ${myPendingApprovals}" data-approval-id="${approval.approvalId}">
+                                        <td th:text="${stat.index + 1}"></td>
+                                        <td th:text="${approval.fileCd}"></td>
+                                        <td th:text="${approval.employeeName}"></td>
+                                        <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
+                                        <td th:text="${approval.status}"></td>
+                                    </tr>
                                     </tbody>
                                 </table>
+                                <div id="pagination-myAp"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
-        
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card flex-fill">
+                        <div class="card-header text-center">
+                            <h5 class="card-title">합의 목록</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="cuAp-list" class="col-xl-12 col-12 mb-3">
+                                <table class="ap-tbl">
+                                    <thead>
+                                    <tr>
+                                        <th class="col-number">번호</th>
+                                        <th class="col-title">제목</th>
+                                        <th class="col-author">기안자</th>
+                                        <th class="col-date">기안일</th>
+                                        <th class="col-status">상태</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="cuAp-tbody">
+                                    <tr th:each="approval, stat : ${myReceivedApprovals}" data-approval-id="${approval.approvalId}">
+                                        <td th:text="${stat.index + 1}"></td>
+                                        <td th:text="${approval.fileCd}"></td>
+                                        <td th:text="${approval.employeeName}"></td>
+                                        <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
+                                        <td th:text="${approval.status}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div id="pagination-cuAp"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card flex-fill">
+                        <div class="card-header text-center">
+                            <h5 class="card-title">결재 완료</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="coAp-list" class="col-xl-12 col-12 mb-3">
+                                <table class="ap-tbl">
+                                    <thead>
+                                    <tr>
+                                        <th class="col-number">번호</th>
+                                        <th class="col-title">제목</th>
+                                        <th class="col-author">기안자</th>
+                                        <th class="col-date">기안일</th>
+                                        <th class="col-status">상태</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="coAp-tbody">
+                                    <tr th:each="approval, stat : ${myCompletedApprovals}" data-approval-id="${approval.approvalId}">
+                                        <td th:text="${stat.index + 1}"></td>
+                                        <td th:text="${approval.fileCd}"></td>
+                                        <td th:text="${approval.employeeName}"></td>
+                                        <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
+                                        <td th:text="${approval.status}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div id="pagination-coAp"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
 
+<a href="/ap/write" id="floating-btn">
+    <img src="/img/todo.png" alt="작성 버튼">
+</a>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/main-approval.js"></script>
 </body>
 </html>
+
