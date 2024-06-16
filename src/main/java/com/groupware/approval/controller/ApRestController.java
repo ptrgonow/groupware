@@ -1,16 +1,11 @@
 package com.groupware.approval.controller;
 
-import com.groupware.approval.dto.DeptTreeDTO;
-import com.groupware.approval.dto.DocNoDTO;
-import com.groupware.approval.dto.EmployeeDTO;
-import com.groupware.approval.dto.PositionsDTO;
+import com.groupware.approval.dto.*;
 import com.groupware.approval.service.ApService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -57,6 +52,58 @@ public class ApRestController {
             // Error logging and handling
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Collections.singletonMap("error", "데이터를 가져오는 중 오류가 발생했습니다."));
+        }
+    }
+
+    @PostMapping("/send")
+    public ResponseEntity<String> handleApproval(@RequestBody ApprovalRequest approvalRequest) {
+        try {
+            System.out.println("----------controller----------");
+            System.out.println(approvalRequest.getApprovalDTO());
+            System.out.println(approvalRequest.getApprovalPath());
+            System.out.println(approvalRequest.getApprovalReferences());
+            System.out.println(approvalRequest.getApprovalConsensus());
+            System.out.println("------------------------------");
+
+            apService.createApproval(
+                    approvalRequest.getApprovalDTO(),
+                    approvalRequest.getApprovalPath(),
+                    approvalRequest.getApprovalReferences(),
+                    approvalRequest.getApprovalConsensus()
+            );
+            return ResponseEntity.ok("Approval processed");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("데이터를 처리하는 중 오류가 발생했습니다.");
+        }
+    }
+
+
+    @PostMapping("/updateStatus")
+    public ResponseEntity<String> updateApprovalStatus(
+            @RequestParam int approvalId,
+            @RequestParam String employeeCode,
+            @RequestParam String newStatus) {
+        try {
+            apService.updateApprovalStatus(approvalId, employeeCode, newStatus);
+            return ResponseEntity.ok("Approval status updated");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("상태 업데이트 중 오류가 발생했습니다.");
+        }
+    }
+
+    @PostMapping("/updateConsensusStatus")
+    public ResponseEntity<String> updateConsensusStatus(
+            @RequestParam int approvalId,
+            @RequestParam String employeeCode,
+            @RequestParam String newStatus) {
+        try {
+            apService.updateConsensusStatus(approvalId, employeeCode, newStatus);
+            return ResponseEntity.ok("Consensus status updated");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("상태 업데이트 중 오류가 발생했습니다.");
         }
     }
 

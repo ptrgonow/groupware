@@ -31,6 +31,9 @@
                         <div class="card-body">
                             <div id="td-con" class="row d-flex justify-content-center">
                                 <div class="col-xl-4 col-12 mb-3">
+                                    
+                                    <div id="message-container" th:width="100" style="display: none;"></div>
+                                    
                                     <div class="jstree-div">
                                         <h4>조직도</h4>
                                         <div id="jstree-div"></div>
@@ -58,6 +61,8 @@
                                                                 <option value="" selected>문서 선택</option>
                                                             </select>
                                                         </td>
+                                                       
+                                                        
                                                     </tr>
                                                     <tr>
                                                         <th>기안부서</th>
@@ -66,7 +71,8 @@
                                                         </td>
                                                         <th>기안자</th>
                                                         <td>
-                                                            <input type="text" class="form-control" id="ap-writer" name="writer" th:value="${user.name}" readonly>
+                                                            <input type="text" class="form-control" id="ap-writer-name" th:value="${user.name}" readonly>
+                                                            <input type="hidden" class="form-control" id="ap-writer" name="writer" th:value="${user.employeeCode}">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -88,6 +94,7 @@
                                                         <th>참조<span id="toggle-cc" class="plus-btn">+</span></th>
                                                         <td id="cc" class="append"></td>
                                                     </tr>
+                                                  
                                                     </tbody>
                                                 </table>
                                             </div>

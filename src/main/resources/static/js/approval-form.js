@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function (format) {
     let editorInstance;
     let isTreeReady = false;
     let isApTreeReady = false;
@@ -113,6 +113,55 @@ $(document).ready(function () {
         $('#cc-div').on("select_node.jstree", function (e, data) {
             if (isCcTreeReady) handleNodeSelection(data, '#cc', null, true);
         });
+
+        $('#ap-btn').on('click', function(event) {
+            event.preventDefault();
+
+            let approvalDTO = {
+                fileCd: $('#ap-doc-no').val(),  // 문서번호 필드
+                employeeCode: $('#ap-writer').val(),
+                createAt: $('#ap-createAt').val(),
+                dueDate: $('#ap-dueDate').val(),
+                content: editorInstance.getData(format)
+            };
+
+            let formData = {
+                approvalDTO: approvalDTO,
+                approvalPath: [],
+                approvalReferences: [],
+                approvalConsensus: []
+            };
+
+            $('#inputContainer input[type="hidden"]').each(function() {
+                formData.approvalPath.push($(this).val());
+            });
+
+            $('#cc input[type="hidden"]').each(function() {
+                let employeeCode = $(this).val();
+                formData.approvalReferences.push(employeeCode);
+
+                // 관리자인 경우 approvalConsensus에 추가
+                let node = $('#cc-div').jstree(true).get_node(employeeCode);
+                if (node.original.original.psCd === 'P001') {
+                    formData.approvalConsensus.push(employeeCode);
+                }
+            });
+
+            console.log("Data to be sent:", formData); // 데이터 확인용 로깅
+
+            $.ajax({
+                type: "POST",
+                url: "/approval/send",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    alert("결재가 성공적으로 제출되었습니다.");
+                },
+                error: function(error) {
+                    alert("오류 발생: " + error.responseText);
+                }
+            });
+        });
     }
 
     function toggleElementVisibility(showSelector, hideSelectors) {
@@ -129,6 +178,17 @@ $(document).ready(function () {
         $('.jstree-div').show();
     }
 
+    function showMessage(message) {
+        const messageContainer = document.getElementById('message-container');
+        messageContainer.textContent = message;
+        messageContainer.style.display = 'block';
+        messageContainer.style.color = 'red';
+        messageContainer.style.textAlign = 'center';
+        setTimeout(() => {
+            messageContainer.style.display = 'none';
+        }, 2000);
+    }
+
     function handleNodeSelection(data, containerSelector, requiredPsCd, excludeDefault = false) {
         const node = data.node;
         const nodeType = node.original.type;
@@ -140,17 +200,19 @@ $(document).ready(function () {
         }
 
         if (requiredPsCd && psCd !== requiredPsCd) {
-            alert('관리자만 선택할 수 있습니다.');
+            showMessage('관리자만 선택할 수 있습니다.');
             return;
         }
 
         const employeeName = node.text;
+        const employeeCode = node.id;
         if (!isAlreadyAdded(containerSelector, employeeName)) {
-            addNewInput(containerSelector, employeeName);
+            addNewInput(containerSelector, employeeName, employeeCode);
         } else {
-            alert('이미 추가된 사람입니다.');
+            showMessage('이미 추가된 사람입니다.');
         }
     }
+
 
     function isAlreadyAdded(containerSelector, employeeName) {
         return $(containerSelector + ' input').filter(function() {
@@ -158,11 +220,12 @@ $(document).ready(function () {
         }).length > 0;
     }
 
-    function addNewInput(containerSelector, employeeName) {
+    function addNewInput(containerSelector, employeeName, employeeCode) {
         const inputCount = $(containerSelector + ' input').length + 1;
         const newInput = `
             <div id="receiver" class="input-container">
-                <input type="text" class="form-control receiver" id="${containerSelector.slice(1)}${inputCount}" value="${employeeName}" name="${containerSelector.slice(1)}" readonly />
+                <input type="hidden" class="form-control" id="${containerSelector.slice(1)}${inputCount}" name="employeeCode" value="${employeeCode}" readonly />
+                <input type="text" class="form-control receiver" value="${employeeName}" readonly />
                 <span class="remove-btn" onclick="removeInput(this)">x</span>
             </div>
         `;
@@ -211,7 +274,6 @@ $(document).ready(function () {
             data.instance.open_all();
             data.instance.deselect_all(true);
             $(selector).siblings('.append').empty();
-
         }).on("select_node.jstree", function (e, data) {
             if (excludeDefault && data.node.original.type === 'default') {
                 $(selector).jstree(true).deselect_node(data.node);

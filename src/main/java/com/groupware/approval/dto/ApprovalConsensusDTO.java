@@ -2,13 +2,14 @@ package com.groupware.approval.dto;
 
 import lombok.Data;
 
-@Data
-public class ApprovalPathDTO {
+import java.util.Date;
 
-    private int pathId;
+@Data
+public class ApprovalConsensusDTO {
+
+    private int consensusId;
     private int approvalId;
     private String employeeCode;
-    private int sequence;
     private String status;
-    private String fileCd;
+    private Date createdAt;
 }
