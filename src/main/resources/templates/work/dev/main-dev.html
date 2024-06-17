@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
     <meta name="employeeCode" th:content="${user.employeeCode}">
+    <meta name="departmentId" th:content="${user.departmentId}">
 
 </head>
 <body>
@@ -17,8 +18,15 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4 d-flex justify-content-between align-items-center">
-                <h3 th:text="${user.departmentName}"></h3>
-                <button class="cocoBtn">프로젝트 수정</button>
+                <div>
+                    <h3 th:text="${user.departmentName}"></h3>
+                </div>
+                
+                <div class="pr-btn">
+                    <button id="pr-add-btn" class="cocoBtn">프로젝트 생성</button>
+                    <button id="pr-edit-btn" class="cocoBtn">프로젝트 수정</button>
+                </div>
+                
             </div>
             
             <div class="row">
@@ -32,18 +40,18 @@
                                 <div>
                                     <table class="pr-tbl">
                                         <thead>
-                                            <tr>
-                                                <th>번호</th>
-                                                <th>프로젝트명</th>
-                                                <th>진행도</th>
-                                            </tr>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>프로젝트명</th>
+                                            <th>진행도</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="pr, stat : ${projects}" th:data-project-id="${pr.projectId}">
-                                                <td th:text="${stat.index + 1}"></td>
-                                                <td th:text="${pr.projectName}"></td>
-                                                <td></td>
-                                            </tr>
+                                        <tr th:each="pr, stat : ${projects}" th:data-project-id="${pr.projectId}">
+                                            <td th:text="${stat.index + 1}"></td>
+                                            <td th:text="${pr.projectName}"></td>
+                                            <td></td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -53,19 +61,32 @@
                     <div class="col-xl-4">
                         <div class="card flex-fill">
                             <div class="card-header">
-                                <h4 class="card-title">피드</h4>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4 class="card-title">피드</h4>
+                                    <div class="d-flex align-items-center">
+                                        <input type="text" class="form-control" id="pr-feed-input" placeholder="피드 입력">
+                                        <button id="pr-feed-btn" class="btn-info">등록</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body feed">
-                            
+                                <table class="mem-tbl">
+                                    <thead>
+                                    <tr>
+                                        <th class="col-author">작성자</th>
+                                        <th class="col-title">내용</th>
+                                        <th class="col-date">작성일</th>
+                                    </tr>
+                                    </thead>
+                                    
+                                    <tbody id="pr-feed-body"></tbody>
+                                </table>
                             </div>
-           
+                        
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
-            
             
             
             <div class="row">
@@ -79,7 +100,9 @@
                             </div>
                             <div class="card-body">
                                 <div>
+                                    
                                     <p id="pr-detail-description"></p>
+                                    
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
                                             <div class="d-flex justify-content-between align-items-center">
@@ -103,12 +126,22 @@
                     <div class="col-xl-4">
                         <div class="card mb-5 bg-primary ">
                             <div class="card-body">
-                                <h4 class="mb-0 text-white">D-day</h4>
+                                <h4 class="mb-0 text-white">D + day</h4>
+                                
+                                <div class="d-flex justify-content-between align-items-center mt-8">
+                                    <div>
+                                        <h3 class="display-5 diff2 fw-bold text-white mb-1"> Days</h3>
+                                        <p class="text-white start"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="mb-0 text-white">D - day</h4>
                                 
                                 <div class="d-flex justify-content-between align-items-center mt-8">
                                     <div>
                                         <h3 class="display-5 diff fw-bold text-white mb-1"> Days</h3>
-                                        <p class="text-white today">Today : </p>
+                                        <p class="text-white end"></p>
                                     </div>
                                 </div>
                             </div>
@@ -148,9 +181,25 @@
                     <div class="col-xl-4">
                         <div class="card flex-fill">
                             <div class="card-header">
-                                <h4 class="card-title">담당 작업</h4>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4 class="card-title">담당 작업</h4>
+                                    <div class="d-flex align-items-center">
+                                        <button id="pr-task-btn" class="btn-info">추가</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body task">
+                            
+                                <table class="pr-tbl">
+                                    <thead>
+                                    <tr>
+                                        <th>작업 내용</th>
+                                        <th>담당자</th>
+                                        <th>진행률</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="pr-task-body">
+                                </table>
                             
                             </div>
                         </div>
@@ -165,17 +214,17 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="editProjectsModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="editPrModal" tabindex="-1" aria-labelledby="editPrModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel">프로젝트 수정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="project_name" class="form-label">프로젝트명</label>
-                    <input type="text" class="form-control" id="project_name" name="project_name">
+                    <input type="text" class="form-control" id="project_name" name="project_name" >
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">설명</label>
@@ -183,7 +232,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="start_date" class="form-label">시작일</label>
-                    <input type="date" class="form-control" id="start_date" name="start_date">
+                    <input type="date" class="form-control" id="start_date" name="start_date" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="end_date" class="form-label">종료일</label>
@@ -191,22 +240,17 @@
                 </div>
                 <div class="mb-3">
                     <label for="status" class="form-label">상태</label>
-                    <input type="text" class="form-control" id="status" name="status">
+                    <input type="text" class="form-control" id="status" name="status" readonly>
                 </div>
                 <label class="form-label">팀원</label>
                 <table class="table">
-                    <thead>
-                    <tr>
-                        <th>목록</th>
-                    </tr>
-                    </thead>
                     <tbody>
                     <tr>
                         <td></td>
                     </tr>
                     </tbody>
                 </table>
-                <label class="form-label">담당 작업</label>
+              
                 <table class="table">
                     <thead>
                     <tr>
@@ -221,22 +265,23 @@
                         <td><input type="text" class="form-control taskContentInput" name="taskContents"></td>
                         <td>
                             <select class="form-select taskAssigneeSelect" name="taskAssignees">
-                                <option></option>
+                                <option value="">직원 선택</option>
                             </select>
                         </td>
                         <td><input type="number" class="form-control taskProgressInput" name="taskProgresses" min="0" max="100"></td>
-                        <td><button type="button" class="btn btn-danger btn-sm removeTaskRow">삭제</button></td>
+                        <td><button type="button" class="delete-btn">삭제</button></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="saveProjectChangesBtn">수정</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                <button type="button" class="btn-info" id="edit-pr-btn">수정</button>
+                <button type="button" class="delete-btn">닫기</button>
             </div>
         </div>
     </div>
 </div>
+
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/main-dev.js"></script>

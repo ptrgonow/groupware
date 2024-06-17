@@ -4,6 +4,7 @@ import com.groupware.user.dto.UserDTO;
 import com.groupware.user.service.UserService;
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.dto.ProjectDetailsDTO;
+import com.groupware.work.dev.dto.ProjectUpdateRequestDTO;
 import com.groupware.work.dev.service.DevService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,28 @@ public class DevController {
         response.put("project", projectDetails);
         response.put("members", projectDetails.getMembers());
         response.put("tasks", projectDetails.getTasks());
+        response.put("feeds", projectDetails.getFeeds());
         response.put("user", user);
 
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/edit")
+    public ResponseEntity<String> editProject(@RequestBody ProjectUpdateRequestDTO projectUpdateRequest) {
+        try {
+            devService.updateProject(
+                    projectUpdateRequest.getProjectDTO(),
+                    projectUpdateRequest.getMembers(),
+                    projectUpdateRequest.getTasks()
+
+            );
+            return ResponseEntity.ok("프로젝트 정보가 수정되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("프로젝트 정보 수정 중 오류가 발생했습니다.");
+        }
+
+
+    }
+
+
 }

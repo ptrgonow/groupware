@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class ProjectUpdateRequestDTO {
 
-    private ProjectDTO project;
+    private ProjectDTO projectDTO;
     private List<ProjectMemberDTO> members;
     private List<ProjectTaskDTO> tasks;
 

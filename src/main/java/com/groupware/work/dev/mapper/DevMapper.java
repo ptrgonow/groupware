@@ -37,4 +37,35 @@ public interface DevMapper {
             "JOIN employee e ON pm.employee_code = e.employee_code " +
             "WHERE pm.employee_code = #{employeeCode}")
     List<ProjectDTO> getProjects(@Param("employeeCode") String employeeCode);
+
+    // feed 가져오기
+    @Select("SELECT f.feed_id AS feedId, f.employee_code AS employeeCode, f.content AS content, e.name AS name, f.created_at AS createdAt, " +
+            "e.ps_cd AS psCd, ps.ps_nm AS psNm " +
+            "FROM project_feeds f " +
+            "JOIN employee e ON f.employee_code = e.employee_code " +
+            "JOIN positions ps ON e.ps_cd = ps.ps_cd " +
+            "WHERE f.project_id = #{projectId} " +
+            "ORDER BY f.created_at DESC")
+    List<ProjectFeedDTO> getFeeds(@Param("projectId") int projectId);
+
+
+    @Update("UPDATE projects SET project_name = #{project.projectName}, description = #{project.description}, " +
+            "start_date = #{project.startDate}, end_date = #{project.endDate}, status = #{project.status}, " +
+            "department_id = #{project.departmentId} " +
+            "WHERE project_id = #{project.projectId}")
+    void updateProject(@Param("project") ProjectDTO project);
+
+    @Update("UPDATE project_members SET employee_code = #{member.memberEmployeeCode} " +
+            "WHERE project_member_id = #{member.memberId} AND project_id = #{projectId}")
+    void updateProjectMember(@Param("projectId") int projectId, @Param("member") ProjectMemberDTO member);
+
+    @Update("UPDATE project_tasks SET task_content = #{task.taskContent}, employee_code = #{task.taskEmployeeCode}, " +
+            "progress = #{task.taskProgress} " +
+            "WHERE project_task_id = #{task.taskId} AND project_id = #{projectId}")
+    void updateProjectTask(@Param("projectId") int projectId, @Param("task") ProjectTaskDTO task);
+
+
+
+
 }
+

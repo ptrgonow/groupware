@@ -15,8 +15,9 @@ public class ProjectDetailsDTO {
     private String status;
     private int departmentId;
     private String description;
-    private String createAt;
+    private Date createAt;
     private String employeeCode;
     private List<ProjectMemberDTO> members;
     private List<ProjectTaskDTO> tasks;
+    private List<ProjectFeedDTO> feeds;
 }
