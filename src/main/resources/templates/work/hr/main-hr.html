@@ -8,7 +8,6 @@
 <body>
 
 
-
 <div class="main-wrapper">
     
     <div th:replace="~{include/header/main-header :: header}"></div>
@@ -19,7 +18,6 @@
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>업무 > 경영지원실 > 인사관리팀</h3>
-            
             </div>
             
             <div class="row mb-4">
@@ -28,7 +26,7 @@
                         <div class="card-body">
                             <div class="card_widget_header">
                                 임직원 수
-                                <p class="widget">30</p>
+                                <p class="widget" th:text="${eCount}"></p>
                             </div>
                             <div class="card_member_img"></div>
                         </div>
@@ -39,8 +37,7 @@
                         <div class="card-body">
                             <div class="card_widget_header">
                                 새로운 요청
-                                <p class="widget">4</p>
-                            
+                                <p class="widget" th:text="${apCount}"></p>
                             </div>
                             <div class="card_notify_img">
                             
@@ -93,7 +90,7 @@
                         <div class="card-body">
                             
                             <div class="table-responsive">
-                                <table class="table custom-table no-footer">
+                                <table class="table custom-table no-footer" id="e_list">
                                     <thead>
                                     <tr>
                                         <th>이름</th>
@@ -101,105 +98,24 @@
                                         <th>직급</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
+                                    <tbody id="e_list_table">
+                                    <tr th:each ="list : ${eList}">
                                         <td>
                                             <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" /><label>홍길동</label>
-                                                </a>
+                                                <label th:text ="${list.name}"></label>
                                             </div>
                                         </td>
                                         <td>
-                                            <label class="action_label2">대표 </label>
-                                        </td>
-                                        <td><label>CEO</label></td>
-                                    
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" /><label>유관순</label>
-                                                </a>
-                                            </div>
+                                            <label class="action_label2" th:text="${list.departmentName}">대표</label>
                                         </td>
                                         <td>
-                                            <label class="action_label2">경영지원 </label>
-                                        </td>
-                                        <td><label>팀장</label></td>
-                                        <td class="tab-select">
-                                        
+                                            <label th:text="${list.psNm}">CEO</label>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" />
-                                                </a>
-                                                <label>김유신</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">인사관리 </label>
-                                        </td>
-                                        <td><label>과장</label></td>
-                                        <td class="tab-select">
-                                        
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" />
-                                                </a>
-                                                <label>이성계</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">개발 1팀 </label>
-                                        </td>
-                                        <td><label>팀장</label></td>
-                                        <td class="tab-select">
-                                        
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" />
-                                                </a>
-                                                <label>안중근</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">개발 2팀 </label>
-                                        </td>
-                                        <td><label>대리</label></td>
-                                    
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" />
-                                                </a>
-                                                <label>장발장</label>
-                                            </div>
-                                        </td>
-                                        
-                                        <td>
-                                            <label class="action_label2">개발 2팀 </label>
-                                        </td>
-                                        <td><label>대리</label></td>
-                                    
-                                    </tr>
-                                    
                                     </tbody>
                                 </table>
+                                <!-- 페이징 -->
+                                <div id="pagination-hr"></div>
                             </div>
                         </div>
                     </div>
@@ -442,5 +358,6 @@
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/main-hr.js"></script>
 </body>
 </html>

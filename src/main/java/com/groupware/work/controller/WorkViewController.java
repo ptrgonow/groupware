@@ -1,13 +1,33 @@
 package com.groupware.work.controller;
 
+import com.groupware.approval.dto.DeptTreeDTO;
+import com.groupware.approval.dto.EmployeeDTO;
+import com.groupware.approval.dto.PositionsDTO;
+import com.groupware.approval.service.ApService;
+import com.groupware.user.dto.DeptDTO;
+import com.groupware.user.dto.PositionDTO;
 import com.groupware.user.dto.UserDTO;
+import com.groupware.user.service.UserService;
+import com.groupware.work.hr.dto.HrEmployeeDTO;
+import com.groupware.work.hr.service.HrService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 public class WorkViewController {
+
+    private final HrService hrService;
+    private final UserService userService;
+
+    public WorkViewController(HrService hrService, UserService userService, ApService apService, UserService userService1) {
+        this.hrService = hrService;
+        this.userService = userService;
+    }
 
     @GetMapping("/fm")
     public String fm(Model model) {
@@ -26,7 +46,19 @@ public class WorkViewController {
     }
 
     @GetMapping("/hr")
-    public String hr() {
+    public String hr(Model model) {
+
+        // 총 직원 수
+        int eCount = hrService.AllEmployeeCount();
+        // 인원현황 대시보드
+        List<HrEmployeeDTO> eList = hrService.getAllEmployees();
+        // 결재 요청 개수
+        int apCount = hrService.AllApprovalCount();
+
+        model.addAttribute("eCount", eCount);
+        model.addAttribute("eList", eList);
+        model.addAttribute("apCount", apCount);
+
         return "work/hr/main-hr";
     }
 
@@ -43,8 +75,6 @@ public class WorkViewController {
 
         return "work/dev/main-dev";
     }
-
-
 
 }
 
