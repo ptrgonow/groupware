@@ -18,7 +18,7 @@ public interface AttMapper {
     @Update("UPDATE attendance SET check_out = #{checkOut}, status = #{status} WHERE employee_code = #{employeeCode} AND check_out IS NULL")
     void updateCheckOut(AttDTO attDTO);
 
-    @Select("SELECT status FROM attendance WHERE employee_code = #{employeeCode} ORDER BY created_at DESC LIMIT 1")
+    @Select("SELECT employee_code AS employeeCode, check_in AS checkIn, check_out AS checkOut, status FROM attendance WHERE employee_code = #{employeeCode} ORDER BY created_at DESC LIMIT 1")
     Optional<AttDTO> getAttendanceStatus(String employeeCode);
 
     @Select("SELECT check_in AS checkIn, check_out AS checkOut FROM attendance WHERE employee_code = #{employeeCode} ORDER BY created_at DESC")
@@ -30,5 +30,4 @@ public interface AttMapper {
             "GROUP BY employee_code, DATE(check_in) " +
             "ORDER BY attendanceDate")
     List<AttDTO> getFirstAndLastAttendance(String employeeCode);
-
 }

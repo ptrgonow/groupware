@@ -20,11 +20,20 @@ public class AttService {
     }
 
     public void startAttendance(AttDTO attDTO) {
+        // 로그 추가
+        System.out.println("시작 - 출근 처리: " + attDTO.getEmployeeCode());
+
         Optional<AttDTO> latestAttendance = attMapper.getAttendanceStatus(attDTO.getEmployeeCode());
+
+        // 가장 최근 출근 기록이 있고, 아직 퇴근하지 않은 상태인 경우
         if (latestAttendance.isPresent() && latestAttendance.get().getCheckOut() == null) {
+            System.out.println("오류 - 이미 출근 상태입니다: " + attDTO.getEmployeeCode());
             throw new IllegalStateException("이미 출근 상태입니다.");
         }
+
+        // 새로운 출근 기록 삽입
         attMapper.insertCheckIn(attDTO);
+        System.out.println("완료 - 출근 처리: " + attDTO.getEmployeeCode());
     }
 
     public void endAttendance(AttDTO attDTO) {
@@ -86,3 +95,4 @@ public class AttService {
         return records;
     }
 }
+
