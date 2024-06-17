@@ -1,10 +1,13 @@
 package com.groupware.work.fm.controller;
 
-import com.groupware.work.fm.dto.FmDTO;
+import com.groupware.work.fm.dto.SalaryDTO;
+import com.groupware.approval.dto.DeptTreeDTO;
 import com.groupware.work.fm.service.FmService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,15 +22,13 @@ public class FmController {
         this.fmService = fmService;
     }
 
-    @GetMapping("/expenses")
-    public ResponseEntity<List<FmDTO>> getApprovedExpenses() {
-        List<FmDTO> approvedExpenses = fmService.getApprovedFixedExpenses();
-        return ResponseEntity.ok(approvedExpenses);
+    @GetMapping("/departments")
+    public List<DeptTreeDTO> getDepartments() {
+        return fmService.getAllDepartments();
     }
 
-    @PostMapping("/expenses")
-    public ResponseEntity<Void> logFixedExpense(@RequestBody FmDTO fixedExpenseDTO) {
-        fmService.logFixedExpense(fixedExpenseDTO);
-        return ResponseEntity.ok().build();
+    @GetMapping("/salariesByDepartment")
+    public List<SalaryDTO> getSalariesByDepartment(@RequestParam("departmentId") int departmentId) {
+        return fmService.getSalariesByDepartment(departmentId);
     }
 }
