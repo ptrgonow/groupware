@@ -1,13 +1,23 @@
 package com.groupware.work.controller;
 
+import com.groupware.work.hr.dto.TodayWorkerDTO;
 import com.groupware.user.dto.UserDTO;
+import com.groupware.work.hr.service.HrService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 public class WorkViewController {
+
+    private final HrService hrService;
+
+    public WorkViewController(HrService hrService) {
+        this.hrService = hrService;
+    }
 
     @GetMapping("/fm")
     public String fm(Model model) {
@@ -26,7 +36,9 @@ public class WorkViewController {
     }
 
     @GetMapping("/hr")
-    public String hr() {
+    public String hr(Model model) {
+        List<TodayWorkerDTO> workers = hrService.getAllTodayWorkers();
+        model.addAttribute("workers", workers); // 모델에 데이터 추가
         return "work/hr/main-hr";
     }
 
@@ -43,8 +55,6 @@ public class WorkViewController {
 
         return "work/dev/main-dev";
     }
-
-
 
 }
 
