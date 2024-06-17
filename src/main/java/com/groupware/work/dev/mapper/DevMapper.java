@@ -1,9 +1,7 @@
 package com.groupware.work.dev.mapper;
 
 import com.groupware.work.dev.dto.*;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ public interface DevMapper {
             "ORDER BY pf.feed_id")
     List<ProjectFeedDTO> getFeed(@Param("project_id") int projectId);
 
-    @Select("select description, start_date, end_date, project_name from projects " +
+    @Select("select project_id, description, start_date, end_date, project_name from projects " +
             "where project_id = #{project_id}")
     ProjectDTO getProjectInfo(@Param("project_id") int projectId);
 
@@ -41,8 +39,26 @@ public interface DevMapper {
             "WHERE pt.project_id = #{projectId}")
     List<ProjectTaskDTO> getProjectTasks(@Param("projectId") int projectId);
 
-    @Select("select p.*, pm.*, pt.* from projects p join project_members pm on p.project_id = pm.project_id " +
-            "join project_tasks pt on p.project_id = pt.project_id where p.project_id = #{projectId}")
-    List<ProjectEditDTO> editProject(@Param("projectId") int projectId);
+    @Update("UPDATE projects " +
+            "SET project_name = #{projectName}, start_date = #{startDate}, end_date = #{endDate}, " +
+            "status = #{status}, description = #{description} " +
+            "WHERE project_id = #{projectId}")
+    void updateProject(ProjectDTO projectDTO);
+
+    @Update("update project_members " +
+            "set project_member_id = #{projectMember},employee_code = #{employeeCode} " +
+            "where project_id = #{projectId}")
+    void updateMember(List<ProjectMemberDTO> memberDTO);
+
+    @Update("UPDATE project_tasks " +
+            "SET task_content = #{taskContent}, employee_code = #{employeeCode}, progress = #{progress} " +
+            "WHERE project_task_id = #{projectTaskId}")
+    void updateTask(ProjectTaskDTO task);
+
+    @Insert("INSERT INTO project_tasks (project_id, task_content, employee_code, progress, created_at) " +
+            "VALUES (#{projectId}, #{taskContent}, #{employeeCode}, #{progress}, NOW())") // NOW() 함수 사용
+    void insertTask(ProjectTaskDTO task);
+
+
 
 }

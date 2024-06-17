@@ -12,4 +12,6 @@ public class ProjectTaskDTO {
     private int progress;
     private String task_content;
     private String name;
+
+
 }

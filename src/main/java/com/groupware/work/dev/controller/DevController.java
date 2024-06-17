@@ -54,7 +54,7 @@ public class DevController {
         return ResponseEntity.ok(tasks);
     }
 
-    @GetMapping("/{projectId}/editProject")
+    @GetMapping("/{projectId}/editProject")     // 모달창에서 불러올 프로젝트 정보
     public ResponseEntity<Map<String, Object>> editProject(@PathVariable int projectId) {
 
         ProjectDTO info = workService.getProjectInfo(projectId);
@@ -68,6 +68,24 @@ public class DevController {
 
         System.out.println(response);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Map<String, String>> updateProject(
+            @RequestBody ProjectUpdateRequestDTO request) {
+
+        ProjectDTO project = request.getProject();
+        List<ProjectMemberDTO> member = request.getMembers();
+
+
+        System.out.println(project);
+
+        try {
+            workService.updateProject(project, member); // 서비스에서 프로젝트 및 작업 업데이트
+            return ResponseEntity.ok(Map.of("status", "success"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("status", "error", "message", e.getMessage()));
+        }
     }
 
 }
