@@ -9,5 +9,5 @@ public class SalaryDTO {
     private String employeeCode;
     private String description;
     private double amount;
-    private Date date;
+    private Date hireDate;
 }
