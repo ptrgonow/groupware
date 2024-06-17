@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    
+
     <title>그룹웨어</title>
 
 </head>
@@ -10,18 +10,18 @@
 
 
 <div class="main-wrapper">
-    
+
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
     <link rel="stylesheet" href="/css/main-hr.css">
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>업무 > 경영지원실 > 인사관리팀</h3>
-            
+
             </div>
-            
+
             <div class="row mb-4">
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card board1 fill1 ">
@@ -40,10 +40,10 @@
                             <div class="card_widget_header">
                                 새로운 요청
                                 <p class="widget">4</p>
-                            
+
                             </div>
                             <div class="card_notify_img">
-                            
+
                             </div>
                         </div>
                     </div>
@@ -54,10 +54,10 @@
                             <div class="card_widget_header">
                                 휴가자
                                 <p class="widget">3</p>
-                            
+
                             </div>
                             <div class="card_leave_img">
-                            
+
                             </div>
                         </div>
                     </div>
@@ -68,20 +68,20 @@
                             <div class="card_widget_header">
                                 현재 근무중
                                 <p class="widget">27</p>
-                            
+
                             </div>
                             <div class="card_working_img">
-                            
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
+
+
             <div class="row">
-                
-                
+
+
                 <div class="col-xl-6 d-flex mobile-h">
                     <div class="card flex-fill">
                         <div class="card-header">
@@ -91,9 +91,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            
+
                             <div class="table-responsive">
-                                <table class="table custom-table no-footer">
+                                <table class="table custom-table no-footer" id="e_list">
                                     <thead>
                                     <tr>
                                         <th>이름</th>
@@ -101,140 +101,73 @@
                                         <th>직급</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
+                                    <tbody id="e_list_table">
+                                    <tr th:each ="list : ${eList}">
                                         <td>
                                             <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" /><label>홍길동</label>
-                                                </a>
+                                                <label th:text ="${list.name}"></label>
                                             </div>
                                         </td>
                                         <td>
-                                            <label class="action_label2">대표 </label>
-                                        </td>
-                                        <td><label>CEO</label></td>
-                                    
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" /><label>유관순</label>
-                                                </a>
-                                            </div>
+                                            <label class="action_label2" th:text="${list.departmentName}">대표</label>
                                         </td>
                                         <td>
-                                            <label class="action_label2">경영지원 </label>
-                                        </td>
-                                        <td><label>팀장</label></td>
-                                        <td class="tab-select">
-                                        
+                                            <label th:text="${list.psNm}">CEO</label>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" />
-                                                </a>
-                                                <label>김유신</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">인사관리 </label>
-                                        </td>
-                                        <td><label>과장</label></td>
-                                        <td class="tab-select">
-                                        
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" />
-                                                </a>
-                                                <label>이성계</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">개발 1팀 </label>
-                                        </td>
-                                        <td><label>팀장</label></td>
-                                        <td class="tab-select">
-                                        
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" />
-                                                </a>
-                                                <label>안중근</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">개발 2팀 </label>
-                                        </td>
-                                        <td><label>대리</label></td>
-                                    
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="#">
-                                                    <img src="" alt="profile" class="img-table" />
-                                                </a>
-                                                <label>장발장</label>
-                                            </div>
-                                        </td>
-                                        
-                                        <td>
-                                            <label class="action_label2">개발 2팀 </label>
-                                        </td>
-                                        <td><label>대리</label></td>
-                                    
-                                    </tr>
-                                    
                                     </tbody>
                                 </table>
+                                <!-- 페이징 -->
+                                <div id="pagination-hr"></div>
                             </div>
+
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="col-xl-6 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">최근 출/퇴근</h5>
+                                <h5 class="card-title">금일 근무자</h5>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="card-body p-0">
-                                <div class="leave-set">
-                                <span class="leave-inactive">
-                                
-                                </span>
-                                    <label>Mon, 16 Dec 2021</label>
-                                </div>
-                                
-                                <div class="leave-viewall">
-                                    <a href="#">모두 보기 <img src="/img/r-arrow.png" class="ml-2" alt="arrow" /></a>
-                                </div>
-                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>이름</th>
+                                    <th>출근 시간</th>
+                                    <th>상태</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="worker : ${workers}">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <label th:text="${worker.name}"></label>
+                                        </div>
+                                    </td>
+                                    <td th:text="${#temporals.format(worker.firstCheckIn, 'yyyy-MM-dd HH:mm')}"></td>
+                                    <td>
+                                        <span th:class="${worker.status == '근무중' ? 'badge bg-success text-center' : 'badge bg-danger text-center'}"
+                                              th:text="${worker.status}"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="pagination-container"></div>
                         </div>
+
                     </div>
                 </div>
             </div>
-            
-            
+
+
             <div class="row">
-                
-                
+
+
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header ">
@@ -242,7 +175,7 @@
                             <button class="go-approval" value="결재하기"></button>
                         </div>
                         <div class="card-body pb-0">
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -256,9 +189,9 @@
                                         휴가신청_김유신
                                     </div>
                                 </div>
-                            
+
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -272,9 +205,9 @@
                                         조퇴 신청_김철수 사유 - 병원
                                     </div>
                                 </div>
-                            
+
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -288,9 +221,9 @@
                                         오전 반차 신청_박영희
                                     </div>
                                 </div>
-                            
+
                             </div>
-                            
+
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -304,13 +237,13 @@
                                         휴가신청_이민수
                                     </div>
                                 </div>
-                            
+
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header">
@@ -320,7 +253,7 @@
                         </div>
                         <div class="card-body dash-activity">
                             <div class="activity_scroll">
-                                
+
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-xl-6">
@@ -426,16 +359,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                
+
                                 </div>
-                            
-                            
+
+
                             </div>
                         </div>
                     </div>
                 </div>
-            
-            
+
+
             </div>
         </div>
     </div>

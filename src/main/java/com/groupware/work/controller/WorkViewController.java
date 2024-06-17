@@ -1,12 +1,8 @@
 package com.groupware.work.controller;
 
+import com.groupware.work.hr.dto.TodayWorkerDTO;
 import com.groupware.user.dto.UserDTO;
-import com.groupware.user.service.UserService;
-import com.groupware.work.dev.dto.ProjectDTO;
-import com.groupware.work.dev.dto.ProjectDetailsDTO;
-import com.groupware.work.dev.dto.ProjectMemberDTO;
-import com.groupware.work.dev.dto.ProjectTaskDTO;
-import com.groupware.work.dev.service.DevService;
+import com.groupware.work.hr.service.HrService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +15,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.List;
+
 @Controller
 @AllArgsConstructor
 public class WorkViewController {
 
-    private final DevService devService;
-    private final UserService userService;
+    private final HrService hrService;
+
+    public WorkViewController(HrService hrService) {
+        this.hrService = hrService;
+    }
+
 
     @GetMapping("/fm")
     public String fm(Model model) {
@@ -44,7 +46,9 @@ public class WorkViewController {
     }
 
     @GetMapping("/hr")
-    public String hr() {
+    public String hr(Model model) {
+        List<TodayWorkerDTO> workers = hrService.getAllTodayWorkers();
+        model.addAttribute("workers", workers); // 모델에 데이터 추가
         return "work/hr/main-hr";
     }
 

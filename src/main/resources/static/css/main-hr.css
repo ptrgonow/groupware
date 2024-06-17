@@ -87,3 +87,10 @@
 .row {
     margin-bottom: 0;
 }
+.badge.bg-success {
+    color: white; /* '근무중' badge 글자색 흰색 */
+}
+
+.badge.bg-danger {
+    color: white; /* '퇴근' badge 글자색 흰색 */
+}
