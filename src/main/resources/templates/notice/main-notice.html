@@ -37,8 +37,7 @@
                         <td th:text="${nList.notice_id}">ID</td>
                         <td><a th:href="@{/nt/detail(id=${nList.notice_id})}" th:text="${nList.title}"></a></td>
                         <td th:text="${nList.content}">Content</td>
-                        <td th:text="${nList.created_at}">작성일</td>
-
+                        <td th:text="${#dates.format(nList.created_at, 'yyyy-MM-dd')}">작성일</td>
                     </tr>
                     </tbody>
                 </table>
