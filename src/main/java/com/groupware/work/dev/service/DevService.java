@@ -4,6 +4,7 @@ import com.groupware.work.dev.dto.*;
 import com.groupware.work.dev.mapper.DevMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,7 +41,13 @@ public class DevService {
         return workMapper.getProjectTasks(projectId);
     }
 
-    public List<ProjectEditDTO> editProject(int projectId) {
-        return workMapper.editProject(projectId);
+    @Transactional
+    public void updateProject(ProjectDTO projectDTO, List<ProjectMemberDTO> memberDTO) {
+        // 1. 프로젝트 정보 업데이트
+        workMapper.updateProject(projectDTO);
+
+        // 2. 프로젝트 멤버 업데이트
+        workMapper.updateMember(memberDTO);
+
     }
 }

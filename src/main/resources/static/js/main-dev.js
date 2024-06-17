@@ -138,10 +138,10 @@ $(document).ready(function() {
         });
         function handleModalSuccess(response) {
             console.log(response.info.description);
+            const projectId = response.info.projectId;
             const infos = response.info;
             const tasks = response.tasks;
             const members = response.members;
-
             let modalHtml = `
         <div class="modal-header">
             </div>
@@ -205,11 +205,53 @@ $(document).ready(function() {
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-            <button type="button" class="btn btn-primary" id="saveProjectChangesBtn" data-project-id="${infos.projectId}">수정</button> 
+            <button type="button" class="btn btn-primary" id="saveProjectChangesBtn" data-project-id="${tasks.projectId}">수정</button>
         </div>
     `;
             $('#editProjects').html(modalHtml);
             $('#editProjectsModal').modal('show'); // 모달 열기 (ID 수정)
+
+            $('#saveProjectChangesBtn').on('click', function () {
+                const projectId = $(this).data('project-id');
+
+                // 수정된 프로젝트 정보 수집
+                const updatedProject = {
+                    projectId: projectId,
+                    projectName: $('#project_name').val(),
+                    description: $('#description').val(),
+                    startDate: $('#start_date').val(),
+                    endDate: $('#end_date').val(),
+                    // 필요한 경우 status 추가
+                };
+
+                // 수정된 멤버 정보 수집
+                const updatedMembers = [];
+                $('#editProjects table:eq(1) tbody tr').each(function() {
+                    const member = {
+                        projectId: projectId, // 프로젝트 ID 추가
+                        employeeCode: $(this).find('select').val(), // 수정된 멤버 선택 값 가져오기
+                    };
+                    updatedMembers.push(member);
+                });
+
+                // 프로젝트 정보 업데이트 요청 (컨트롤러의 /projects/update 엔드포인트로)
+                getAjaxData('/projects/update', 'POST', {
+                    project: updatedProject,
+                    members: updatedMembers
+                }, function(response) { // 성공 콜백 함수
+                    if (response.status === 'success') {
+                        alert('프로젝트가 성공적으로 수정되었습니다.');
+                        $('#editProjectsModal').modal('hide');
+                        // 필요하다면 페이지 새로고침 또는 데이터 다시 불러오기 (renderProjectList() 등 호출)
+                    } else {
+                        alert('프로젝트 수정 중 오류가 발생했습니다: ' + response.message);
+                    }
+                }, function(jqXHR, textStatus, errorThrown) { // 에러 콜백 함수
+                    console.error('프로젝트 수정 요청 중 오류 발생:', jqXHR.responseText); // 에러 응답 데이터 출력
+                    alert('프로젝트 수정 중 오류가 발생했습니다: ' + (jqXHR.responseJSON?.message || '알 수 없는 오류'));
+                    // responseJSON이 있으면 message를, 없으면 '알 수 없는 오류'를 alert
+                });
+            });
         }
 
         function handleTasksSuccess(tasks) {
@@ -275,13 +317,19 @@ $(document).ready(function() {
             getAjaxData(`/projects/${projectId}/tasks`, 'GET', {}, handleTasksSuccess, function (tasks) {
                 console.error('담당 작업 정보를 가져오는 중 오류 발생');
             });
+            $(document).on('click', '.cocoBtn', function() {
 
-            getAjaxData(`/projects/${projectId}/editProject`, 'GET', {}, function(response) { // response로 변경
-                handleModalSuccess(response); // projectId 대신 response 전달
-            }, function () {
-                console.error('프로젝트 수정 정보를 가져오는 중 오류 발생');
+                console.log("projectId (버튼에서):", projectId);
+                getAjaxData(`/projects/${projectId}/editProject`, 'GET', {}, function(response) {
+                    handleModalSuccess(response);
+                }, function () {
+                    console.error('프로젝트 수정 정보를 가져오는 중 오류 발생');
+                });
             });
+
         });
+
+
     }
 
     // 초기 프로젝트 목록 가져오기
