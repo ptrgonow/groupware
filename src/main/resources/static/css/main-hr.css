@@ -108,4 +108,10 @@
 
 .table-responsive tr td:first-child, .table-responsive tr th:first-child {
     padding-left:0;
+.badge.bg-success {
+    color: white; /* '근무중' badge 글자색 흰색 */
+}
+
+.badge.bg-danger {
+    color: white; /* '퇴근' badge 글자색 흰색 */
 }

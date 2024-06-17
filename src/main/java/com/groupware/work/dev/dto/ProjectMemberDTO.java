@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class ProjectMemberDTO {
-
-    private int project_member_id;
-    private String project_id;
-    private String employee_code;
-    private String name;
+    private int memberId;
+    private String memberEmployeeCode;
+    private String memberName;
+    private String memberDepartmentName;
+    private String memberPosition;
 }

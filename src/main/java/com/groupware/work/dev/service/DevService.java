@@ -4,50 +4,36 @@ import com.groupware.work.dev.dto.*;
 import com.groupware.work.dev.mapper.DevMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class DevService {
 
-    private final DevMapper workMapper;
+    private final DevMapper devMapper;
 
     @Autowired
-    public DevService(DevMapper workMapper) {
-        this.workMapper = workMapper;
+    public DevService(DevMapper devMapper) {
+        this.devMapper = devMapper;
     }
 
-    public List<ProjectDTO> getProjects(String employee_code) {
-
-        return workMapper.getProjects(employee_code);
+    public List<ProjectDTO> getProjects(String employeeCode) {
+        return devMapper.getProjects(employeeCode);
     }
 
-    public List<ProjectFeedDTO> getFeed(int projectId) {
-
-        return workMapper.getFeed(projectId);
-    }
-
-    public ProjectDTO getProjectInfo(int projectId){
-
-        return workMapper.getProjectInfo(projectId);
-    }
-
-    public List<ProjectMemberDTO> getProjectMembers(int projectId) {
-        return workMapper.getProjectMembers(projectId);
-    }
-
-    public List<ProjectTaskDTO> getProjectTasks(int projectId){
-        return workMapper.getProjectTasks(projectId);
-    }
-
-    @Transactional
-    public void updateProject(ProjectDTO projectDTO, List<ProjectMemberDTO> memberDTO) {
-        // 1. 프로젝트 정보 업데이트
-        workMapper.updateProject(projectDTO);
-
-        // 2. 프로젝트 멤버 업데이트
-        workMapper.updateMember(memberDTO);
-
+    public ProjectDetailsDTO getProjectDetails(int projectId) {
+        List<ProjectDetailsDTO> projectDetailsList = devMapper.getProjectInfo(projectId);
+        System.out.println("=======================================");
+        System.out.println(projectDetailsList);
+        System.out.println("=======================================");
+        if (projectDetailsList.isEmpty()) {
+            return null;
+        }
+        ProjectDetailsDTO projectDetails = projectDetailsList.get(0);
+        List<ProjectMemberDTO> members = devMapper.getProjectMembers(projectId);
+        List<ProjectTaskDTO> tasks = devMapper.getProjectTasks(projectId);
+        projectDetails.setMembers(members);
+        projectDetails.setTasks(tasks);
+        return projectDetails;
     }
 }

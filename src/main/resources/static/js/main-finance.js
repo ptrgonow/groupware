@@ -109,3 +109,87 @@ $(document).ready(function() {
         window.location = $(this).data('href');
     });
 });
+
+$(document).ready(function () {
+    let currentPage = 1;
+    let pageSize = 5;
+    let allData = [];
+
+    // Load departments dynamically
+    $.get("/fm/departments", function (data) {
+        const departmentSelect = $("#salaryStatus");
+        data.forEach(function (department) {
+            departmentSelect.append(new Option(department.departmentName, department.departmentId));
+        });
+    });
+
+    // Handle department selection
+    $("#salaryStatus").change(function () {
+        const departmentId = $(this).val();
+        if (departmentId === '') {
+            $("#salaryTableBody").empty();
+            return;
+        }
+        $.get(`/fm/salariesByDepartment?departmentId=${departmentId}`, function(data) {
+            allData = data;
+            currentPage = 1;
+            renderTable();
+        });
+    });
+
+    function renderTable() {
+        const tableBody = $("#salaryTableBody");
+        tableBody.empty();
+
+        const start = (currentPage - 1) * pageSize;
+        const end = start + pageSize;
+        const paginatedData = allData.slice(start, end);
+
+        paginatedData.forEach(function (salary, index) {
+            tableBody.append(`
+                <tr>
+                    <th scope="row">${start + index + 1}</th>
+                    <td>${salary.hireDate || ''}</td>
+                    <td>${salary.departmentName || ''}</td>
+                    <td>${salary.positionName || ''}</td>
+                    <td>${salary.employeeCode || ''}</td>
+                    <td>${salary.amount || ''}</td>
+                </tr>
+            `);
+        });
+    }
+
+    $("#prevPage").click(function (event) {
+        event.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+        }
+    });
+
+    $("#nextPage").click(function (event) {
+        event.preventDefault();
+        if ((currentPage * pageSize) < allData.length) {
+            currentPage++;
+            renderTable();
+        }
+    });
+
+    $("#page1").click(function (event) {
+        event.preventDefault();
+        currentPage = 1;
+        renderTable();
+    });
+
+    $("#page2").click(function (event) {
+        event.preventDefault();
+        currentPage = 2;
+        renderTable();
+    });
+
+    $("#page3").click(function (event) {
+        event.preventDefault();
+        currentPage = 3;
+        renderTable();
+    });
+});

@@ -8,57 +8,33 @@ import java.util.List;
 @Mapper
 public interface DevMapper {
 
-    @Select("SELECT p.* " +
+    @Select("SELECT DISTINCT p.project_id AS projectId, p.project_name AS projectName, p.start_date AS startDate, p.end_date AS endDate, " +
+            "p.status, p.department_id AS departmentId, p.description, p.created_at AS createAt, pm.employee_code AS employeeCode " +
             "FROM projects p " +
-            "JOIN project_members pm ON p.project_id = pm.project_id " +
-            "WHERE pm.employee_code = #{employeeCode}")
-    List<ProjectDTO> getProjects(@Param("employeeCode") String employeeCode);
+            "LEFT JOIN project_members pm ON p.project_id = pm.project_id " +
+            "WHERE p.project_id = #{projectId}")
+    List<ProjectDetailsDTO> getProjectInfo(@Param("projectId") int projectId);
 
-
-    @Select("SELECT pf.project_id, pf.content, e.name, pf.created_at " +
-            "FROM project_feeds pf " +
-            "JOIN employee e ON pf.employee_code = e.employee_code " +
-            "WHERE pf.project_id = #{project_id} " +
-            "ORDER BY pf.feed_id")
-    List<ProjectFeedDTO> getFeed(@Param("project_id") int projectId);
-
-    @Select("select project_id, description, start_date, end_date, project_name from projects " +
-            "where project_id = #{project_id}")
-    ProjectDTO getProjectInfo(@Param("project_id") int projectId);
-
-    @Select("SELECT e.employee_code, e.name " +
-            "FROM project_members pm " +
-            "JOIN employee e ON pm.employee_code = e.employee_code " +
-            "WHERE pm.project_id = #{projectId}")
+    @Select("SELECT m.project_member_id AS memberId, m.employee_code AS memberEmployeeCode, e.name AS memberName, " +
+            "d.department_name AS memberDepartmentName, ps.ps_nm AS memberPosition " +
+            "FROM project_members m " +
+            "LEFT JOIN employee e ON m.employee_code = e.employee_code " +
+            "LEFT JOIN department d ON e.department_id = d.department_id " +
+            "LEFT JOIN positions ps ON e.ps_cd = ps.ps_cd " +
+            "WHERE m.project_id = #{projectId}")
     List<ProjectMemberDTO> getProjectMembers(@Param("projectId") int projectId);
 
-    @Select("SELECT pt.*, e.name " +
-            "FROM project_tasks pt " +
-            "JOIN project_members pm ON pt.project_id = pm.project_id AND pt.employee_code = pm.employee_code " +
-            "JOIN employee e ON pm.employee_code = e.employee_code " +
-            "WHERE pt.project_id = #{projectId}")
+    @Select("SELECT t.project_task_id AS taskId, t.task_content AS taskContent, t.employee_code AS taskEmployeeCode, t.progress AS taskProgress, te.name AS taskEmployeeName " +
+            "FROM project_tasks t " +
+            "LEFT JOIN employee te ON t.employee_code = te.employee_code " +
+            "WHERE t.project_id = #{projectId}")
     List<ProjectTaskDTO> getProjectTasks(@Param("projectId") int projectId);
 
-    @Update("UPDATE projects " +
-            "SET project_name = #{projectName}, start_date = #{startDate}, end_date = #{endDate}, " +
-            "status = #{status}, description = #{description} " +
-            "WHERE project_id = #{projectId}")
-    void updateProject(ProjectDTO projectDTO);
-
-    @Update("update project_members " +
-            "set project_member_id = #{projectMember},employee_code = #{employeeCode} " +
-            "where project_id = #{projectId}")
-    void updateMember(List<ProjectMemberDTO> memberDTO);
-
-    @Update("UPDATE project_tasks " +
-            "SET task_content = #{taskContent}, employee_code = #{employeeCode}, progress = #{progress} " +
-            "WHERE project_task_id = #{projectTaskId}")
-    void updateTask(ProjectTaskDTO task);
-
-    @Insert("INSERT INTO project_tasks (project_id, task_content, employee_code, progress, created_at) " +
-            "VALUES (#{projectId}, #{taskContent}, #{employeeCode}, #{progress}, NOW())") // NOW() 함수 사용
-    void insertTask(ProjectTaskDTO task);
-
-
-
+    @Select("SELECT p.project_id AS projectId, p.project_name AS projectName, p.start_date AS startDate, p.end_date AS endDate, " +
+            "p.status, p.department_id AS departmentId, p.description, p.created_at AS createAt, pm.employee_code AS employeeCode " +
+            "FROM projects p " +
+            "JOIN project_members pm ON p.project_id = pm.project_id " +
+            "JOIN employee e ON pm.employee_code = e.employee_code " +
+            "WHERE pm.employee_code = #{employeeCode}")
+    List<ProjectDTO> getProjects(@Param("employeeCode") String employeeCode);
 }
