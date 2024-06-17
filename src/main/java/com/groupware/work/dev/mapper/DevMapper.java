@@ -26,7 +26,7 @@ public interface DevMapper {
             "where project_id = #{project_id}")
     ProjectDTO getProjectInfo(@Param("project_id") int projectId);
 
-    @Select("SELECT e.employee_code, e.name " +
+    @Select("SELECT pm.*, e.employee_code, e.name " +
             "FROM project_members pm " +
             "JOIN employee e ON pm.employee_code = e.employee_code " +
             "WHERE pm.project_id = #{projectId}")
@@ -52,13 +52,6 @@ public interface DevMapper {
 
     @Update("UPDATE project_tasks " +
             "SET task_content = #{taskContent}, employee_code = #{employeeCode}, progress = #{progress} " +
-            "WHERE project_task_id = #{projectTaskId}")
-    void updateTask(ProjectTaskDTO task);
-
-    @Insert("INSERT INTO project_tasks (project_id, task_content, employee_code, progress, created_at) " +
-            "VALUES (#{projectId}, #{taskContent}, #{employeeCode}, #{progress}, NOW())") // NOW() 함수 사용
-    void insertTask(ProjectTaskDTO task);
-
-
-
+            "WHERE project_task_id = #{projectTaskId} AND project_id = #{projectId}")
+    void updateTask(@Param("projectId") int projectId, @Param("task") ProjectTaskDTO task);
 }
