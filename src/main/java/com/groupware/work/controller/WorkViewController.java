@@ -1,19 +1,15 @@
 package com.groupware.work.controller;
 
+import com.groupware.work.dev.dto.ProjectDTO;
+import com.groupware.work.dev.service.DevService;
 import com.groupware.work.hr.dto.TodayWorkerDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.work.hr.service.HrService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import java.util.List;
 
@@ -22,10 +18,7 @@ import java.util.List;
 public class WorkViewController {
 
     private final HrService hrService;
-
-    public WorkViewController(HrService hrService) {
-        this.hrService = hrService;
-    }
+    private final DevService devService;
 
 
     @GetMapping("/fm")
