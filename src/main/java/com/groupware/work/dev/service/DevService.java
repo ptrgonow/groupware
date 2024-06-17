@@ -42,12 +42,32 @@ public class DevService {
     }
 
     @Transactional
-    public void updateProject(ProjectDTO projectDTO, List<ProjectMemberDTO> memberDTO) {
-        // 1. 프로젝트 정보 업데이트
-        workMapper.updateProject(projectDTO);
+    public void updateProjects(ProjectDTO projectDTO, List<ProjectMemberDTO> members, List<ProjectTaskDTO> tasks) {
+        int projectId = projectDTO.getProject_id(); // 프로젝트 ID 추출
 
+        workMapper.updateProject(projectDTO);
         // 2. 프로젝트 멤버 업데이트
-        workMapper.updateMember(memberDTO);
+        for (ProjectMemberDTO memberDTO : members) {
+
+
+            memberDTO.setProject_id(projectId);
+            memberDTO.setEmployee_code(memberDTO.getEmployee_code());
+            memberDTO.setProject_member_id(memberDTO.getProject_member_id());
+            memberDTO.setName(memberDTO.getName());
+
+            workMapper.updateMember(members);
+        }
+
+        for (ProjectTaskDTO taskDTO : tasks) {
+
+            taskDTO.setProject_id(projectId);
+            taskDTO.setEmployee_code(taskDTO.getEmployee_code());
+            taskDTO.setProject_task_id(taskDTO.getProject_task_id());
+            taskDTO.setProgress(taskDTO.getProgress());
+
+            workMapper.updateTask(projectId, taskDTO);
+
+        }
 
     }
 }

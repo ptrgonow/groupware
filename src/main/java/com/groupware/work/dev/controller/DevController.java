@@ -66,26 +66,30 @@ public class DevController {
         response.put("members", members);
         response.put("tasks", tasks);
 
-        System.out.println(response);
+
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/update")
-    public ResponseEntity<Map<String, String>> updateProject(
+    public ResponseEntity<String> updateProject(
             @RequestBody ProjectUpdateRequestDTO request) {
 
-        ProjectDTO project = request.getProject();
-        List<ProjectMemberDTO> member = request.getMembers();
+        System.out.println("============================");
+        System.out.println(request);
+        System.out.println(request.getProject());
+        System.out.println(request.getMembers());
+        System.out.println(request.getTasks());
+        System.out.println("============================");
 
 
-        System.out.println(project);
 
-        try {
-            workService.updateProject(project, member); // 서비스에서 프로젝트 및 작업 업데이트
-            return ResponseEntity.ok(Map.of("status", "success"));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("status", "error", "message", e.getMessage()));
-        }
+        workService.updateProjects(
+                request.getProject(),
+                request.getMembers(),
+                request.getTasks()
+        );
+
+        return ResponseEntity.ok("success");
     }
 
 }
