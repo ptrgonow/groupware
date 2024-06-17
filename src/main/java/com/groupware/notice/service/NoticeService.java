@@ -27,4 +27,21 @@ public class NoticeService {
     }
 
 
+    // 수정
+    public void updateNotice(NoticeDTO noticeDTO) {
+        noticeMapper.updateNotice(noticeDTO);
+    }
+
+    // 삭제
+    public void deleteNotice(int id) {
+        noticeMapper.deleteNotice(id);
+    }
+
+    // 상세
+    public NoticeDTO getNoticeById(int noticeId) {
+        return noticeMapper.getNoticeById(noticeId);
+    }
+
+
+
 }

@@ -25,17 +25,17 @@ document.addEventListener("DOMContentLoaded", function() {
     function renderTable(data) {
         var html = '';
         data.forEach(function(item) {
+            var detailUrl = '/nt/detail?id=' + item.notice_id;  // 상세 페이지 URL 생성
             html +=
-                `
-                    <tr>
-                        <td>${item.notice_id}</td>
-                        <td>${item.title}</td>
-                        <td>${item.content}</td>
-                        <td>${item.created_at}</td>
-                    </tr>
-                `;
+                `<tr>
+                <td>${item.notice_id}</td>
+                <td><a href="${detailUrl}">${item.title}</a></td>
+                <td>${item.content}</td>
+                <td>${item.created_at}</td>
+             </tr>`;
         });
         return html;
     }
+
 
 });
