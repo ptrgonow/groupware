@@ -55,7 +55,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data) {
                 if (data.searchList.length > 0) {
-                    $('#pagination').pagination({
+                    $('#pagination').show().pagination({
                         dataSource: data.searchList,
                         pageSize: 5,
                         callback: function(data, pagination) {
@@ -75,6 +75,7 @@ $(document).ready(function(){
                     });
                 } else {
                     $('#file-list').html('<tr><td colspan="6">해당문서가 존재하지 않습니다.</td></tr>');
+                    $('#pagination').hide(); // 페이징 요소 숨기기
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
