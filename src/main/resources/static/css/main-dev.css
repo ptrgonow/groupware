@@ -1,43 +1,26 @@
-.row .mt-6 .top .content{
-    display: flex;
-    grid-template-columns:1fr 1fr;
-}
-.col-md-10 {
-    flex-grow: 1;
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-
-#paginationContainer {
-    position: relative;
-    bottom: 0;
-    margin-top: 2rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+html {
+    font-size: 16px;
+    height: 100%;
 }
 
-.member {
-    overflow: hidden;
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f4f4f4;
+    height: 100%;
 }
 
-.card .projects{
-    min-height: 470px;
-    grid-template-rows: auto 1fr auto;
-}
-.card-footer {
-    position:  absolute;
-    bottom: 0;
-    background-color: #fff; /* 카드 배경색과 동일하게 설정 */
-    left: 50%; /* 푸터를 왼쪽으로 50% 이동 */
-    transform: translateX(-50%); /* 푸터를 자신의 너비만큼 왼쪽으로 이동하여 중앙 정렬 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.activity_scroll {
-    max-height: 500px;
-}
 .cocoBtn {
     display: inline-block;
     padding: 10px 20px;
@@ -80,4 +63,70 @@
 /* 버튼 활성 상태 스타일 */
 .cocoBtn:active {
     transform: translateY(2px);
+}
+
+
+.mem-tbl, .pr-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mem-tbl thead tr th,
+.pr-tbl thead tr th {
+    background-color: #879096;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-weight: 700;
+    border-bottom: 2px solid #495057;
+}
+
+
+.mem-tbl .col-number,
+.pr-tbl .col-number {
+    width: 10%;
+}
+
+.mem-tbl .col-title,
+.pr-tbl .col-title {
+    width: 40%;
+}
+
+.mem-tbl .col-author,
+.pr-tbl .col-author {
+    width: 15%;
+}
+
+.mem-tbl .col-date,
+.pr-tbl .col-date {
+    width: 20%;
+}
+
+.mem-tbl .col-status,
+.pr-tbl .col-status {
+    width: 10%;
+}
+
+.mem-tbl tbody tr td,
+.pr-tbl tbody tr td {
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px;
+    color: #495057;
+}
+
+.mem-tbl tbody tr:nth-child(even),
+.pr-tbl tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.mem-tbl tbody tr:hover,
+.pr-tbl tbody tr:hover {
+    background-color: #e6e6ea;
+    cursor: pointer;
+}
+
+.mem-tbl tbody tr td,
+.pr-tbl tbody tr td {
+    text-align: center;
 }

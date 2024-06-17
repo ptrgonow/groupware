@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="employee-code" th:content="${employeeCode}">
     <title>그룹웨어</title>
+    <meta name="employeeCode" th:content="${user.employeeCode}">
 
 </head>
 <body>
@@ -13,51 +13,52 @@
     <div th:replace="~{include/side/main-side :: side}"></div>
     
     <link rel="stylesheet" href="/css/main-dev.css">
-
+    
     <div class="page-wrapper">
         <div class="content container-fluid">
-            <div class="page-name mb-4">
-                <h3>개발 1팀</h3>
-                <button class="cocoBtn" data-bs-toggle="modal" data-bs-target="editProjectsModal">프로젝트 수정</button>
+            <div class="page-name mb-4 d-flex justify-content-between align-items-center">
+                <h3 th:text="${user.departmentName}"></h3>
+                <button class="cocoBtn">프로젝트 수정</button>
             </div>
-
+            
             <div class="row">
-                <div class="col-md-9 col-9">
-                    <div class="card projects">
-                        <div class="card-header bg-white py-4">
-                            <h4 class="mb-0">진행중인 프로젝트</h4>
-                        </div>
-                        <div class="card-body projects">
-                        <div class="table-responsive" id="projectTableContainer">
-                            <table class="table text-nowrap mb-0">
-                                <thead class="table-light">
-                                <tr>
-                                    <th>No.</th>
-                                    <th>프로젝트명</th>
-                                    <th>진행도</th>
-                                </tr>
-                                </thead>
-                                <tbody class="projectTableBody">
-                                </tbody>
-                            </table>
-                        </div><div class="card-footer d-flex justify-content-center">
-                        <div class="paginationContainer"></div></div>
+                <div class="col-xl-12 col-12 d-flex">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-header bg-white py-4">
+                                <h4 class="card-title">프로젝트</h4>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <table class="pr-tbl">
+                                        <thead>
+                                            <tr>
+                                                <th>번호</th>
+                                                <th>프로젝트명</th>
+                                                <th>진행도</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="pr, stat : ${projects}" th:data-project-id="${pr.projectId}">
+                                                <td th:text="${stat.index + 1}"></td>
+                                                <td th:text="${pr.projectName}"></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-3 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
-                        <div class="card-header">
-                            <div class="">
+                    <div class="col-xl-4">
+                        <div class="card flex-fill">
+                            <div class="card-header">
                                 <h4 class="card-title">피드</h4>
                             </div>
-                        </div>
-                        <div class="card-body dash-activity">
-
-                            <div class="projectFeedContainer"> </div>
-
+                            <div class="card-body feed">
+                            
                             </div>
-                        <div class="feedPaginationContainer"></div>
+           
                         </div>
                     </div>
                 </div>
@@ -65,87 +66,178 @@
             
             
             
+            
+            
             <div class="row">
-                <div class="col-md-7 col-7">
+                
+                <div class="col-xl-12 col-12 d-flex">
                     
-                    <div class="card">
-                        <div class="card-header ">
-                            <div class="d-flex justify-content-between align-items-center">
-                                
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">프로젝트 정보</h4>
+                            </div>
+                            <div class="card-body">
                                 <div>
-                                    <h4 class="mb-0">프로젝트 정보</h4>
+                                    <p id="pr-detail-description"></p>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="mb-0">시작일</h5>
+                                                <p class="text-dark mb-0"></p>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="mb-0">종료일</h5>
+                                                <p class="text-dark mb-0"></p>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4">
+                        <div class="card mb-5 bg-primary ">
+                            <div class="card-body">
+                                <h4 class="mb-0 text-white">D-day</h4>
+                                
+                                <div class="d-flex justify-content-between align-items-center mt-8">
+                                    <div>
+                                        <h3 class="display-5 diff fw-bold text-white mb-1"> Days</h3>
+                                        <p class="text-white today">Today : </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-xl-12 col-12 d-flex">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">팀원</h4>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <table class="mem-tbl">
+                                        <thead>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>이름</th>
+                                            <th>부서</th>
+                                            <th>직책</th>
+                                        </tr>
+                                        </thead>
+                                        
+                                        <tbody id="pr-mem-body">
+                                    
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4">
+                        <div class="card flex-fill">
+                            <div class="card-header">
+                                <h4 class="card-title">담당 작업</h4>
+                            </div>
+                            <div class="card-body task">
                             
                             </div>
                         </div>
-                        <div class="projectInfoContainer">
-
-                        </div>
-                    </div>
-                    
-                    <!-- card -->
-                    <div class="card">
-                        <!-- card body -->
-                        <div class="card-header">
-                            <h4 class="mb-0">팀원</h4>
-                        </div>
-                        <!-- table -->
-                        <div class="card-body">
-                            <div class="table-responsive overflow-y-hidden table-card">
-                                <table class="table mb-0 text-nowrap table-centered">
-                                    <thead class="table-light">
-                                    <tr>
-                                        <th>
-                                            목록
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                    <div class="projectMemberList"></div></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                     </div>
                 </div>
-                
-                <div class="col-xl-5 col-sm-12 col-12">
-                    <!-- card  -->
-                    <div class="card mb-5 bg-primary ">
-                        <!-- card body  -->
-                        <div class="card-body">
-                            <h4 class="mb-0 text-white">진행시간</h4>
-
-                            <div class="d-flex justify-content-between align-items-center mt-8">
-                                <div class="projectProgressContainer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- card  -->
-                    <div class="card mb-5">
-                        <div class="card-header">
-                            <h4 class=" mb-0 ">담당 작업 </h4>
-                        </div>
-                        <!-- card body  -->
-                        <div class="projectTaskContainer">
-                    </div>
-                </div>
+            
+            
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="editProjectsModal" tabindex="-1" aria-labelledby="projectDetailModalLabel" aria-hidden="true">
+
+
+<!-- Modal -->
+<div class="modal fade" id="editProjectsModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <div id="editProjects"></div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">프로젝트 수정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="project_name" class="form-label">프로젝트명</label>
+                    <input type="text" class="form-control" id="project_name" name="project_name">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">설명</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="start_date" class="form-label">시작일</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date">
+                </div>
+                <div class="mb-3">
+                    <label for="end_date" class="form-label">종료일</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date">
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">상태</label>
+                    <input type="text" class="form-control" id="status" name="status">
+                </div>
+                <label class="form-label">팀원</label>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>목록</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <label class="form-label">담당 작업</label>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>작업 내용</th>
+                        <th>담당자</th>
+                        <th>진행률</th>
+                        <th>액션</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control taskContentInput" name="taskContents"></td>
+                        <td>
+                            <select class="form-select taskAssigneeSelect" name="taskAssignees">
+                                <option></option>
+                            </select>
+                        </td>
+                        <td><input type="number" class="form-control taskProgressInput" name="taskProgresses" min="0" max="100"></td>
+                        <td><button type="button" class="btn btn-danger btn-sm removeTaskRow">삭제</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveProjectChangesBtn">수정</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
         </div>
     </div>
 </div>
+
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/main-dev.js"></script>
 </body>
