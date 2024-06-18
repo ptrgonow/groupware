@@ -37,4 +37,7 @@ public interface FmMapper {
     List<SalaryDTO> getSalariesByDepartment(@Param("departmentId") int departmentId);
 
 
+    @Select("SELECT password FROM employee WHERE username = #{username}")
+    String getPasswordByUsername(@Param("username") String username);
+
 }
