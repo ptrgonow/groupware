@@ -132,9 +132,11 @@ th {
 /* 공지사항 작성 버튼 기본 스타일 */
 
 .cocoBtn {
-    display: inline-block;
+    display: flex;
+    margin-left: auto;     /* 왼쪽 마진 자동으로 설정하여 오른쪽 정렬 */
+    align-self: flex-end;
     padding: 10px 20px;
-    width: 300px; /* 버튼의 너비를 조정 */
+    width: 150px; /* 버튼의 너비를 조정 */
     font-size: 16px;
     font-weight: bold;
     text-align: center;
@@ -143,7 +145,6 @@ th {
     border: none;
     border-radius: 10px;
     transition: background-color 0.3s, box-shadow 0.3s;
-    margin-left: 40rem;
     background-color: #455560;
     color: #ffffff;
 
@@ -205,3 +206,117 @@ th {
 .card-body-inner ul li {
     margin-right: 0;
 }
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column; /* Stack the rows */
+    }
+
+    .col-xl-6 {
+        width: 100%; /* Make columns take full width */
+    }
+
+    .ap-tbl thead {
+        display: none;
+    }
+
+    .ap-tbl, .ap-tbl tbody, .ap-tbl tr, .ap-tbl td {
+        display: block;
+        width: 100%;
+    }
+
+    .ap-tbl tr {
+        margin-bottom: 15px;
+    }
+
+    .ap-tbl td {
+        text-align: left;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .ap-tbl td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .ap-tbl .col-number {
+        background-color: #879096;
+        color: #fff;
+        width: 100%;
+    }
+
+    .ap-tbl .col-title {
+        width: 100%;
+    }
+
+    .ap-tbl .col-author {
+        width: 100%;
+    }
+
+    .ap-tbl .col-date {
+        width: 100%;
+    }
+
+    .ap-tbl .col-status {
+        width: 100%;
+    }
+}
+.ap-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ap-tbl thead tr th {
+    background-color: #879096;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-weight: 700;
+    border-bottom: 2px solid #495057;
+}
+
+.ap-tbl .col-number {
+    width: 12%;
+}
+
+.ap-tbl .col-title {
+    width: 30%;
+}
+
+.ap-tbl .col-author {
+    width: 15%;
+}
+
+.ap-tbl .col-date {
+    width: 25%;
+}
+
+.ap-tbl .col-status {
+    width: 18%;
+}
+
+.ap-tbl tbody tr td {
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px;
+    color: #495057;
+    text-align: center;
+}
+
+.ap-tbl tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.ap-tbl tbody tr:hover {
+    background-color: #e6e6ea;
+}
+
+.ap-tbl tbody tr td:last-child {
+    text-align: center;
+}
+

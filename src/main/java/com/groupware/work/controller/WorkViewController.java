@@ -1,6 +1,7 @@
 package com.groupware.work.controller;
 
 
+import com.groupware.approval.dto.ApprovalDTO;
 import com.groupware.approval.dto.DeptTreeDTO;
 import com.groupware.approval.dto.EmployeeDTO;
 import com.groupware.approval.dto.PositionsDTO;
@@ -11,6 +12,9 @@ import com.groupware.user.dto.UserDTO;
 import com.groupware.user.service.UserService;
 import com.groupware.work.hr.dto.HrEmployeeDTO;
 import com.groupware.work.hr.service.HrService;
+import com.groupware.work.ms.dto.AllEmployeeDTO;
+import com.groupware.work.ms.dto.MsApprovalDTO;
+import com.groupware.work.ms.service.MsService;
 import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.User;
 import com.groupware.work.dev.dto.ProjectDTO;
@@ -34,6 +38,7 @@ public class WorkViewController {
     private final HrService hrService;
     private final UserService userService;
     private final DevService devService;
+    private final MsService msService;
 
 
     @GetMapping("/fm")
@@ -66,9 +71,9 @@ public class WorkViewController {
         model.addAttribute("eCount", eCount);
         model.addAttribute("eList", eList);
         model.addAttribute("apCount", apCount);
-      
+
         List<TodayWorkerDTO> workers = hrService.getAllTodayWorkers();
-      
+
         model.addAttribute("workers", workers); // 모델에 데이터 추가
         return "work/hr/main-hr";
     }
@@ -90,6 +95,18 @@ public class WorkViewController {
         model.addAttribute("projects", projects);
 
         return "work/dev/main-dev"; // 뷰 이름 반환
+    }
+
+    @GetMapping("/ms")
+    public String ms(Model model){
+
+        List<AllEmployeeDTO> allEmployee = msService.getAllEmployees();
+        List<MsApprovalDTO> getApproval = msService.getAllApprovals();
+        List<MsApprovalDTO> getFmApproval = msService.getFmApproval();
+        model.addAttribute("allEmployee", allEmployee).addAttribute("Approval", getApproval)
+                .addAttribute("FmApproval", getFmApproval);
+
+        return "work/ms/main-ms";
     }
 
 }

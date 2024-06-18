@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+    <title>그룹웨어</title>
+
+</head>
+<body>
+
+
+<div class="main-wrapper">
+
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    <link rel="stylesheet" href="/css/main-ms.css">
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h3>업무 > 경영지원실</h3>
+
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card board1 fill1 ">
+                        <div class="card-body">
+                            <div class="card_widget_header">
+                                임직원 수
+                                <p class="widget" th:text="${allEmployee.size()}"></p>
+                            </div>
+                            <div class="card_member_img"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card board1 fill2 ">
+                        <div class="card-body">
+                            <div class="card_widget_header">
+                                새로운 요청
+                                <p class="widget" th:text="${apCount}"></p>
+
+                            </div>
+                            <div class="card_notify_img">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card board1 fill3 ">
+                        <div class="card-body">
+                            <div class="card_widget_header">
+                                휴가자
+                                <p class="widget">3</p>
+
+                            </div>
+                            <div class="card_leave_img"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card board1 fill4 ">
+                        <div class="card-body">
+                            <div class="card_widget_header">
+                                현재 근무중
+                                <p class="widget">27</p>
+
+                            </div>
+                            <div class="card_working_img">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="col-xl-6 d-flex mobile-h">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">인원현황</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover" id="allEmployeeTable">
+                                <thead>
+                                <tr>
+                                    <th>이름</th>
+                                    <th>부서</th>
+                                    <th>직급</th>
+                                    <th>상태</th>
+                                </tr>
+                                </thead>
+                                <tbody id="allEmployeeTableBody">
+                                <tr th:each="employee : ${allEmployee}">
+                                    <td th:text="${employee.employeeName}"></td>
+                                    <td th:text="${employee.departmentName}"></td>
+                                    <td th:text="${employee.positionName}"></td>
+                                    <td>
+                    <span th:class="${employee.status == '근무중' ? 'badge bg-success text-center' : 'badge bg-danger text-center'}"
+                          th:text="${employee.status}"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="pagination-container"></div> </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-6 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">CHART</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <div class="card-header ">
+                            <h4 class="card-title">인사 결재 요청</h4>
+                        </div>
+                        <div class="card-body pb-0">
+                            <table class="ap-tbl" id="approvalTable">
+                                <thead>
+                                <tr>
+                                    <th class="col-number">번호</th>
+                                    <th class="col-title">제목</th>
+                                    <th class="col-author">기안자</th>
+                                    <th class="col-date">기안일</th>
+                                    <th class="col-status">상태</th>
+                                </tr>
+                                </thead>
+                                <tbody id="approvalTableBody">
+                                <tr th:each="approval, stat : ${Approval}">
+                                    <td th:text="${stat.index + 1}"></td>
+                                    <td th:text="${approval.title}"></td>
+                                    <td th:text="${approval.name}"></td>
+                                    <td th:text="${#temporals.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
+                                    <td th:text="${approval.status}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="approvalPagination-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <div class="card-header">
+                            <div class="">
+                                <h4 class="card-title">재무 결재 요청</h4>
+                            </div>
+                        </div>
+                        <div class="card-body dash-activity">
+                            <div class="activity_scroll">
+
+                                <div class="card-body">
+                                    <table class="ap-tbl" id="fmApprovalTable">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-number">번호</th>
+                                            <th class="col-title">제목</th>
+                                            <th class="col-author">기안자</th>
+                                            <th class="col-date">기안일</th>
+                                            <th class="col-status">상태</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="fmApprovalTableBody">
+                                        <tr th:each="fmapproval, stat : ${FmApproval}">
+                                            <td th:text="${stat.index + 1}"></td>
+                                            <td th:text="${fmapproval.title}"></td>
+                                            <td th:text="${fmapproval.name}"></td>
+                                            <td th:text="${#temporals.format(fmapproval.createdAt, 'yyyy-MM-dd')}"></td>
+                                            <td th:text="${fmapproval.status}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <DIV ID="fm-ApprovalPagination-container">
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</div>
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/main-ms.js"></script>
+</body>
+</html>
