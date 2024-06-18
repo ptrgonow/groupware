@@ -64,7 +64,6 @@ public class DevController {
                     projectUpdateRequest.getProjectDTO(),
                     projectUpdateRequest.getMembers(),
                     projectUpdateRequest.getTasks()
-
             );
             return ResponseEntity.ok("프로젝트 정보가 수정되었습니다.");
         } catch (Exception e) {
