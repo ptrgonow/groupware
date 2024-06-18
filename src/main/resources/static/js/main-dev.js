@@ -1,56 +1,79 @@
+const itemsPerPage = 6; // 페이지당 표시할 항목 수
+let currentProjectPage = 1;
+let currentMemberPage = 1;
+let currentTaskPage = 1;
+let currentFeedPage = 1;
+let projectsArray = [];
+
 $(document).ready(function() {
+    initializeProjectsArray();
+    initializeProjectPagination();
+    setInitialProjectDetails();
 
-    // 페이지 로드 시 첫 번째 프로젝트 세부 정보 가져오기
-    fetchFirstProjectDetails();
-
-    // 프로젝트 목록에서 프로젝트 클릭 시 이벤트 처리
-    $('.pr-tbl tbody tr').on('click', function() {
-        const projectId = $(this).data('project-id');
-        clearProjectDetails(); // 기존 정보 초기화
-        fetchProjectDetails(projectId); // 선택된 프로젝트 정보 가져오기
-    });
-
-    $('#pr-edit-btn').on('click', function() {
-        editProject();
-    });
-
-    // 작업 추가 버튼 클릭 시 이벤트 처리
-    $('#add-task-btn').on('click', function() {
-        addTaskRow();
-    });
-
-    // 작업 삭제 버튼 클릭 시 이벤트 처리
-    $('#editPrModal').on('click', '.delete-btn', function() {
-        $(this).closest('tr').remove();
-    });
-
-    // 프로젝트 수정 요청
-    $('#edit-pr-btn').on('click', function() {
-        submitEditProject();
-    });
+    // 이벤트 핸들러 설정
+    $(document).on('click', '.pr-tbl tbody tr', handleProjectRowClick);
+    $('#pr-edit-btn').on('click', editProject);
+    $('#add-task-btn').on('click', addTaskRow);
+    $(document).on('click', '#editPrModal .delete-btn', removeTaskRow);
+    $('#edit-pr-btn').on('click', submitEditProject);
+    $('#feed-form-group').on('submit', handleFeedFormSubmit);
 });
 
-// 첫 번째 프로젝트 세부 정보 가져오는 함수
-function fetchFirstProjectDetails() {
-    $.ajax({
-        url: '/pr/list',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            if (data.length > 0) {
-                fetchProjectDetails(data[0].projectId); // 첫 번째 프로젝트 정보 가져오기
-            } else {
-                displayNoProjectMessage(); // 프로젝트 없을 때 메시지 표시
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('프로젝트 목록 가져오기 오류:', error);
-            displayErrorMessage('프로젝트 목록을 가져오는 중 오류가 발생했습니다.');
+function initializeProjectsArray() {
+    $('#project_table_body tr').each(function() {
+        const project = {
+            projectId: $(this).data('project-id'),
+            projectName: $(this).find('td:nth-child(2)').text(),
+            status: $(this).find('td:nth-child(3)').text()
+        };
+        projectsArray.push(project);
+    });
+}
+
+function initializeProjectPagination() {
+    $('#project-pagination').pagination({
+        dataSource: projectsArray,
+        pageSize: itemsPerPage,
+        pageNumber: currentProjectPage,
+        callback: function(data, pagination) {
+            currentProjectPage = pagination.pageNumber;
+            displayPaginatedProjects(currentProjectPage);
         }
     });
 }
 
-// 프로젝트 세부 정보 가져오는 함수
+function setInitialProjectDetails() {
+    displayPaginatedProjects(currentProjectPage);
+    if (projectsArray.length > 0) {
+        fetchProjectDetails(projectsArray[0].projectId);
+    } else {
+        displayNoProjectMessage();
+    }
+}
+
+function handleProjectRowClick() {
+    const projectId = $(this).data('project-id');
+    clearProjectDetails();
+    fetchProjectDetails(projectId);
+}
+
+function displayPaginatedProjects(page) {
+    const startIndex = (page - 1) * itemsPerPage;
+    const paginatedProjects = projectsArray.slice(startIndex, startIndex + itemsPerPage);
+
+    let projectRows = '';
+    paginatedProjects.forEach((project, index) => {
+        projectRows += `
+            <tr data-project-id="${project.projectId}">
+                <td>${startIndex + index + 1}</td>
+                <td>${project.projectName}</td>
+                <td>${project.status}</td>
+            </tr>
+        `;
+    });
+    $('#project_table_body').html(projectRows);
+}
+
 function fetchProjectDetails(projectId) {
     $.ajax({
         url: '/pr/details',
@@ -59,8 +82,7 @@ function fetchProjectDetails(projectId) {
         dataType: 'json',
         success: function(data) {
             displayProjectDetails(data);
-            // 프로젝트 데이터 전역 변수에 저장
-            window.currentProjectData = data;
+            window.currentProjectData = data; // 프로젝트 데이터 전역 변수에 저장
         },
         error: function(xhr, status, error) {
             console.error('프로젝트 세부 정보 가져오기 오류:', error);
@@ -69,7 +91,6 @@ function fetchProjectDetails(projectId) {
     });
 }
 
-// 프로젝트 세부 정보 표시 함수
 function displayProjectDetails(data) {
     const project = data.project;
     const members = data.members;
@@ -84,14 +105,12 @@ function displayProjectDetails(data) {
     // 남은 일수 계산 및 표시
     const today = new Date();
     const endDate = new Date(project.endDate);
-    const diffTime = Math.abs(endDate - today);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = Math.ceil(Math.abs(endDate - today) / (1000 * 60 * 60 * 24));
     $('.display-5.diff').text(diffDays + ' Days');
 
     // 시작일부터 D + 구하기
     const startDate = new Date(project.startDate);
-    const diffTime2 = Math.abs(today - startDate);
-    const diffDays2 = Math.ceil(diffTime2 / (1000 * 60 * 60 * 24));
+    const diffDays2 = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
     $('.display-5.diff2').text(diffDays2 + ' Days');
 
     // 시작 날짜 표시
@@ -99,12 +118,38 @@ function displayProjectDetails(data) {
     // 종료 날짜 표시
     $('.text-white.end').text('End day : ' + new Date(project.endDate).toLocaleDateString());
 
-    // 멤버 정보 표시
+    // 멤버, 작업, 피드 정보 페이징 처리
+    displayPaginatedMembers(members, currentMemberPage);
+    initializePagination('#pr-mem-pagination', members, currentMemberPage, displayPaginatedMembers);
+
+    displayPaginatedTasks(tasks, currentTaskPage);
+    initializePagination('#pr-task-pagination', tasks, currentTaskPage, displayPaginatedTasks);
+
+    displayPaginatedFeeds(feeds, currentFeedPage);
+    initializePagination('#pr-feed-pagination', feeds, currentFeedPage, displayPaginatedFeeds);
+}
+
+function initializePagination(paginationSelector, dataSource, currentPage, callback) {
+    $(paginationSelector).pagination({
+        dataSource: dataSource,
+        pageSize: itemsPerPage,
+        pageNumber: currentPage,
+        callback: function(data, pagination) {
+            currentPage = pagination.pageNumber;
+            callback(dataSource, currentPage);
+        }
+    });
+}
+
+function displayPaginatedMembers(members, page) {
+    const startIndex = (page - 1) * itemsPerPage;
+    const paginatedMembers = members.slice(startIndex, startIndex + itemsPerPage);
+
     let memberRows = '';
-    members.forEach((member, index) => {
+    paginatedMembers.forEach((member, index) => {
         memberRows += `
             <tr>
-                <td>${index + 1}</td>
+                <td>${startIndex + index + 1}</td>
                 <td>${member.memberName}</td>
                 <td>${member.memberDepartmentName}</td>
                 <td>${member.memberPosition}</td>
@@ -112,23 +157,31 @@ function displayProjectDetails(data) {
         `;
     });
     $('#pr-mem-body').html(memberRows);
+}
 
-    // 작업 정보 표시
+function displayPaginatedTasks(tasks, page) {
+    const startIndex = (page - 1) * itemsPerPage;
+    const paginatedTasks = tasks.slice(startIndex, startIndex + itemsPerPage);
+
     let taskRows = '';
-    tasks.forEach((task, index) => {
+    paginatedTasks.forEach((task, index) => {
         taskRows += `
             <tr>
-                <td>${task.taskEmployeeName}</td>
                 <td>${task.taskContent}</td>
+                <td>${task.taskEmployeeName}</td>
                 <td>${task.taskProgress}%</td>
             </tr>
         `;
     });
     $('#pr-task-body').html(taskRows);
+}
 
-    // 피드 정보 표시
+function displayPaginatedFeeds(feeds, page) {
+    const startIndex = (page - 1) * itemsPerPage;
+    const paginatedFeeds = feeds.slice(startIndex, startIndex + itemsPerPage);
+
     let feedRows = '';
-    feeds.forEach((feed, index) => {
+    paginatedFeeds.forEach((feed, index) => {
         feedRows += `
             <tr>
                 <td>${feed.name}</td>
@@ -140,29 +193,27 @@ function displayProjectDetails(data) {
     $('#pr-feed-body').html(feedRows);
 }
 
-// 프로젝트 세부 정보 초기화 함수
 function clearProjectDetails() {
     $('#pr-detail-description').text('');
     $('.list-group-item:nth-child(1) .text-dark').text('');
-    $('.list-group-item:nth-child(2) .text-dark').text('');
+    $('.list-group-item:nth-child(2)').text('');
     $('.display-5.diff').text('');
-    $('.text-white.today').text('');
+    $('.display-5.diff2').text('');
+    $('.text-white.start').text('');
+    $('.text-white.end').text('');
     $('#pr-mem-body').html('');
     $('#pr-task-body').html('');
 }
 
-// 프로젝트 없을 때 메시지 표시 함수
 function displayNoProjectMessage() {
     $('#pr-detail-description').text('등록된 프로젝트가 없습니다.');
     clearProjectDetails(); // 프로젝트 정보 초기화
 }
 
-// 오류 메시지 표시 함수
 function displayErrorMessage(message) {
     alert(message);
 }
 
-// 프로젝트 수정 모달 열기 함수
 function editProject() {
     if (!window.currentProjectData) {
         displayErrorMessage('수정할 프로젝트 정보가 없습니다.');
@@ -174,26 +225,6 @@ function editProject() {
     const tasks = window.currentProjectData.tasks;
 
     // 모달 초기화
-    $('#project_name').val('');
-    $('#description').val('');
-    $('#start_date').val('');
-    $('#end_date').val('');
-    $('#status').val('');
-    $('#editPrModal table').first().find('tbody').html('');
-    $('#editPrModal table').last().find('tbody').html('');
-
-    // 프로젝트 수정 모달에 정보 설정
-    $('#editPrModal').data({
-        'project-id': project.projectId,
-        'project-name': project.projectName,
-        'project-description': project.description,
-        'project-start-date': project.startDate,
-        'project-end-date': project.endDate,
-        'project-members': members,
-        'project-tasks': tasks
-    });
-
-    // 모달의 입력 필드와 테이블에 데이터 설정
     $('#project_name').val(project.projectName);
     $('#description').val(project.description);
     $('#start_date').val(new Date(project.startDate).toISOString().split('T')[0]);
@@ -243,7 +274,6 @@ function editProject() {
     $('#editPrModal').modal('show');
 }
 
-// 작업 추가 행 추가 함수
 function addTaskRow() {
     const members = window.currentProjectData.members;
     const memberOptions = members.map(member =>
@@ -252,9 +282,7 @@ function addTaskRow() {
 
     const newRow = `
         <tr>
-            <td>
-                <input type="text" class="form-control taskContentInput" name="taskContents">
-            </td>
+            <td><input type="text" class="form-control taskContentInput" name="taskContents"></td>
             <td>
                 <select class="form-select taskAssigneeSelect" name="taskAssignees">
                     <option value="">직원 선택</option>
@@ -268,7 +296,10 @@ function addTaskRow() {
     $('#editPrModal table').last().find('tbody').append(newRow);
 }
 
-// 프로젝트 수정 요청 함수
+function removeTaskRow() {
+    $(this).closest('tr').remove();
+}
+
 function submitEditProject() {
     const projectId = $('#editPrModal').data('project-id');
     const projectName = $('#project_name').val();
@@ -277,7 +308,6 @@ function submitEditProject() {
     const endDate = $('#end_date').val();
     const status = $('#status').val();
     const departmentId = $('meta[name="departmentId"]').attr('content');
-    console.log(departmentId);
 
     // 멤버 정보 가져오기
     const members = [];
@@ -306,7 +336,7 @@ function submitEditProject() {
         });
     });
 
-    let projectDTO = {
+    const projectDTO = {
         projectId: projectId,
         projectName: projectName,
         departmentId: departmentId,
@@ -316,7 +346,7 @@ function submitEditProject() {
         status: status
     };
 
-    let formData = {
+    const formData = {
         projectDTO: projectDTO,
         members: members,
         tasks: tasks
@@ -324,7 +354,6 @@ function submitEditProject() {
 
     console.log("Data to be sent:", formData); // 데이터 확인용 로깅
 
-    // AJAX 요청 보내기
     $.ajax({
         type: "POST",
         url: "/pr/edit",
@@ -339,6 +368,42 @@ function submitEditProject() {
         error: function(error) {
             console.error('프로젝트 수정 오류:', error);
             displayErrorMessage('프로젝트 수정 중 오류가 발생했습니다.');
+        }
+    });
+}
+
+function handleFeedFormSubmit(event) {
+    event.preventDefault();
+    addFeed();
+}
+
+function addFeed() {
+    const employeeCode = $('meta[name="employeeCode"]').attr('content');
+    const projectId = window.currentProjectData.project.projectId;
+    const content = $('#pr-feed').val().trim();
+    const projectFeedDTO = {
+        content: content,
+        employeeCode: employeeCode,
+        projectId: projectId
+    };
+
+    $.ajax({
+        url: '/pr/feed',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(projectFeedDTO),
+        success: function(data) {
+            if (data === '피드가 추가되었습니다.') {
+                alert('피드가 추가되었습니다.');
+                $('#pr-feed').val('');
+                fetchProjectDetails(projectId);
+            } else {
+                alert('피드를 추가하는데 실패했습니다.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            alert('피드를 추가하는데 실패했습니다.');
         }
     });
 }

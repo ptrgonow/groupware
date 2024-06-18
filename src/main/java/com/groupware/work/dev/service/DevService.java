@@ -61,4 +61,8 @@ public class DevService {
 
     }
 
+    @Transactional
+    public void addFeed(ProjectFeedDTO feed) {
+        devMapper.addFeed(feed);
+    }
 }

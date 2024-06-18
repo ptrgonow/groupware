@@ -65,7 +65,10 @@ public interface DevMapper {
     void updateProjectTask(@Param("projectId") int projectId, @Param("task") ProjectTaskDTO task);
 
 
+    @Insert("INSERT INTO project_feeds (project_id, employee_code, content, created_at) VALUES (#{projectId}, #{employeeCode}, #{content}, NOW())")
+    void addFeed(ProjectFeedDTO feed);
 
 
 }
+
 
