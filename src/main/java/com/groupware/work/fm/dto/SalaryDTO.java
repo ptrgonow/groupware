@@ -10,4 +10,6 @@ public class SalaryDTO {
     private String description;
     private double amount;
     private Date hireDate;
+    private String departmentName;
+    private String positionName;
 }
