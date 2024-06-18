@@ -1,45 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>공지사항 작성</title>
+    <title>그룹웨어</title>
+
     <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 </head>
 <body>
 
-<div class="write_title">
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
 
-    <form action="/nt/submit-notice" method="POST">
-        <div class="titleCen">
-            <h2>공지사항 작성</h2>
-            <hr>
+    <link rel="stylesheet" href="/css/notice-write.css">
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h3>공지사항</h3>
+            </div>
+
+            <div class="card-body-inner">
+
+                <form action="/nt/submit-notice" method="POST">
+
+                    <div class="mb-4 row">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="title-input" placeholder="제목을 입력하세요" name="title">
+                        </div>
+                    </div>
+
+                    <div id="editor-container" class="col-sm-12">
+                        <textarea name="content" id="editor"></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary btn-lg">등록</button>
+                        <a href="/nt/nmain" class="btn btn-secondary btn-lg ms-4">목록</a>
+                    </div>
+                </form>
+
+            </div>
         </div>
-
-        <label class="header" for="title-input">제목</label>
-        <input type="text" id="title-input" placeholder="제목을 입력하세요" name="title">
-
-        <!-- CKEditor 영역 -->
-        <div id="editor-container">
-            <textarea name="content" id="editor"></textarea>
-        </div>
-
-        <!-- 등록 버튼 -->
-        <input type="submit" value="등록">
-
-        <!-- 목록 버튼 -->
-        <a href="/nt/nmain" class="button">목록</a>
-
-    </form>
+    </div>
 
 </div>
-
-<script>
-    CKEDITOR.replace('editor', {
-        enterMode: CKEDITOR.ENTER_BR, // 줄 바꿈 시 <br> 태그 사용
-        shiftEnterMode: CKEDITOR.ENTER_P // Shift + Enter 시 <p> 태그 사용하지 않음
-    });
-
-</script>
-
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/notice-write.js"></script>
 </body>
 </html>
+
+

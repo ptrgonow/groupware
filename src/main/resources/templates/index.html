@@ -78,12 +78,12 @@
                         </div>
 
                         <div class="card-body">
-                            <table class="gong">
+                            <table class="ap-tbl">
                                 <thead>
                                 <tr>
                                     <th>번호</th>
                                     <th>제목</th>
-                                    <th>내용</th>
+                                    <th>작성자</th>
                                     <th>작성일</th>
                                 </tr>
                                 </thead>
@@ -91,8 +91,8 @@
                                 <tr th:each="notice : ${nList}">
                                     <td th:text="${notice.notice_id}">ID</td>
                                     <td><a th:href="@{/nt/detail(id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
-                                    <td th:text="${notice.content}">Content</td>
-                                    <td th:text="${#dates.format(notice.created_at, 'yyyy-MM-dd')}">작성일</td>
+                                    <td th:text="경영지원실"></td>
+                                    <td th:text="${#temporals.format(notice.created_at, 'yyyy-MM-dd')}"></td>
                                 
                                 </tr>
                                 </tbody>
@@ -128,7 +128,6 @@
 <script src="/js/schedule.js"></script>
 <script src="/js/notice.js"></script>
 <script src="/js/todo.js"></script>
-<script src="/js/notice.js"></script>
 
 
 </body>
