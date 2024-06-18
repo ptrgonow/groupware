@@ -2,11 +2,8 @@ package com.groupware.attendance.controller;
 
 import com.groupware.attendance.dto.AttDTO;
 import com.groupware.attendance.service.AttService;
-import com.groupware.user.dto.UserDTO;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;

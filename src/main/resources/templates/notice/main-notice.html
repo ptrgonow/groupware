@@ -10,15 +10,15 @@
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <link rel="stylesheet" href="/css/main-notice.css">
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>공지사항</h3>
             </div>
-            
+
             <div class="card-body-inner">
                 <div class="breadcrumb-gray text-center">
                     <h2>공지사항</h2>
@@ -33,17 +33,17 @@
                     </tr>
                     </thead>
                     <tbody id="notice_cont">
-                      <tr th:each="nList : ${notices}">
-                          <td th:text="${nList.notice_id}">ID</td>
-                          <td th:text="${nList.title}">Title</td>
-                          <td th:text="${nList.content}">Content</td>
-                          <td th:text="${#dates.format(nList.created_at, 'yyyy-MM-dd')}"></td>
-                      </tr>
+                    <tr th:each="nList : ${notices}">
+                        <td th:text="${nList.notice_id}">ID</td>
+                        <td><a th:href="@{/nt/detail(id=${nList.notice_id})}" th:text="${nList.title}"></a></td>
+                        <td th:text="${nList.content}">Content</td>
+                        <td th:text="${#dates.format(nList.created_at, 'yyyy-MM-dd')}">작성일</td>
+                    </tr>
                     </tbody>
                 </table>
                 <div id="pagination-notice"></div>
             </div>
-            
+
              <div th:if="${user.departmentId == 3}">
                  <a href="/nt/writepage" class="cocoBtn">공지사항 작성</a>
              </div>

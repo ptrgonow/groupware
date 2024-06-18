@@ -7,8 +7,8 @@ import java.util.List;
 @Data
 public class ProjectUpdateRequestDTO {
 
-    private ProjectDTO project;     // 수정된 프로젝트 정보
+    private ProjectDTO projectDTO;
     private List<ProjectMemberDTO> members;
-    private List<ProjectTaskDTO> tasks; // 수정된 작업 목록
+    private List<ProjectTaskDTO> tasks;
 
 }

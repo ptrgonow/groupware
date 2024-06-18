@@ -1,10 +1,10 @@
 package com.groupware.work.fm.service;
 
-import com.groupware.work.fm.dto.FmDTO;
-import com.groupware.work.fm.mapper.FmMapper;
+import com.groupware.work.fm.dto.SalaryDTO;
+import com.groupware.approval.dto.DeptTreeDTO;
+import com.groupware.work.fm.mapper.FmMapper; // 패키지 경로를 올바르게 수정
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -17,12 +17,11 @@ public class FmService {
         this.fmMapper = fmMapper;
     }
 
-    public List<FmDTO> getApprovedFixedExpenses() {
-        String approverCode = fmMapper.getManagerEmployeeCode();
-        return fmMapper.getApprovedFixedExpenses(approverCode);
+    public List<DeptTreeDTO> getAllDepartments() {
+        return fmMapper.getDepartments();
     }
 
-    public void logFixedExpense(FmDTO fixedExpenseDTO) {
-        fmMapper.logFixedExpense(fixedExpenseDTO);
+    public List<SalaryDTO> getSalariesByDepartment(int departmentId) {
+        return fmMapper.getSalariesByDepartment(departmentId);
     }
 }

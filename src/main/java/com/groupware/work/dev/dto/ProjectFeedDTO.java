@@ -4,11 +4,10 @@ import lombok.Data;
 
 @Data
 public class ProjectFeedDTO {
-
-    private int feed_id;
-    private String project_id;
-    private String employee_code;
+    private int feedId;
+    private String projectId;
+    private String employeeCode;
     private String content;
     private String name;
-    private String created_at;
+    private String createdAt;
 }

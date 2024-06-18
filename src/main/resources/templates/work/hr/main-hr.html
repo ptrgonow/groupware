@@ -8,7 +8,6 @@
 <body>
 
 
-
 <div class="main-wrapper">
 
     <div th:replace="~{include/header/main-header :: header}"></div>
@@ -28,7 +27,7 @@
                         <div class="card-body">
                             <div class="card_widget_header">
                                 임직원 수
-                                <p class="widget">30</p>
+                                <p class="widget" th:text="${eCount}"></p>
                             </div>
                             <div class="card_member_img"></div>
                         </div>
@@ -39,6 +38,7 @@
                         <div class="card-body">
                             <div class="card_widget_header">
                                 새로운 요청
+                                <p class="widget" th:text="${apCount}"></p>
                                 <p class="widget">4</p>
 
                             </div>
@@ -375,5 +375,6 @@
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/main-hr.js"></script>
 </body>
 </html>

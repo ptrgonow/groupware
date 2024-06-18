@@ -87,6 +87,27 @@
 .row {
     margin-bottom: 0;
 }
+
+/* 페이징 */
+#pagination-hr{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+/* 회원 전체 리스트 테이블 */
+.table-responsive{
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+}
+
+.table-responsive th, td{
+    width: 200px;
+}
+
+.table-responsive tr td:first-child, .table-responsive tr th:first-child {
+    padding-left:0;
 .badge.bg-success {
     color: white; /* '근무중' badge 글자색 흰색 */
 }

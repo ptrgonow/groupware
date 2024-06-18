@@ -31,7 +31,7 @@ $(document).ready(function (format) {
         const docName = document.querySelector('#ap-doc-no').selectedOptions[0].textContent || '문서명 정보 없음';
         const docNo = document.querySelector('#ap-doc-no').value || '선택된 문서번호 없음';
         const dept = document.querySelector('#ap-dept').value || '부서 정보 없음';
-        const writer = document.querySelector('#ap-writer').value || '기안자 정보 없음';
+        const writer = document.querySelector('#ap-writer-name').value || '기안자 정보 없음';
         const createAt = document.querySelector('#ap-createAt').value || '기안일 정보 없음';
         const dueDate = document.querySelector('#ap-dueDate').value || '마감일 정보 없음';
 

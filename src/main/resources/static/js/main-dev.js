@@ -1,352 +1,344 @@
 $(document).ready(function() {
-    const employee_code = $('meta[name="employee-code"]').attr('content');
 
-    // 공통 AJAX 유틸리티 함수
-    function getAjaxData({ url, method = 'GET', data = {}, dataType = 'json', contentType = 'application/json', successCallback, errorCallback }) {
-        $.ajax({
-            url: url,
-            type: method,
-            data: method === 'GET' ? data : JSON.stringify(data),
-            dataType: dataType,
-            contentType: contentType,
-            success: successCallback,
-            error: errorCallback
-        });
-    }
+    // 페이지 로드 시 첫 번째 프로젝트 세부 정보 가져오기
+    fetchFirstProjectDetails();
 
-    // 성공 콜백 함수들
-    function handleProjectListSuccess(projectList) {
-        $('.paginationContainer').pagination({
-            dataSource: projectList,
-            pageSize: 3,
-            callback: function(data, pagination) {
-                renderProjectList(data);
-            },
-            error: function() {
-                console.error('프로젝트 목록을 가져오는 중 오류 발생');
-            }
-        });
-    }
-
-    function handleFeedsSuccess(feeds) {
-        let feedHtml = feeds.map(feed => `
-            <div class="activity-item d-flex align-items-start">
-                <div class="activity-info">
-                    <h5 class="mb-0"><a href="#" class="text-dark">${feed.name}</a></h5>
-                    <p class="mb-0">${feed.content}</p>
-                    <span class="time">${feed.created_at}</span>
-                </div>
-            </div>
-        `).join('');
-        $('.projectFeedContainer').html(feedHtml); // 피드 내용 업데이트
-    }
-
-    function handleProjectInfoSuccess(project) {
-        const startDate = new Date(project.start_date);
-        const endDate = new Date(project.end_date);
-        const today = new Date();
-        const timeDiff = Math.abs(today.getTime() - startDate.getTime());
-        const diffDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-
-        let projectInfoHtml = `
-            <p>${project.description}</p>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">시작일</h5>
-                        <p class="text-dark mb-0">${startDate.toLocaleDateString()}</p>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">종료일</h5>
-                        <p class="text-dark mb-0">${endDate.toLocaleDateString()}</p>
-                    </div>
-                </li>
-            </ul>
-        `;
-
-        $('.projectInfoContainer').html(projectInfoHtml);
-        console.log(project.description);
-        let projectProgressHtml = `
-            <div>
-                <h3 class="display-5 fw-bold text-white mb-1">${diffDays} Days</h3>
-                <p class="mb-0 text-white">Today : ${today.toLocaleDateString()}</p>
-            </div>
-        `;
-        $('.projectProgressContainer').html(projectProgressHtml); // 진행시간 및 오늘 날짜 업데이트
-    }
-
-    function handleMembersSuccess(members) {
-        let membersHtml = members.map(member => `
-            <td>
-                <div class="d-flex align-items-center">
-                    <div class="ms-2">
-                        <h5 class="mb-0"><a href="#" class="text-dark">${member.name}</a></h5>
-                    </div>
-                </div>
-            </td>
-        `).join('');
-        $('.projectMemberList').html(membersHtml); // 팀원 목록 업데이트
-    }
-
-    function renderProjectList(data) {
-        let html = '';
-        data.forEach(item => {
-            getAjaxData({
-                url: `/projects/${item.project_id}/tasks`,
-                successCallback: function(tasks) {
-                    const completedTasks = tasks.filter(task => task.progress === 100);
-                    const totalTasks = tasks.length;
-                    const progressPercentage = totalTasks > 0 ? Math.round((completedTasks.length / totalTasks) * 100) : 0;
-                    html += `
-                        <tr data-project-id="${item.project_id}">
-                            <td>${item.project_id}</td>
-                            <td class="align-middle">
-                                <div class="d-flex align-items-center">
-                                    <div class="ms-3 lh-1">
-                                        <h5 class="mb-1">${item.project_name}</h5>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle text-dark">
-                                <div class="float-start me-3">${progressPercentage}%</div>
-                                <div class="mt-2">
-                                    <div class="progress" style="height: 5px;">
-                                        <div class="progress-bar" role="progressbar" style="width: ${progressPercentage}%" aria-valuenow="${progressPercentage}" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    `;
-                    $('.projectTableBody').html(html);
-                },
-                errorCallback: function() {
-                    console.error('작업 목록을 가져오는 중 오류 발생');
-                }
-            });
-        });
-    }
-
-    function handleModalSuccess(response, projectId) {
-        const infos = response.info;
-        const tasks = response.tasks;
-        const members = response.members;
-        let modalHtml = `
-            <div class="modal-header"></div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="project_name" class="form-label">프로젝트명</label>
-                    <input type="text" class="form-control" id="project_name" name="project_name" value="${infos.project_name}">
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">설명</label>
-                    <textarea class="form-control" id="description" name="description">${infos.description}</textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="start_date" class="form-label">시작일</label>
-                    <input type="date" class="form-control" id="start_date" name="start_date" value="${infos.start_date}">
-                </div>
-                <div class="mb-3">
-                    <label for="end_date" class="form-label">종료일</label>
-                    <input type="date" class="form-control" id="end_date" name="end_date" value="${infos.end_date}">
-                </div>
-                <label class="form-label">팀원</label>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>목록</th>
-                        </tr>
-                    </thead>
-                    <tbody id="pj_members">
-                        ${members.map(member => `<td data-employee-code="${member.employee_code}">${member.name}</td>`).join('')}
-                    </tbody>
-                </table>
-                <label class="form-label">담당 작업</label>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>작업 내용</th>
-                            <th>담당자</th>
-                            <th>진행률</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${tasks.map(task => `
-                            <tr>
-                                <td><input type="text" class="form-control taskContentInput" name="taskContents" value="${task.task_content}"></td>
-                                <td>
-                                    <select class="form-select taskAssigneeSelect" name="taskAssignees">
-                                        ${members.map(member => `
-                                            <option value="${member.employee_code}" ${task.employee_code === member.employee_code ? 'selected' : ''}>${member.name}</option>
-                                        `).join('')}
-                                    </select>
-                                </td>
-                                <td><input type="number" class="form-control taskProgressInput" name="taskProgresses" value="${task.progress}" min="0" max="100"></td>
-                                <td><button type="button" class="btn btn-danger btn-sm removeTaskRow">삭제</button></td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary" id="saveProjectChangesBtn" data-project-id="${projectId}">수정</button>
-            </div>
-        `;
-        $('#editProjects').html(modalHtml);
-        $('#editProjectsModal').modal('show'); // 모달 열기
-
-        $('#saveProjectChangesBtn').on('click', function() {
-            const updatedProject = {
-                project_id: projectId,
-                project_name: $('#project_name').val(),
-                description: $('#description').val(),
-                start_date: $('#start_date').val(),
-                end_date: $('#end_date').val(),
-                // 필요한 경우 status 추가
-            };
-
-            let formData = {
-                project: updatedProject,
-                members: [],
-                tasks: []
-            };
-
-            $('#pj_members td').each(function (){
-                formData.members.push({
-                    employee_code: $(this).data('employee-code'),
-                    name: $(this).text().trim()
-                });
-            });
-
-            $('#editProjectsModal .taskContentInput').each(function(index) {
-                formData.tasks.push({
-                    task_content: $(this).val(),
-                    employee_code: $(this).closest('tr').find('.taskAssigneeSelect').val(),
-                    progress: $(this).closest('tr').find('.taskProgressInput').val()
-                });
-            });
-
-            getAjaxData({
-                url: '/projects/update',
-                method: 'POST',
-                data: formData,
-                successCallback: function(response) {
-                    if (response.status === 'success') {
-                        alert('프로젝트가 성공적으로 수정되었습니다.');
-                        $('#editProjectsModal').modal('hide');
-                    } else {
-                        alert('프로젝트 수정 중 오류가 발생했습니다: ' + response.message);
-                    }
-                },
-                errorCallback: function(jqXHR, textStatus, errorThrown) {
-                    console.error('프로젝트 수정 요청 중 오류 발생:', jqXHR.responseText);
-                    alert('프로젝트 수정 중 오류가 발생했습니다: ' + (jqXHR.responseJSON?.message || '알 수 없는 오류'));
-                }
-            });
-        });
-    }
-
-    function handleTasksSuccess(tasks) {
-        let taskHtml = `
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>작업 내용</th>
-                        <th>담당자</th>
-                        <th>진행률</th>
-                    </tr>
-                </thead>
-                <tbody>
-        `;
-        tasks.forEach(task => {
-            taskHtml += `
-                <tr>
-                    <td>${task.project_task_id}</td>
-                    <td>${task.task_content}</td>
-                    <td>${task.name}</td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="progress" style="height: 5px; width: 80%;">
-                                <div class="progress-bar" role="progressbar" style="width: ${task.progress}%" aria-valuenow="${task.progress}" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <span class="ms-2">${task.progress}%</span>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        });
-        taskHtml += '</tbody></table>';
-        $('.projectTaskContainer').html(taskHtml); // 담당 작업 정보 업데이트
-    }
-
-    // 프로젝트 행 클릭 시 피드 가져오기 (이벤트 위임)
-    $('.projectTableBody').on('click', 'tr', function() {
-        const projectId = $(this).data('projectId');
-        console.log("projectId:", projectId); // 클릭된 프로젝트 ID 확인
-
-        getAjaxData({
-            url: `/projects/${projectId}/feeds`,
-            successCallback: function(feedList) {
-                $('.feedPaginationContainer').pagination({
-                    dataSource: feedList,
-                    pageSize: 5,
-                    callback: function(data, pagination) {
-                        handleFeedsSuccess(data); // 피드 렌더링 함수 호출
-                    }
-                });
-            },
-            errorCallback: function() {
-                console.error('피드를 가져오는 중 오류 발생');
-            }
-        });
-
-        getAjaxData({
-            url: `/projects/${projectId}/projectInfo`,
-            successCallback: handleProjectInfoSuccess,
-            errorCallback: function() {
-                console.error('프로젝트 정보를 가져오는 중 오류 발생');
-            }
-        });
-
-        getAjaxData({
-            url: `/projects/${projectId}/members`,
-            successCallback: handleMembersSuccess,
-            errorCallback: function() {
-                console.error('팀원 정보를 가져오는 중 오류 발생');
-            }
-        });
-
-        getAjaxData({
-            url: `/projects/${projectId}/tasks`,
-            successCallback: handleTasksSuccess,
-            errorCallback: function() {
-                console.error('담당 작업 정보를 가져오는 중 오류 발생');
-            }
-        });
-
-        $(document).on('click', '.cocoBtn', function() {
-            getAjaxData({
-                url: `/projects/${projectId}/editProject`,
-                successCallback: function(response) {
-                    handleModalSuccess(response, projectId);
-                },
-                errorCallback: function() {
-                    console.error('프로젝트 수정 정보를 가져오는 중 오류 발생');
-                }
-            });
-        });
+    // 프로젝트 목록에서 프로젝트 클릭 시 이벤트 처리
+    $('.pr-tbl tbody tr').on('click', function() {
+        const projectId = $(this).data('project-id');
+        clearProjectDetails(); // 기존 정보 초기화
+        fetchProjectDetails(projectId); // 선택된 프로젝트 정보 가져오기
     });
 
-    // 초기 프로젝트 목록 가져오기
-    getAjaxData({
-        url: '/projects/list',
-        data: { employeeCode: employee_code },
-        successCallback: handleProjectListSuccess,
-        errorCallback: function() {
-            console.error('프로젝트 목록을 가져오는 중 오류 발생');
-        }
+    $('#pr-edit-btn').on('click', function() {
+        editProject();
+    });
+
+    // 작업 추가 버튼 클릭 시 이벤트 처리
+    $('#add-task-btn').on('click', function() {
+        addTaskRow();
+    });
+
+    // 작업 삭제 버튼 클릭 시 이벤트 처리
+    $('#editPrModal').on('click', '.delete-btn', function() {
+        $(this).closest('tr').remove();
+    });
+
+    // 프로젝트 수정 요청
+    $('#edit-pr-btn').on('click', function() {
+        submitEditProject();
     });
 });
+
+// 첫 번째 프로젝트 세부 정보 가져오는 함수
+function fetchFirstProjectDetails() {
+    $.ajax({
+        url: '/pr/list',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            if (data.length > 0) {
+                fetchProjectDetails(data[0].projectId); // 첫 번째 프로젝트 정보 가져오기
+            } else {
+                displayNoProjectMessage(); // 프로젝트 없을 때 메시지 표시
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('프로젝트 목록 가져오기 오류:', error);
+            displayErrorMessage('프로젝트 목록을 가져오는 중 오류가 발생했습니다.');
+        }
+    });
+}
+
+// 프로젝트 세부 정보 가져오는 함수
+function fetchProjectDetails(projectId) {
+    $.ajax({
+        url: '/pr/details',
+        method: 'GET',
+        data: { projectId: projectId },
+        dataType: 'json',
+        success: function(data) {
+            displayProjectDetails(data);
+            // 프로젝트 데이터 전역 변수에 저장
+            window.currentProjectData = data;
+        },
+        error: function(xhr, status, error) {
+            console.error('프로젝트 세부 정보 가져오기 오류:', error);
+            displayErrorMessage('프로젝트 세부 정보를 가져오는 중 오류가 발생했습니다.');
+        }
+    });
+}
+
+// 프로젝트 세부 정보 표시 함수
+function displayProjectDetails(data) {
+    const project = data.project;
+    const members = data.members;
+    const tasks = data.tasks;
+    const feeds = data.feeds;
+
+    // 프로젝트 정보 표시
+    $('#pr-detail-description').text(project.description);
+    $('.list-group-item:nth-child(1) .text-dark').text(new Date(project.startDate).toLocaleDateString());
+    $('.list-group-item:nth-child(2) .text-dark').text(new Date(project.endDate).toLocaleDateString());
+
+    // 남은 일수 계산 및 표시
+    const today = new Date();
+    const endDate = new Date(project.endDate);
+    const diffTime = Math.abs(endDate - today);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    $('.display-5.diff').text(diffDays + ' Days');
+
+    // 시작일부터 D + 구하기
+    const startDate = new Date(project.startDate);
+    const diffTime2 = Math.abs(today - startDate);
+    const diffDays2 = Math.ceil(diffTime2 / (1000 * 60 * 60 * 24));
+    $('.display-5.diff2').text(diffDays2 + ' Days');
+
+    // 시작 날짜 표시
+    $('.text-white.start').text('Start day : ' + new Date(project.startDate).toLocaleDateString());
+    // 종료 날짜 표시
+    $('.text-white.end').text('End day : ' + new Date(project.endDate).toLocaleDateString());
+
+    // 멤버 정보 표시
+    let memberRows = '';
+    members.forEach((member, index) => {
+        memberRows += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${member.memberName}</td>
+                <td>${member.memberDepartmentName}</td>
+                <td>${member.memberPosition}</td>
+            </tr>
+        `;
+    });
+    $('#pr-mem-body').html(memberRows);
+
+    // 작업 정보 표시
+    let taskRows = '';
+    tasks.forEach((task, index) => {
+        taskRows += `
+            <tr>
+                <td>${task.taskEmployeeName}</td>
+                <td>${task.taskContent}</td>
+                <td>${task.taskProgress}%</td>
+            </tr>
+        `;
+    });
+    $('#pr-task-body').html(taskRows);
+
+    // 피드 정보 표시
+    let feedRows = '';
+    feeds.forEach((feed, index) => {
+        feedRows += `
+            <tr>
+                <td>${feed.name}</td>
+                <td>${feed.content}</td>
+                <td>${feed.createdAt}</td>
+            </tr>
+        `;
+    });
+    $('#pr-feed-body').html(feedRows);
+}
+
+// 프로젝트 세부 정보 초기화 함수
+function clearProjectDetails() {
+    $('#pr-detail-description').text('');
+    $('.list-group-item:nth-child(1) .text-dark').text('');
+    $('.list-group-item:nth-child(2) .text-dark').text('');
+    $('.display-5.diff').text('');
+    $('.text-white.today').text('');
+    $('#pr-mem-body').html('');
+    $('#pr-task-body').html('');
+}
+
+// 프로젝트 없을 때 메시지 표시 함수
+function displayNoProjectMessage() {
+    $('#pr-detail-description').text('등록된 프로젝트가 없습니다.');
+    clearProjectDetails(); // 프로젝트 정보 초기화
+}
+
+// 오류 메시지 표시 함수
+function displayErrorMessage(message) {
+    alert(message);
+}
+
+// 프로젝트 수정 모달 열기 함수
+function editProject() {
+    if (!window.currentProjectData) {
+        displayErrorMessage('수정할 프로젝트 정보가 없습니다.');
+        return;
+    }
+
+    const project = window.currentProjectData.project;
+    const members = window.currentProjectData.members;
+    const tasks = window.currentProjectData.tasks;
+
+    // 모달 초기화
+    $('#project_name').val('');
+    $('#description').val('');
+    $('#start_date').val('');
+    $('#end_date').val('');
+    $('#status').val('');
+    $('#editPrModal table').first().find('tbody').html('');
+    $('#editPrModal table').last().find('tbody').html('');
+
+    // 프로젝트 수정 모달에 정보 설정
+    $('#editPrModal').data({
+        'project-id': project.projectId,
+        'project-name': project.projectName,
+        'project-description': project.description,
+        'project-start-date': project.startDate,
+        'project-end-date': project.endDate,
+        'project-members': members,
+        'project-tasks': tasks
+    });
+
+    // 모달의 입력 필드와 테이블에 데이터 설정
+    $('#project_name').val(project.projectName);
+    $('#description').val(project.description);
+    $('#start_date').val(new Date(project.startDate).toISOString().split('T')[0]);
+    $('#end_date').val(new Date(project.endDate).toISOString().split('T')[0]);
+    $('#status').val(project.status);
+
+    // 팀원 정보 설정
+    let memberRows = '';
+    members.forEach((member) => {
+        memberRows += `
+            <tr>
+                <td>${member.memberName}</td>
+                <input type="hidden" id="mCode" value="${member.memberId}">
+                <input type="hidden" id="eCode" value="${member.memberEmployeeCode}">
+            </tr>
+        `;
+    });
+    $('#editPrModal table').first().find('tbody').html(memberRows);
+
+    // 작업 정보 설정
+    let taskRows = '';
+    tasks.forEach((task) => {
+        const memberOptions = members.map(member =>
+            `<option value="${member.memberEmployeeCode}" ${member.memberEmployeeCode === task.taskEmployeeCode ? 'selected' : ''}>${member.memberName}</option>`
+        ).join('');
+
+        taskRows += `
+            <tr>
+                <td>
+                    <input type="hidden" id="tCode" value="${task.taskId}">
+                    <input type="text" id="taskContent" class="form-control taskContentInput" name="taskContents" value="${task.taskContent}">
+                </td>
+                <td>
+                    <select class="form-select taskAssigneeSelect" name="taskAssignees">
+                        <option value="">직원 선택</option>
+                        ${memberOptions}
+                    </select>
+                </td>
+                <td><input type="number" class="form-control taskProgressInput" name="taskProgresses" value="${task.taskProgress}" min="0" max="100"></td>
+                <td><button type="button" class="btn btn-danger delete-btn">삭제</button></td>
+            </tr>
+        `;
+    });
+    $('#editPrModal table').last().find('tbody').html(taskRows);
+
+    // 프로젝트 수정 모달 열기
+    $('#editPrModal').modal('show');
+}
+
+// 작업 추가 행 추가 함수
+function addTaskRow() {
+    const members = window.currentProjectData.members;
+    const memberOptions = members.map(member =>
+        `<option value="${member.memberEmployeeCode}">${member.memberName}</option>`
+    ).join('');
+
+    const newRow = `
+        <tr>
+            <td>
+                <input type="text" class="form-control taskContentInput" name="taskContents">
+            </td>
+            <td>
+                <select class="form-select taskAssigneeSelect" name="taskAssignees">
+                    <option value="">직원 선택</option>
+                    ${memberOptions}
+                </select>
+            </td>
+            <td><input type="number" class="form-control taskProgressInput" name="taskProgresses" min="0" max="100"></td>
+            <td><button type="button" class="btn btn-danger delete-btn">삭제</button></td>
+        </tr>
+    `;
+    $('#editPrModal table').last().find('tbody').append(newRow);
+}
+
+// 프로젝트 수정 요청 함수
+function submitEditProject() {
+    const projectId = $('#editPrModal').data('project-id');
+    const projectName = $('#project_name').val();
+    const description = $('#description').val();
+    const startDate = $('#start_date').val();
+    const endDate = $('#end_date').val();
+    const status = $('#status').val();
+    const departmentId = $('meta[name="departmentId"]').attr('content');
+    console.log(departmentId);
+
+    // 멤버 정보 가져오기
+    const members = [];
+    $('#editPrModal table').first().find('tbody tr').each(function(index, element) {
+        const memberEmployeeCode = $(element).find('#eCode').val();
+        const memberId = $(element).find('#mCode').val();
+        members.push({
+            memberId: memberId,
+            memberEmployeeCode: memberEmployeeCode
+        });
+    });
+
+    // 작업 정보 가져오기
+    const tasks = [];
+    $('#editPrModal table').last().find('tbody tr').each(function(index, element) {
+        const taskId = $(element).find('#tCode').val();
+        const taskContent = $(element).find('#taskContent').val();
+        const taskEmployeeCode = $('.taskAssigneeSelect').eq(index).val();
+        const taskProgress = $('.taskProgressInput').eq(index).val();
+
+        tasks.push({
+            taskId: taskId,
+            taskContent: taskContent,
+            taskEmployeeCode: taskEmployeeCode,
+            taskProgress: taskProgress
+        });
+    });
+
+    let projectDTO = {
+        projectId: projectId,
+        projectName: projectName,
+        departmentId: departmentId,
+        description: description,
+        startDate: startDate,
+        endDate: endDate,
+        status: status
+    };
+
+    let formData = {
+        projectDTO: projectDTO,
+        members: members,
+        tasks: tasks
+    };
+
+    console.log("Data to be sent:", formData); // 데이터 확인용 로깅
+
+    // AJAX 요청 보내기
+    $.ajax({
+        type: "POST",
+        url: "/pr/edit",
+        contentType: "application/json",
+        data: JSON.stringify(formData),
+        success: function(response) {
+            alert("프로젝트가 수정되었습니다.");
+            $('#editPrModal').modal('hide');
+            fetchProjectDetails(projectId); // 수정된 프로젝트 정보 다시 가져오기
+            window.location.reload();
+        },
+        error: function(error) {
+            console.error('프로젝트 수정 오류:', error);
+            displayErrorMessage('프로젝트 수정 중 오류가 발생했습니다.');
+        }
+    });
+}

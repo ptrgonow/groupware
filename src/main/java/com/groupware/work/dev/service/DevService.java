@@ -11,63 +11,54 @@ import java.util.List;
 @Service
 public class DevService {
 
-    private final DevMapper workMapper;
+    private final DevMapper devMapper;
 
     @Autowired
-    public DevService(DevMapper workMapper) {
-        this.workMapper = workMapper;
+    public DevService(DevMapper devMapper) {
+        this.devMapper = devMapper;
     }
 
-    public List<ProjectDTO> getProjects(String employee_code) {
-
-        return workMapper.getProjects(employee_code);
-    }
-
-    public List<ProjectFeedDTO> getFeed(int projectId) {
-
-        return workMapper.getFeed(projectId);
-    }
-
-    public ProjectDTO getProjectInfo(int projectId){
-
-        return workMapper.getProjectInfo(projectId);
-    }
-
-    public List<ProjectMemberDTO> getProjectMembers(int projectId) {
-        return workMapper.getProjectMembers(projectId);
-    }
-
-    public List<ProjectTaskDTO> getProjectTasks(int projectId){
-        return workMapper.getProjectTasks(projectId);
+    public List<ProjectDTO> getProjects(String employeeCode) {
+        return devMapper.getProjects(employeeCode);
     }
 
     @Transactional
-    public void updateProjects(ProjectDTO projectDTO, List<ProjectMemberDTO> members, List<ProjectTaskDTO> tasks) {
-        int projectId = projectDTO.getProject_id(); // 프로젝트 ID 추출
+    public ProjectDetailsDTO getProjectDetails(int projectId) {
+        List<ProjectDetailsDTO> projectDetailsList = devMapper.getProjectInfo(projectId);
+        if (projectDetailsList.isEmpty()) {
+            return null;
+        }
+        ProjectDetailsDTO projectDetails = projectDetailsList.get(0);
+        List<ProjectMemberDTO> members = devMapper.getProjectMembers(projectId);
+        List<ProjectTaskDTO> tasks = devMapper.getProjectTasks(projectId);
+        List<ProjectFeedDTO> feeds = devMapper.getFeeds(projectId);
+        projectDetails.setMembers(members);
+        projectDetails.setTasks(tasks);
+        projectDetails.setFeeds(feeds);
+        return projectDetails;
+    }
 
-        workMapper.updateProject(projectDTO);
-        // 2. 프로젝트 멤버 업데이트
-        for (ProjectMemberDTO memberDTO : members) {
+    @Transactional
+    public void updateProject(ProjectDTO projectDTO, List<ProjectMemberDTO> members, List<ProjectTaskDTO> tasks) {
 
+        devMapper.updateProject(projectDTO);
 
-            memberDTO.setProject_id(projectId);
-            memberDTO.setEmployee_code(memberDTO.getEmployee_code());
-            memberDTO.setProject_member_id(memberDTO.getProject_member_id());
-            memberDTO.setName(memberDTO.getName());
-
-            workMapper.updateMember(members);
+        for (ProjectMemberDTO member : members) {
+            ProjectMemberDTO memberDTO = new ProjectMemberDTO();
+            memberDTO.setMemberId(member.getMemberId());
+            memberDTO.setMemberEmployeeCode(member.getMemberEmployeeCode());
+            devMapper.updateProjectMember(projectDTO.getProjectId(), member);
         }
 
-        for (ProjectTaskDTO taskDTO : tasks) {
-
-            taskDTO.setProject_id(projectId);
-            taskDTO.setEmployee_code(taskDTO.getEmployee_code());
-            taskDTO.setProject_task_id(taskDTO.getProject_task_id());
-            taskDTO.setProgress(taskDTO.getProgress());
-
-            workMapper.updateTask(projectId, taskDTO);
-
+        for (ProjectTaskDTO task : tasks) {
+            ProjectTaskDTO taskDTO = new ProjectTaskDTO();
+            taskDTO.setTaskId(task.getTaskId());
+            taskDTO.setTaskContent(task.getTaskContent());
+            taskDTO.setTaskEmployeeCode(task.getTaskEmployeeCode());
+            taskDTO.setTaskProgress(task.getTaskProgress());
+            devMapper.updateProjectTask(projectDTO.getProjectId(), task);
         }
 
     }
+
 }

@@ -90,9 +90,10 @@
                                 <tbody id="notice_cont">
                                 <tr th:each="notice : ${nList}">
                                     <td th:text="${notice.notice_id}">ID</td>
-                                    <td th:text="${notice.title}">Title</td>
+                                    <td><a th:href="@{/nt/detail(id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
                                     <td th:text="${notice.content}">Content</td>
-                                    <td th:text="${#dates.format(notice.created_at, 'yyyy-MM-dd')}"></td>
+                                    <td th:text="${#dates.format(notice.created_at, 'yyyy-MM-dd')}">작성일</td>
+                                
                                 </tr>
                                 </tbody>
                             </table>

@@ -2,8 +2,11 @@ package com.groupware.work.dev.dto;
 
 import lombok.Data;
 
+import java.util.Date;
+import java.util.List;
+
 @Data
-public class ProjectDTO {
+public class ProjectDetailsDTO {
 
     private int projectId;
     private String projectName;
@@ -12,7 +15,9 @@ public class ProjectDTO {
     private String status;
     private int departmentId;
     private String description;
-    private String createAt;
+    private Date createAt;
     private String employeeCode;
-
+    private List<ProjectMemberDTO> members;
+    private List<ProjectTaskDTO> tasks;
+    private List<ProjectFeedDTO> feeds;
 }
