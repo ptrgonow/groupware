@@ -3,11 +3,11 @@ package com.groupware.work.fm.controller;
 import com.groupware.work.fm.dto.SalaryDTO;
 import com.groupware.approval.dto.DeptTreeDTO;
 import com.groupware.work.fm.service.FmService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,13 +22,21 @@ public class FmController {
         this.fmService = fmService;
     }
 
+    /* FIXED EXPENSE */
+
+    /* SALARY BY DEPARTMENT */
     @GetMapping("/departments")
     public List<DeptTreeDTO> getDepartments() {
         return fmService.getAllDepartments();
     }
-
     @GetMapping("/salariesByDepartment")
     public List<SalaryDTO> getSalariesByDepartment(@RequestParam("departmentId") int departmentId) {
         return fmService.getSalariesByDepartment(departmentId);
+    }
+
+    /* PASSWORD TO VIEW SALARY INFO */
+    @PostMapping("/authenticate")
+    public boolean authenticate(@RequestParam String password) {
+        return fmService.authenticate(password);
     }
 }

@@ -26,8 +26,8 @@
                     <button id="pr-add-btn" class="cocoBtn">프로젝트 생성</button>
                     <button id="pr-edit-btn" class="cocoBtn">프로젝트 수정</button>
                 </div>
-                
             </div>
+            
             
             <div class="row">
                 <div class="col-xl-12 col-12 d-flex">
@@ -37,23 +37,24 @@
                                 <h4 class="card-title">프로젝트</h4>
                             </div>
                             <div class="card-body">
-                                <div>
-                                    <table class="pr-tbl">
+                                <div class="tbl">
+                                    <table id="project_table" class="pr-tbl">
                                         <thead>
                                         <tr>
                                             <th>번호</th>
                                             <th>프로젝트명</th>
-                                            <th>진행도</th>
+                                            <th>상태</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="project_table_body">
                                         <tr th:each="pr, stat : ${projects}" th:data-project-id="${pr.projectId}">
                                             <td th:text="${stat.index + 1}"></td>
                                             <td th:text="${pr.projectName}"></td>
-                                            <td></td>
+                                            <td th:text="${pr.status}"></td>
                                         </tr>
                                         </tbody>
                                     </table>
+                                    <div id="project-pagination" class="pagination-mini"></div>
                                 </div>
                             </div>
                         </div>
@@ -64,33 +65,34 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="card-title">피드</h4>
                                     <div class="d-flex align-items-center">
-                                        <input type="text" class="form-control" id="pr-feed-input" placeholder="피드 입력">
-                                        <button id="pr-feed-btn" class="btn-info">등록</button>
+                                        <form id="feed-form-group" class="d-flex w-100">
+                                            <input type="text" class="form-control" id="pr-feed" name="content" placeholder="피드 입력">
+                                            <button type="submit" id="pr-feed-btn" class="btn-info">등록</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body feed">
-                                <table class="mem-tbl">
-                                    <thead>
-                                    <tr>
-                                        <th class="col-author">작성자</th>
-                                        <th class="col-title">내용</th>
-                                        <th class="col-date">작성일</th>
-                                    </tr>
-                                    </thead>
-                                    
-                                    <tbody id="pr-feed-body"></tbody>
-                                </table>
+                                <div class="tbl">
+                                    <table id="feed_table" class="mem-tbl">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-author">작성자</th>
+                                            <th class="col-title">내용</th>
+                                            <th class="col-date">작성일</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="pr-feed-body"></tbody>
+                                    </table>
+                                    <div id="pr-feed-pagination" class="pagination-mini"></div>
+                                </div>
                             </div>
-                        
                         </div>
                     </div>
                 </div>
             </div>
             
-            
             <div class="row">
-                
                 <div class="col-xl-12 col-12 d-flex">
                     
                     <div class="col-xl-8">
@@ -100,7 +102,6 @@
                             </div>
                             <div class="card-body">
                                 <div>
-                                    
                                     <p id="pr-detail-description"></p>
                                     
                                     <ul class="list-group list-group-flush">
@@ -127,7 +128,6 @@
                         <div class="card mb-5 bg-primary ">
                             <div class="card-body">
                                 <h4 class="mb-0 text-white">D + day</h4>
-                                
                                 <div class="d-flex justify-content-between align-items-center mt-8">
                                     <div>
                                         <h3 class="display-5 diff2 fw-bold text-white mb-1"> Days</h3>
@@ -137,7 +137,6 @@
                             </div>
                             <div class="card-body">
                                 <h4 class="mb-0 text-white">D - day</h4>
-                                
                                 <div class="d-flex justify-content-between align-items-center mt-8">
                                     <div>
                                         <h3 class="display-5 diff fw-bold text-white mb-1"> Days</h3>
@@ -150,7 +149,6 @@
                 </div>
             </div>
             
-            
             <div class="row">
                 <div class="col-xl-12 col-12 d-flex">
                     <div class="col-xl-8">
@@ -159,8 +157,8 @@
                                 <h4 class="card-title">팀원</h4>
                             </div>
                             <div class="card-body">
-                                <div>
-                                    <table class="mem-tbl">
+                                <div class="tbl">
+                                    <table id="member_table" class="mem-tbl">
                                         <thead>
                                         <tr>
                                             <th>번호</th>
@@ -169,49 +167,45 @@
                                             <th>직책</th>
                                         </tr>
                                         </thead>
-                                        
-                                        <tbody id="pr-mem-body">
-                                    
+                                        <tbody id="pr-mem-body"></tbody>
                                     </table>
+                                    <div id="pr-mem-pagination" class="pagination-mini"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
                     <div class="col-xl-4">
                         <div class="card flex-fill">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="card-title">담당 작업</h4>
                                     <div class="d-flex align-items-center">
-                                        <button id="pr-task-btn" class="btn-info">추가</button>
+                                        <button id="add-task-btn" class="btn-info">추가</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body task">
-                            
-                                <table class="pr-tbl">
-                                    <thead>
-                                    <tr>
-                                        <th>작업 내용</th>
-                                        <th>담당자</th>
-                                        <th>진행률</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="pr-task-body">
-                                </table>
-                            
+                                <div class="tbl">
+                                    <table id="task_table" class="pr-tbl">
+                                        <thead>
+                                        <tr>
+                                            <th>작업 내용</th>
+                                            <th>담당자</th>
+                                            <th>진행률</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="pr-task-body"></tbody>
+                                    </table>
+                                    <div id="pr-task-pagination" class="pagination-mini"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            
-            
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="editPrModal" tabindex="-1" aria-labelledby="editPrModalLabel" aria-hidden="true">
@@ -224,7 +218,7 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="project_name" class="form-label">프로젝트명</label>
-                    <input type="text" class="form-control" id="project_name" name="project_name" >
+                    <input type="text" class="form-control" id="project_name" name="project_name">
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">설명</label>
@@ -250,7 +244,6 @@
                     </tr>
                     </tbody>
                 </table>
-              
                 <table class="table">
                     <thead>
                     <tr>
@@ -281,7 +274,6 @@
         </div>
     </div>
 </div>
-
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/main-dev.js"></script>
