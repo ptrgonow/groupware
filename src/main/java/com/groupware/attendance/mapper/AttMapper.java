@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,4 +31,5 @@ public interface AttMapper {
             "GROUP BY employee_code, DATE(check_in) " +
             "ORDER BY attendanceDate")
     List<AttDTO> getFirstAndLastAttendance(String employeeCode);
+
 }
