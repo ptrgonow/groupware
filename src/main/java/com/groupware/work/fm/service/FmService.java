@@ -2,8 +2,9 @@ package com.groupware.work.fm.service;
 
 import com.groupware.work.fm.dto.SalaryDTO;
 import com.groupware.approval.dto.DeptTreeDTO;
-import com.groupware.work.fm.mapper.FmMapper; // 패키지 경로를 올바르게 수정
+import com.groupware.work.fm.mapper.FmMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -17,11 +18,20 @@ public class FmService {
         this.fmMapper = fmMapper;
     }
 
+    /* FIXED EXPENSE */
+
+    /* SALARY BY DEPARTMENT */
     public List<DeptTreeDTO> getAllDepartments() {
         return fmMapper.getDepartments();
     }
 
     public List<SalaryDTO> getSalariesByDepartment(int departmentId) {
         return fmMapper.getSalariesByDepartment(departmentId);
+    }
+
+    /* PASSWORD TO VIEW SALARY INFO */
+    /* PASSWORD TO VIEW SALARY INFO */
+    public boolean authenticate(String password) {
+        return "123".equals(password);
     }
 }
