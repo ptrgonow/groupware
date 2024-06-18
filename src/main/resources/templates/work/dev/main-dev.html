@@ -9,6 +9,7 @@
 
 </head>
 <body>
+
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
@@ -66,7 +67,7 @@
                                     <h4 class="card-title">피드</h4>
                                     <div class="d-flex align-items-center">
                                         <form id="feed-form-group" class="d-flex w-100">
-                                            <input type="text" class="form-control" id="pr-feed" name="content" placeholder="피드 입력">
+                                            <input type="text" class="form-control" id="pr-feed" name="content" placeholder="피드 입력" required>
                                             <button type="submit" id="pr-feed-btn" class="btn-info">등록</button>
                                         </form>
                                     </div>
@@ -100,10 +101,13 @@
                             <div class="card-header">
                                 <h4 class="card-title">프로젝트 정보</h4>
                             </div>
-                            <div class="card-body">
-                                <div>
-                                    <p id="pr-detail-description"></p>
-                                    
+                            <div class="card-body des">
+                                <div class="card-text">
+                                    <p class="card-text" id="pr-detail-description"></p>
+                                </div>
+                               
+                                
+                                <div class="card-footer">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
                                             <div class="d-flex justify-content-between align-items-center">
@@ -119,8 +123,8 @@
                                         </li>
                                     </ul>
                                 </div>
+                            
                             </div>
-                        
                         </div>
                     </div>
                     
@@ -179,14 +183,12 @@
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="card-title">담당 작업</h4>
-                                    <div class="d-flex align-items-center">
-                                        <button id="add-task-btn" class="btn-info">추가</button>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="card-body task">
                                 <div class="tbl">
-                                    <table id="task_table" class="pr-tbl">
+                                    <table id="task_table" class="tk-tbl">
                                         <thead>
                                         <tr>
                                             <th>작업 내용</th>
@@ -207,13 +209,14 @@
     </div>
 </div>
 
+
+
 <!-- Modal -->
 <div class="modal fade" id="editPrModal" tabindex="-1" aria-labelledby="editPrModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel">프로젝트 수정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
@@ -244,13 +247,13 @@
                     </tr>
                     </tbody>
                 </table>
-                <table class="table">
-                    <thead>
+                <table class="task-edit-tbl">
+                    <thead class="edit-thead">
                     <tr>
-                        <th>작업 내용</th>
-                        <th>담당자</th>
-                        <th>진행률</th>
-                        <th>액션</th>
+                        <th class="col-t1">작업 내용</th>
+                        <th class="col-t2">담당자</th>
+                        <th class="col-t3">진행률</th>
+                        <th class="col-t4">액션</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -262,14 +265,15 @@
                             </select>
                         </td>
                         <td><input type="number" class="form-control taskProgressInput" name="taskProgresses" min="0" max="100"></td>
-                        <td><button type="button" class="delete-btn">삭제</button></td>
+                        <td><button type="button" class="delete-btn delete-task-btn">삭제</button></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="modal-footer">
+                <button id="add-task-btn" class="btn-info">작업 추가</button>
                 <button type="button" class="btn-info" id="edit-pr-btn">수정</button>
-                <button type="button" class="delete-btn">닫기</button>
+                <button type="button" data-bs-dismiss="modal" class="delete-btn">닫기</button>
             </div>
         </div>
     </div>

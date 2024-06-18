@@ -1,4 +1,4 @@
-const itemsPerPage = 6; // 페이지당 표시할 항목 수
+const itemsPerPage = 5; // 페이지당 표시할 항목 수
 let currentProjectPage = 1;
 let currentMemberPage = 1;
 let currentTaskPage = 1;
@@ -14,9 +14,11 @@ $(document).ready(function() {
     $(document).on('click', '.pr-tbl tbody tr', handleProjectRowClick);
     $('#pr-edit-btn').on('click', editProject);
     $('#add-task-btn').on('click', addTaskRow);
-    $(document).on('click', '#editPrModal .delete-btn', removeTaskRow);
+    $(document).on('click', '#editPrModal .delete-btn', deleteTask);
     $('#edit-pr-btn').on('click', submitEditProject);
     $('#feed-form-group').on('submit', handleFeedFormSubmit);
+
+
 });
 
 function initializeProjectsArray() {
@@ -237,6 +239,8 @@ function editProject() {
         memberRows += `
             <tr>
                 <td>${member.memberName}</td>
+                <td>${member.memberDepartmentName}</td>
+                <td>${member.memberPosition}</td>
                 <input type="hidden" id="mCode" value="${member.memberId}">
                 <input type="hidden" id="eCode" value="${member.memberEmployeeCode}">
             </tr>
@@ -253,18 +257,18 @@ function editProject() {
 
         taskRows += `
             <tr>
-                <td>
+                <td class="col-t1">
                     <input type="hidden" id="tCode" value="${task.taskId}">
                     <input type="text" id="taskContent" class="form-control taskContentInput" name="taskContents" value="${task.taskContent}">
                 </td>
-                <td>
+                <td class="col-t2">
                     <select class="form-select taskAssigneeSelect" name="taskAssignees">
                         <option value="">직원 선택</option>
                         ${memberOptions}
                     </select>
                 </td>
-                <td><input type="number" class="form-control taskProgressInput" name="taskProgresses" value="${task.taskProgress}" min="0" max="100"></td>
-                <td><button type="button" class="btn btn-danger delete-btn">삭제</button></td>
+                <td class="col-t3"><input type="number" class="form-control taskProgressInput" name="taskProgresses" value="${task.taskProgress}" min="0" max="100"></td>
+                <td class="col-t4"><button type="button" class="btn btn-danger delete-btn">삭제</button></td>
             </tr>
         `;
     });
@@ -276,29 +280,39 @@ function editProject() {
 
 function addTaskRow() {
     const members = window.currentProjectData.members;
+    const tasks = window.currentProjectData.tasks;
     const memberOptions = members.map(member =>
         `<option value="${member.memberEmployeeCode}">${member.memberName}</option>`
     ).join('');
 
     const newRow = `
         <tr>
-            <td><input type="text" class="form-control taskContentInput" name="taskContents"></td>
-            <td>
-                <select class="form-select taskAssigneeSelect" name="taskAssignees">
+            <td class="col-t1">
+                <input type="text" id="taskContent" class="form-control taskContentInput" name="taskContents">
+                <input type="hidden" id="tCode" value="${tasks.taskId}">
+            </td>
+            <td class="col-t2">
+                <select class="form-select taskAssigneeSelect" id="taskAssignees" name="taskAssignees">
                     <option value="">직원 선택</option>
                     ${memberOptions}
                 </select>
             </td>
-            <td><input type="number" class="form-control taskProgressInput" name="taskProgresses" min="0" max="100"></td>
-            <td><button type="button" class="btn btn-danger delete-btn">삭제</button></td>
+            <td class="col-t3"><input type="number" class="form-control taskProgressInput" id="taskProgresses" name="taskProgresses" min="0" max="100"></td>
+            <td class="col-t4"><button type="button" class="btn-info insert-task-btn">등록</button></td>
         </tr>
     `;
-    $('#editPrModal table').last().find('tbody').append(newRow);
+
+    const $tbody = $('#editPrModal table').last().find('tbody');
+
+    $tbody.append(newRow);
+
+    // 새로 추가된 등록 버튼에 이벤트 핸들러를 바인딩
+    $tbody.find('.insert-task-btn').last().on('click', insertTask);
+
+    // 새로 추가된 행의 첫 번째 입력 필드로 포커스 이동
+    $tbody.find('tr').last().find('.taskContentInput').focus();
 }
 
-function removeTaskRow() {
-    $(this).closest('tr').remove();
-}
 
 function submitEditProject() {
     const projectId = $('#editPrModal').data('project-id');
@@ -388,7 +402,7 @@ function addFeed() {
     };
 
     $.ajax({
-        url: '/pr/feed',
+        url: '/pr/feed/add',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(projectFeedDTO),
@@ -406,4 +420,68 @@ function addFeed() {
             alert('피드를 추가하는데 실패했습니다.');
         }
     });
+}
+
+function insertTask() {
+
+    const projectId = window.currentProjectData.project.projectId;
+    const taskContent = $(this).closest('tr').find('.taskContentInput').val();
+    const taskEmployeeCode = $(this).closest('tr').find('.taskAssigneeSelect').val();
+    const taskProgress = $(this).closest('tr').find('.taskProgressInput').val();
+
+
+    const ProjectTaskDTO = {
+        projectId: projectId,
+        taskContent: taskContent,
+        taskEmployeeCode: taskEmployeeCode,
+        taskProgress: taskProgress
+    };
+
+    console.log(ProjectTaskDTO);
+
+    $.ajax({
+        url: '/pr/task/add',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(ProjectTaskDTO),
+        success: function(data) {
+            if (data === '작업이 추가되었습니다.') {
+                alert('작업이 추가되었습니다.');
+                $('#editPrModal').modal('hide');
+                fetchProjectDetails(projectId);
+            } else {
+                alert('작업을 추가하는데 실패했습니다.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            alert('작업을 추가하는데 실패했습니다.');
+        }
+    });
+}
+
+function deleteTask() {
+
+    const taskId = $(this).closest('tr').find('#tCode').val();
+    const projectId = window.currentProjectData.project.projectId;
+
+    $.ajax({
+        url: '/pr/task/delete',
+        type: 'POST',
+        data: { taskId: taskId },
+        success: function(data) {
+            if (data === '작업이 삭제되었습니다.') {
+                alert('작업이 삭제되었습니다.');
+                $('#editPrModal').modal('hide');
+                fetchProjectDetails(projectId);
+            } else {
+                alert('작업을 삭제하는데 실패했습니다.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            alert('작업을 삭제하는데 실패했습니다.');
+        }
+    });
+
 }

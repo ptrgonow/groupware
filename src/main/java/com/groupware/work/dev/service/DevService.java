@@ -65,4 +65,12 @@ public class DevService {
     public void addFeed(ProjectFeedDTO feed) {
         devMapper.addFeed(feed);
     }
+
+    public void addTask(ProjectTaskDTO task) {
+        devMapper.addTask(task);
+    }
+
+    public void deleteTask(int taskId) {
+        devMapper.deleteTask(taskId);
+    }
 }

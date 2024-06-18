@@ -27,7 +27,8 @@ public interface DevMapper {
     @Select("SELECT t.project_task_id AS taskId, t.task_content AS taskContent, t.employee_code AS taskEmployeeCode, t.progress AS taskProgress, te.name AS taskEmployeeName " +
             "FROM project_tasks t " +
             "LEFT JOIN employee te ON t.employee_code = te.employee_code " +
-            "WHERE t.project_id = #{projectId}")
+            "WHERE t.project_id = #{projectId} " +
+            "ORDER BY t.created_at DESC")
     List<ProjectTaskDTO> getProjectTasks(@Param("projectId") int projectId);
 
     @Select("SELECT p.project_id AS projectId, p.project_name AS projectName, p.start_date AS startDate, p.end_date AS endDate, " +
@@ -35,7 +36,8 @@ public interface DevMapper {
             "FROM projects p " +
             "JOIN project_members pm ON p.project_id = pm.project_id " +
             "JOIN employee e ON pm.employee_code = e.employee_code " +
-            "WHERE pm.employee_code = #{employeeCode}")
+            "WHERE pm.employee_code = #{employeeCode} " +
+            "ORDER BY p.created_at DESC")
     List<ProjectDTO> getProjects(@Param("employeeCode") String employeeCode);
 
     // feed 가져오기
@@ -64,11 +66,14 @@ public interface DevMapper {
             "WHERE project_task_id = #{task.taskId} AND project_id = #{projectId}")
     void updateProjectTask(@Param("projectId") int projectId, @Param("task") ProjectTaskDTO task);
 
-
     @Insert("INSERT INTO project_feeds (project_id, employee_code, content, created_at) VALUES (#{projectId}, #{employeeCode}, #{content}, NOW())")
     void addFeed(ProjectFeedDTO feed);
+    
+    @Insert("INSERT INTO project_tasks (project_id, task_content, employee_code, progress, created_at) VALUES (#{projectId}, #{taskContent}, #{taskEmployeeCode}, #{taskProgress}, NOW())")
+    void addTask(ProjectTaskDTO task);
 
-
+    @Delete("DELETE FROM project_tasks WHERE project_task_id = #{taskId}")
+    void deleteTask(int taskId);
 }
 
 

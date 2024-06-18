@@ -1,10 +1,8 @@
 package com.groupware.work.dev.controller;
 
-import com.groupware.user.dto.UserDTO;
-import com.groupware.user.service.UserService;
-import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.dto.ProjectDetailsDTO;
 import com.groupware.work.dev.dto.ProjectFeedDTO;
+import com.groupware.work.dev.dto.ProjectTaskDTO;
 import com.groupware.work.dev.dto.ProjectUpdateRequestDTO;
 import com.groupware.work.dev.service.DevService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +54,9 @@ public class DevController {
 
     }
 
-    @PostMapping("/feed")
+    @PostMapping("/feed/add")
     public ResponseEntity<String> addFeed(@RequestBody ProjectFeedDTO projectFeedDTO) {
         try {
-            System.out.println(projectFeedDTO);
             ProjectFeedDTO feed = new ProjectFeedDTO();
             feed.setProjectId(projectFeedDTO.getProjectId());
             feed.setEmployeeCode(projectFeedDTO.getEmployeeCode());
@@ -68,6 +65,31 @@ public class DevController {
             return ResponseEntity.ok().body("피드가 추가되었습니다.");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("피드 추가 중 오류가 발생했습니다.");
+        }
+    }
+
+    @PostMapping("/task/add")
+    public ResponseEntity<String> addTask(@RequestBody ProjectTaskDTO projectTaskDTO) {
+        try {
+            ProjectTaskDTO task = new ProjectTaskDTO();
+            task.setProjectId(projectTaskDTO.getProjectId());
+            task.setTaskEmployeeCode(projectTaskDTO.getTaskEmployeeCode());
+            task.setTaskContent(projectTaskDTO.getTaskContent());
+            task.setTaskProgress(projectTaskDTO.getTaskProgress());
+            devService.addTask(task);
+            return ResponseEntity.ok().body("작업이 추가되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("작업 추가 중 오류가 발생했습니다.");
+        }
+    }
+
+    @PostMapping("/task/delete")
+    public ResponseEntity<String> deleteTask(@RequestParam int taskId) {
+        try {
+            devService.deleteTask(taskId);
+            return ResponseEntity.ok().body("작업이 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("작업 삭제 중 오류가 발생했습니다.");
         }
     }
 

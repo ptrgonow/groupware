@@ -21,6 +21,90 @@ body {
     height: 100%;
 }
 
+/* 화면 레이아웃 */
+
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 3rem -1rem;
+}
+
+.col {
+    flex: 1;
+    padding: 0 1rem;
+}
+
+.card {
+    height: 100%;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.des {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.task-edit-tbl tbody {
+    display: block;
+    max-height: 100px;
+    overflow-y: scroll;
+}
+
+.task-edit-tbl thead,
+.task-edit-tbl tbody tr {
+    text-align: center;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 1rem;
+}
+
+.task-edit-tbl tbody tr input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.task-edit-tbl tbody tr select {
+    width: 60%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+    background-color: #f9f9f9;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+.task-edit-tbl .col-t1 {
+    width: 40%;
+}
+
+.task-edit-tbl .col-t2 {
+    width: 20%;
+}
+.task-edit-tbl .col-t3 {
+    width: 10%;
+}
+.task-edit-tbl .col-t4 {
+    width: 20%;
+}
+
+
+
+
+
 .cocoBtn {
     display: inline-block;
     padding: 10px 20px;
@@ -64,14 +148,18 @@ body {
 }
 
 
-.mem-tbl, .pr-tbl {
+.mem-tbl,
+.pr-tbl,
+.tk-tbl {
     width: 100%;
     border-collapse: collapse;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    table-layout: fixed;
 }
 
 .mem-tbl thead tr th,
-.pr-tbl thead tr th {
+.pr-tbl thead tr th,
+.tk-tbl thead tr th {
     background-color: #879096;
     color: #fff;
     text-align: center;
@@ -98,7 +186,7 @@ body {
 
 .mem-tbl .col-date,
 .pr-tbl .col-date {
-    width: 20%;
+    width: 40%;
 }
 
 .mem-tbl .col-status,
@@ -107,27 +195,40 @@ body {
 }
 
 .mem-tbl tbody tr td,
-.pr-tbl tbody tr td {
+.pr-tbl tbody tr td,
+.tk-tbl tbody tr td {
     border-bottom: 1px solid #e9ecef;
     padding: 12px;
     color: #495057;
 }
 
 .mem-tbl tbody tr:nth-child(even),
-.pr-tbl tbody tr:nth-child(even) {
+.pr-tbl tbody tr:nth-child(even),
+.tk-tbl tbody tr:nth-child(even){
     background-color: #f8f9fa;
 }
 
 .mem-tbl tbody tr:hover,
-.pr-tbl tbody tr:hover {
+.pr-tbl tbody tr:hover,
+.tk-tbl tbody tr:hover{
     background-color: #e6e6ea;
     cursor: pointer;
 }
 
 .mem-tbl tbody tr td,
-.pr-tbl tbody tr td {
+.pr-tbl tbody tr td,
+.tk-tbl tbody tr td {
     text-align: center;
+    overflow: hidden;
+    white-space : nowrap;
+    text-overflow: ellipsis;
 }
+
+.edit-thead {
+    border-top: 1px solid #cac2c2;
+    margin-top: 1rem;
+}
+
 
 .btn-close {
     display: inline-block;
