@@ -41,4 +41,31 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         return html;
     }
+    const todayWorkers = [];
+    document.querySelectorAll('#today-workers-table #today-workers-data tr').forEach(row => {
+        todayWorkers.push({
+            name: row.cells[0].innerText,
+            firstCheckIn: row.cells[1].innerText,
+            status: row.cells[2].innerText
+        });
+    });
+
+    // Pagination.js 설정 (금일 근무자 테이블)
+    $('#pagination-today-workers-pagination-hr').pagination({
+        dataSource: todayWorkers,
+        pageSize: 6,
+        callback: function(data, pagination) {
+            // 페이지 변경 시 테이블 내용 업데이트
+            $('#today-workers-table #today-workers-data').empty();
+            data.forEach(worker => {
+                $('#today-workers-table #today-workers-data').append(`
+                    <tr>
+                        <td>${worker.name}</td>
+                        <td>${worker.firstCheckIn}</td>
+                        <td><span class="${worker.status === '근무중' ? 'badge bg-success' : 'badge bg-danger'}">${worker.status}</span></td>
+                    </tr>
+                `);
+            });
+        }
+    });
 });
