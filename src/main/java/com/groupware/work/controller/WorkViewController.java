@@ -37,8 +37,12 @@ public class WorkViewController {
 
 
     @GetMapping("/fm")
-    public String fm(Model model) {
-        model.addAttribute("test", 120);
+    public String fm(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        }
+        model.addAttribute("user", user);
         return "work/fm/main-finance";
     }
 
@@ -55,7 +59,6 @@ public class WorkViewController {
 
     @GetMapping("/hr")
     public String hr(Model model) {
-
 
         // 총 직원 수
         int eCount = hrService.AllEmployeeCount();
