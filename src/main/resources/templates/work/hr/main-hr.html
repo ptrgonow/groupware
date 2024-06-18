@@ -18,7 +18,6 @@
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>업무 > 경영지원실 > 인사관리팀</h3>
-
             </div>
 
             <div class="row mb-4">
@@ -37,9 +36,8 @@
                     <div class="card board1 fill2 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                                새로운 요청
+                                새로운 요청 <!-- 수정 필요 -->
                                 <p class="widget" th:text="${apCount}"></p>
-
                             </div>
                             <div class="card_notify_img">
 
@@ -53,10 +51,8 @@
                             <div class="card_widget_header">
                                 휴가자
                                 <p class="widget">3</p>
-
                             </div>
                             <div class="card_leave_img">
-
                             </div>
                         </div>
                     </div>
@@ -67,30 +63,24 @@
                             <div class="card_widget_header">
                                 현재 근무중
                                 <p class="widget">27</p>
-
                             </div>
                             <div class="card_working_img">
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-
+            <!-- 인원현황 피드 -->
             <div class="row">
-
-
                 <div class="col-xl-6 d-flex mobile-h">
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">인원현황</h5>
-                                <a href="/registerPage" class="btn btn-primary">등록</a>
                             </div>
                         </div>
                         <div class="card-body">
-
                             <div class="table-responsive">
                                 <table class="table custom-table no-footer" id="e_list">
                                     <thead>
@@ -108,10 +98,10 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <label class="action_label2" th:text="${list.departmentName}">대표</label>
+                                            <label class="action_label2" th:text="${list.departmentName}"></label>
                                         </td>
                                         <td>
-                                            <label th:text="${list.psNm}">CEO</label>
+                                            <label th:text="${list.psNm}"></label>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -119,7 +109,6 @@
                                 <!-- 페이징 -->
                                 <div id="pagination-hr"></div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -161,10 +150,7 @@
                 </div>
             </div>
 
-
-                <div class="row">
-
-
+            <div class="row">
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header ">
@@ -172,7 +158,6 @@
                             <button class="go-approval" value="결재하기"></button>
                         </div>
                         <div class="card-body pb-0">
-
                             <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
@@ -191,17 +176,15 @@
                     </div>
                 </div>
 
-
+                <!-- 사원관리 피드 -->
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header">
-                            <div class="">
-                                <h4 class="card-title">부서별 팀원</h4>
-                            </div>
+                            <h4 class="card-title">사원 관리</h4>
+                            <a class="edit_employee" href="/hr/edit"><i data-feather="edit"></i></a>
                         </div>
                         <div class="card-body dash-activity">
                             <div class="activity_scroll">
-
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-xl-6">
@@ -209,22 +192,17 @@
                                                 <div class="card-header">
                                                     <div class="employee-head">
                                                         <h2>인사관리팀</h2>
-                                                        <ul>
-                                                            <li><a class="edit_employee" data-toggle="modal" data-target="#edit"><i data-feather="edit"></i></a></li>
-                                                            <li><a class="edit_delete" data-toggle="modal" data-target="#delete"><i data-feather="trash-2"></i></a></li>
-                                                        </ul>
                                                     </div>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="employee-content">
                                                         <div class="employee-image">
                                                             <div class="avatar-group">
-                                                                <div class="avatar avatar-xs group_img group_header">
-                                                                    팀원1, 팀원2 ...
+                                                                <div th:each="hrm : ${hrManagers}" class="manager-item">
+                                                                    <p>관리자</p><p th:text="${hrm.name}"></p>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a class="btn-addmember" data-toggle="modal" data-target="#addteam">팀원 추가</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -234,22 +212,17 @@
                                                 <div class="card-header">
                                                     <div class="employee-head">
                                                         <h2>재무관리팀</h2>
-                                                        <ul>
-                                                            <li><a class="edit_employee" data-toggle="modal" data-target="#edit"><i data-feather="edit"></i></a></li>
-                                                            <li><a class="edit_delete" data-toggle="modal" data-target="#delete"><i data-feather="trash-2"></i></a></li>
-                                                        </ul>
                                                     </div>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="employee-content">
                                                         <div class="employee-image">
                                                             <div class="avatar-group">
-                                                                <div class="avatar avatar-xs group_img group_header">
-                                                                   팀원1, 팀원2 ...
+                                                                <div th:each="fim : ${financeManagers}" class="manager-item">
+                                                                    <p>관리자</p><p th:text="${fim.name}"></p>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a class="btn-addmember" data-toggle="modal" data-target="#addteam">팀원 추가</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -261,22 +234,17 @@
                                                 <div class="card-header">
                                                     <div class="employee-head">
                                                         <h2>개발 1팀</h2>
-                                                        <ul>
-                                                            <li><a class="edit_employee" data-toggle="modal" data-target="#edit"><i data-feather="edit"></i></a></li>
-                                                            <li><a class="edit_delete" data-toggle="modal" data-target="#delete"><i data-feather="trash-2"></i></a></li>
-                                                        </ul>
                                                     </div>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="employee-content">
                                                         <div class="employee-image">
                                                             <div class="avatar-group">
-                                                                <div class="avatar avatar-xs group_img group_header">
-                                                                    팀원1, 팀원2 ...
+                                                                <div th:each="devF : ${developManagerF}" class="manager-item">
+                                                                    <p>관리자</p><p th:text="${devF.name}"></p>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a class="btn-addmember" data-toggle="modal" data-target="#addteam">팀원 추가</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -286,37 +254,27 @@
                                                 <div class="card-header">
                                                     <div class="employee-head">
                                                         <h2>개발 2팀</h2>
-                                                        <ul>
-                                                            <li><a class="edit_employee" data-toggle="modal" data-target="#edit"><i data-feather="edit"></i></a></li>
-                                                            <li><a class="edit_delete" data-toggle="modal" data-target="#delete"><i data-feather="trash-2"></i></a></li>
-                                                        </ul>
                                                     </div>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="employee-content">
                                                         <div class="employee-image">
                                                             <div class="avatar-group">
-                                                                <div class="avatar avatar-xs group_img group_header">
-                                                                    팀원1, 팀원2 ...
+                                                                <div th:each="devS : ${developManagerS}" class="manager-item">
+                                                                    <p>관리자</p><p th:text="${devS.name}"></p>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a class="btn-addmember" data-toggle="modal" data-target="#addteam">팀원 추가</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

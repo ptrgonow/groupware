@@ -32,7 +32,10 @@ public class HrService {
     }
 
     public List<TodayWorkerDTO> getAllTodayWorkers() {
-
         return hrMapper.getTodayWorkers();
+    }
+
+    public List<HrEmployeeDTO> getManagerEmployee() {
+        return hrMapper.getManagerEmployee();
     }
 }

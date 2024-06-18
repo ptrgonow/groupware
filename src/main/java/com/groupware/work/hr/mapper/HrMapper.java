@@ -41,5 +41,8 @@ public interface HrMapper {
             "ORDER BY status DESC, firstCheckIn desc")
     List<TodayWorkerDTO> getTodayWorkers();
 
+    // P001(관리자)에 해당하는 사원
+    @Select("SELECT employee_code AS employeeCode, name, department_id AS departmentId, ps_cd AS psCd FROM employee WHERE ps_cd = 'P001'")
+    List<HrEmployeeDTO> getManagerEmployee();
 
 }

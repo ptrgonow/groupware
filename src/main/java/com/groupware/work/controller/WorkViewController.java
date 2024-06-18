@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -56,21 +57,52 @@ public class WorkViewController {
     @GetMapping("/hr")
     public String hr(Model model) {
 
-
         // 총 직원 수
         int eCount = hrService.AllEmployeeCount();
         // 인원현황 대시보드
         List<HrEmployeeDTO> eList = hrService.getAllEmployees();
         // 결재 요청 개수
         int apCount = hrService.AllApprovalCount();
+        // P001에 해당하는 사원
+        List<HrEmployeeDTO> mList = hrService.getManagerEmployee();
+
+        List<HrEmployeeDTO> hrManagers = new ArrayList<>();
+        List<HrEmployeeDTO> financeManagers = new ArrayList<>();
+        List<HrEmployeeDTO> developManagerF = new ArrayList<>();
+        List<HrEmployeeDTO> developManagerS = new ArrayList<>();
+
+        for (HrEmployeeDTO manager : mList) {
+            if (manager.getDepartmentId() == 9) {  //인사
+                hrManagers.add(manager);
+                System.out.println("manager 값"+hrManagers);
+            }else if (manager.getDepartmentId() == 10) {  //재무
+                financeManagers.add(manager);
+            }else if (manager.getDepartmentId() == 4) {  //개발1팀
+                developManagerF.add(manager);
+            }else if (manager.getDepartmentId() == 7) {  //개발2팀
+                developManagerS.add(manager);
+            }
+        }
+
         model.addAttribute("eCount", eCount);
         model.addAttribute("eList", eList);
         model.addAttribute("apCount", apCount);
+        model.addAttribute("mList", mList);
+        model.addAttribute("hrManagers", hrManagers);
+        model.addAttribute("financeManagers", financeManagers);
+        model.addAttribute("developManagerF", developManagerF);
+        model.addAttribute("developManagerS", developManagerS);
       
         List<TodayWorkerDTO> workers = hrService.getAllTodayWorkers();
       
         model.addAttribute("workers", workers); // 모델에 데이터 추가
         return "work/hr/main-hr";
+    }
+
+    // 직원 관리
+    @GetMapping("/hr/edit")
+    public String edit(){
+        return "work/hr/hr-edit";
     }
 
     @GetMapping("/registerPage")
