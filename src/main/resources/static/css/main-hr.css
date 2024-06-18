@@ -122,3 +122,36 @@
     color: white; /* '퇴근' badge 글자색 흰색 */
 
 }}
+
+.table.table-hover{
+    text-align: center;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-title {
+    margin: 0;
+}
+
+.edit_employee {
+    margin-left: auto;
+}
+
+.avatar-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.avatar-group .manager-item {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-group p {
+    margin: 0 5px; /* 원하는 만큼의 간격 조절 */
+}

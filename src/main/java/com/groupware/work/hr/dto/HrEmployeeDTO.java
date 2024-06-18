@@ -10,6 +10,8 @@ public class HrEmployeeDTO {
     private String employeeCode;
     private String name;
     private String departmentName;
+    private int departmentId;
+    private String psCd;
     private String psNm;
 
 }
