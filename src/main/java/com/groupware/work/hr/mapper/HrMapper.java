@@ -24,10 +24,11 @@ public interface HrMapper {
             "JOIN positions p ON e.ps_cd = p.ps_cd")
     List<HrEmployeeDTO> getAllEmployees();
 
-    // 미결인 상태의 전자결재 수
+    // 미결인 상태의 전자결재 수(인사팀에 해당하는 결재 건만 가져와야 함! 수정 필요)
     @Select("SELECT count(*) FROM approval")
     int AllApprovalCount();
 
+    // 금일 근무자 피드
     @Select("SELECT a.employee_code AS employeeCode, " +
             "       e.name AS name, " +
             "       MIN(a.check_in) AS firstCheckIn, " +
