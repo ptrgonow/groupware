@@ -39,7 +39,6 @@
                             <div class="card_widget_header">
                                 새로운 요청
                                 <p class="widget" th:text="${apCount}"></p>
-                                <p class="widget">4</p>
 
                             </div>
                             <div class="card_notify_img">
@@ -134,7 +133,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="today-workers-table">
                                 <thead>
                                 <tr>
                                     <th>이름</th>
@@ -142,7 +141,7 @@
                                     <th>상태</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="today-workers-data">
                                 <tr th:each="worker : ${workers}">
                                     <td>
                                         <div class="d-flex align-items-center">
@@ -151,21 +150,19 @@
                                     </td>
                                     <td th:text="${#temporals.format(worker.firstCheckIn, 'yyyy-MM-dd HH:mm')}"></td>
                                     <td>
-                                        <span th:class="${worker.status == '근무중' ? 'badge bg-success text-center' : 'badge bg-danger text-center'}"
-                                              th:text="${worker.status}"></span>
+                            <span th:class="${worker.status == '근무중' ? 'badge bg-success text-center' : 'badge bg-danger text-center'}"
+                                  th:text="${worker.status}"></span>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <div id="pagination-container"></div>
-                        </div>
-
+                            <div id="pagination-today-workers-pagination-hr"></div> </div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="row">
+                <div class="row">
 
 
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
@@ -272,7 +269,7 @@
                                                         <div class="employee-image">
                                                             <div class="avatar-group">
                                                                 <div class="avatar avatar-xs group_img group_header">
-                                                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-14.jpg">
+                                                                    팀원1, 팀원2 ...
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -297,7 +294,7 @@
                                                         <div class="employee-image">
                                                             <div class="avatar-group">
                                                                 <div class="avatar avatar-xs group_img group_header">
-                                                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-14.jpg">
+                                                                   팀원1, 팀원2 ...
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -324,7 +321,7 @@
                                                         <div class="employee-image">
                                                             <div class="avatar-group">
                                                                 <div class="avatar avatar-xs group_img group_header">
-                                                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-14.jpg">
+                                                                    팀원1, 팀원2 ...
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -349,7 +346,7 @@
                                                         <div class="employee-image">
                                                             <div class="avatar-group">
                                                                 <div class="avatar avatar-xs group_img group_header">
-                                                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/profiles/avatar-14.jpg">
+                                                                    팀원1, 팀원2 ...
                                                                 </div>
                                                             </div>
                                                         </div>

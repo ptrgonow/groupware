@@ -95,6 +95,12 @@
     margin-top: 25px;
 }
 
+#pagination-today-workers-pagination-hr{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
 /* 회원 전체 리스트 테이블 */
 .table-responsive{
     width: 100%;
@@ -114,4 +120,5 @@
 
 .badge.bg-danger {
     color: white; /* '퇴근' badge 글자색 흰색 */
-}
+
+}}
