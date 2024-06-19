@@ -39,7 +39,6 @@ import java.util.List;
 public class WorkViewController {
 
     private final HrService hrService;
-    private final UserService userService;
     private final DevService devService;
     private final MsService msService;
     private final PmService pmService;
@@ -49,7 +48,7 @@ public class WorkViewController {
     public String fm(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null) {
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
         }
         model.addAttribute("user", user);
         return "work/fm/main-finance";
@@ -70,7 +69,7 @@ public class WorkViewController {
     public String hr(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null) {
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
         }
         model.addAttribute("user", user);
 
@@ -135,7 +134,7 @@ public class WorkViewController {
     public String dev(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null) {
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
         }
         List<ProjectDTO> projects = devService.getProjects(user.getEmployeeCode());
         model.addAttribute("user", user);
@@ -144,11 +143,22 @@ public class WorkViewController {
         return "work/dev/main-dev"; // 뷰 이름 반환
     }
 
+    @GetMapping("/dev/add")
+    public String addProject(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
+        };
+        model.addAttribute("user", user);
+        return "work/dev/add-dev";
+    }
+
+
     @GetMapping("/ms")
     public String ms(Model model, HttpSession session){
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null) {
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
         }
         List<AllEmployeeDTO> allEmployee = msService.getAllEmployees();
         List<MsApprovalDTO> getApproval = msService.getAllApprovals();
@@ -163,7 +173,7 @@ public class WorkViewController {
     public String pm(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null) {
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
         }
         List<ProjectDTO> projects = pmService.getProjects();
         model.addAttribute("user", user).addAttribute("projects", projects);

@@ -83,4 +83,13 @@ public class DevService {
     public List<GitHookDTO> getGitHookData( ) {
         return devMapper.getGitHookData();
     }
+
+    @Transactional
+    public void insertProject(ProjectDTO project) {
+        // 프로젝트 정보 삽입
+        devMapper.insertProject(project);
+
+        // 프로젝트 멤버 삽입
+        devMapper.insertProjectMember(project.getProjectId(), project.getEmployeeCode());
+    }
 }

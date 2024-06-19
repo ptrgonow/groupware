@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어</title>
+    <meta name="employeeCode" th:content="${user.employeeCode}">
+    <meta name="departmentId" th:content="${user.departmentId}">
+
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    
+    <link rel="stylesheet" href="/css/main-dev.css">
+    
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 th:text="${user.departmentName}"></h3>
+                </div>
+            </div>
+            
+            
+            <div class="row d-flex justify-content-center align-content-center">
+                <div class="col-xl-8 col-12 ">
+                    <div class="card w-100">
+                        <div class="card-header">
+                            <h5 class="card-title">프로젝트 등록</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="add-pr-form" class="form" method="POST" action="/pr/insert">
+                                <div class="form-content w-50">
+                                    <div class="form-body">
+                                        <input type="hidden" name="departmentId" th:value="${user.departmentId}">
+                                        <input type="hidden" name="employeeCode" th:value="${user.employeeCode}">
+                                        <div class="mb-3">
+                                            <label for="project_name" class="form-label">프로젝트명</label>
+                                            <input type="text" class="form-control" id="project_name" name="projectName">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">설명</label>
+                                            <textarea class="form-control" id="description" name="description"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="start_date" class="form-label">시작일</label>
+                                            <input type="date" class="form-control" id="start_date" name="startDate">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="end_date" class="form-label">종료일</label>
+                                            <input type="date" class="form-control" id="end_date" name="endDate">
+                                        </div>
+                                    </div>
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn-info" id="add-pr-btn">등록</button>
+                                        <button type="button" class="delete-btn" onclick="location.href='/dev'">닫기</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+</body>
+</html>

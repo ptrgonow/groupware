@@ -78,8 +78,16 @@ public interface DevMapper {
     @Insert("INSERT INTO webhook_data (payload, created_at) VALUES (#{payload}, #{createdAt})")
     void saveGitHook(GitHookDTO gitHookDTO);
 
-    @Select("SELECT payload, created_at AS createdAt FROM webhook_data")
+    @Select("SELECT payload, created_at AS createdAt FROM webhook_data ORDER BY data_id DESC LIMIT 3")
     List<GitHookDTO> getGitHookData( );
+
+    @Insert("INSERT INTO projects (project_name, start_date, end_date, status, department_id, description, created_at) " +
+            "VALUES (#{projectName}, #{startDate}, #{endDate}, '진행중', #{departmentId}, #{description}, NOW())")
+    @Options(useGeneratedKeys = true, keyProperty = "projectId")
+    void insertProject(ProjectDTO project);
+
+    @Insert("INSERT INTO project_members (project_id, employee_code) VALUES (#{projectId}, #{employeeCode})")
+    void insertProjectMember(@Param("projectId") int projectId, @Param("employeeCode") String employeeCode);
 }
 
 

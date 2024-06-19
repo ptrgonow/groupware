@@ -1,14 +1,13 @@
 package com.groupware.work.dev.controller;
 
-import com.groupware.work.dev.dto.ProjectDetailsDTO;
-import com.groupware.work.dev.dto.ProjectFeedDTO;
-import com.groupware.work.dev.dto.ProjectTaskDTO;
-import com.groupware.work.dev.dto.ProjectUpdateRequestDTO;
+import com.groupware.work.dev.dto.*;
 import com.groupware.work.dev.service.DevService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +21,8 @@ public class DevController {
     public DevController(DevService devService) {
         this.devService = devService;
     }
+
+
 
     @GetMapping("/details")
     public ResponseEntity<Map<String, Object>> getProjectDetails(@RequestParam("projectId") int projectId) {
@@ -38,6 +39,28 @@ public class DevController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/insert")
+    public void insertProject(@ModelAttribute ProjectDTO projectDTO, HttpServletResponse response) throws IOException {
+        try {
+            ProjectDTO project = new ProjectDTO();
+            project.setProjectName(projectDTO.getProjectName());
+            project.setStartDate(projectDTO.getStartDate());
+            project.setEndDate(projectDTO.getEndDate());
+            project.setStatus(projectDTO.getStatus());
+            project.setDepartmentId(projectDTO.getDepartmentId());
+            project.setDescription(projectDTO.getDescription());
+            project.setEmployeeCode(projectDTO.getEmployeeCode());
+            devService.insertProject(project);
+
+            response.sendRedirect("/dev");
+        } catch (Exception e) {
+            response.sendRedirect("/error");
+        }
+    }
+
+
+
 
     @PostMapping("/edit")
     public ResponseEntity<String> editProject(@RequestBody ProjectUpdateRequestDTO projectUpdateRequest) {
