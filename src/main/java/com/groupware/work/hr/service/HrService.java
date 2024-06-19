@@ -1,6 +1,7 @@
 package com.groupware.work.hr.service;
 
 import com.groupware.user.dto.UserDTO;
+import com.groupware.work.hr.dto.HrEmplMagDTO;
 import com.groupware.work.hr.dto.HrEmployeeDTO;
 import com.groupware.work.hr.dto.TodayWorkerDTO;
 import com.groupware.work.hr.mapper.HrMapper;
@@ -37,5 +38,16 @@ public class HrService {
 
     public List<HrEmployeeDTO> getManagerEmployee() {
         return hrMapper.getManagerEmployee();
+    }
+
+    public List<HrEmplMagDTO> getEmplManagement() {
+        List<HrEmplMagDTO> status = hrMapper.getEmplManagement();
+        // 'status'가 null인 경우 '출근전'으로 대체
+        for (HrEmplMagDTO empstatus : status) {
+            if (empstatus.getStatus() == null) {
+                empstatus.setStatus("출근전");
+            }
+        }
+        return status;
     }
 }
