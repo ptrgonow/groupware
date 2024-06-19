@@ -74,6 +74,12 @@ public interface DevMapper {
 
     @Delete("DELETE FROM project_tasks WHERE project_task_id = #{taskId}")
     void deleteTask(int taskId);
+
+    @Insert("INSERT INTO webhook_data (payload, created_at) VALUES (#{payload}, #{createdAt})")
+    void saveGitHook(GitHookDTO gitHookDTO);
+
+    @Select("SELECT payload, created_at AS createdAt FROM webhook_data")
+    List<GitHookDTO> getGitHookData( );
 }
 
 

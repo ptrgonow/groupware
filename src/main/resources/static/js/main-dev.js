@@ -24,36 +24,49 @@ $(document).ready(function() {
 
 });
 
+// AJAX 요청을 보내어 웹훅 데이터를 가져오는 함수
 function fetchWebhookData() {
     $.ajax({
         url: 'https://impala-intent-rarely.ngrok-free.app/github-webhook/data',
         method: 'GET',
-        dataType: 'json', // 데이터를 JSON 형태로 받아옵니다.
-        success: function (data) {
-            // JSON 데이터를 <ul><li>로 변환하여 표시합니다.
-            let htmlContent = '<ul>';
-            htmlContent += jsonToHtmlList(data);
-            htmlContent += '</ul>';
+        dataType: 'json',
+        success: function(data) {
+            let htmlContent = formatJsonToHtml(data);
             $('#pr-git-hook').html(htmlContent);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             $('#pr-git-hook').text('Error fetching data');
         }
     });
 }
 
-// JSON 객체를 순회하여 <ul><li> 구조로 변환하는 함수
-function jsonToHtmlList(jsonObject) {
+function formatJsonToHtml(jsonData) {
     let html = '';
-    for (const key in jsonObject) {
-        if (jsonObject.hasOwnProperty(key)) {
-            if (typeof jsonObject[key] === 'object' && jsonObject[key] !== null) {
-                html += `<li>${key}: <ul>${jsonToHtmlList(jsonObject[key])}</ul></li>`;
-            } else {
-                html += `<li>${key}: ${jsonObject[key]}</li>`;
+
+    // 필요한 데이터 추출 및 HTML 포맷팅
+    if (jsonData.length > 0) {
+        jsonData.forEach(item => {
+            let payload = JSON.parse(item.payload);
+            if (payload.commits && payload.commits.length > 0) {
+                payload.commits.forEach(commit => {
+                    html += `
+                        <div class="commit">
+                            <div class="commit-header">
+                                <img src="${commit.author.avatar_url}" alt="${commit.author.username}" class="avatar">
+                                <strong>${commit.author.username}</strong> <span class="commit-message">${commit.message}</span>
+                            </div>
+                            <div class="commit-details">
+                                <a href="${commit.url}" target="_blank">View Commit</a>
+                            </div>
+                        </div>
+                        <hr>`;
+                });
             }
-        }
+        });
+    } else {
+        html = '<p>No commits available.</p>';
     }
+
     return html;
 }
 

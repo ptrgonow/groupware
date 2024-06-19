@@ -66,11 +66,21 @@ public class DevService {
         devMapper.addFeed(feed);
     }
 
+    @Transactional
     public void addTask(ProjectTaskDTO task) {
         devMapper.addTask(task);
     }
 
     public void deleteTask(int taskId) {
         devMapper.deleteTask(taskId);
+    }
+
+    @Transactional
+    public void saveGitHook(GitHookDTO gitHookDTO) {
+        devMapper.saveGitHook(gitHookDTO);
+    }
+
+    public List<GitHookDTO> getGitHookData( ) {
+        return devMapper.getGitHookData();
     }
 }
