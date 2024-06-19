@@ -5,19 +5,20 @@
     <title>그룹웨어</title>
     <meta name="employee-code" th:content="${user.employeeCode}">
     <meta name="department-id" th:content="${user.departmentId}">
+
 </head>
 
 <body>
 <div class="main-wrapper">
-    
+
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/todo.css">
     <link rel="stylesheet" href="/css/main-notice.css">
     <link rel="stylesheet" href="/css/schedule.css">
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
@@ -52,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-xl-6 d-flex mobile-h">
                         <div class="card flex-fill">
                             <div class="card-header">
@@ -65,16 +66,16 @@
                             </div>
                         </div>
                     </div>
-                
+
                 </div>
-                
+
                 <div class="row">
                     <div class="col-xl-6 col-sm-12 col-12 d-flex">
                         <div class="card card-list flex-fill">
                             <div class="card-header">
                                 <h4 class="card-title">공지 사항</h4>
                             </div>
-                            
+
                             <div class="card-body">
                                 <table class="ap-tbl">
                                     <thead>
@@ -91,7 +92,7 @@
                                         <td><a th:href="@{/nt/detail(id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
                                         <td th:text="경영지원실"></td>
                                         <td th:text="${#temporals.format(notice.created_at, 'yyyy-MM-dd')}"></td>
-                                    
+
                                     </tr>
                                     </tbody>
                                 </table>
@@ -99,13 +100,13 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-xl-6 col-sm-12 col-12 d-flex">
                         <div class="card card-list flex-fill">
                             <div class="card-header text-center">
                                 <h4 class="card-title">todo list</h4>
                             </div>
-                            
+
                             <div class="card-body">
                                 <div class="list-group">
                                     <ul id="todolist" class="list-group"></ul>
@@ -119,6 +120,7 @@
         </div>
     </div>
 </div>
+
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/ProgressBar.js"></script>

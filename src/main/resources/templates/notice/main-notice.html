@@ -29,14 +29,18 @@
                         <th>작성일</th>
                     </tr>
                     </thead>
+
                     <tbody id="notice_cont">
-                    <tr th:each="nList : ${notices}">
-                        <td th:text="${nList.notice_id}">ID</td>
-                        <td><a th:href="@{/nt/detail(id=${nList.notice_id})}" th:text="${nList.title}"></a></td>
-                        <td th:text="경영지원실"></td>
-                        <td th:text="${#temporals.format(nList.created_at, 'yyyy-MM-dd')}"></td>
+                    <!-- 공지사항 리스트 반복 출력 -->
+                    <tr th:each="notice, stat : ${notices}">
+                        <td th:text="${notices.size() - stat.index}"> <input type="hidden" th:text="${notice.notice_id}"></td>
+
+                        <td><a th:href="@{/nt/detail(id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
+                        <td>경영지원실</td>
+                        <td th:text="${#temporals.format(notice.created_at, 'yyyy-MM-dd')}"></td>
                     </tr>
                     </tbody>
+
                 </table>
                 <div id="pagination-notice"></div>
                 <div th:if="${user.departmentId == 3}">
@@ -87,6 +91,7 @@
         </div>
     </div>
 </div>
+
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/notice.js"></script>
 </body>
