@@ -309,14 +309,21 @@ body {
     justify-content: center;
 }
 
+.commit-div {
+    overflow-y: scroll;
+    white-space : nowrap;
+    text-overflow: ellipsis;
+}
 
 .commit {
     margin-bottom: 15px;
+
 }
 
 .commit-header {
     display: flex;
     align-items: center;
+
 }
 
 .commit-header .avatar {
