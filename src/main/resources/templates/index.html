@@ -86,10 +86,10 @@
                                 </tr>
                                 </thead>
                                 <tbody id="notice_cont">
-                                <tr th:each="notice : ${nList}">
-                                    <td th:text="${notice.notice_id}">ID</td>
+                                <tr th:each="notice, stat : ${nList}">
+                                    <td th:text="${stat.index + 1}"></td>
                                     <td><a th:href="@{/nt/detail(id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
-                                    <td th:text="경영지원실"></td>
+                                    <td th:text="${user.departmentName}"></td>
                                     <td th:text="${#temporals.format(notice.created_at, 'yyyy-MM-dd')}"></td>
                                 </tr>
                                 </tbody>
