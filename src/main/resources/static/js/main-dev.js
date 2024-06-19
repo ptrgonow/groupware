@@ -18,11 +18,51 @@ $(document).ready(function() {
     $('#edit-pr-btn').on('click', submitEditProject);
     $('#feed-form-group').on('submit', handleFeedFormSubmit);
     $('#git-tab').on('shown.bs.tab', fetchWebhookData);
-
-
+    $('#toggle-mem').on('click', fetchTeamMembers);
+    $(document).on('click', '.select-member-btn', selectTeamMember);
 
 
 });
+
+// 팀원 목록을 가져오는 함수
+function fetchTeamMembers() {
+    $.ajax({
+        url: '/pr/mem/list', // 팀원 목록을 가져오는 API 엔드포인트
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            let memberRows = '';
+            data.members.forEach(function(member) {
+                memberRows += `
+                    <tr>
+                        <td>${member.name}</td>
+                        <td>${member.departmentName}</td>
+                        <td>${member.positionName}</td>
+                        <td><button type="button" class="btn-info select-member-btn" data-name="${member.name}" data-department="${member.departmentName}" data-position="${member.positionName}">선택</button></td>
+                    </tr>
+                `;
+            });
+            $('#team-member-list').html(memberRows);
+            $('#addMemberModal').modal('show');
+        },
+        error: function(error) {
+            console.error('팀원 목록을 가져오는 중 오류 발생:', error);
+        }
+    });
+}
+
+// 팀원을 선택하는 함수
+function selectTeamMember() {
+    var name = $(this).data('name');
+    var department = $(this).data('department');
+    var position = $(this).data('position');
+
+    // 팀원 목록에 추가
+    $('#member-list').append('<tr><td>' + name + '</td><td>' + department + '</td><td>' + position + '</td></tr>');
+
+    // 팀원 추가 모달 닫기
+    $('#addMemberModal').modal('hide');
+}
 
 // AJAX 요청을 보내어 웹훅 데이터를 가져오는 함수
 function fetchWebhookData() {
@@ -117,6 +157,7 @@ function displayPaginatedProjects(page) {
     paginatedProjects.forEach((project, index) => {
         projectRows += `
             <tr data-project-id="${project.projectId}">
+                <!--<td><input type="checkbox" class="form-check-input"></td>-->
                 <td>${startIndex + index + 1}</td>
                 <td>${project.projectName}</td>
                 <td>${project.status}</td>
@@ -363,7 +404,6 @@ function addTaskRow() {
     $tbody.find('tr').last().find('.taskContentInput').focus();
 }
 
-
 function submitEditProject() {
     const projectId = $('#editPrModal').data('project-id');
     const projectName = $('#project_name').val();
@@ -473,12 +513,10 @@ function addFeed() {
 }
 
 function insertTask() {
-
     const projectId = window.currentProjectData.project.projectId;
     const taskContent = $(this).closest('tr').find('.taskContentInput').val();
     const taskEmployeeCode = $(this).closest('tr').find('.taskAssigneeSelect').val();
     const taskProgress = $(this).closest('tr').find('.taskProgressInput').val();
-
 
     const ProjectTaskDTO = {
         projectId: projectId,
@@ -511,7 +549,6 @@ function insertTask() {
 }
 
 function deleteTask() {
-
     const taskId = $(this).closest('tr').find('#tCode').val();
     const projectId = window.currentProjectData.project.projectId;
 
@@ -533,5 +570,4 @@ function deleteTask() {
             alert('작업을 삭제하는데 실패했습니다.');
         }
     });
-
 }

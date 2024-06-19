@@ -371,3 +371,10 @@ body {
     outline: none;
     resize: none;
 }
+
+.plus-btn {
+    font-size: 1.25rem;
+    margin-left: 10px;
+    cursor: pointer;
+    color: #2196F3;
+}

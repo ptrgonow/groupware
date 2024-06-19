@@ -130,9 +130,3 @@ $RECYCLE.BIN/
 /src/main/resources/application.properties
 application.properties
 /src/main/resources/static/js/tt.js
-
-
-#ngrox
-
-run-ngrok.sh
-src/main/java/com/groupware/GroupwareApplication.java

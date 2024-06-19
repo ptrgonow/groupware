@@ -78,7 +78,7 @@ public interface DevMapper {
     @Insert("INSERT INTO webhook_data (payload, created_at) VALUES (#{payload}, #{createdAt})")
     void saveGitHook(GitHookDTO gitHookDTO);
 
-    @Select("SELECT payload, created_at AS createdAt FROM webhook_data ORDER BY data_id DESC LIMIT 3")
+    @Select("SELECT payload, created_at AS createdAt FROM webhook_data ORDER BY data_id DESC LIMIT 2")
     List<GitHookDTO> getGitHookData( );
 
     @Insert("INSERT INTO projects (project_name, start_date, end_date, status, department_id, description, created_at) " +

@@ -1,28 +1,40 @@
 package com.groupware.work.dev.controller;
 
+import com.groupware.user.dto.PrMemDTO;
+import com.groupware.user.dto.UserDTO;
+import com.groupware.user.service.UserService;
 import com.groupware.work.dev.dto.*;
 import com.groupware.work.dev.service.DevService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/pr")
+@AllArgsConstructor
 public class DevController {
 
     private final DevService devService;
+    private final UserService userService;
 
-    @Autowired
-    public DevController(DevService devService) {
-        this.devService = devService;
+
+    @GetMapping("/mem/list")
+    public ResponseEntity<Map<String, Object>> getMembers() {
+        List<PrMemDTO> user = userService.getAllEmployees();
+        System.out.println("=====================================");
+        System.out.println(user);
+        System.out.println("=====================================");
+        Map<String, Object> response = new HashMap<>();
+        response.put("members", user);
+        return ResponseEntity.ok(response);
     }
-
-
 
     @GetMapping("/details")
     public ResponseEntity<Map<String, Object>> getProjectDetails(@RequestParam("projectId") int projectId) {
@@ -58,9 +70,6 @@ public class DevController {
             response.sendRedirect("/error");
         }
     }
-
-
-
 
     @PostMapping("/edit")
     public ResponseEntity<String> editProject(@RequestBody ProjectUpdateRequestDTO projectUpdateRequest) {

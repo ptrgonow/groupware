@@ -2,6 +2,7 @@ package com.groupware.user.service;
 
 import com.groupware.user.dto.DeptDTO;
 import com.groupware.user.dto.PositionDTO;
+import com.groupware.user.dto.PrMemDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,10 @@ public class UserService {
         }
     }
 
-
-
+    public List<PrMemDTO> getAllEmployees() {
+        List<PrMemDTO> employees = userMapper.getAllEmployees();
+        logger.info("Fetched all employees: {}", employees);
+        return employees;
+    }
 
 }

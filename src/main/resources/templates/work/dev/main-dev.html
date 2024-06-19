@@ -225,8 +225,7 @@
 </div>
 
 
-
-<!-- Modal -->
+<!-- 프로젝트 수정 모달 -->
 <div class="modal fade" id="editPrModal" tabindex="-1" aria-labelledby="editPrModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -254,11 +253,21 @@
                     <label for="status" class="form-label">상태</label>
                     <input type="text" class="form-control" id="status" name="status" readonly>
                 </div>
-                <label class="form-label">팀원</label>
+                
                 <table class="table">
-                    <tbody>
+                    <thead>
                     <tr>
-                        <td></td>
+                        <th>팀원<span id="toggle-mem" class="plus-btn">+</span></th>
+                    </tr>
+                    </thead>
+                    <tbody id="member-list">
+                    <!-- 프로젝트 등록자 정보 -->
+                    <tr>
+                        <td>프로젝트 등록자</td>
+                        <td>개발팀</td>
+                        <td>관리자</td>
+                        <input type="hidden" id="mCode" value="등록자ID">
+                        <input type="hidden" id="eCode" value="등록자직원코드">
                     </tr>
                     </tbody>
                 </table>
@@ -293,6 +302,37 @@
         </div>
     </div>
 </div>
+
+<!-- 팀원 추가 모달 -->
+<div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMemberModalLabel">팀원 추가</h5>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>부서</th>
+                        <th>선택</th>
+                    </tr>
+                    </thead>
+                    <tbody id="team-member-list">
+                    <!-- 팀원 목록이 동적으로 추가될 부분 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/main-dev.js"></script>
