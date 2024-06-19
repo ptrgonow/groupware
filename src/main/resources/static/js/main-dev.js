@@ -50,9 +50,9 @@ function formatJsonToHtml(jsonData) {
             if (payload.commits && payload.commits.length > 0) {
                 payload.commits.forEach(commit => {
                     html += `
-                        <div class="commit">
+                       <div class="commit">
                             <div class="commit-header">
-                                <img src="${commit.author.avatar_url}" alt="${commit.author.username}" class="avatar">
+                                <img src="https://avatars.githubusercontent.com/${commit.author.username}" alt="${commit.author.username}" class="avatar">
                                 <strong>${commit.author.username}</strong> <span class="commit-message">${commit.message}</span>
                             </div>
                             <div class="commit-details">
