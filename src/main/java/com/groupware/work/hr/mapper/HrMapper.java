@@ -57,13 +57,27 @@ public interface HrMapper {
     List<HrEmplMagDTO> getEmplManagement();
 
     // 사원번호에 해당하는 직원 상세 정보
-    @Select("SELECT e.employee_code AS employeeCode, e.name, e.birth_date AS birthDate, e.hiredate, d.department_name AS departmentName, p.ps_nm AS psNm, a.status " +
+    @Select("SELECT e.employee_code AS employeeCode, " +
+            "e.name, " +
+            "e.birth_date AS birthDate, " +
+            "e.hiredate, " +
+            "d.department_name AS departmentName, " +
+            "p.ps_nm AS psNm, " +
+            "a.status " +
             "FROM employee e " +
             "JOIN department d ON e.department_id = d.department_id " +
             "JOIN positions p ON e.ps_cd = p.ps_cd " +
-            "JOIN attendance a ON e.employee_code = a.employee_code " +
-            "WHERE e.employee_code = #{employeeCode};")
-    HrEmplMagDTO getEmplInfo();
+            "LEFT JOIN ( " +
+            "    SELECT a1.employee_code, a1.status " +
+            "    FROM attendance a1 " +
+            "    WHERE a1.created_at = ( " +
+            "        SELECT MAX(a2.created_at) " +
+            "        FROM attendance a2 " +
+            "        WHERE a2.employee_code = a1.employee_code " +
+            "    ) " +
+            ") a ON e.employee_code = a.employee_code " +
+            "WHERE e.employee_code = #{employeeCode}")
+    HrEmplMagDTO getEmplInfo(String employeeCode);
 
     // 검색
     @Select("SELECT * FROM employee WHERE name LIKE CONCAT('%', #{query}, '%')")

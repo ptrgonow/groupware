@@ -39,7 +39,7 @@
                         </thead>
                         <tbody id="employeeTableBody">
                         <tr th:each="emp : ${empMag}">
-                            <input type="hidden" th:value="${emp.employeeCode}">
+                            <td><input type="hidden" class="employee-code" th:value="${emp.employeeCode}"></td>
                             <td th:text="${emp.name}"></td>
                             <td th:text="${emp.departmentName}"></td>
                             <td th:text="${emp.psNm}"></td>
