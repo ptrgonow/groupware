@@ -186,7 +186,7 @@ body {
 
 .mem-tbl .col-date,
 .pr-tbl .col-date {
-    width: 40%;
+    width: 30%;
 }
 
 .mem-tbl .col-status,
@@ -307,4 +307,37 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+
+.commit {
+    margin-bottom: 15px;
+}
+
+.commit-header {
+    display: flex;
+    align-items: center;
+}
+
+.commit-header .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.commit-details {
+    margin-top: 10px;
+}
+
+.commit-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 1rem;
+}
+
+.commit-message {
+    margin-top: 10px;
+    margin-left: 1rem;
+    font-size: 1rem;
 }

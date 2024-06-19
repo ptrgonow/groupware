@@ -12,4 +12,6 @@ public class FixedExpensesDTO {
     private BigDecimal amount;
     private Date date;
     private String employeeCode;
+
+    private String categoryName;
 }

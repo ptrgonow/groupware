@@ -24,7 +24,7 @@ public class DevController {
     }
 
     @GetMapping("/details")
-    public ResponseEntity<Map<String, Object>> getProjectDetails(@RequestParam int projectId) {
+    public ResponseEntity<Map<String, Object>> getProjectDetails(@RequestParam("projectId") int projectId) {
         ProjectDetailsDTO projectDetails = devService.getProjectDetails(projectId);
         if (projectDetails == null) {
             return ResponseEntity.notFound().build();
@@ -84,7 +84,7 @@ public class DevController {
     }
 
     @PostMapping("/task/delete")
-    public ResponseEntity<String> deleteTask(@RequestParam int taskId) {
+    public ResponseEntity<String> deleteTask(@RequestParam("taskId") int taskId) {
         try {
             devService.deleteTask(taskId);
             return ResponseEntity.ok().body("작업이 삭제되었습니다.");
