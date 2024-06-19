@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    var isAuthenticated = false; // 인증 여부를 추적하는 플래그
+    var authTimeout; // 인증 타이머
+    var currentPage = 1;
+    var pageSize = 5;
+    var allData = [];
+
+
+
     // Chart Data
     var chartData = {
         invoices: {
@@ -58,6 +67,13 @@ document.addEventListener('DOMContentLoaded', function() {
             updateChart(expensesChart, labels, amounts);
         });
 
+    // Function to Update Chart
+    function updateChart(chart, labels, data) {
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = data;
+        chart.update();
+    }
+
     // Event Listeners for Dropdowns
     document.getElementById('invoicesSelect').addEventListener('change', function () {
         updateChart(invoicesChart, chartData.invoices.labels, chartData.invoices.data[this.value]);
@@ -93,120 +109,157 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+                                        /*   -- CHART END --   */
 
-    // Function to Update Chart
-    function updateChart(chart, labels, data) {
-        chart.data.labels = labels;
-        chart.data.datasets[0].data = data;
-        chart.update();
-    }
 
-    // Function to format date to yyyy-MM-dd
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-        return new Date(dateString).toLocaleDateString('ko-KR', options).replace(/. /g, '-').replace('.', '');
-    }
 
-    // Function to load salaries by department
-    function loadSalaries(departmentId) {
-        fetch(`/fm/salariesByDepartment?departmentId=${departmentId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (!Array.isArray(data)) {
-                    throw new Error('API response is not an array');
-                }
-
-                console.log('Received data:', data);  // JSON 응답을 콘솔에 출력합니다.
-
-                const tableBody = document.getElementById('salaryTableBody');
-                if (!tableBody) {
-                    throw new Error('Element not found: salaryTableBody');
-                }
-                tableBody.innerHTML = '';  // 기존 내용을 초기화합니다
-
-                data.forEach((salary, index) => {
-                    const row = tableBody.insertRow();
-                    row.insertCell(0).textContent = index + 1;
-                    row.insertCell(1).textContent = salary.hireDate ? formatDate(salary.hireDate) : 'N/A';
-                    row.insertCell(2).textContent = salary.departmentName || 'N/A';
-                    row.insertCell(3).textContent = salary.ps_nm || 'N/A';
-                    row.insertCell(4).textContent = salary.employeeCode || 'N/A';
-                    row.insertCell(5).textContent = salary.amount || 'N/A';
-                });
-            })
-            .catch(error => console.error('Error loading salaries:', error));
-    }
-
-    // Event Listener for department selection
+    /*------------------------ Event Listener for department selection ------------------------*/
     document.getElementById('salaryStatus').addEventListener('change', function () {
-        const departmentId = this.value;
+        var departmentId = this.value;
         if (departmentId) {
-            loadSalaries(departmentId);
+            if (!isAuthenticated) {
+                showPasswordModal(function() {
+                    loadSalaries(departmentId, pageSize, currentPage, function(data, pageSize, currentPage) {
+                        allData = data;
+                        renderTable(allData, pageSize, currentPage);
+                    });
+                });
+            } else {
+                loadSalaries(departmentId, pageSize, currentPage, function(data, pageSize, currentPage) {
+                    allData = data;
+                    renderTable(allData, pageSize, currentPage);
+                });
+            }
+        } else {
+            document.getElementById('salaryTableBody').innerHTML = '';
         }
     });
 
-    $(document).ready(function () {
-        let currentPage = 1;
-        let pageSize = 5;
-        let allData = [];
+    /*------------------------ Function to format date to yyyy-MM-dd ------------------------*/
+    function formatDate(dateString) {
+        var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        return new Date(dateString).toLocaleDateString('ko-KR', options).replace(/. /g, '-').replace('.', '');
+    }
 
-        // Load departments dynamically
-        $.get("/fm/departments", function (data) {
-            const departmentSelect = $("#salaryStatus");
-            data.forEach(function (department) {
+    /*------------------------ Function to load salaries by department ------------------------*/
+    function loadSalaries(departmentId, pageSize, currentPage, callback) {
+        fetch('/fm/salariesByDepartment?departmentId=' + departmentId)
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                if (!Array.isArray(data)) {
+                    throw new Error('API response is not an array');
+                }
+                callback(data, pageSize, currentPage);
+            })
+            .catch(function(error) {
+                console.error('Error loading salaries:', error);
+                alert('Failed to load salary data. Please try again later.');
+            });
+    }
+
+
+    /*------------------------ Document Ready for Dynamic Loading of Departments ------------------------*/
+    $(document).ready(function() {
+        $.get('/fm/departments', function(data) {
+            var departmentSelect = $('#salaryStatus');
+            data.forEach(function(department) {
                 departmentSelect.append(new Option(department.departmentName, department.departmentId));
             });
         });
 
-        // Handle department selection
-        $("#salaryStatus").change(function () {
-            const departmentId = $(this).val();
-            if (departmentId === '') {
-                $("#salaryTableBody").empty();
-                return;
-            }
-            $.get(`/fm/salariesByDepartment?departmentId=${departmentId}`, function(data) {
-                allData = data;
-                currentPage = 1;
-                renderTable();
-            });
-        });
-
-        function renderTable() {
-            const tableBody = $("#salaryTableBody");
-            tableBody.empty();
-
-            const start = (currentPage - 1) * pageSize;
-            const end = start + pageSize;
-            const paginatedData = allData.slice(start, end);
-
-            paginatedData.forEach(function (salary, index) {
-                tableBody.append(`
-                    <tr>
-                        <th scope="row">${start + index + 1}</th>
-                        <td>${salary.hireDate ? formatDate(salary.hireDate) : ''}</td>
-                        <td>${salary.departmentName || ''}</td>
-                        <td>${salary.positionName || ''}</td>
-                        <td>${salary.employeeCode || ''}</td>
-                        <td>${salary.amount || ''}</td>
-                    </tr>
-                `);
-            });
-        }
-
-        $("#prevPage").click(function (event) {
-            if (currentPage > 1) {
-                currentPage--;
-                renderTable();
-            }
-        });
-
-        $("#nextPage").click(function (event) {
-            if (currentPage * pageSize < allData.length) {
-                currentPage++;
-                renderTable();
+        // Check if the user is a finance manager
+        $.get('/fm/checkFinanceManager?username=' + currentUser, function(response) {
+            if (response.isFinanceManager) {
+                isFinanceManager = true;
+                isAuthenticated = true;
             }
         });
     });
-});
+                                        /*   -- SALARY BY DEPARTMENT END --   */
 
+
+
+    /*------------------------ Function to render the table with pagination ------------------------*/
+    function renderTable(data, pageSize, currentPage) {
+        var tableBody = document.getElementById('salaryTableBody');
+        if (!tableBody) {
+            throw new Error('Element not found: salaryTableBody');
+        }
+        tableBody.innerHTML = '';  // 기존 내용을 초기화합니다
+
+        var start = (currentPage - 1) * pageSize;
+        var end = start + pageSize;
+        var paginatedData = data.slice(start, end);
+
+        paginatedData.forEach(function(salary, index) {
+            var row = tableBody.insertRow();
+            row.insertCell(0).textContent = start + index + 1;
+            row.insertCell(1).textContent = salary.hireDate ? formatDate(salary.hireDate) : 'N/A';
+            row.insertCell(2).textContent = salary.departmentName || 'N/A';
+            row.insertCell(3).textContent = salary.positionName || 'N/A';
+            row.insertCell(4).textContent = salary.employeeCode || 'N/A';
+            row.insertCell(5).textContent = salary.amount || 'N/A';
+        });
+    }
+    /*------------------------ Pagination Controls ------------------------*/
+    document.getElementById('prevPage').addEventListener('click', function() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable(allData, pageSize, currentPage);
+        }
+    });
+    document.getElementById('nextPage').addEventListener('click', function() {
+        if (currentPage * pageSize < allData.length) {
+            currentPage++;
+            renderTable(allData, pageSize, currentPage);
+        }
+    });
+    /*   -- PAGINATION END --   */
+
+
+
+    /*------------------------ Password Modal and Authentication ------------------------*/
+    function showPasswordModal(callback) {
+        $('#passwordModal').modal('show');
+        $('#passwordForm').off('submit').on('submit', function (event) {
+            event.preventDefault();
+            var enteredPassword = $('#passwordInput').val();
+            $.ajax({
+                url: '/fm/authenticate',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ password: enteredPassword}),
+                success: function (response) {
+                    if (response) {
+                        isAuthenticated = true;
+                        $('#passwordModal').modal('hide');
+                        startAuthTimer();
+                        callback();
+                    } else {
+                        alert('비밀번호가 올바르지 않습니다.');
+                    }
+                },
+                error: function () {
+                    alert('Authentication failed. Please try again.');
+                }
+            });
+        });
+    }
+
+    // 연봉 테이블 10분만 볼 수 있음.
+    function startAuthTimer() {
+        clearTimeout(authTimeout);  // 기존 타이머 제거
+        authTimeout = setTimeout(function() {
+            isAuthenticated = false;
+            $('#salaryStatus').val('');  // 드롭다운 초기화
+            $('#salaryTableBody').empty();  // 테이블 초기화
+            alert('인증 시간이 만료되었습니다.');
+        }, 10 * 60 * 1000);  // 10분 (10분 * 60초 * 1000밀리초)
+    }
+                                        /*   -- PASSWORD TO VIEW SALARY INFO END --   */
+});

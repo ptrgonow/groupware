@@ -61,8 +61,7 @@ public interface FmMapper {
             "JOIN positions p ON e.ps_cd = p.ps_cd " +
             "WHERE e.department_id IN (SELECT department_id FROM SubDepartments)")
     List<SalaryDTO> getSalariesByDepartment(@Param("departmentId") int departmentId);
-
-    /*   -- SALARY BY DEPARTMENT END --   */
+/*   -- SALARY BY DEPARTMENT END --   */
 
 
     /* 연봉 정보 테이블을 보기 위한 비밀번호 */

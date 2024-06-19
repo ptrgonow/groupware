@@ -6,7 +6,6 @@ import com.groupware.approval.dto.DeptTreeDTO;
 import com.groupware.work.fm.dto.FixedExpensesDTO;
 import com.groupware.work.fm.service.FmService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,9 +38,8 @@ public class FmController {
         return fmService.getAllDepartments();
     }
     @GetMapping("/salariesByDepartment")
-    public ResponseEntity<List<SalaryDTO>> getSalariesByDepartment(@RequestParam int departmentId) {
-        List<SalaryDTO> salaries = fmService.getSalariesByDepartment(departmentId);
-        return ResponseEntity.ok(salaries);
+    public List<SalaryDTO> getSalariesByDepartment(@RequestParam("departmentId") int departmentId) {
+        return fmService.getSalariesByDepartment(departmentId);
     }
 
 
