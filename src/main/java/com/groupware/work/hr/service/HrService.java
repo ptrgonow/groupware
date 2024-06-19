@@ -50,4 +50,8 @@ public class HrService {
         }
         return status;
     }
+
+    public HrEmplMagDTO getEmplInfo(String employeeCode){
+        return hrMapper.getEmplInfo(employeeCode);
+    }
 }
