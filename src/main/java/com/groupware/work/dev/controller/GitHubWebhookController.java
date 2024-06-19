@@ -14,13 +14,12 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/github-webhook")
+@CrossOrigin(origins = "*")
+@AllArgsConstructor
 public class GitHubWebhookController {
 
     private final DevService devService;
 
-    public GitHubWebhookController(DevService devService) {
-        this.devService = devService;
-    }
 
     @PostMapping
     public ResponseEntity<String> handleWebhook(@RequestBody JsonNode payload) {

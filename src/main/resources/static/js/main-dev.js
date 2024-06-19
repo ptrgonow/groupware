@@ -27,7 +27,7 @@ $(document).ready(function() {
 // AJAX 요청을 보내어 웹훅 데이터를 가져오는 함수
 function fetchWebhookData() {
     $.ajax({
-        url: 'https://impala-intent-rarely.ngrok-free.app/github-webhook/data',
+        url: 'https://2792-211-108-191-164.ngrok-free.app/github-webhook/data',
         method: 'GET',
         dataType: 'json',
         success: function(data) {
