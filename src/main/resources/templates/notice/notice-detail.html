@@ -23,7 +23,7 @@
                 <div class="notice-detail">
                     <div class="notice-header">
                         <h4 th:text="${notice.title}"></h4>
-                        <p class="created-at" th:text="${notice.created_at}"></p>
+                        <p class="created-at" th:text="${#temporals.format(notice.created_at)}"></p>
 
 
                     </div>
