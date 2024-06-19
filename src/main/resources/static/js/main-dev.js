@@ -53,10 +53,10 @@ function formatJsonToHtml(jsonData) {
                        <div class="commit">
                             <div class="commit-header">
                                 <img src="https://avatars.githubusercontent.com/${commit.author.username}" alt="${commit.author.username}" class="avatar">
-                                <strong>${commit.author.username}</strong> <span class="commit-message">${commit.message}</span>
+                                <span class="commit-name">${commit.author.username}</span> <span class="commit-message">${commit.message}</span>
                             </div>
                             <div class="commit-details">
-                                <a href="${commit.url}" target="_blank">View Commit</a>
+                                <a href="${commit.url}" target="_blank">커밋 확인</a>
                             </div>
                         </div>
                         <hr>`;
