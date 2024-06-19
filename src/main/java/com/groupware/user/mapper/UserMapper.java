@@ -26,7 +26,7 @@ public interface UserMapper {
             "    INNER JOIN SubDepartments sd ON d.parent_department_id = sd.department_id " +
             ") " +
             "SELECT e.employee_code AS employeeCode, " +
-            "       e.name, " +
+            "       e.name AS employeeName, " +
             "       d.department_name AS departmentName, " +
             "       p.ps_nm AS positionName " +
             "FROM employee e " +

@@ -14,7 +14,7 @@ $(document).ready(function() {
     $(document).on('click', '.pr-tbl tbody tr', handleProjectRowClick);
     $('#pr-edit-btn').on('click', editProject);
     $('#add-task-btn').on('click', addTaskRow);
-    $(document).on('click', '#editPrModal .delete-btn', deleteTask);
+    $(document).on('click', '#editPrModal #delete-task-btn', deleteTask);
     $('#edit-pr-btn').on('click', submitEditProject);
     $('#feed-form-group').on('submit', handleFeedFormSubmit);
     $('#git-tab').on('shown.bs.tab', fetchWebhookData);
@@ -35,9 +35,11 @@ function fetchTeamMembers() {
             data.members.forEach(function(member) {
                 memberRows += `
                     <tr>
-                        <td>${member.name}</td>
+                        <td>${member.employeeName}</td>
                         <td>${member.departmentName}</td>
                         <td>${member.positionName}</td>
+                        <input type="hidden" id="mCode" value="${memberId}">
+                        <input type="hidden" id="eCode" value="${employeeCode}">
                         <td><button type="button" class="btn-info select-member-btn" data-name="${member.name}" data-department="${member.departmentName}" data-position="${member.positionName}">선택</button></td>
                     </tr>
                 `;
@@ -557,13 +559,9 @@ function deleteTask() {
         type: 'POST',
         data: { taskId: taskId },
         success: function(data) {
-            if (data === '작업이 삭제되었습니다.') {
-                alert('작업이 삭제되었습니다.');
-                $('#editPrModal').modal('hide');
-                fetchProjectDetails(projectId);
-            } else {
-                alert('작업을 삭제하는데 실패했습니다.');
-            }
+            alert('작업이 삭제되었습니다.');
+            $('#editPrModal').modal('hide');
+            fetchProjectDetails(projectId);
         },
         error: function(xhr, status, error) {
             console.error('Error:', error);

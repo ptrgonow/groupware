@@ -127,6 +127,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /src/test/
-/src/main/resources/application.properties
-application.properties
-/src/main/resources/static/js/tt.js
+
