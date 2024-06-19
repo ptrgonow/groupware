@@ -16,6 +16,7 @@ import com.groupware.work.hr.service.HrService;
 import com.groupware.work.ms.dto.AllEmployeeDTO;
 import com.groupware.work.ms.dto.MsApprovalDTO;
 import com.groupware.work.ms.service.MsService;
+import com.groupware.work.pm.dto.PmDTO;
 import com.groupware.work.pm.service.PmService;
 import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.User;
@@ -176,7 +177,9 @@ public class WorkViewController {
             return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
         }
         List<ProjectDTO> projects = pmService.getProjects();
-        model.addAttribute("user", user).addAttribute("projects", projects);
+        List<PmDTO> meetings = pmService.getMeetings();
+        model.addAttribute("user", user).addAttribute("projects", projects)
+                .addAttribute("meeting", meetings);
 
         return "work/pm/main-pm";
     }
