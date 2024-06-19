@@ -17,9 +17,45 @@ $(document).ready(function() {
     $(document).on('click', '#editPrModal .delete-btn', deleteTask);
     $('#edit-pr-btn').on('click', submitEditProject);
     $('#feed-form-group').on('submit', handleFeedFormSubmit);
+    $('#git-tab').on('shown.bs.tab', fetchWebhookData);
+
+
 
 
 });
+
+function fetchWebhookData() {
+    $.ajax({
+        url: 'https://impala-intent-rarely.ngrok-free.app/github-webhook/data',
+        method: 'GET',
+        dataType: 'json', // 데이터를 JSON 형태로 받아옵니다.
+        success: function (data) {
+            // JSON 데이터를 <ul><li>로 변환하여 표시합니다.
+            let htmlContent = '<ul>';
+            htmlContent += jsonToHtmlList(data);
+            htmlContent += '</ul>';
+            $('#pr-git-hook').html(htmlContent);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $('#pr-git-hook').text('Error fetching data');
+        }
+    });
+}
+
+// JSON 객체를 순회하여 <ul><li> 구조로 변환하는 함수
+function jsonToHtmlList(jsonObject) {
+    let html = '';
+    for (const key in jsonObject) {
+        if (jsonObject.hasOwnProperty(key)) {
+            if (typeof jsonObject[key] === 'object' && jsonObject[key] !== null) {
+                html += `<li>${key}: <ul>${jsonToHtmlList(jsonObject[key])}</ul></li>`;
+            } else {
+                html += `<li>${key}: ${jsonObject[key]}</li>`;
+            }
+        }
+    }
+    return html;
+}
 
 function initializeProjectsArray() {
     $('#project_table_body tr').each(function() {
