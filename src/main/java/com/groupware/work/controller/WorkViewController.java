@@ -15,6 +15,7 @@ import com.groupware.work.hr.service.HrService;
 import com.groupware.work.ms.dto.AllEmployeeDTO;
 import com.groupware.work.ms.dto.MsApprovalDTO;
 import com.groupware.work.ms.service.MsService;
+import com.groupware.work.pm.service.PmService;
 import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.User;
 import com.groupware.work.dev.dto.ProjectDTO;
@@ -40,6 +41,7 @@ public class WorkViewController {
     private final UserService userService;
     private final DevService devService;
     private final MsService msService;
+    private final PmService pmService;
 
 
     @GetMapping("/fm")
@@ -135,15 +137,30 @@ public class WorkViewController {
     }
 
     @GetMapping("/ms")
-    public String ms(Model model){
-
+    public String ms(Model model, HttpSession session){
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        }
         List<AllEmployeeDTO> allEmployee = msService.getAllEmployees();
         List<MsApprovalDTO> getApproval = msService.getAllApprovals();
         List<MsApprovalDTO> getFmApproval = msService.getFmApproval();
-        model.addAttribute("allEmployee", allEmployee).addAttribute("Approval", getApproval)
+        model.addAttribute("user", user).addAttribute("allEmployee", allEmployee).addAttribute("Approval", getApproval)
                 .addAttribute("FmApproval", getFmApproval);
 
         return "work/ms/main-ms";
+    }
+
+    @GetMapping("/pm")
+    public String pm(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        }
+        List<ProjectDTO> projects = pmService.getProjects();
+        model.addAttribute("user", user).addAttribute("projects", projects);
+
+        return "work/pm/main-pm";
     }
 
 }

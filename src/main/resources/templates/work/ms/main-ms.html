@@ -3,7 +3,8 @@
 <head>
 
     <title>그룹웨어</title>
-
+    <meta name="employeeCode" th:content="${user.employeeCode}">
+    <meta name="departmentId" th:content="${user.departmentId}">
 </head>
 <body>
 
@@ -17,7 +18,8 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
-                <h3>업무 > 경영지원실</h3>
+                <h3 th:text="${user.departmentName}"></h3>
+
 
             </div>
 
@@ -52,8 +54,7 @@
                         <div class="card-body">
                             <div class="card_widget_header">
                                 휴가자
-                                <p class="widget">3</p>
-
+                                    <p class="widget" th:text="${#lists.size(allEmployee.?[status == '휴가'])}"></p>
                             </div>
                             <div class="card_leave_img"></div>
                         </div>

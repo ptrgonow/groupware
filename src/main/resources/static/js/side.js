@@ -41,7 +41,7 @@ function submitLogout() {
                     departmentMainPageUrl = '/';
                     break;
                 case 2:
-                    departmentMainPageUrl = '/dev';
+                    departmentMainPageUrl = '/pm';
                     break;
                 case 3:
                     departmentMainPageUrl = '/ms';
