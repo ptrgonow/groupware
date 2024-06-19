@@ -3,9 +3,13 @@ package com.groupware.notice.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+
+// NoticeDTO.java
 
 @Data
 public class NoticeDTO {
+
     private int notice_id;
     private String title;
     private String content;

@@ -181,5 +181,15 @@ public class WorkViewController {
         return "work/pm/main-pm";
     }
 
+    @GetMapping("/ceo")
+    public  String ceo()    {
+
+
+
+
+        return "work/ms/ceo";
+    }
+
+
 }
 

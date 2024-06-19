@@ -38,7 +38,7 @@ function submitLogout() {
 
             switch (departmentId) {
                 case 1:
-                    departmentMainPageUrl = '/';
+                    departmentMainPageUrl = '/ceo';
                     break;
                 case 2:
                     departmentMainPageUrl = '/pm';
