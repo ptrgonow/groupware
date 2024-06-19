@@ -2,6 +2,7 @@ package com.groupware.work.hr.mapper;
 
 import com.groupware.approval.dto.EmployeeDTO;
 import com.groupware.user.dto.UserDTO;
+import com.groupware.work.hr.dto.HrEmplMagDTO;
 import com.groupware.work.hr.dto.HrEmployeeDTO;
 import com.groupware.work.hr.dto.TodayWorkerDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -44,5 +45,28 @@ public interface HrMapper {
     // P001(관리자)에 해당하는 사원
     @Select("SELECT employee_code AS employeeCode, name, department_id AS departmentId, ps_cd AS psCd FROM employee WHERE ps_cd = 'P001'")
     List<HrEmployeeDTO> getManagerEmployee();
+
+    // 사원관리 버튼 클릭 시 전체 출력이 될 리스트
+    @Select("SELECT e.employee_code AS employeeCode, e.name, d.department_name AS departmentName, p.ps_nm AS psNm, a.status " +
+            "FROM employee e " +
+            "JOIN department d ON e.department_id = d.department_id " +
+            "JOIN positions p ON e.ps_cd = p.ps_cd " +
+            "LEFT JOIN attendance a ON e.employee_code = a.employee_code " +
+            "AND a.created_at = (SELECT MAX(a2.created_at) FROM attendance a2 WHERE a2.employee_code = e.employee_code) " +
+            "ORDER BY e.department_id")
+    List<HrEmplMagDTO> getEmplManagement();
+
+    // 사원번호에 해당하는 직원 상세 정보
+    @Select("SELECT e.employee_code AS employeeCode, e.name, e.birth_date AS birthDate, e.hiredate, d.department_name AS departmentName, p.ps_nm AS psNm, a.status " +
+            "FROM employee e " +
+            "JOIN department d ON e.department_id = d.department_id " +
+            "JOIN positions p ON e.ps_cd = p.ps_cd " +
+            "JOIN attendance a ON e.employee_code = a.employee_code " +
+            "WHERE e.employee_code = #{employeeCode};")
+    HrEmplMagDTO getEmplInfo();
+
+    // 검색
+    @Select("SELECT * FROM employee WHERE name LIKE CONCAT('%', #{query}, '%')")
+    List<HrEmplMagDTO> findEmployeesByName(String query);
 
 }

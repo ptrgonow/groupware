@@ -14,13 +14,13 @@
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
     <link rel="stylesheet" href="/css/main-mypage.css">
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>직원 등록</h3>
             </div>
-            
+
             <div class="row d-flex justify-content-center">
                 <div class="col-xl-5 d-flex mobile-h">
                     <div class="card flex-fill">
@@ -30,44 +30,45 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            
+
                             <form id="registerForm">
-                                
+
                                 <div class="form-group">
-                                    
+
                                     <label for="EmployeeCode">사원번호</label>
                                     <input type="text" class="form-control-sm" id="EmployeeCode" name="employee_code" required>
-                                    
+
                                     <label for="name">이름</label>
                                     <input type="text" class="form-control-sm" id="name" name="name" required>
-                                    
+
                                     <label for="birth">생년월일</label>
                                     <input type="date" class="form-control-sm" id="birth" name="birth_date" required>
-                                    
+
                                     <label for="address">주소</label>
                                     <input type="text" class="form-control-sm" id="address" name="address" required>
-                                    
+
                                     <label for="department">부서</label>
                                     <select class="form-control-sm" id="department" name="department_id" required>
                                         <option value="">선택하세요</option>
                                     </select>
                                     <div class="form-text" id="departmentHelpBlock">부서를 선택하세요.</div>
-                                    
+
                                     <label for="position">직급</label>
                                     <select class="form-control-sm" id="position" name="ps_cd" required>
                                         <option value="">선택하세요</option>
                                     </select>
                                     <div class="form-text" id="positionHelpBlock">직급을 선택하세요.</div>
-                                    
+
                                     <label for="username">아이디</label>
                                     <input type="text" class="form-control-sm" id="username" name="username" required>
-                                    
+
                                     <label for="password">비밀번호</label>
                                     <input type="password" class="form-control-sm" id="password" name="password" required>
-                                    
+
                                     <div class="row d-flex justify-content-center align-items-center">
                                         <div class="form-btn">
                                             <button id="regi-btn" type="submit" class="btn">등록</button>
+                                            <button id="back-btn" type="button" th:attr="onclick='history.back()'" class="btn">취소</button>
                                         </div>
                                     </div>
                                 </div>
@@ -78,6 +79,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>

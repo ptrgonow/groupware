@@ -10,6 +10,7 @@ import com.groupware.user.dto.DeptDTO;
 import com.groupware.user.dto.PositionDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.user.service.UserService;
+import com.groupware.work.hr.dto.HrEmplMagDTO;
 import com.groupware.work.hr.dto.HrEmployeeDTO;
 import com.groupware.work.hr.service.HrService;
 import com.groupware.work.ms.dto.AllEmployeeDTO;
@@ -66,7 +67,12 @@ public class WorkViewController {
     }
 
     @GetMapping("/hr")
-    public String hr(Model model) {
+    public String hr(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        }
+        model.addAttribute("user", user);
 
         // 총 직원 수
         int eCount = hrService.AllEmployeeCount();
@@ -85,7 +91,6 @@ public class WorkViewController {
         for (HrEmployeeDTO manager : mList) {
             if (manager.getDepartmentId() == 9) {  //인사
                 hrManagers.add(manager);
-                System.out.println("manager 값"+hrManagers);
             }else if (manager.getDepartmentId() == 10) {  //재무
                 financeManagers.add(manager);
             }else if (manager.getDepartmentId() == 4) {  //개발1팀
@@ -113,7 +118,10 @@ public class WorkViewController {
 
     // 직원 관리
     @GetMapping("/hr/edit")
-    public String edit(){
+    public String getEmployeeMag(Model model) {
+        List<HrEmplMagDTO> empMag = hrService.getEmplManagement();
+        model.addAttribute("empMag", empMag);
+
         return "work/hr/hr-edit";
     }
 

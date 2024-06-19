@@ -16,10 +16,11 @@
                 <h3>사원 관리</h3>
             </div>
 
-            <div class="file-search">
+            <div class="employee-search">
                 <form class="d-flex" name="file-search" id="fileSearchList">
-                    <input class="form-control me-2" id="file-search-form" type="search" placeholder="사원명을 입력하세요" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <span class="material-symbols-outlined">search</span>
+                    <input class="form-control me-2" id="file-search-form" placeholder="사원명을 입력하세요"
+                           aria-label="Search" onkeyup="filter()">
                 </form>
             </div>
 
@@ -36,19 +37,27 @@
                             <th scope="cols">사원 정보 관리</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>내용</td>
-                            <td>내용</td>
-                            <td>내용</td>
-                            <td>내용</td>
+                        <tbody id="employeeTableBody">
+                        <tr th:each="emp : ${empMag}">
+                            <input type="hidden" th:value="${emp.employeeCode}">
+                            <td th:text="${emp.name}"></td>
+                            <td th:text="${emp.departmentName}"></td>
+                            <td th:text="${emp.psNm}"></td>
+                            <td th:text="${emp.status}"></td>
                             <td>
-                                <input type="button" value="수정" class="modi-btn">
-                                <input type="button" value="삭제" class="dele-btn">
+                                <button type="button" class="modi-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    수정
+                                </button>
+                                <button type="button" class="dele-btn">삭제</button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+
+                    <!-- 페이징 -->
+                    <div class="pagination-container">
+                        <div id="pagination-hr-empmag"></div>
+                    </div>
                 </div>
             </div>
             <!-- 사원 등록 버튼 -->
@@ -57,16 +66,50 @@
                     <a href="/registerPage" class="btn btn-primary">사원 등록</a>
                 </div>
             </div>
-
-            <!-- 페이징 -->
-            <div id="paging-container">
-                <div id="pagination"></div>
-            </div>
         </div>
     </div>
 </div>
 
-<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<!-- 사원 수정 버튼 모달 -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <form method="post" id="info" class="card-body">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">사원 정보 수정</h5>
+                </div>
+                <div class="modal-body">
+                    <label for="employeeCode">사원번호</label>
+                    <input type="text" class="form-control-sm" id="employeeCode" name="employee_code">
 
+                    <label for="name">이름</label>
+                    <input type="text" class="form-control-sm" id="name" name="name">
+
+                    <label for="birth">생년월일</label>
+                    <input type="date" class="form-control-sm" id="birth" name="birth_date">
+
+                    <label for="hire">입사일</label>
+                    <input type="date" class="form-control-sm" id="hire" name="hire_date">
+
+                    <label for="department">부서</label>
+                    <input type="text" class="form-control-sm" id="department" name="departmentName">
+
+                    <label for="position">직급</label>
+                    <input type="text" class="form-control-sm" id="position" name="ps_cd">
+
+                    <label for="status">상태</label>
+                    <input type="text" class="form-control-sm" id="status" name="status">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">수정완료</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/hr-edit.js"></script>
 </body>
 </html>
