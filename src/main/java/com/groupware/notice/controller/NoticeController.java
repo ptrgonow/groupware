@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// NoticeController.java
+
 @Controller
 @RequestMapping("/nt")
 public class NoticeController {
@@ -38,6 +40,7 @@ public class NoticeController {
         return "notice/main-notice";
     }
 
+    // 공지사항 등록 처리
     @PostMapping("/submit-notice")
     public String submitNotice(@ModelAttribute NoticeDTO noticeDTO, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
@@ -53,25 +56,22 @@ public class NoticeController {
         return "notice/notice-detail";
     }
 
-
-
-    // 수정
+    // 수정 페이지로 이동
     @GetMapping("/update")
     public String updateNoticePage(@RequestParam("id") int noticeId, Model model) {
         NoticeDTO notice = noticeService.getNoticeById(noticeId);
         model.addAttribute("notice", notice);
         return "notice/notice-edit";
     }
-    
-    
-    // 수정완료
+
+    // 공지사항 수정 처리
     @PostMapping("/update-notice")
     public String updateNotice(@ModelAttribute NoticeDTO noticeDTO) {
         noticeService.updateNotice(noticeDTO);
         return "redirect:/nt/nmain";
     }
 
-    // 삭제
+    // 공지사항 삭제 처리
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteNotice(@RequestParam("id") int noticeId) {
         try {
@@ -81,9 +81,8 @@ public class NoticeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 중 오류가 발생했습니다.");
         }
     }
-
-
-
-
-
 }
+
+
+
+
