@@ -5,12 +5,12 @@ import com.groupware.notice.service.NoticeService;
 import com.groupware.user.dto.UserDTO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -37,11 +37,13 @@ public class NoticeController {
         model.addAttribute("notices", notices);
         return "notice/main-notice";
     }
+
     @PostMapping("/submit-notice")
-    public String submitNotice(@ModelAttribute NoticeDTO noticeDTO) {
-        // 여기서 NoticeDTO 객체를 받아서 Service를 통해 저장하는 로직을 추가해야 합니다.
+    public String submitNotice(@ModelAttribute NoticeDTO noticeDTO, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        noticeDTO.setEmployee_code(user.getEmployeeCode());
         noticeService.addNotice(noticeDTO);
-        return "redirect:/nt/nmain"; // 등록 후 목록 페이지로 리다이렉트
+        return "redirect:/nt/nmain";
     }
 
     @GetMapping("/detail")
@@ -50,6 +52,38 @@ public class NoticeController {
         model.addAttribute("notice", notice);
         return "notice/notice-detail";
     }
+
+
+
+    // 수정
+    @GetMapping("/update")
+    public String updateNoticePage(@RequestParam("id") int noticeId, Model model) {
+        NoticeDTO notice = noticeService.getNoticeById(noticeId);
+        model.addAttribute("notice", notice);
+        return "notice/notice-edit";
+    }
+    
+    
+    // 수정완료
+    @PostMapping("/update-notice")
+    public String updateNotice(@ModelAttribute NoticeDTO noticeDTO) {
+        noticeService.updateNotice(noticeDTO);
+        return "redirect:/nt/nmain";
+    }
+
+    // 삭제
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteNotice(@RequestParam("id") int noticeId) {
+        try {
+            noticeService.deleteNotice(noticeId);
+            return ResponseEntity.ok("삭제가 완료되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 중 오류가 발생했습니다.");
+        }
+    }
+
+
+
 
 
 }
