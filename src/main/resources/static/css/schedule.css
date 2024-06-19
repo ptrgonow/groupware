@@ -1,0 +1,107 @@
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap";
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+
+body {
+    background-color: #f7f8f9;
+    color: #455560;
+    font-family: 'Noto Sans', 'Roboto', sans-serif;
+    font-size: 0.9375rem;
+    height: 100%;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+a {
+    color: #455560;
+    text-decoration: none;
+}
+
+.fc-day-sun a {
+    color: red;
+}
+
+.fc-day-sat a {
+    color: blue;
+}
+
+.page-wrapper {
+    height: 100vh;
+}
+
+
+.fc-col-header-cell-cushion {
+    text-decoration: none;
+    color: #000;
+    cursor: default;
+}
+
+.fc-col-header-cell-cushion:hover {
+    text-decoration: none;
+    color: #000;
+    cursor: default;
+}
+
+#submitEventBtn {
+    width: 150px;
+    height: 3rem;
+    background-color: #455560;
+    color: #fff;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+#deleteEventBtn {
+    width: 150px;
+    height: 3rem;
+    background-color: #e32828;
+    color: #fff;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    vertical-align: middle;
+}
+
+
+#submitEventBtn:hover {
+    color: #000;
+    border: 1px solid #455560;
+    background-color: transparent;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#deleteEventBtn:hover {
+    color: #000;
+    border: 1px solid #455560;
+    background-color: transparent;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-close {
+    width: 3rem;
+    height: 2rem;
+    color: #000;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+.btn-close:hover {
+    color: #000;
+    background-color: transparent;
+    border: none;
+}

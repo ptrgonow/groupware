@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어</title>
+
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    
+    <link rel="stylesheet" href="/css/main-mypage.css">
+    
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h3>안녕하세요, <span th:text="${user != null} ? ${user.name} : '사용자'"></span> 님 !</h3>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-6 d-flex mobile-h">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">근태 기록</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-img-top">
+                                <div class="progress-c">
+                                    <span>일간</span>
+                                    <div id="daily-progress-container" class="progressbar"></div>
+                                    <span>주간</span>
+                                    <div id="weekly-progress-container" class="progressbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title">잔여 연차 / 휴가</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-header">
+                                <span th:text="${user != null} ? ${user.name} : '사용자'"></span> 님의 잔여 연차는 <span th:text="${user != null} ? ${holiday.dayoff} : '0'"></span>일 입니다.
+                            </div>
+                            <div class="card-header">
+                                <span th:text="${user != null} ? ${user.name} : '사용자'"></span> 님의 잔여 휴가는 <span th:text="${user != null} ? ${holiday.vacation} : '0'"></span>일 입니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title">근태 기록</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="work_table" class="at-tbl">
+                                <thead>
+                                <tr>
+                                    <th>날짜</th>
+                                    <th>출근시간</th>
+                                    <th>퇴근시간</th>
+                                    <th>근무시간</th>
+                                </tr>
+                                </thead>
+                                
+                                <tbody id="work_record_body">
+                                <tr th:each="work : ${workRecord}">
+                                    <td th:text="${work.formattedAttendanceDate != null ? work.formattedAttendanceDate : 'N/A'}"></td>
+                                    <td th:text="${work.formattedFirstCheckIn != null ? work.formattedFirstCheckIn : 'N/A'}"></td>
+                                    <td th:text="${work.formattedLastCheckOut != null ? work.formattedLastCheckOut : 'N/A'}"></td>
+                                    <td th:text="${work.hoursWorked} + '시간 ' + ${work.minutesWorked} + '분'"></td>
+                                </tr>
+                                <tr th:if="${workRecord.isEmpty()}">
+                                    <td colspan="4">출근 기록이 없습니다.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="pagination-work"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <div class="card-header ">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">내 정보</h5>
+                            </div>
+                        </div>
+                        <div id="info" class="card-body">
+                            <form id="updateForm" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="EmployeeCode">사원번호</label>
+                                            <input type="text" class="form-control-sm" id="EmployeeCode" name="employee_code" th:value="${user != null} ? ${user.employeeCode} : ''" readonly>
+                                            
+                                            <label for="name">이름</label>
+                                            <input type="text" class="form-control-sm" id="name" name="name" th:value="${user != null} ? ${user.name} : ''" readonly>
+                                            
+                                            <label for="birth">생년월일</label>
+                                            <input type="date" class="form-control-sm" id="birth" name="birth_date" th:value="${user != null} ? ${user.birthDate} : ''">
+                                            
+                                            <label for="address">주소</label>
+                                            <input type="text" class="form-control-sm" id="address" name="address" th:value="${user != null} ? ${user.address} : ''">
+                                            
+                                            <label for="department">부서</label>
+                                            <input type="text" class="form-control-sm" id="department" name="departmentName" th:value="${user != null} ? ${user.departmentName} : ''" readonly>
+                                            
+                                            <label for="position">직급</label>
+                                            <input type="text" class="form-control-sm" id="position" name="ps_cd" th:value="${user != null} ? ${user.ps_cd} : ''" readonly>
+                                            
+                                            <label for="username">아이디</label>
+                                            <input type="text" class="form-control-sm" id="username" name="username" th:value="${user != null} ? ${user.username} : ''">
+                                            
+                                            <label for="password">비밀번호</label>
+                                            <input type="password" class="form-control-sm" id="password" name="password" th:value="${user != null} ? ${user.password} : ''">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="regi">
+                                    <button type="submit" id="regi-btn" class="btn">수정</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/ProgressBar.js"></script>
+<script src="/js/attendance.js"></script>
+<script src="/js/mypage.js"></script>
+<script src="/js/hr-register.js"></script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어</title>
+    <meta name="employeeCode" th:content="${user.employeeCode}">
+    <meta name="departmentId" th:content="${user.departmentId}">
+
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    
+    <link rel="stylesheet" href="/css/main-dev.css">
+    
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 th:text="${user.departmentName}"></h3>
+                </div>
+                
+                <div class="pr-btn">
+                    <button id="pr-add-btn" class="cocoBtn">프로젝트 생성</button>
+                    <button id="pr-edit-btn" class="cocoBtn">프로젝트 수정</button>
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-xl-12 col-12 d-flex">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-header bg-white py-4">
+                                <h4 class="card-title">프로젝트</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="tbl">
+                                    <table id="project_table" class="pr-tbl">
+                                        <thead>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>프로젝트명</th>
+                                            <th>상태</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="project_table_body">
+                                        <tr th:each="pr, stat : ${projects}" th:data-project-id="${pr.projectId}">
+                                            <td th:text="${stat.index + 1}"></td>
+                                            <td th:text="${pr.projectName}"></td>
+                                            <td th:text="${pr.status}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div id="project-pagination" class="pagination-mini"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="card flex-fill">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4 class="card-title">피드</h4>
+                                    <div class="d-flex align-items-center">
+                                        <form id="feed-form-group" class="d-flex w-100">
+                                            <input type="text" class="form-control" id="pr-feed" name="content" placeholder="피드 입력" required>
+                                            <button type="submit" id="pr-feed-btn" class="btn-info">등록</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body feed">
+                                <div class="tbl">
+                                    <table id="feed_table" class="mem-tbl">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-author">작성자</th>
+                                            <th class="col-title">내용</th>
+                                            <th class="col-date">작성일</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="pr-feed-body"></tbody>
+                                    </table>
+                                    <div id="pr-feed-pagination" class="pagination-mini"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-12 col-12 d-flex">
+                    <div class="col-xl-8">
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="info-tab" data-bs-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true"><h4 class="card-title">프로젝트 정보</h4></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="git-tab" data-bs-toggle="tab" href="#git" role="tab" aria-controls="git" aria-selected="false"><h4 class="card-title">Git Hook</h4></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body des">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                                        <div class="card-text">
+                                            <div class="card-text" id="pr-detail-description"></div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h5 class="mb-0">시작일</h5>
+                                                        <p class="text-dark mb-0">2023-01-01</p>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h5 class="mb-0">종료일</h5>
+                                                        <p class="text-dark mb-0">2023-12-31</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="git" role="tabpanel" aria-labelledby="git-tab">
+                                        <div class="card-text">
+                                            <div class="commit-div card-text" id="pr-git-hook"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <div class="col-xl-4">
+                        <div class="card mb-5 bg-primary ">
+                            <div class="card-body">
+                                <h4 class="mb-0 text-white">D + day</h4>
+                                <div class="d-flex justify-content-between align-items-center mt-8">
+                                    <div>
+                                        <h3 class="display-5 diff2 fw-bold text-white mb-1"> Days</h3>
+                                        <p class="text-white start"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="mb-0 text-white">D - day</h4>
+                                <div class="d-flex justify-content-between align-items-center mt-8">
+                                    <div>
+                                        <h3 class="display-5 diff fw-bold text-white mb-1"> Days</h3>
+                                        <p class="text-white end"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-12 col-12 d-flex">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">팀원</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="tbl">
+                                    <table id="member_table" class="mem-tbl">
+                                        <thead>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>이름</th>
+                                            <th>부서</th>
+                                            <th>직책</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="pr-mem-body"></tbody>
+                                    </table>
+                                    <div id="pr-mem-pagination" class="pagination-mini"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="card flex-fill">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4 class="card-title">담당 작업</h4>
+                                    
+                                </div>
+                            </div>
+                            <div class="card-body task">
+                                <div class="tbl">
+                                    <table id="task_table" class="tk-tbl">
+                                        <thead>
+                                        <tr>
+                                            <th>작업 내용</th>
+                                            <th>담당자</th>
+                                            <th>진행률</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="pr-task-body"></tbody>
+                                    </table>
+                                    <div id="pr-task-pagination" class="pagination-mini"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="editPrModal" tabindex="-1" aria-labelledby="editPrModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">프로젝트 수정</h5>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="project_name" class="form-label">프로젝트명</label>
+                    <input type="text" class="form-control" id="project_name" name="project_name">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">설명</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="start_date" class="form-label">시작일</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="end_date" class="form-label">종료일</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date">
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">상태</label>
+                    <input type="text" class="form-control" id="status" name="status" readonly>
+                </div>
+                <label class="form-label">팀원</label>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="task-edit-tbl">
+                    <thead class="edit-thead">
+                    <tr>
+                        <th class="col-t1">작업 내용</th>
+                        <th class="col-t2">담당자</th>
+                        <th class="col-t3">진행률</th>
+                        <th class="col-t4">액션</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control taskContentInput" name="taskContents"></td>
+                        <td>
+                            <select class="form-select taskAssigneeSelect" name="taskAssignees">
+                                <option value="">직원 선택</option>
+                            </select>
+                        </td>
+                        <td><input type="number" class="form-control taskProgressInput" name="taskProgresses" min="0" max="100"></td>
+                        <td><button type="button" class="delete-btn delete-task-btn">삭제</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="add-task-btn" class="btn-info">작업 추가</button>
+                <button type="button" class="btn-info" id="edit-pr-btn">수정</button>
+                <button type="button" data-bs-dismiss="modal" class="delete-btn">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/main-dev.js"></script>
+</body>
+</html>

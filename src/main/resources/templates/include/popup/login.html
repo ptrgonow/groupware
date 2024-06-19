@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="screen">
+        <div class="screen__content">
+            <form class="login" id="loginForm">
+                <div class="login__field">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <input type="text" name="username" class="login__input" placeholder="아이디">
+                </div>
+                <div class="login__field">
+                    <span class="material-symbols-outlined">lock</span>
+                    <input type="password" name="password" class="login__input" placeholder="비밀번호">
+                </div>
+                <button type="submit" class="button login__submit">
+                    <span class="button__text">로그인</span>
+                    <span class="material-symbols-outlined">login</span>
+                </button>
+            </form>
+        </div>
+        <div class="screen__background">
+            <span class="screen__background__shape screen__background__shape4"></span>
+            <span class="screen__background__shape screen__background__shape3"></span>
+            <span class="screen__background__shape screen__background__shape2"></span>
+            <span class="screen__background__shape screen__background__shape1"></span>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/js/login.js"></script>
+</body>
+</html>

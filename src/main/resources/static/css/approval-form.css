@@ -1,0 +1,168 @@
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f4f4f4;
+    height: 100%;
+}
+
+#btn-group {
+    gap: 1rem;
+}
+
+.btn {
+    width: 60px;
+    height: 40px;
+    background-color: #525252;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: transparent;
+    padding: 5px;
+    color: #000;
+    border: 1px solid #525252;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+
+.row {
+    width: 100%;
+    height: 100%;
+}
+
+.card {
+    height: 100%;
+}
+
+.col-xl-5 .col-12 .mb-3,
+.form-group, .editor-label{
+    height: 100%;
+}
+
+
+.card .card-header h5.card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    margin-top: 1rem;
+}
+
+.jstree-icon.employee-icon {
+    background: url('https://fonts.gstatic.com/s/i/materialicons/person_outline/v6/24px.svg') center center no-repeat;
+    background-size: contain;
+}
+
+.jstree-icon.department-icon {
+    background: url('https://fonts.gstatic.com/s/i/materialicons/domain/v6/24px.svg') center center no-repeat;
+    background-size: contain;
+}
+
+.jstree-node.department-node > .jstree-anchor {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.jstree-node.employee-node > .jstree-anchor {
+    font-size: 0.8rem;
+}
+
+
+#jstree-div,
+#ap-div,
+#cc-div {
+    height: 100%;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+
+.table > tbody > tr > th {
+    width: 5%;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-top: 2rem;
+}
+
+
+.ck.ck-editor__editable_inline>:first-child,
+.ck.ck-editor__editable_inline>:last-child {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.ck-content[dir=ltr] .table th {
+    text-align: center;
+    width: 20%;
+}
+
+.ck-content[dir=ltr] .table tr.ap-text {
+    height: 300px;
+}
+
+#receiver {
+    display: flex;
+    align-items: center;
+}
+
+.remove-btn {
+    font-size: 1.25rem;
+    margin-left: 10px;
+    cursor: pointer;
+    color: red;
+}
+
+.plus-btn {
+    font-size: 1.25rem;
+    margin-left: 10px;
+    cursor: pointer;
+    color: blue;
+}
+
+.append {
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.jstree-div h4,
+.ap-div h4,
+.cc-div h4 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    margin-top: 1rem;
+}

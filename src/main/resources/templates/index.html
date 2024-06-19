@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    
+    <title>그룹웨어</title>
+    <meta name="employee-code" th:content="${user.employeeCode}">
+    <meta name="department-id" th:content="${user.departmentId}">
+
+</head>
+
+<body>
+<div class="main-wrapper">
+    
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/todo.css">
+    <link rel="stylesheet" href="/css/main-notice.css">
+    <link rel="stylesheet" href="/css/schedule.css">
+    
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4">
+                <h3>대시보드</h3>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-6 d-flex mobile-h">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">근태 기록</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-img-top">
+                                <div class="progress-c">
+                                    <span>일간</span>
+                                    <div id="daily-progress-container" class="progressbar"></div>
+                                    <span>주간</span>
+                                    <div id="weekly-progress-container" class="progressbar"></div>
+                                </div>
+                                <form id="attendance-form" class="form-inline" action="/att/insert" method="POST">
+                                    <input type="hidden" name="employee_code" th:value="${user != null} ? ${user.employeeCode} : ''">
+                                    <input type="hidden" name="action" id="action">
+                                    <input type="hidden" name="time" id="time">
+                                </form>
+                                <div class="attendance-btn">
+                                    <button type="button" id="start-button" class="btn-show">출근하기</button>
+                                    <button type="button" id="end-button" class="btn-hide">퇴근하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 d-flex mobile-h">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">캘린더</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id='calendar'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <div class="card-header">
+                            <h4 class="card-title">공지 사항</h4>
+                        </div>
+                        
+                        <div class="card-body">
+                            <table class="ap-tbl">
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>제목</th>
+                                    <th>작성자</th>
+                                    <th>작성일</th>
+                                </tr>
+                                </thead>
+                                <tbody id="notice_cont">
+                                <tr th:each="notice : ${nList}">
+                                    <td th:text="${notice.notice_id}">ID</td>
+                                    <td><a th:href="@{/nt/detail(id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
+                                    <td th:text="경영지원실"></td>
+                                    <td th:text="${#temporals.format(notice.created_at, 'yyyy-MM-dd')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="pagination-notice"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-6 col-sm-12 col-12 d-flex">
+                    <div class="card card-list flex-fill">
+                        <div class="card-header text-center">
+                            <h4 class="card-title">todo list</h4>
+                        </div>
+                        
+                        <div class="card-body">
+                            <div class="list-group">
+                                <ul id="todolist" class="list-group"></ul>
+                                <div id="pagination-mini"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/ProgressBar.js"></script>
+<script src="/js/attendance.js"></script>
+<script src="/js/schedule.js"></script>
+<script src="/js/notice.js"></script>
+<script src="/js/todo.js"></script>
+
+
+</body>
+</html>
+

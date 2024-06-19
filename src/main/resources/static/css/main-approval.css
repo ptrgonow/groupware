@@ -1,0 +1,233 @@
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f4f4f4;
+    height: 100%;
+}
+
+.row {
+    height: auto; /* Adjust height for rows */
+}
+
+.card {
+    height: 100%;
+    margin-bottom: 1rem; /* Add margin between cards */
+}
+
+.card-body {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 1.25rem;
+    width: 100%;
+    height: 100%;
+}
+
+.card .card-header h5.card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    margin-top: 1rem;
+}
+
+.ap-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ap-tbl thead tr th {
+    background-color: #879096;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-weight: 700;
+    border-bottom: 2px solid #495057;
+}
+
+.ap-tbl .col-number {
+    width: 12%;
+}
+
+.ap-tbl .col-title {
+    width: 30%;
+}
+
+.ap-tbl .col-author {
+    width: 15%;
+}
+
+.ap-tbl .col-date {
+    width: 25%;
+}
+
+.ap-tbl .col-status {
+    width: 18%;
+}
+
+.ap-tbl tbody tr td {
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px;
+    color: #495057;
+}
+
+.ap-tbl tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.ap-tbl tbody tr:hover {
+    background-color: #e6e6ea;
+}
+
+.ap-tbl tbody tr td:last-child {
+    text-align: center;
+}
+
+.btn {
+    width: 60px;
+    height: 40px;
+    background-color: #525252;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: transparent;
+    padding: 5px;
+    color: #000;
+    border: 1px solid #525252;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+#w-btn {
+    position: relative;
+    bottom: 2rem;
+}
+
+#floating-btn {
+    position: fixed;
+    bottom: 5rem;
+    right: 5rem;
+    z-index: 1000;
+}
+
+#floating-btn img {
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+#floating-btn img:hover {
+    transform: scale(1.1);
+    transition: all 0.2s;
+}
+
+
+#pagination-coAp,
+#pagination-cuAp,
+#pagination-myAp,
+#pagination-toAp {
+    position: relative;
+    bottom: 0;
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.card-body-inner ul li {
+    margin-right: 0;
+}
+
+#toAp-tbody tr:hover,
+#myAp-tbody tr:hover,
+#cuAp-tbody tr:hover,
+#coAp-tbody tr:hover {
+    cursor: pointer;
+}
+
+
+
+
+
+/* 반응형 테이블 */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column; /* Stack the rows */
+    }
+
+    .col-xl-6 {
+        width: 100%; /* Make columns take full width */
+    }
+
+    .ap-tbl thead {
+        display: none;
+    }
+
+    .ap-tbl, .ap-tbl tbody, .ap-tbl tr, .ap-tbl td {
+        display: block;
+        width: 100%;
+    }
+
+    .ap-tbl tr {
+        margin-bottom: 15px;
+    }
+
+    .ap-tbl td {
+        text-align: left;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .ap-tbl td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .ap-tbl .col-number {
+        background-color: #879096;
+        color: #fff;
+        width: 100%;
+    }
+
+    .ap-tbl .col-title {
+        width: 100%;
+    }
+
+    .ap-tbl .col-author {
+        width: 100%;
+    }
+
+    .ap-tbl .col-date {
+        width: 100%;
+    }
+
+    .ap-tbl .col-status {
+        width: 100%;
+    }
+}

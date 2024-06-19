@@ -1,0 +1,80 @@
+
+.btn-hide {
+    display: none;
+}
+.btn-show {
+    display: inline-block;
+}
+
+button {
+    width: 150px;
+    height: 3rem;
+    background-color: #455560;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    vertical-align: middle;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    color: #000;
+    border: 1px solid #455560;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.card-img-top {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+
+.progress-c {
+    display: flex;
+    gap: 2rem;
+
+}
+
+.attendance-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.progressbar {
+    width: 150px;
+    height: 150px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.progressbar > svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.progressbar > .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: 'Noto Sans', 'Roboto', sans-serif;
+    font-size: 0.8rem;
+}

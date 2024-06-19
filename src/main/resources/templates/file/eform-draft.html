@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어 - 휴가원</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/file-eform.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+</head>
+<body>
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="form-title">휴가원</div>
+            <div class="form-buttons mb-4">
+                <!-- Using Thymeleaf for button texts -->
+                <button class="btn btn-secondary" th:text="#{approval.submit}">결재</button>
+                <button class="btn btn-secondary" th:text="#{approval.reject}">반려</button>
+                <button class="btn btn-secondary" th:text="#{approval.wait}">대기</button>
+                <button class="btn btn-secondary" th:text="#{approval.cancel}">취소</button>
+            </div>
+            <div class="form-section mb-4">
+                <table class="table table-bordered form-table form-table-header">
+                    <tbody>
+                    <tr>
+                        <td colspan="2" class="form-title-cell">휴가원</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">기안자</td>
+                        <td>정호준 : 공통 파일 포맷 제안 사항 입니다. 반려 하셔도 됩니다. 피드백 주세요.</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">기안부서</td>
+                        <td>이 폼은 아직 draft 입니다.</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">기안일</td>
+                        <td>해당 파일 html 을 열고 js 확인 바람 - 예시 혹은 테스트 입니다.</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">문서번호</td>
+                        <td>화요일(6/11/2024) 아침 컨펌 부탁드려요.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-section mb-4">
+                <table class="table table-bordered form-table form-table-details">
+                    <tbody>
+                    <tr>
+                        <td class="label-cell">소속</td>
+                        <td colspan="3">
+                            <select class="form-control">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">직책</td>
+                        <td colspan="3">
+                            <select class="form-control">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">성명</td>
+                        <td colspan="3"><input type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">휴가종류</td>
+                        <td colspan="3">
+                            <select class="form-control">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">휴가기간</td>
+                        <td colspan="3">
+                            <div class="input-daterange input-group">
+                                <input type="text" class="form-control" name="start" placeholder="시작일">
+                                <span class="input-group-text">~</span>
+                                <input type="text" class="form-control" name="end" placeholder="종료일">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">잔여일</td>
+                        <td colspan="3"><input type="text" class="form-control" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">휴가사유</td>
+                        <td colspan="3"><input type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <span class="form-label font-weight-bold">휴가기준 제 13조에 의거 휴가를 신청하오니 허락하여 주시기 바랍니다.</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/feather.min.js"></script>
+<script src="/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/js/script.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.input-daterange').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'ko',
+            autoclose: true
+        }).on('changeDate', function(e) {
+            calculateRemainingDays();
+        });
+
+        function calculateRemainingDays() {
+            var start = $('[name="start"]').datepicker('getDate');
+            var end = $('[name="end"]').datepicker('getDate');
+            if (start && end) {
+                var oneDay = 24 * 60 * 60 * 1000;
+                var diffDays = Math.round(Math.abs((end - start) / oneDay)) + 1;
+                $('[name="remaining"]').val(diffDays);
+            }
+        }
+    });
+</script>
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,322 @@
+
+.today {
+    background-color: #f0f0f0;
+}
+
+
+
+/* 이번달 주요일정 */
+.breadcrumb-gray {
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: space-around;
+    padding:7px ;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px 0 rgba(137, 137, 137, 0.25);
+    background-color: #879096;
+}
+
+.breadcrumb-gray h4 {
+
+    color: white;
+
+}
+
+.table-responsive {
+
+    margin-top: 3rem ;
+
+
+}
+
+.table tbody tr:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+
+/* 생일+주요일정 박스 */
+.card-body-inner{
+    border: 2px solid #F2EEEE;
+    padding:30px 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+
+}
+
+/* 공지사항 테이블*/
+.gong {
+
+    margin-top: 2rem;
+
+}
+
+.gong tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+.gong td {
+    padding: 12px; /* 기본 패딩 유지 */
+    max-width: 150px; /* 원하는 최대 폭 설정 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 대해 생략 부호 (...) 표시 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+}
+
+.gong td:first-child { /* 번호 열 */
+    max-width: 20px; /* 원하는 최대 폭 설정 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 대해 생략 부호 (...) 표시 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+}
+
+
+/* 제목 부분 */
+.gong th:nth-child(2), .gong td:nth-child(2) {
+    width: 220px; /* 원하는 너비로 설정 */
+    max-width: 220px; /* 최대 너비도 동일하게 설정 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 번호 부분임 */
+.gong th:first-child, .gong td:first-child {
+    width: 50px; /* 원하는 너비로 설정 */
+    max-width: 50px; /* 최대 너비도 동일하게 설정 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+
+.gong td:last-child { /* 작성일 열 */
+    max-width: 30px; /* 원하는 최대 폭 설정 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 대해 생략 부호 (...) 표시 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+}
+
+
+
+
+/* 공지사항 테이블 */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+
+
+
+
+
+
+/* 공지사항 작성 버튼 기본 스타일 */
+
+.cocoBtn {
+    display: flex;
+    margin-left: auto;     /* 왼쪽 마진 자동으로 설정하여 오른쪽 정렬 */
+    align-self: flex-end;
+    padding: 10px 20px;
+    width: 150px; /* 버튼의 너비를 조정 */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    background-color: #455560;
+    color: #ffffff;
+
+}
+
+/* 버튼 기본 배경색과 텍스트 색상 */
+.cocoBtn-default {
+    background-color: #6b6b6b;
+    color: #000000;
+}
+
+/* 버튼 호버 효과 */
+.cocoBtn:hover {
+    background-color: #d9d9d9;
+    color: #737373;
+}
+
+/* 버튼 그림자 효과 */
+.cocoBtn-shadow {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 버튼 커서 효과 */
+.cocoBtn:hover {
+    transform: translateY(-1px);
+}
+
+/* 버튼 활성 상태 스타일 */
+.cocoBtn:active {
+    transform: translateY(2px);
+}
+
+
+.breadcrumb-gray h2 {
+
+    color: white;
+
+}
+
+.card-body-inner {
+
+    margin-top: 1rem;
+
+
+
+}
+
+/* 페이징 */
+
+#pagination-notice {
+    position: relative;
+    bottom: 0;
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.card-body-inner ul li {
+    margin-right: 0;
+}
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column; /* Stack the rows */
+    }
+
+    .col-xl-6 {
+        width: 100%; /* Make columns take full width */
+    }
+
+    .ap-tbl thead {
+        display: none;
+    }
+
+    .ap-tbl, .ap-tbl tbody, .ap-tbl tr, .ap-tbl td {
+        display: block;
+        width: 100%;
+    }
+
+    .ap-tbl tr {
+        margin-bottom: 15px;
+    }
+
+    .ap-tbl td {
+        text-align: left;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .ap-tbl td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .ap-tbl .col-number {
+        background-color: #879096;
+        color: #fff;
+        width: 100%;
+    }
+
+    .ap-tbl .col-title {
+        width: 100%;
+    }
+
+    .ap-tbl .col-author {
+        width: 100%;
+    }
+
+    .ap-tbl .col-date {
+        width: 100%;
+    }
+
+    .ap-tbl .col-status {
+        width: 100%;
+    }
+}
+.ap-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ap-tbl thead tr th {
+    background-color: #879096;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-weight: 700;
+    border-bottom: 2px solid #495057;
+}
+
+.ap-tbl .col-number {
+    width: 12%;
+}
+
+.ap-tbl .col-title {
+    width: 30%;
+}
+
+.ap-tbl .col-author {
+    width: 15%;
+}
+
+.ap-tbl .col-date {
+    width: 25%;
+}
+
+.ap-tbl .col-status {
+    width: 18%;
+}
+
+.ap-tbl tbody tr td {
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px;
+    color: #495057;
+    text-align: center;
+}
+
+.ap-tbl tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.ap-tbl tbody tr:hover {
+    background-color: #e6e6ea;
+}
+
+.ap-tbl tbody tr td:last-child {
+    text-align: center;
+}
+

@@ -1,0 +1,111 @@
+.file-search{
+    display: flex;
+    justify-content: center;
+}
+
+.d-flex{
+    align-items: center;
+}
+
+.form-control {
+    margin-right: 10px;
+}
+
+.btn-outline-success {
+    border: 1px solid #2F47BA;
+    color: #2c3038;
+}
+
+.btn-outline-success:hover {
+    background-color: #2F47BA;
+    border: 1px solid #2F47BA;
+    color: white;
+}
+
+/* 테이블 */
+.col-xl-10.col-sm-12.col-12.d-flex{
+    border-top: none;
+}
+
+.row{
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.table table-hover th, td{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+}
+
+.table th{
+    border-top: none;
+    text-align: center;
+}
+
+.table-hover th:first-child,
+.table-hover td:first-child {
+    padding-left: 15px; /* 첫 번째 열의 내용 오른쪽으로 이동 */
+}
+
+.table-hover th:nth-child(4),
+.table-hover td:nth-child(4) {
+    padding-left: 5px;
+    padding-right: 5px; /* 첨부파일 열의 간격 좁게 */
+}
+
+.table-hover th:nth-child(3),
+.table-hover td:nth-child(3) {
+    padding-left: 20px;
+    padding-right: 20px; /* 제목 열의 간격 넓게 */
+}
+
+/* 페이징 */
+.pagination{
+    display: flex;
+    justify-content: center;
+}
+
+/* 버튼 */
+.btn-area{
+    display: flex;
+}
+
+.modal-footer{
+    display: flex;
+    justify-content: center;
+}
+
+.btn.btn-light-reg{
+    background-color: #2F47BA;
+    color: white;
+    width: 90px;
+}
+
+.file-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-right: 140px;
+}
+
+.btn.btn-outline, .btn.btn-danger {
+    width: 90px;
+    height: 40px;
+    background-color: #5a6268;
+    font-size: 14px;
+    color: white;
+    margin-left: 10px;
+}
+
+.btn.btn-danger {
+    background-color: #ff3833;
+}
+
+/* 페이징 */
+#pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

@@ -1,0 +1,76 @@
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+
+body {
+    background-color: #f7f8f9;
+    color: #455560;
+    font-family: 'Noto Sans', 'Roboto', sans-serif;
+    font-size: 0.9375rem;
+    height: 100%;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+a {
+    color: #455560;
+    text-decoration: none;
+}
+
+
+.fm-tbl,
+.s-tbl {
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.fm-tbl thead tr th,
+.s-tbl thead tr th {
+    background-color: #879096;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-weight: 700;
+    border-bottom: 2px solid #495057;
+}
+
+.fm-tbl tbody tr td,
+.s-tbl tbody tr td {
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px;
+    color: #495057;
+}
+
+.fm-tbl tbody tr:nth-child(even),
+.s-tbl tbody tr:nth-child(even){
+    background-color: #f8f9fa;
+}
+
+.fm-tbl tbody tr:hover,
+.s-tbl tbody tr:hover{
+    background-color: #e6e6ea;
+    cursor: pointer;
+}
+
+.fm-tbl tbody tr td,
+.s-tbl tbody tr td {
+    text-align: center;
+}
+
+.page {
+    position: relative;
+    margin-top: 1rem;
+}

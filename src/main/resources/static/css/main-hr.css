@@ -1,0 +1,157 @@
+.card_member_img {
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/member.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card_notify_img {
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/notification.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card_leave_img {
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/leave.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card_working_img {
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/working.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card_widget_header .widget{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.request{
+    margin-left: 30px;
+}
+.board1.fill1 {
+    background: #008080;
+}
+.card.board1.fill2 {
+    background: #9d9402;
+}
+
+.card.board1.fill3 {
+    background: #0d6200;
+}
+
+.card.board1.fill4 {
+    background: #00882E;
+}
+.certify{
+    background-image: url("../img/certify.png");
+    background-size: cover;
+    align-items: end;
+}
+
+.go-approval{
+    width: 150px;
+    height: 30px;
+}
+
+.btn.btn-primary {
+    width: 50px;
+    height: 30px;
+    padding: 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.btn.btn-primary {
+    width: 50px;
+    height: 30px;
+    padding: 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.depart{
+    width: 550px;
+}
+.pb-0, .py-0 {
+    height: 470px;
+}
+
+.row {
+    margin-bottom: 0;
+}
+
+/* 페이징 */
+#pagination-hr{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#pagination-today-workers-pagination-hr{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+/* 회원 전체 리스트 테이블 */
+.table-responsive{
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+}
+
+.table-responsive th, td{
+    width: 200px;
+}
+
+.table-responsive tr td:first-child, .table-responsive tr th:first-child {
+    padding-left:0;
+.badge.bg-success {
+    color: white; /* '근무중' badge 글자색 흰색 */
+}
+
+.badge.bg-danger {
+    color: white; /* '퇴근' badge 글자색 흰색 */
+
+}}
+
+.table.table-hover{
+    text-align: center;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-title {
+    margin: 0;
+}
+
+.edit_employee {
+    margin-left: auto;
+}
+
+.avatar-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.avatar-group .manager-item {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-group p {
+    margin: 0 5px; /* 원하는 만큼의 간격 조절 */
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 목록</title>
+</head>
+<body>
+<table class="gong">
+
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>내용</th>
+        <th>작성일</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="nList : ${notices}">
+        <td th:text="${nList.notice_id}">ID</td>
+        <td><a th:href="@{/nt/detail(id=${nList.notice_id})}" th:text="${nList.title}">공지사항 보기</a></td>
+        <td th:text="${nList.content}">Content</td>
+        <td th:text="${#dates.format(nList.created_at, 'yyyy-MM-dd')}"></td>
+    </tr>
+    </tbody>
+
+
+</table>
+</body>
+</html>
