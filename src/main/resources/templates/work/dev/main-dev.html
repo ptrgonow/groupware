@@ -26,6 +26,7 @@
                 <div class="pr-btn">
                     <button id="pr-add-btn" class="cocoBtn" onclick="location.href='/dev/add'">프로젝트 생성</button>
                     <button id="pr-edit-btn" class="cocoBtn">프로젝트 수정</button>
+                    <button id="pr-delete-btn" class="cocoBtn">프로젝트 삭제</button>
                 </div>
             </div>
             
@@ -42,13 +43,15 @@
                                     <table id="project_table" class="pr-tbl">
                                         <thead>
                                         <tr>
-                                            <th>번호</th>
-                                            <th>프로젝트명</th>
-                                            <th>상태</th>
+                                            <th class="col-ch">선택</th>
+                                            <th class="col-no">번호</th>
+                                            <th class="col-nm">프로젝트명</th>
+                                            <th class="col-st">상태</th>
                                         </tr>
                                         </thead>
                                         <tbody id="project_table_body">
                                         <tr th:each="pr, stat : ${projects}" th:data-project-id="${pr.projectId}">
+                                            <!-- 라디오 버튼 동적 생성될 td-->
                                             <td th:text="${stat.index + 1}"></td>
                                             <td th:text="${pr.projectName}"></td>
                                             <td th:text="${pr.status}"></td>
@@ -80,7 +83,6 @@
                                         <tr>
                                             <th class="col-author">작성자</th>
                                             <th class="col-title">내용</th>
-                                            <th class="col-date">작성일</th>
                                         </tr>
                                         </thead>
                                         <tbody id="pr-feed-body"></tbody>
@@ -110,31 +112,13 @@
                             </div>
                             <div class="card-body des">
                                 <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-                                        <div class="card-text">
-                                            <div class="card-text" id="pr-detail-description"></div>
+                                    <div class="card-text">
+                                        <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                                            <span id="pr-detail-description"></span>
                                         </div>
                                         
                                         <div class="tab-pane fade" id="git" role="tabpanel" aria-labelledby="git-tab">
-                                            <div class="card-text">
-                                                <div class="commit-div card-text" id="pr-git-hook"></div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <h5 class="mb-0">시작일</h5>
-                                                        <p class="text-dark mb-0">2023-01-01</p>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <h5 class="mb-0">종료일</h5>
-                                                        <p class="text-dark mb-0">2023-12-31</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                            <div class="commit-div card-text" id="pr-git-hook"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -254,21 +238,14 @@
                     <input type="text" class="form-control" id="status" name="status" readonly>
                 </div>
                 
-                <table class="table">
+                <table class="mem-table">
                     <thead>
                     <tr>
                         <th>팀원<span id="toggle-mem" class="plus-btn">+</span></th>
                     </tr>
                     </thead>
                     <tbody id="member-list">
-                    <!-- 프로젝트 등록자 정보 -->
-                    <tr>
-                        <td>프로젝트 등록자</td>
-                        <td>개발팀</td>
-                        <td>관리자</td>
-                        <input type="hidden" id="mCode" value="등록자ID">
-                        <input type="hidden" id="eCode" value="등록자직원코드">
-                    </tr>
+                    
                     </tbody>
                 </table>
                 <table class="task-edit-tbl">
@@ -311,7 +288,7 @@
                 <h5 class="modal-title" id="addMemberModalLabel">팀원 추가</h5>
             </div>
             <div class="modal-body">
-                <table class="table">
+                <table class="mem-table">
                     <thead>
                     <tr>
                         <th>이름</th>

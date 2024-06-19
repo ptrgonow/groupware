@@ -4,6 +4,7 @@ let currentMemberPage = 1;
 let currentTaskPage = 1;
 let currentFeedPage = 1;
 let projectsArray = [];
+let selectedProjectId = null;
 
 $(document).ready(function() {
     initializeProjectsArray();
@@ -20,7 +21,10 @@ $(document).ready(function() {
     $('#git-tab').on('shown.bs.tab', fetchWebhookData);
     $('#toggle-mem').on('click', fetchTeamMembers);
     $(document).on('click', '.select-member-btn', selectTeamMember);
-
+    $(document).on('change', 'input[name="pr-radio"]', function() {
+        selectedProjectId = $(this).closest('tr').data('project-id');
+    });
+    $('#pr-delete-btn').on('click', deleteProject);
 
 });
 
@@ -31,6 +35,7 @@ function fetchTeamMembers() {
         method: 'GET',
         dataType: 'json',
         success: function(data) {
+            $('#team-member-list').empty();
             let memberRows = '';
             data.members.forEach(function(member) {
                 memberRows += `
@@ -38,9 +43,14 @@ function fetchTeamMembers() {
                         <td>${member.employeeName}</td>
                         <td>${member.departmentName}</td>
                         <td>${member.positionName}</td>
-                        <input type="hidden" id="mCode" value="${memberId}">
-                        <input type="hidden" id="eCode" value="${employeeCode}">
-                        <td><button type="button" class="btn-info select-member-btn" data-name="${member.name}" data-department="${member.departmentName}" data-position="${member.positionName}">선택</button></td>
+                        <td>
+                        <button type="button" class="btn-info select-member-btn" 
+                            data-employee-code="${member.employeeCode}"
+                            data-name="${member.employeeName}"
+                            data-department="${member.departmentName}"
+                            data-position="${member.positionName}">선택</button>
+                        </td>
+                        
                     </tr>
                 `;
             });
@@ -58,9 +68,17 @@ function selectTeamMember() {
     var name = $(this).data('name');
     var department = $(this).data('department');
     var position = $(this).data('position');
+    var employeeCode = $(this).data('employee-code');
 
     // 팀원 목록에 추가
-    $('#member-list').append('<tr><td>' + name + '</td><td>' + department + '</td><td>' + position + '</td></tr>');
+    $('#member-list').append(`
+        <tr>
+            <td>${name}</td>
+            <td>${department}</td>
+            <td>${position}</td>
+            <input type="hidden" id="eCode" value="${employeeCode}">
+        </tr>
+    `);
 
     // 팀원 추가 모달 닫기
     $('#addMemberModal').modal('hide');
@@ -159,7 +177,7 @@ function displayPaginatedProjects(page) {
     paginatedProjects.forEach((project, index) => {
         projectRows += `
             <tr data-project-id="${project.projectId}">
-                <!--<td><input type="checkbox" class="form-check-input"></td>-->
+                <td><input type="radio" class="pr-radio" name="pr-radio"></td>
                 <td>${startIndex + index + 1}</td>
                 <td>${project.projectName}</td>
                 <td>${project.status}</td>
@@ -176,6 +194,7 @@ function fetchProjectDetails(projectId) {
         data: { projectId: projectId },
         dataType: 'json',
         success: function(data) {
+            clearProjectDetails(); // 기존 데이터를 지움
             displayProjectDetails(data);
             window.currentProjectData = data; // 프로젝트 데이터 전역 변수에 저장
         },
@@ -281,7 +300,6 @@ function displayPaginatedFeeds(feeds, page) {
             <tr>
                 <td>${feed.name}</td>
                 <td>${feed.content}</td>
-                <td>${feed.createdAt}</td>
             </tr>
         `;
     });
@@ -289,15 +307,16 @@ function displayPaginatedFeeds(feeds, page) {
 }
 
 function clearProjectDetails() {
-    $('#pr-detail-description').text('');
-    $('.list-group-item:nth-child(1) .text-dark').text('');
-    $('.list-group-item:nth-child(2)').text('');
-    $('.display-5.diff').text('');
-    $('.display-5.diff2').text('');
-    $('.text-white.start').text('');
-    $('.text-white.end').text('');
-    $('#pr-mem-body').html('');
-    $('#pr-task-body').html('');
+    $('#pr-detail-description').empty(); // 기존 프로젝트 설명 초기화
+    $('.list-group-item:nth-child(1) .text-dark').empty(); // 시작일 초기화
+    $('.list-group-item:nth-child(2) .text-dark').empty(); // 종료일 초기화
+    $('.display-5.diff').empty(); // 남은 일수 초기화
+    $('.display-5.diff2').empty(); // 진행일수 초기화
+    $('.text-white.start').empty(); // 시작 날짜 초기화
+    $('.text-white.end').empty(); // 종료 날짜 초기화
+    $('#pr-mem-body').empty(); // 멤버 목록 초기화
+    $('#pr-task-body').empty(); // 작업 목록 초기화
+
 }
 
 function displayNoProjectMessage() {
@@ -309,6 +328,7 @@ function displayErrorMessage(message) {
     alert(message);
 }
 
+// 프로젝트 수정 모달 열기 함수에서 기존 멤버와 새 멤버를 모두 처리하도록 수정
 function editProject() {
     if (!window.currentProjectData) {
         displayErrorMessage('수정할 프로젝트 정보가 없습니다.');
@@ -326,6 +346,8 @@ function editProject() {
     $('#end_date').val(new Date(project.endDate).toISOString().split('T')[0]);
     $('#status').val(project.status);
 
+    $('#editPrModal').data('project-id', project.projectId);
+
     // 팀원 정보 설정
     let memberRows = '';
     members.forEach((member) => {
@@ -339,7 +361,7 @@ function editProject() {
             </tr>
         `;
     });
-    $('#editPrModal table').first().find('tbody').html(memberRows);
+    $('#member-list').html(memberRows);
 
     // 작업 정보 설정
     let taskRows = '';
@@ -417,9 +439,15 @@ function submitEditProject() {
 
     // 멤버 정보 가져오기
     const members = [];
-    $('#editPrModal table').first().find('tbody tr').each(function(index, element) {
-        const memberEmployeeCode = $(element).find('#eCode').val();
-        const memberId = $(element).find('#mCode').val();
+    $('#member-list tr').each(function(index, element) {
+        let memberEmployeeCode = $(element).find('#eCode').val();
+        let memberId = $(element).find('#mCode').val();
+
+        // memberId가 null인 경우 0으로 설정
+        if (memberId == null || memberId === "") {
+            memberId = 0;
+        }
+
         members.push({
             memberId: memberId,
             memberEmployeeCode: memberEmployeeCode
@@ -569,3 +597,39 @@ function deleteTask() {
         }
     });
 }
+
+function deleteProject() {
+
+    const selectedProjectId = $('input[name="pr-radio"]:checked').closest('tr').data('project-id');
+
+    if (!selectedProjectId) {
+        alert('삭제할 프로젝트를 선택해주세요.');
+        return;
+    }
+
+    // 사용자에게 확인 메시지를 표시
+    const confirmation = confirm('정말로 이 프로젝트를 삭제하시겠습니까?');
+    if (!confirmation) {
+        return;
+    }
+
+    // 서버로 삭제 요청을 보냄
+    $.ajax({
+        url: `/pr/delete/${selectedProjectId}`,
+        method: 'POST',
+        contentType: 'application/json',
+        success: function(response) {
+            if (response === '프로젝트가 삭제되었습니다.') {
+                alert('프로젝트가 삭제되었습니다.');
+                location.reload();
+            } else {
+                alert('프로젝트 삭제에 실패했습니다.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            alert('프로젝트 삭제 중 오류가 발생했습니다.');
+        }
+    });
+}
+

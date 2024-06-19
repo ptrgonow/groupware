@@ -88,6 +88,10 @@ public interface DevMapper {
 
     @Insert("INSERT INTO project_members (project_id, employee_code) VALUES (#{projectId}, #{employeeCode})")
     void insertProjectMember(@Param("projectId") int projectId, @Param("employeeCode") String employeeCode);
+
+
+    @Delete("DELETE FROM projects WHERE project_id = #{projectId}")
+    void deleteProject(int projectId);
 }
 
 

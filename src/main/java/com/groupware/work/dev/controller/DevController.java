@@ -28,9 +28,6 @@ public class DevController {
     @GetMapping("/mem/list")
     public ResponseEntity<Map<String, Object>> getMembers() {
         List<PrMemDTO> user = userService.getAllEmployees();
-        System.out.println("=====================================");
-        System.out.println(user);
-        System.out.println("=====================================");
         Map<String, Object> response = new HashMap<>();
         response.put("members", user);
         return ResponseEntity.ok(response);
@@ -125,5 +122,14 @@ public class DevController {
         }
     }
 
+    @PostMapping("/delete/{projectId}")
+    public ResponseEntity<String> deleteProject(@PathVariable("projectId") int projectId) {
+        try {
+            devService.deleteProject(projectId);
+            return ResponseEntity.ok().body("프로젝트가 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("프로젝트 삭제 중 오류가 발생했습니다.");
+        }
+    }
 
 }
