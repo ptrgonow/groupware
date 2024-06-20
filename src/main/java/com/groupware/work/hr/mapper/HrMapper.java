@@ -100,21 +100,6 @@ public interface HrMapper {
     @Delete("DELETE FROM employee WHERE employee_code = #{employeeCode}")
     void deleteEmployeeByCode(String employeeCode);
 
-    // 사원 정보 업데이트 (Left join은 따로 해줘야함)
-    @Update("UPDATE employee e " +
-            "SET " +
-            "e.department_id = (SELECT d.department_id FROM department d WHERE d.department_name = #{departmentName}), " +
-            "e.ps_cd = (SELECT p.ps_cd FROM positions p WHERE p.ps_nm = #{psNm}) " +
-            "WHERE e.employee_code = #{employeeCode}")
-
-    @Update("UPDATE attendance a " +
-            "SET a.status = #{status} " +
-            "WHERE a.employee_code = #{employeeCode} " +
-            "AND a.created_at = (" +
-            "SELECT MAX(a2.created_at) " +
-            "FROM attendance a2 " +
-            "WHERE a2.employee_code = #{employeeCode});")
-
     // 검색
     @Select("SELECT * FROM employee WHERE name LIKE CONCAT('%', #{query}, '%')")
     List<HrEmplMagDTO> findEmployeesByName(String query);

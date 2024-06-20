@@ -1,6 +1,5 @@
 package com.groupware.work.hr.service;
 
-import com.groupware.user.dto.UserDTO;
 import com.groupware.work.hr.dto.HrEmplMagDTO;
 import com.groupware.work.hr.dto.HrEmployeeDTO;
 import com.groupware.work.hr.dto.TodayWorkerDTO;
