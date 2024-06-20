@@ -75,9 +75,13 @@ body {
     text-align: center;
 }
 
+.form-btn{
+    margin-top: 10px;
+}
+
 #regi-btn {
-    width: 150px;
-    height: 3rem;
+    width: 100px;
+    height: 2rem;
     background-color: #455560;
     color: #fff;
     border: none;
@@ -90,7 +94,7 @@ body {
 
 #back-btn{
     width: 100px;
-    height: 3rem;
+    height: 2rem;
     background-color: #ff3833;
     color: #fff;
     border: none;
