@@ -2,14 +2,8 @@ package com.groupware.work.controller;
 
 
 import com.groupware.approval.dto.ApprovalDTO;
-import com.groupware.approval.dto.DeptTreeDTO;
-import com.groupware.approval.dto.EmployeeDTO;
-import com.groupware.approval.dto.PositionsDTO;
-import com.groupware.approval.service.ApService;
-import com.groupware.user.dto.DeptDTO;
-import com.groupware.user.dto.PositionDTO;
 import com.groupware.user.dto.UserDTO;
-import com.groupware.user.service.UserService;
+import com.groupware.work.ceo.service.CeoService;
 import com.groupware.work.hr.dto.HrEmplMagDTO;
 import com.groupware.work.hr.dto.HrEmployeeDTO;
 import com.groupware.work.hr.service.HrService;
@@ -19,15 +13,12 @@ import com.groupware.work.ms.service.MsService;
 import com.groupware.work.pm.dto.PmDTO;
 import com.groupware.work.pm.service.PmService;
 import jakarta.servlet.http.HttpSession;
-import org.apache.catalina.User;
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.service.DevService;
 import com.groupware.work.hr.dto.TodayWorkerDTO;
-import com.groupware.user.dto.UserDTO;
-import com.groupware.work.hr.service.HrService;
-import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 
+import lombok.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +34,7 @@ public class WorkViewController {
     private final DevService devService;
     private final MsService msService;
     private final PmService pmService;
+    private final CeoService ceoService;
 
 
     @GetMapping("/fm")
@@ -184,14 +176,25 @@ public class WorkViewController {
         return "work/pm/main-pm";
     }
 
+
     @GetMapping("/ceo")
-    public  String ceo()    {
+    public  String ceo(HttpSession session, Model model) {
 
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
+        }
+        // 내가 처리해야 할 결재 리스트
+        List<ApprovalDTO> myPendingApprovals = ceoService.getMyPendingApprovals(user.getEmployeeCode());
+        List<AllEmployeeDTO> employeeDTOList = ceoService.getAllEmployees();
 
+        model.addAttribute("myPendingApprovals", myPendingApprovals)
+                .addAttribute("empList", employeeDTOList);
 
-
-        return "work/ms/ceo";
+        return "work/ceo";
     }
+
+
 
 
 }

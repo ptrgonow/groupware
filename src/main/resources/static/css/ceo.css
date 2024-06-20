@@ -1,0 +1,13 @@
+/* 결재 페이징 */
+#pagination-myAp{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* 인사 잘한다 페이징 */
+#pagination-hr{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
