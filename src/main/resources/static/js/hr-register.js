@@ -87,7 +87,7 @@ $(document).ready(function() {
             data: formData,
             success: function(response) {
                 alert(response.message);
-                location.href = '/';
+                window.location.href = '/hr/edit';
             },
             error: function(error) {
                 alert('등록 실패: ' + error.responseText);
@@ -111,7 +111,7 @@ $(document).ready(function() {
             data: formData,
             success: function(response) {
                 alert(response.message);
-                location.href = '/';
+                location.href = '/hr/edit';
             },
             error: function(error) {
                 alert('업데이트 실패: ' + error);
