@@ -40,16 +40,21 @@ public class DevService {
 
     @Transactional
     public void updateProject(ProjectDTO projectDTO, List<ProjectMemberDTO> members, List<ProjectTaskDTO> tasks) {
-
+        // 프로젝트 업데이트
         devMapper.updateProject(projectDTO);
 
+        // 멤버 업데이트 또는 추가
         for (ProjectMemberDTO member : members) {
-            ProjectMemberDTO memberDTO = new ProjectMemberDTO();
-            memberDTO.setMemberId(member.getMemberId());
-            memberDTO.setMemberEmployeeCode(member.getMemberEmployeeCode());
-            devMapper.updateProjectMember(projectDTO.getProjectId(), member);
+            if (member.getMemberId() == 0) {
+                // memberId가 없는 경우, 새로운 멤버 추가
+                devMapper.insertProjectMember(projectDTO.getProjectId(), member.getMemberEmployeeCode());
+            } else {
+                // memberId가 있는 경우, 기존 멤버 업데이트
+                devMapper.updateProjectMember(projectDTO.getProjectId(), member);
+            }
         }
 
+        // 작업 업데이트
         for (ProjectTaskDTO task : tasks) {
             ProjectTaskDTO taskDTO = new ProjectTaskDTO();
             taskDTO.setTaskId(task.getTaskId());
@@ -58,8 +63,8 @@ public class DevService {
             taskDTO.setTaskProgress(task.getTaskProgress());
             devMapper.updateProjectTask(projectDTO.getProjectId(), task);
         }
-
     }
+
 
     @Transactional
     public void addFeed(ProjectFeedDTO feed) {
@@ -82,5 +87,18 @@ public class DevService {
 
     public List<GitHookDTO> getGitHookData( ) {
         return devMapper.getGitHookData();
+    }
+
+    @Transactional
+    public void insertProject(ProjectDTO project) {
+        // 프로젝트 정보 삽입
+        devMapper.insertProject(project);
+
+        // 프로젝트 멤버 삽입
+        devMapper.insertProjectMember(project.getProjectId(), project.getEmployeeCode());
+    }
+
+    public void deleteProject(int projectId) {
+        devMapper.deleteProject(projectId);
     }
 }

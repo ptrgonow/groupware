@@ -115,4 +115,23 @@ public class ApService {
     public List<ApprovalDTO> selectMyCompletedApprovals(String employeeCode) {
         return apMapper.selectMyCompletedApprovals(employeeCode);
     }
+
+
+    public ApprovalDetailsDTO getApprovalDetail(int approvalId) {
+
+        ApprovalDTO approval = apMapper.selectApprovalByApprovalId(approvalId);
+        List<ApprovalPathDTO> paths = apMapper.selectApprovalPathsByApprovalId(approvalId);
+        List<ApprovalConsensusDTO> consensuses = apMapper.selectApprovalConsensusesByApprovalId(approvalId);
+        List<ApprovalReferencesDTO> references = apMapper.selectApprovalReferencesByApprovalId(approvalId);
+
+        ApprovalDetailsDTO result = new ApprovalDetailsDTO();
+        result.setApprovalDTO(approval);
+        result.setApprovalPaths(paths);
+        result.setApprovalConsensuses(consensuses);
+        result.setApprovalReferences(references);
+
+
+        return result;
+    }
+
 }

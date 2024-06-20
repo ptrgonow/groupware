@@ -3,15 +3,14 @@ package com.groupware.work.hr.controller;
 import com.groupware.work.hr.dto.HrEmplMagDTO;
 import com.groupware.work.hr.dto.TodayWorkerDTO;
 import com.groupware.work.hr.service.HrService;
-import jakarta.servlet.http.HttpSession;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/hr")
@@ -30,4 +29,27 @@ public class HrController {
         return ResponseEntity.ok(workers);
     }
 
+    @GetMapping("/empdetail")
+    public ResponseEntity<HrEmplMagDTO> getEmpInfo(@RequestParam String employeeCode){
+        HrEmplMagDTO empinfo = hrService.getEmplInfo(employeeCode);
+        return ResponseEntity.ok(empinfo);
+    }
+
+    @GetMapping("/empmodi")
+    public ResponseEntity<Map<String, List<String>>> getModiList() {
+        Map<String, List<String>> modi = new HashMap<>();
+        modi.put("departments", hrService.getDepartments());
+        modi.put("positions", hrService.getPositions());
+        modi.put("statuses", hrService.getStatuses());
+        return ResponseEntity.ok(modi);
+    }
+
+    @PostMapping("/empdelete")
+    public ResponseEntity<Map<String, Object>> deleteEmployee(@RequestParam String employeeCode) {
+        hrService.deleteEmployeeByCode(employeeCode);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "사원 정보가 삭제되었습니다.");
+        return ResponseEntity.ok(response);
+    }
 }

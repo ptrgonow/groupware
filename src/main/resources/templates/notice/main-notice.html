@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
+    <meta name="departmentId" th:content="${user.departmentId}">
 </head>
 <body>
 
@@ -31,13 +32,11 @@
                     </thead>
 
                     <tbody id="notice_cont">
-                    <!-- 공지사항 리스트 반복 출력 -->
-                    <tr th:each="notice, stat : ${notices}">
-                        <td th:text="${notices.size() - stat.index}"> <input type="hidden" th:text="${notice.notice_id}"></td>
-
-                        <td><a th:href="@{/nt/detail(id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
-                        <td>경영지원실</td>
-                        <td th:text="${#temporals.format(notice.created_at, 'yyyy-MM-dd')}"></td>
+                    <tr th:each="notice, stat : ${notices}" th:data-notice-id="${notice.noticeId}">
+                        <td th:text="${stat.index + 1}"></td>
+                        <td><a th:href="@{/nt/detail(id=${notice.noticeId})}" th:text="${notice.title}"></a></td>
+                        <td th:text="${notice.departmentName}"></td>
+                        <td th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd')}"></td>
                     </tr>
                     </tbody>
 

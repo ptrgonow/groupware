@@ -1,6 +1,7 @@
 package com.groupware.work.fm.controller;
 
 import com.groupware.approval.dto.ApprovalDTO;
+import com.groupware.work.fm.dto.ExpenseDTO;
 import com.groupware.work.fm.dto.SalaryDTO;
 import com.groupware.approval.dto.DeptTreeDTO;
 import com.groupware.work.fm.dto.FixedExpensesDTO;
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/fm")
@@ -22,7 +25,17 @@ public class FmController {
         this.fmService = fmService;
     }
 
-    /* FIXED EXPENSE */
+    /* SALARY BY DEPARTMENT - 끝*/
+    @GetMapping("/departments")
+    public List<DeptTreeDTO> getDepartments() {
+        return fmService.getAllDepartments();
+    }
+    @GetMapping("/salariesByDepartment")
+    public List<SalaryDTO> getSalariesByDepartment(@RequestParam("departmentId") int departmentId) {
+        return fmService.getSalariesByDepartment(departmentId);
+    }
+
+    /* FIXED EXPENSE - 결재 완료 상태인 폼 처리 후 차트에 자동 반영하기 위해 만들어짐 - 미구현*/
     @GetMapping("/fixedExpenses")
     public List<FixedExpensesDTO> getFixedExpenses() {
         return fmService.getFixedExpenses();
@@ -32,22 +45,17 @@ public class FmController {
         return fmService.getCompletedFixedExpenses(fileCd);
     }
 
-
-    /* SALARY BY DEPARTMENT */
-    @GetMapping("/departments")
-    public List<DeptTreeDTO> getDepartments() {
-        return fmService.getAllDepartments();
-    }
-    @GetMapping("/salariesByDepartment")
-    public ResponseEntity<List<SalaryDTO>> getSalariesByDepartment(@RequestParam int departmentId) {
-        List<SalaryDTO> salaries = fmService.getSalariesByDepartment(departmentId);
-        return ResponseEntity.ok(salaries);
+    /* DATA ENTRY - 뷰 페이지 테이터 입력 - 구현중..*/
+    @PostMapping("/saveExpense")
+    public ResponseEntity<Map<String, String>> saveExpense(@RequestBody ExpenseDTO expenseDTO){
+        fmService.saveExpense(expenseDTO);
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "success");
+        return ResponseEntity.ok(response);
     }
 
 
-    /* PASSWORD TO VIEW SALARY INFO */
-    @PostMapping("/authenticate")
-    public boolean authenticate(@RequestParam String password) {
-        return fmService.authenticate(password);
-    }
+
+
+
 }

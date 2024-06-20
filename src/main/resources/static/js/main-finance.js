@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Chart Data
-    var chartData = {
+    const chartData = {
         invoices: {
             labels: ['Overdue', 'Not Due Yet', 'Paid', 'Not Deposited', 'Deposited'],
             data: {
@@ -44,19 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Initialize Charts
-    var invoicesChart = initChart('invoicesChart', 'horizontalBar', chartData.invoices.labels, chartData.invoices.data['Last Month']);
-    var salesChart = initChart('salesChart', 'line', chartData.sales.labels, chartData.sales.data['Last Month']);
-    var expensesChart = initChart('expensesChart', 'doughnut', chartData.expenses.labels, chartData.expenses.data['Last Month']);
-    var profitLossChart = initChart('profitLossChart', 'pie', chartData.profitLoss.labels, chartData.profitLoss.data['Last Month']);
-
-    // Fetch and update expenses chart
-    fetch('/fm/expenses')
-        .then(response => response.json())
-        .then(data => {
-            const labels = data.map(d => d.itemName);
-            const amounts = data.map(d => parseFloat(d.amount));
-            updateChart(expensesChart, labels, amounts);
-        });
+    const invoicesChart = initChart('invoicesChart', 'horizontalBar', chartData.invoices.labels, chartData.invoices.data['Last Month']);
+    const salesChart = initChart('salesChart', 'line', chartData.sales.labels, chartData.sales.data['Last Month']);
+    const expensesChart = initChart('expensesChart', 'doughnut', chartData.expenses.labels, chartData.expenses.data['Last Month']);
+    const profitLossChart = initChart('profitLossChart', 'pie', chartData.profitLoss.labels, chartData.profitLoss.data['Last Month']);
 
     // Event Listeners for Dropdowns
     document.getElementById('invoicesSelect').addEventListener('change', function () {
@@ -94,12 +85,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Function to Update Chart
+    // Fetch and update expenses chart - 미구현
+    fetch('/fm/expenses')
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            const labels = data.map(function(d) { return d.itemName; });
+            const amounts = data.map(function(d) { return d.amount; });
+            updateChart(expensesChart, labels, amounts);
+        });
+
+    // Function to Update Chart - 미구현
     function updateChart(chart, labels, data) {
         chart.data.labels = labels;
         chart.data.datasets[0].data = data;
         chart.update();
     }
+//------------------------------------------------CHART END------------------------------------------------//
 
     // Function to format date to yyyy-MM-dd
     function formatDate(dateString) {
@@ -110,8 +113,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to load salaries by department
     function loadSalaries(departmentId) {
         fetch(`/fm/salariesByDepartment?departmentId=${departmentId}`)
-            .then(response => response.json())
-            .then(data => {
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
                 if (!Array.isArray(data)) {
                     throw new Error('API response is not an array');
                 }
@@ -134,7 +139,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     row.insertCell(5).textContent = salary.amount || 'N/A';
                 });
             })
-            .catch(error => console.error('Error loading salaries:', error));
+            .catch(function(error) {
+                console.error('Error loading salaries:', error);
+            });
     }
 
     // Event Listener for department selection
@@ -145,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // PAGING
     $(document).ready(function () {
         let currentPage = 1;
         let pageSize = 5;
@@ -152,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Load departments dynamically
         $.get("/fm/departments", function (data) {
-            const departmentSelect = $("#salaryStatus");
+            var departmentSelect = $("#salaryStatus");
             data.forEach(function (department) {
                 departmentSelect.append(new Option(department.departmentName, department.departmentId));
             });
@@ -208,5 +216,170 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+//-------------------------------------SALARY including PAGINATION END--------------------------------------//
+
+// Function to toggle between account types
+    const accountSelect = document.getElementById('accountSelect');
+    const formContent = document.getElementById('formContent');
+
+    const paymentForm = `
+            <ul>
+                <label for="expenseType"></label>
+                <li>
+                분류 : 
+                    <select id="expenseType" class="">
+                        <option value="">- 선택 -</option>
+                            
+                            <option value="fixed_expenses">고정지출</option>
+                                <option value="fixed_expenses_utilities">-수도·전기·가스</option>
+                                <option value="fixed_expenses_rentOrLease">-임대료</option>
+                                <option value="fixed_expenses_officeSupplies">-(일반)사무용품</option>
+                                <option value="fixed_expenses_generalSalary">-(일반)급여</option>
+                            
+                            <option value="variable_expenses">변동지출</option>
+                                <option value="fixed_expenses">-Miscellaneous</option>
+                    </select>
+                </li>
+                    
+                <li>
+                    <label for="issueDate">날짜 : </label>
+                    <input type="date" name="issue_date" id="issueDate">
+                </li>
+                <li>
+                    <label for="refNumber">참조번호 : </label>
+                    <input type="text" name="ref_number" id="refNumber">
+                </li>
+                <li>
+                    <label for="recipient">수령인 : </label>
+                    <input type="text" name="recipient" id="recipient">
+                </li>
+                <li>
+                    <label for="totalCharge">지불금 : </label>
+                    <input type="number" name="total_charge" id="totalCharge"> 원
+                </li>
+                <li>
+                    <label for="paymentAmount">지급금 : </label>
+                    <input type="number" name="payment_amount" id="paymentAmount"> 원
+                </li>
+                <li>
+                    <label for="balance">잔액 : </label>
+                    <input type="number" name="balance" id="balance"> 원
+                </li>
+                <li>
+                    <label for="memo">메모 : </label>
+                    <input type="text" name="memo" id="memo">
+                </li>
+            </ul>
+        `;
+    var receiptForm = `
+        <ul>
+            <li>
+            분류 : 
+                <label for="expenseType"></label>
+                    <select id="expenseType" class="">
+                        <option value="">- 선택 -</option>
+                        <option value="accounts_receivables">매출채권</option>
+                        <option value="notes_receivables">수취채권</option>
+                        <option value="other_receivables">기타</option>
+                    </select>
+            </li>
+            <li>
+                <label for="receivableDate">날짜 : </label>
+                <input type="date" name="receive_date" id="receiveDate">
+            </li>
+            <li>
+                <label for="refNumber">참조번호 : </label>
+                <input type="text" name="ref_number" id="refNumber">
+            </li>
+            <li>
+                <label for="payer">지불인 : </label>
+                <input type="text" name="payer" id="payer">
+            </li>
+            <li>
+                <label for="receiptAmount">수납금 : </label>
+                <input type="number" name="receipt_amount" id="receiptAmount"> 원
+            </li>
+            <li>
+                <label for="balance">추가 잔액 : </label>
+                <input type="number" name="balance" id="balance">
+            </li>
+            <li>
+                <label for="memo">메모 : </label>
+                <input type="text" name="memo" id="memo">
+            </li>
+        </ul>
+        `;
+
+        accountSelect.addEventListener('change', function () {
+            if (accountSelect.value === 'payment') {
+                formContent.innerHTML = paymentForm;
+                addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
+            } else if (accountSelect.value === 'receipt') {
+                formContent.innerHTML = receiptForm;
+            }
+        });
+
+        // 초기 로딩 시 기본 폼 설정
+        formContent.innerHTML = paymentForm;
+        addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
+
+//--------------------------------------------DATA ENTRY 입력 END---------------------------------------------//
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        const formData = {
+            accountType: document.getElementById('accountSelect').value,
+            expenseType: document.getElementById('expenseType').value,
+            issueDate: document.getElementById('issueDate').value,
+            refNumber: document.getElementById('refNumber').value,
+            recipient: document.getElementById('recipient').value,
+            totalCharge: parseFloat(document.getElementById('totalCharge').value),
+            paymentAmount: parseFloat(document.getElementById('paymentAmount').value),
+            balance: parseFloat(document.getElementById('balance').value),
+            memo: document.getElementById('memo').value
+        };
+
+        fetch('/fm/saveExpense', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                alert('Data saved successfully!');
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+    });
+
+    // 지불금 선지급금 잔액 자동 계산
+    function addPaymentFormListeners() {
+        const totalChargeInput = document.getElementById('totalCharge');
+        const paymentAmountInput = document.getElementById('paymentAmount');
+        const balanceInput = document.getElementById('balance');
+
+        totalChargeInput.addEventListener('input', function() {
+            const totalCharge = parseFloat(totalChargeInput.value) || 0;
+            const paymentAmount = parseFloat(paymentAmountInput.value) || 0;
+            balanceInput.value = totalCharge - paymentAmount;
+        });
+
+        paymentAmountInput.addEventListener('input', function() {
+            const totalCharge = parseFloat(totalChargeInput.value) || 0;
+            const paymentAmount = parseFloat(paymentAmountInput.value) || 0;
+            balanceInput.value = totalCharge - paymentAmount;
+        });
+    }
+
+//--------------------------------------------DATA TRANSFER 전송 END---------------------------------------------//
+
+
 });
 

@@ -1,26 +1,36 @@
 package com.groupware.work.dev.controller;
 
-import com.groupware.work.dev.dto.ProjectDetailsDTO;
-import com.groupware.work.dev.dto.ProjectFeedDTO;
-import com.groupware.work.dev.dto.ProjectTaskDTO;
-import com.groupware.work.dev.dto.ProjectUpdateRequestDTO;
+import com.groupware.user.dto.PrMemDTO;
+import com.groupware.user.dto.UserDTO;
+import com.groupware.user.service.UserService;
+import com.groupware.work.dev.dto.*;
 import com.groupware.work.dev.service.DevService;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/pr")
+@AllArgsConstructor
 public class DevController {
 
     private final DevService devService;
+    private final UserService userService;
 
-    @Autowired
-    public DevController(DevService devService) {
-        this.devService = devService;
+
+    @GetMapping("/mem/list")
+    public ResponseEntity<Map<String, Object>> getMembers() {
+        List<PrMemDTO> user = userService.getAllEmployees();
+        Map<String, Object> response = new HashMap<>();
+        response.put("members", user);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/details")
@@ -37,6 +47,25 @@ public class DevController {
         response.put("feeds", projectDetails.getFeeds());
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/insert")
+    public void insertProject(@ModelAttribute ProjectDTO projectDTO, HttpServletResponse response) throws IOException {
+        try {
+            ProjectDTO project = new ProjectDTO();
+            project.setProjectName(projectDTO.getProjectName());
+            project.setStartDate(projectDTO.getStartDate());
+            project.setEndDate(projectDTO.getEndDate());
+            project.setStatus(projectDTO.getStatus());
+            project.setDepartmentId(projectDTO.getDepartmentId());
+            project.setDescription(projectDTO.getDescription());
+            project.setEmployeeCode(projectDTO.getEmployeeCode());
+            devService.insertProject(project);
+
+            response.sendRedirect("/dev");
+        } catch (Exception e) {
+            response.sendRedirect("/error");
+        }
     }
 
     @PostMapping("/edit")
@@ -93,5 +122,14 @@ public class DevController {
         }
     }
 
+    @PostMapping("/delete/{projectId}")
+    public ResponseEntity<String> deleteProject(@PathVariable("projectId") int projectId) {
+        try {
+            devService.deleteProject(projectId);
+            return ResponseEntity.ok().body("프로젝트가 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("프로젝트 삭제 중 오류가 발생했습니다.");
+        }
+    }
 
 }

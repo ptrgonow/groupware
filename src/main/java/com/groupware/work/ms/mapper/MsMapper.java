@@ -51,4 +51,18 @@ public interface MsMapper {
             "ORDER BY a.created_at DESC;")
     List<MsApprovalDTO> getFmApproval();
 
+    @Select("SELECT " +
+            "    t.title AS title, " +
+            "    e.name AS name, " +
+            "    a.created_at AS createdAt, " +
+            "    a.status AS status " +
+            "FROM approval a " +
+            "JOIN templates t ON a.file_cd = t.file_cd " +
+            "JOIN employee e ON a.employee_code = e.employee_code " +
+            "WHERE DATE(a.created_at) = CURDATE() " + // 오늘 날짜인 항목만 필터링
+            "ORDER BY a.created_at DESC;")
+    List<MsApprovalDTO> getNewApproval();
+
+
+
 }

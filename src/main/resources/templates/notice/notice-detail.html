@@ -22,13 +22,13 @@
                 <div class="notice-detail">
                     <div class="notice-header">
                         <h4 th:text="${notice.title}"></h4>
-                        <p class="created-at" th:text="${#temporals.format(notice.created_at)}"></p>
+                        <p class="created-at" th:text="${#temporals.format(notice.createdAt)}"></p>
                     </div>
                     <div class="notice-content" th:utext="${notice.content}"></div>
 
                     <div class="button-group">
-                        <a th:href="@{/nt/update(id=${notice.notice_id})}" class="btn btn-primary">수정</a>
-                        <button class="btn btn-danger" th:onclick="'deleteNotice(' + ${notice.notice_id} + ')'" >삭제</button>
+                        <a th:href="@{/nt/update(id=${notice.noticeId})}" class="btn btn-primary">수정</a>
+                        <button class="btn btn-danger" th:onclick="'deleteNotice(' + ${notice.noticeId} + ')'" >삭제</button>
                     </div>
                 </div>
             </div>

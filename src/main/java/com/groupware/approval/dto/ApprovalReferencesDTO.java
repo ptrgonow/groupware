@@ -8,4 +8,6 @@ public class ApprovalReferencesDTO {
     private int referenceId;
     private int approvalId;
     private String employeeCode;
+    private String employeeName;
+    private String departmentName;
 }

@@ -1,41 +1,17 @@
 package com.groupware.work.fm.mapper;
 
-import com.groupware.approval.dto.ApprovalDTO;
+import com.groupware.work.fm.dto.ExpenseDTO;
 import com.groupware.work.fm.dto.SalaryDTO;
 import com.groupware.approval.dto.DeptTreeDTO;
 import com.groupware.work.fm.dto.FixedExpensesDTO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+
 import java.util.List;
 
 @Mapper
 public interface FmMapper {
 
-    /* 고정지출 관련 차트 업데이트 */
-    @Select("SELECT expense_id AS expenseId, item_name AS itemName, amount, issue_date AS date, employee_code AS employeeCode FROM fixed_expenses")
-    List<FixedExpensesDTO> getFixedExpenses();
-
-    /* expense_category_mapping 라는 매핑 테이블을 활용하여 fixed_expenses 테이블의 데이터를 가져올 때 매핑된 카테고리로 변환 */
-    @Select("SELECT fe.expense_id, fe.item_name, fe.amount, fe.issue_date, fe.employee_code, ecm.category_name " +
-            "FROM fixed_expenses fe " +
-            "JOIN expense_category_mapping ecm ON fe.item_name = ecm.item_name")
-    List<FixedExpensesDTO> getFixedExpensesWithCategory();
-
-    /* approval 테이블에 status 가 완료인 데이터 가져오기 */
-    @Select("SELECT fe.expense_id, fe.item_name, fe.amount, fe.issue_date, fe.employee_code, ecm.category_name " +
-            "FROM fixed_expenses fe " +
-            "JOIN expense_category_mapping ecm ON fe.item_name = ecm.item_name " +
-            "JOIN approval a ON fe.employee_code = a.employee_code AND fe.issue_date = a.created_at " +
-            "WHERE a.status = '완료' AND a.file_cd = #{fileCd}")
-    List<FixedExpensesDTO> getCompletedFixedExpenses(@Param("fileCd") String fileCd);
-
-
-
-    /*   -- CHART END --   */
-
-
-    /* 부서별 임직원 연봉 정보 띄우기 */
+    /* SALARY BY DEPARTMENT 부서별 임직원 연봉 정보 띄우기 */
     @Select("SELECT * FROM department")
     List<DeptTreeDTO> getDepartments();
 
@@ -65,8 +41,30 @@ public interface FmMapper {
     /*   -- SALARY BY DEPARTMENT END --   */
 
 
-    /* 연봉 정보 테이블을 보기 위한 비밀번호 */
-    @Select("SELECT password FROM employee WHERE username = #{username}")
-    String getPasswordByUsername(@Param("username") String username);
-/*   -- PASSWORD TO VIEW SALARY INFO END --   */
+    /* FIXED EXPENSES - 고정지출 관련 차트 업데이트 */
+    @Select("SELECT expense_id AS expenseId, item_name AS itemName, amount, issue_date AS date, employee_code AS employeeCode FROM fixed_expenses")
+    List<FixedExpensesDTO> getFixedExpenses();
+
+    /* FIXED EXPENSES - expense_category_mapping 라는 매핑 테이블을 활용하여 fixed_expenses 테이블의 데이터를 가져올 때 매핑된 카테고리로 변환 */
+    @Select("SELECT fe.expense_id, fe.item_name, fe.amount, fe.issue_date, fe.employee_code, ecm.category_name " +
+            "FROM fixed_expenses fe " +
+            "JOIN expense_category_mapping ecm ON fe.item_name = ecm.item_name")
+    List<FixedExpensesDTO> getFixedExpensesWithCategory();
+
+    /* FIXED EXPENSES - approval 테이블에 status 가 완료인 데이터 가져오기 */
+    @Select("SELECT fe.expense_id, fe.item_name, fe.amount, fe.issue_date, fe.employee_code, ecm.category_name " +
+            "FROM fixed_expenses fe " +
+            "JOIN expense_category_mapping ecm ON fe.item_name = ecm.item_name " +
+            "JOIN approval a ON fe.employee_code = a.employee_code AND fe.issue_date = a.created_at " +
+            "WHERE a.status = '완료' AND a.file_cd = #{fileCd}")
+    List<FixedExpensesDTO> getCompletedFixedExpenses(@Param("fileCd") String fileCd);
+
+    /*   -- FIXED EXPENSES END --   */
+
+
+    /* DATA ENTRY */
+    @Insert("INSERT INTO expense (account_type, expense_type, issue_date, ref_number, recipient, total_charge, payment_amount, balance, memo) " +
+            "VALUES (#{accountType}, #{expenseType}, #{issueDate}, #{refNumber}, #{recipient}, #{totalCharge}, #{paymentAmount}, #{balance}, #{memo})")
+    @Options(useGeneratedKeys = true, keyProperty = "expenseId")
+    void insertExpense(ExpenseDTO expenseDTO);
 }

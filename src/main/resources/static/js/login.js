@@ -18,6 +18,7 @@ $(document).ready(function() {
             },
             error: function(error) {
                 alert('로그인 실패: ' + error.responseJSON.message);
+                window.location.reload(); // 실패 시 페이지 새로고침
             }
         });
     });

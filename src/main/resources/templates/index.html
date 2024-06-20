@@ -3,6 +3,7 @@
 <head>
     
     <title>그룹웨어</title>
+    <link rel="icon" href="/img/icons8.png" type="image/x-icon">
     <meta name="employee-code" th:content="${user.employeeCode}">
     <meta name="department-id" th:content="${user.departmentId}">
 
@@ -86,11 +87,11 @@
                                 </tr>
                                 </thead>
                                 <tbody id="notice_cont">
-                                <tr th:each="notice : ${nList}">
-                                    <td th:text="${notice.notice_id}">ID</td>
-                                    <td><a th:href="@{/nt/detail(id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
-                                    <td th:text="경영지원실"></td>
-                                    <td th:text="${#temporals.format(notice.created_at, 'yyyy-MM-dd')}"></td>
+                                <tr th:each="notice, stat : ${nList}" th:data-notice-id="${notice.noticeId}">
+                                    <td th:text="${stat.index + 1}"></td>
+                                    <td><a th:href="@{/nt/detail(id=${notice.noticeId})}" th:text="${notice.title}"></a></td>
+                                    <td th:text="${notice.departmentName}"></td>
+                                    <td th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd')}"></td>
                                 </tr>
                                 </tbody>
                             </table>

@@ -22,8 +22,6 @@
 
             <div class="row">
                 <div class="col-xl-12 col-12 d-flex">
-
-
                     <div class="col-xl-6">
                         <div class="card">
                             <div class="card-header">
@@ -46,6 +44,7 @@
 
                                 <div class="page">
                                     <!-- 페이지네이션 자리 -->
+                                    <!-- 급여 현황 거랑 <nav> 태그 공유? 안 됨 -->
                                 </div>
                             </div>
                         </div>
@@ -96,7 +95,6 @@
                                         </ul>
                                     </nav>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -106,7 +104,8 @@
                     <div class="col-xl-6 col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">Expenses</h5>
+                                <h5 class="card-title">지출 항목</h5>
+                                <label for="expensesSelect"></label>
                                 <select id="expensesSelect" class="form-control form-control-sm w-auto float-right">
                                     <option>Last Month</option>
                                     <option>Last 3 Months</option>
@@ -120,11 +119,36 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-xl-6 col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">데이터 입력</h5>
+                                <label for="accountSelect"></label>
+                                <select id="accountSelect" class="form-control form-control-sm w-auto float-right">
+                                    <option value="">- 선택 -</option>
+                                    <option value="payment">지불 계정</option>
+                                    <option value="receipt">수납 계정</option>
+                                </select>
+                            </div>
+                            <div class="card-body" id="formContent">
+                                <!-- 폼 컨텐츠가 여기에 동적으로 로드됨 -->
+                            </div>
+
+                            <input type="submit" value="입력" id="submitBtn">
+                            <input type="reset" value="재입력">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-12 d-flex justify-content-center align-items-center">
                     <!-- Profit and Loss Chart -->
                     <div class="col-xl-6 col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">Profit and Loss</h5>
+                                <h5 class="card-title">손익 현황</h5>
+                                <label for="profitLossSelect"></label>
                                 <select id="profitLossSelect" class="form-control form-control-sm w-auto float-right">
                                     <option>Last Month</option>
                                     <option>Last 3 Months</option>
@@ -138,17 +162,11 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-
-
-
-
-                <div class="col-xl-12 d-flex justify-content-center align-items-center">
                     <div class="col-xl-6 col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">Invoices</h5>
+                                <h5 class="card-title">청구서 현황</h5>
+                                <label for="invoicesSelect"></label>
                                 <select id="invoicesSelect" class="form-control form-control-sm w-auto float-right">
                                     <option>Last Month</option>
                                     <option>Last 3 Months</option>
@@ -162,11 +180,15 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="col-xl-12 d-flex justify-content-center align-items-center">
                     <!-- Sales Chart -->
                     <div class="col-xl-6 col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">Sales</h5>
+                                <h5 class="card-title">매출 현황</h5>
+                                <label for="salesSelect"></label>
                                 <select id="salesSelect" class="form-control form-control-sm w-auto float-right">
                                     <option>Last Month</option>
                                     <option>Last 3 Months</option>
@@ -181,16 +203,13 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
             </div>
         </div>
     </div>
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+
 <script src="/plugins/apexchart/apexcharts.min.js"></script>
 <script src="/plugins/apexchart/chart-data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" th:inline="javascript"></script>

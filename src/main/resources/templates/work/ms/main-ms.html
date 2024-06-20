@@ -19,8 +19,6 @@
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3 th:text="${user.departmentName}"></h3>
-
-
             </div>
 
             <div class="row mb-4">
@@ -40,7 +38,7 @@
                         <div class="card-body">
                             <div class="card_widget_header">
                                 새로운 요청
-                                <p class="widget" th:text="${apCount}"></p>
+                                <p class="widget" th:text="${newApproval.size()}"></p>
 
                             </div>
                             <div class="card_notify_img">
@@ -65,7 +63,7 @@
                         <div class="card-body">
                             <div class="card_widget_header">
                                 현재 근무중
-                                <p class="widget">27</p>
+                                <p class="widget" th:text="${#lists.size(allEmployee.?[status == '근무중'])}"></p>
 
                             </div>
                             <div class="card_working_img">
