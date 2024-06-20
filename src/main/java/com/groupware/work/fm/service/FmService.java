@@ -1,6 +1,7 @@
 package com.groupware.work.fm.service;
 
 import com.groupware.approval.dto.ApprovalDTO;
+import com.groupware.work.fm.dto.ExpenseDTO;
 import com.groupware.work.fm.dto.SalaryDTO;
 import com.groupware.approval.dto.DeptTreeDTO;
 import com.groupware.work.fm.dto.FixedExpensesDTO;
@@ -20,17 +21,7 @@ public class FmService {
         this.fmMapper = fmMapper;
     }
 
-
-    /* FIXED EXPENSES */
-    public List<FixedExpensesDTO> getFixedExpenses() {
-        return fmMapper.getFixedExpensesWithCategory();
-    }
-    public List<FixedExpensesDTO> getCompletedFixedExpenses(String fileCd) {
-        return fmMapper.getCompletedFixedExpenses(fileCd);
-    }
-
-
-    /* SALARY BY DEPARTMENT */
+    /* SALARY BY DEPARTMENT - 끝*/
     public List<DeptTreeDTO> getAllDepartments() {
         return fmMapper.getDepartments();
     }
@@ -38,9 +29,18 @@ public class FmService {
         return fmMapper.getSalariesByDepartment(departmentId);
     }
 
-
-    /* PASSWORD TO VIEW SALARY INFO */
-    public boolean authenticate(String password) {
-        return "123".equals(password);
+    /* FIXED EXPENSES - 결재 완료 상태인 폼 처리 후 차트에 자동 반영하기 위해 만들어짐 - 미구현*/
+    public List<FixedExpensesDTO> getFixedExpenses() {
+        return fmMapper.getFixedExpensesWithCategory();
     }
+    public List<FixedExpensesDTO> getCompletedFixedExpenses(String fileCd) {
+        return fmMapper.getCompletedFixedExpenses(fileCd);
+    }
+
+    /* DATA ENTRY - 뷰 페이지 테이터 입력 - 구현중..*/
+    public void saveExpense(ExpenseDTO expenseDTO){
+        fmMapper.insertExpense(expenseDTO);
+    }
+
+
 }
