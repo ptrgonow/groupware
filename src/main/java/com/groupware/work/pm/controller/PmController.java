@@ -29,7 +29,13 @@ public class PmController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("미팅 일정 추가 중 오류가 발생했습니다.");
         }
     }
-    @PutMapping("/meetings/{meetingId}") // PUT 메서드, meetingId 경로 변수 추가
+
+    @GetMapping("/meetings/{meetingId}")
+    public ResponseEntity<PmDTO> getMeetingDetail(@PathVariable int meetingId){
+        PmDTO meeting = pmService.getMeetingById(meetingId);
+        return ResponseEntity.ok(meeting);
+    }
+    @PutMapping("/editMeetings/{meetingId}") // PUT 메서드, meetingId 경로 변수 추가
     public ResponseEntity<String> updateMeeting(@PathVariable int meetingId, @RequestBody PmDTO pmDTO, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null) {
@@ -46,9 +52,19 @@ public class PmController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("미팅 일정 수정 중 오류가 발생했습니다.");
         }
     }
-    @GetMapping("/meetings/{meetingId}")
-    public ResponseEntity<PmDTO> getMeetingDetail(@PathVariable int meetingId){
-        PmDTO meeting = pmService.getMeetingById(meetingId);
-        return ResponseEntity.ok(meeting);
+
+    @DeleteMapping("/deleteMeetings/{meetingId}")
+    public ResponseEntity<String> deleteMeeting(@PathVariable int meetingId, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
+
+        try {
+            pmService.deleteMeeting(meetingId);
+            return ResponseEntity.ok("회의 일정이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("미팅 일정 삭제 중 오류가 발생했습니다.");
+        }
     }
 }
