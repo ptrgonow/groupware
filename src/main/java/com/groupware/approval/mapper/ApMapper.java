@@ -37,13 +37,14 @@ public interface ApMapper {
 
     // 내가 처리해야 할 결재 목록을 가져오는 쿼리문
     @Select(
-            "SELECT a.approval_id AS approvalId, t.title AS fileCd, e.name AS employeeName, a.status, a.created_at AS createdAt " +
+            "SELECT a.approval_id AS approvalId, t.title AS fileCd, e.name AS employeeName, ap.status, a.created_at AS createdAt " +
                     "FROM approval a " +
                     "JOIN approval_path ap ON a.approval_id = ap.approval_id " +
                     "JOIN employee e ON a.employee_code = e.employee_code " +
                     "JOIN templates t ON a.file_cd = t.file_cd " +
                     "WHERE ap.employee_code = #{employeeCode} " +
-                    "AND ap.status = '미결' " +
+                    "AND (ap.status = '미결' OR ap.status = '후열') " +
+                    "AND a.status NOT IN ('완결') " +
                     "ORDER BY a.created_at DESC"
     )
     List<ApprovalDTO> selectMyPendingApprovals(String employeeCode);
@@ -141,7 +142,7 @@ public interface ApMapper {
 
     // 내가 수신 합의된 목록을 가져오는 쿼리문
     @Select(
-            "SELECT a.approval_id AS approvalId, t.title AS fileCd, e.name AS employeeName, a.status, a.created_at AS createdAt " +
+            "SELECT a.approval_id AS approvalId, t.title AS fileCd, e.name AS employeeName, ac.status, a.created_at AS createdAt " +
                     "FROM approval a " +
                     "JOIN approval_consensus ac ON a.approval_id = ac.approval_id " +
                     "JOIN employee e ON a.employee_code = e.employee_code " +
@@ -228,7 +229,8 @@ public interface ApMapper {
             "FROM approval_references a " +
             "JOIN employee e ON a.employee_code = e.employee_code " +
             "JOIN department d on e.department_id = d.department_id " +
-            "WHERE approval_id = #{approvalId}")
+            "WHERE approval_id = #{approvalId} " +
+            "AND e.ps_cd != 'P001'")
     List<ApprovalReferencesDTO> selectApprovalReferencesByApprovalId(int approvalId);
 
     // approvalId를 기준으로 approval_consensus 테이블의 데이터를 가져오는 쿼리문
@@ -241,9 +243,21 @@ public interface ApMapper {
             "e.name AS employeeName " +
             "FROM approval_consensus a " +
             "JOIN employee e ON a.employee_code = e.employee_code " +
-            "JOIN department d on e.department_id = d.department_id " +
+            "JOIN department d ON e.department_id = d.department_id " +
             "WHERE approval_id = #{approvalId}")
     List<ApprovalConsensusDTO> selectApprovalConsensusesByApprovalId(int approvalId);
 
-
+    @Select("SELECT a.path_id AS pathId, " +
+            "a.approval_id AS approvalId, " +
+            "a.employee_code AS employeeCode, " +
+            "a.sequence, " +
+            "a.status, " +
+            "a.file_cd AS fileCd, " +
+            "d.department_name AS departmentName, " +
+            "e.name AS employeeName " +
+            "FROM approval_path a " +
+            "JOIN employee e ON a.employee_code = e.employee_code " +
+            "JOIN department d on e.department_id = d.department_id " +
+            "WHERE approval_id = #{approvalId} AND sequence < #{sequence}")
+    List<ApprovalPathDTO> getPreviousApprovalPaths(int approvalId, int sequence);
 }

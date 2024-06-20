@@ -72,13 +72,10 @@ public class ApRestController {
     }
 
 
-    @PostMapping("/updateStatus")
-    public ResponseEntity<String> updateApprovalStatus(
-            @RequestParam int approvalId,
-            @RequestParam String employeeCode,
-            @RequestParam String newStatus) {
+    @PostMapping("/update/approvalstatus")
+    public ResponseEntity<String> updateApprovalStatus(@RequestBody ApprovalLineUpDTO approvalLineUpDTO) {
         try {
-            apService.updateApprovalStatus(approvalId, employeeCode, newStatus);
+            apService.updateApprovalStatus(approvalLineUpDTO.getApprovalId(), approvalLineUpDTO.getEmployeeCode(), approvalLineUpDTO.getNewStatus());
             return ResponseEntity.ok("Approval status updated");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -86,13 +83,10 @@ public class ApRestController {
         }
     }
 
-    @PostMapping("/updateConsensusStatus")
-    public ResponseEntity<String> updateConsensusStatus(
-            @RequestParam int approvalId,
-            @RequestParam String employeeCode,
-            @RequestParam String newStatus) {
+    @PostMapping("/update/consensusstatus")
+    public ResponseEntity<String> updateConsensusStatus(@RequestBody ApprovalLineUpDTO approvalLineUpDTO) {
         try {
-            apService.updateConsensusStatus(approvalId, employeeCode, newStatus);
+            apService.updateConsensusStatus(approvalLineUpDTO.getApprovalId(), approvalLineUpDTO.getEmployeeCode(), approvalLineUpDTO.getNewStatus());
             return ResponseEntity.ok("Consensus status updated");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

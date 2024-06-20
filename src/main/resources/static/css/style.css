@@ -2898,7 +2898,6 @@ html.menu-opened body {
 	display: inline-block;
 	margin-left: 25px;
 	white-space: nowrap;
-	font-weight: 600;
 }
 .sidebar .sidebar-menu > ul > li > a span.chat-user {
 	margin-left: 0;

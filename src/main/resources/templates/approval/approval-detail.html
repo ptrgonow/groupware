@@ -5,10 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>결재</title>
-    <meta name="employeeCode" th:content="${user.employeeCode}">
-    <meta name="departmentCode" th:content="${user.departmentId}">
-    <meta name="departmentName" th:content="${user.departmentName}">
-    <meta name="positionCode" th:content="${user.ps_cd}">
 
 </head>
 <body>
@@ -16,70 +12,123 @@
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" />
+    <input type="hidden" id="approvalId" th:value="${approval.approvalId}">
+    <input type="hidden" id="employeeCode" th:value="${user.employeeCode}">
     <link rel="stylesheet" href="/css/approval-form.css">
     
     <div class="page-wrapper">
         <div class="content container-fluid">
-            <div class="row">
-                <div class="col-xl-12">
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-8">
                     <div class="card flex-fill">
                         <div class="card-header value-center">
-                            <h3 class="card-title" th:text="${approval.fileName}"></h3>
+                            <div class="text-center card-title mb-5 mt-5">
+                                <h3 id="ap-doc-no" th:text="${approval.fileName}"></h3>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div id="td-con" class="row d-flex justify-content-center">
-                                <div class="col-xl-8 col-12 mb-3">
-                                    <form id="form-group" class="w-100">
-                                        <div class="form-floating flex-grow-1">
-                                            <div class="input-group">
-                                                <table class="table table-borderless">
-                                                    <tbody>
-                                                    
-                                                    <tr>
-                                                        <th>기안부서</th>
-                                                        <td>
-                                                            <input type="text" class="form-control" id="ap-dept" name="dept" th:value="${approval.departmentName}" readonly>
-                                                        </td>
-                                                        <th>기안자</th>
-                                                        <td>
-                                                            <input type="text" class="form-control" id="ap-writer-name" th:value="${approval.employeeName}" readonly>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>기안일</th>
-                                                        <td>
-                                                            <input type="date" class="form-control" id="ap-createAt" name="createAt"
-                                                                   th:value="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}" readonly>
-                                                        </td>
-                                                        <th>마감일</th>
-                                                        <td>
-                                                            <input type="date" class="form-control" id="ap-dueDate" name="endAt">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>결재선</th>
-                                                        <td id="inputContainer" class="append"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>참조</th>
-                                                        <td id="cc" class="append"></td>
-                                                    </tr>
-                                                    
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="editor-label">
-                                                <label for="ap-editor" id="apLabel"></label>
-                                                <textarea id="ap-editor" class="form-control-editor" aria-describedby="apLabel"></textarea>
-                                            </div>
-                                        </div>
-                                        <div id="btn-group" class="mt-3 mb-3 w-100 d-flex justify-content-end">
-                                            <button id="ap-btn" type="submit" class="btn">결재</button>
-                                        </div>
-                                    </form>
+                        <div class="card-header sign">
+                            <div class="sign-container" th:each="con, stat : ${consensuses}">
+                                <div class="sign-box">
+                                    <table class="sign-table">
+                                        <tr>
+                                            <th>합의</th>
+                                        </tr>
+                                        <tr>
+                                            <td th:text="${con.departmentName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td th:text="${con.employeeName}"></td>
+                                        </tr>
+                                        <tr th:if="${con.status != '미결'}">
+                                            <td class="stamp"><img src="/img/stamp-3.png" alt="합의 도장"></td>
+                                        </tr>
+                                        <tr th:if="${con.status == '미결'}">
+                                            <td th:text="${con.status}"></td>
+                                        </tr>
+                                    </table>
                                 </div>
+                            </div>
+                            <div class="sign-container" th:each="path : ${paths}">
+                                <div class="sign-box">
+                                    <table class="sign-table">
+                                        <tr>
+                                            <th>결재</th>
+                                        </tr>
+                                        <tr>
+                                            <td th:text="${path.departmentName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td th:text="${path.employeeName}"></td>
+                                        </tr>
+                                        <tr th:if="${path.status == '결재'}">
+                                            <td class="stamp"><img src="/img/stamp-2.png" alt="승인 도장"></td>
+                                        </tr>
+                                        <tr th:if="${path.status == '미결' or path.status == '후열'}">
+                                            <td th:text="${path.status}"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex justify-content-center">
+                            <div class="col-xl-8 col-12 mb-3">
+                                <form id="form-group" class="w-100">
+                                    <div class="form-floating flex-grow-1">
+                                        <div class="input-group">
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                <tr>
+                                                    <th>기안부서</th>
+                                                    <td>
+                                                        <input type="text" class="form-control" id="ap-dept" name="dept" th:value="${approval.departmentName}" readonly>
+                                                    </td>
+                                                    <th>기안자</th>
+                                                    <td>
+                                                        <input type="text" class="form-control" id="ap-writer-name" th:value="${approval.employeeName}" readonly>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>기안일</th>
+                                                    <td>
+                                                        <input type="date" class="form-control" id="ap-createAt" name="createAt"
+                                                               th:value="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}" readonly>
+                                                    </td>
+                                                    <th>마감일</th>
+                                                    <td>
+                                                        <input type="date" class="form-control" id="ap-dueDate" name="endAt" readonly>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table ref">
+                                                <tr th:each="ref, stat : ${references}">
+                                                    <th>참조</th>
+                                                    <td class="col-r1" th:text="${ref.departmentName}"></td>
+                                                    <td class="col-r2" th:text="${ref.employeeName}"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="editor-label">
+                                            <label for="ap-editor" id="apLabel"></label>
+                                            <textarea id="ap-editor" class="form-control-editor" aria-describedby="apLabel"></textarea>
+                                            <input type="hidden" id="ap-content" name="content" th:value="${approval.content}">
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="btn-group" class="mt-3 mb-3 w-100 d-flex justify-content-end">
+                                        <div th:switch="${userStatus}">
+                                            <div th:case="'APPROVE'">
+                                                <button id="ap-submit-btn" type="button" class="btn">결재</button>
+                                            </div>
+                                            <div th:case="'CONSENSUS'">
+                                                <button id="cs-submit-btn" type="button" class="btn">합의</button>
+                                            </div>
+                                            <div th:case="'NONE'">
+                                                <!-- 버튼 없음 -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -91,7 +140,6 @@
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
-<script src="/js/approval-form.js"></script>
+<script src="/js/approval-detail.js"></script>
 </body>
 </html>
