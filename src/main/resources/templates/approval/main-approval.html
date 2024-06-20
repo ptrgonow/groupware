@@ -35,7 +35,7 @@
                                     </tr>
                                     </thead>
                                     <tbody id="toAp-tbody">
-                                    <tr th:each="approval, stat : ${mySubmissions}" data-approval-id="${approval.approvalId}">
+                                    <tr th:each="approval, stat : ${mySubmissions}" th:data-approval-id="${approval.approvalId}">
                                         <td th:text="${stat.index + 1}"></td>
                                         <td th:text="${approval.fileCd}"></td>
                                         <td th:text="${approval.employeeName}"></td>
@@ -67,7 +67,7 @@
                                     </tr>
                                     </thead>
                                     <tbody id="myAp-tbody">
-                                    <tr th:each="approval, stat : ${myPendingApprovals}" data-approval-id="${approval.approvalId}">
+                                    <tr th:each="approval, stat : ${myPendingApprovals}" th:data-approval-id="${approval.approvalId}">
                                         <td th:text="${stat.index + 1}"></td>
                                         <td th:text="${approval.fileCd}"></td>
                                         <td th:text="${approval.employeeName}"></td>
@@ -101,7 +101,7 @@
                                     </tr>
                                     </thead>
                                     <tbody id="cuAp-tbody">
-                                    <tr th:each="approval, stat : ${myReceivedApprovals}" data-approval-id="${approval.approvalId}">
+                                    <tr th:each="approval, stat : ${myReceivedApprovals}" th:data-approval-id="${approval.approvalId}">
                                         <td th:text="${stat.index + 1}"></td>
                                         <td th:text="${approval.fileCd}"></td>
                                         <td th:text="${approval.employeeName}"></td>
@@ -133,7 +133,7 @@
                                     </tr>
                                     </thead>
                                     <tbody id="coAp-tbody">
-                                    <tr th:each="approval, stat : ${myCompletedApprovals}" data-approval-id="${approval.approvalId}">
+                                    <tr th:each="approval, stat : ${myCompletedApprovals}" th:data-approval-id="${approval.approvalId}">
                                         <td th:text="${stat.index + 1}"></td>
                                         <td th:text="${approval.fileCd}"></td>
                                         <td th:text="${approval.employeeName}"></td>

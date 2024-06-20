@@ -2,10 +2,7 @@ package com.groupware.work.pm.mapper;
 
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.pm.dto.PmDTO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -35,7 +32,12 @@ public interface PmMapper {
             "WHERE meeting_id = #{meetingId}")
     void updateMeeting(PmDTO pmDTO);
 
-    @Select("SELECT * FROM meetings WHERE meeting_id = #{meetingId}")
-    PmDTO getMeetingById(int meetingId);
+    @Select("select meeting_start_time as meetingStartTime, " +
+            "meeting_end_time as meetingEndTime, meeting_content as meetingContent from meetings " +
+            "WHERE meeting_id = #{meetingId}")
+    public PmDTO getMeetingById(@Param("meetingId") int meetingId);
+
+    @Delete("DELETE FROM meetings WHERE meeting_id = #{meetingId}")
+    void deleteMeeting(@Param("meetingId") int meetingId);
 
 }

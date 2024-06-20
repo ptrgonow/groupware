@@ -28,7 +28,7 @@ $(document).ready(function() {
 
 });
 
-// 팀원 목록을 가져오는 함수
+// 팀원 목록을 가져오는 함수 = 두번쨰 모달에서 표시할 팀원 목록
 function fetchTeamMembers() {
     $.ajax({
         url: '/pr/mem/list', // 팀원 목록을 가져오는 API 엔드포인트
@@ -165,6 +165,7 @@ function setInitialProjectDetails() {
 
 function handleProjectRowClick() {
     const projectId = $(this).data('project-id');
+    console.log('프로젝트 ID:', projectId);
     clearProjectDetails();
     fetchProjectDetails(projectId);
 }

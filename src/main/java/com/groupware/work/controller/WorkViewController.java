@@ -156,8 +156,9 @@ public class WorkViewController {
         List<AllEmployeeDTO> allEmployee = msService.getAllEmployees();
         List<MsApprovalDTO> getApproval = msService.getAllApprovals();
         List<MsApprovalDTO> getFmApproval = msService.getFmApproval();
+        List<MsApprovalDTO> getNewApproval = msService.getNewApproval();
         model.addAttribute("user", user).addAttribute("allEmployee", allEmployee).addAttribute("Approval", getApproval)
-                .addAttribute("FmApproval", getFmApproval);
+                .addAttribute("FmApproval", getFmApproval).addAttribute("newApproval", getNewApproval);
 
         return "work/ms/main-ms";
     }

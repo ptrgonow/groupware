@@ -12,9 +12,13 @@ public class ApprovalDTO {
     private int approvalId;
     private String employeeCode;
     private String employeeName;
+    private String departmentCode;
+    private String departmentName;
     private String fileCd;
     private String content;
     private String status;
     private Date createdAt;
     private Date duedateAt;
+    private String fileName;
+
 }

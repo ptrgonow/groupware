@@ -87,11 +87,11 @@
                                 </tr>
                                 </thead>
                                 <tbody id="notice_cont">
-                                <tr th:each="notice, stat : ${nList}">
+                                <tr th:each="notice, stat : ${nList}" th:data-notice-id="${notice.noticeId}">
                                     <td th:text="${stat.index + 1}"></td>
-                                    <td><a th:href="@{/nt/detail(id=${notice.notice_id})}" th:text="${notice.title}"></a></td>
-                                    <td th:text="${user.departmentName}"></td>
-                                    <td th:text="${#temporals.format(notice.created_at, 'yyyy-MM-dd')}"></td>
+                                    <td><a th:href="@{/nt/detail(id=${notice.noticeId})}" th:text="${notice.title}"></a></td>
+                                    <td th:text="${notice.departmentName}"></td>
+                                    <td th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd')}"></td>
                                 </tr>
                                 </tbody>
                             </table>

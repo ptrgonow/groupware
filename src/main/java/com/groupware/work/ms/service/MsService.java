@@ -29,4 +29,8 @@ public class MsService {
     public List<MsApprovalDTO> getFmApproval(){
         return msMapper.getFmApproval();
     }
+
+    public List<MsApprovalDTO> getNewApproval(){
+        return msMapper.getNewApproval();
+    }
 }

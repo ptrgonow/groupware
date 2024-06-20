@@ -9,11 +9,11 @@ import java.util.Date;
 
 @Data
 public class NoticeDTO {
-
-    private int notice_id;
+    private int noticeId;
     private String title;
     private String content;
-    private LocalDateTime created_at;
-    private String employee_code;
-    private int department_id;
+    private LocalDateTime createdAt;
+    private String employeeCode;
+    private int departmentId;
+    private String departmentName;
 }
