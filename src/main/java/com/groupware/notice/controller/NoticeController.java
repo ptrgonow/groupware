@@ -44,7 +44,7 @@ public class NoticeController {
     @PostMapping("/submit-notice")
     public String submitNotice(@ModelAttribute NoticeDTO noticeDTO, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        noticeDTO.setEmployee_code(user.getEmployeeCode());
+        noticeDTO.setEmployeeCode(user.getEmployeeCode());
         noticeService.addNotice(noticeDTO);
         return "redirect:/nt/nmain";
     }

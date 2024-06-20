@@ -132,6 +132,22 @@
     justify-content: center;
     margin-top: 25px;
 }
+.btn-primary {
+    background-color: #007bff; /* Bootstrap 기본 파란색 */
+    border-color: #007bff;
+}
+
+/* 두 버튼 크기 일치 */
+#addMeetingModal .btn,
+#updateMeetingForm .btn,
+#deleteMeetingBtn {
+    width: 100px; /* 원하는 너비로 조절 */
+    height: 40px; /* 원하는 높이로 조절 */
+}
+
+.btn-close{
+    color: black;
+}
 
 @media (max-width: 768px) {
     .row {
@@ -291,4 +307,8 @@
 /* 버튼 활성 상태 스타일 */
 .cocoBtn:active {
     transform: translateY(2px);
+}
+
+.card-header{
+    height: 100px;
 }

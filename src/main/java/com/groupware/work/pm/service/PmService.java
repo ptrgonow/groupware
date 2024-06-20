@@ -56,4 +56,10 @@ public class PmService {
     public PmDTO getMeetingById(int meetingId) {
         return pmMapper.getMeetingById(meetingId);
     }
+
+    @Transactional
+    public void deleteMeeting(int meetingId) {
+        pmMapper.deleteMeeting(meetingId);
+    }
+
 }
