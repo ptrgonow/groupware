@@ -2,13 +2,8 @@ package com.groupware.work.hr.mapper;
 
 import com.groupware.approval.dto.EmployeeDTO;
 import com.groupware.user.dto.UserDTO;
-import com.groupware.work.hr.dto.HrEmplMagDTO;
-import com.groupware.work.hr.dto.HrEmployeeDTO;
-import com.groupware.work.hr.dto.TodayWorkerDTO;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.groupware.work.hr.dto.*;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -48,18 +43,19 @@ public interface HrMapper {
     @Select("SELECT employee_code AS employeeCode, name, department_id AS departmentId, ps_cd AS psCd FROM employee WHERE ps_cd = 'P001'")
     List<HrEmployeeDTO> getManagerEmployee();
 
-    // 사원관리 버튼 클릭 시 전체 출력이 될 리스트(대표 제외)
-    @Select("SELECT e.employee_code AS employeeCode, e.name, d.department_name AS departmentName, p.ps_nm AS psNm, a.status " +
+    // hr 메인에서 사원관리 버튼 클릭 시 전체 출력이 될 리스트(대표 제외)
+    @Select("SELECT e.employee_code AS employeeCode, e.name, d.department_name AS departmentName, p.ps_nm AS psNm " +
             "FROM employee e " +
             "JOIN department d ON e.department_id = d.department_id " +
-            "JOIN positions p ON e.ps_cd = p.ps_cd\n" +
-            "LEFT JOIN attendance a ON e.employee_code = a.employee_code AND a.created_at = (" +
-            "    SELECT MAX(a2.created_at) " +
-            "    FROM attendance a2 " +
-            "    WHERE a2.employee_code = e.employee_code " +
-            ") " +
-            "WHERE d.department_name != '대표';")
+            "JOIN positions p ON e.ps_cd = p.ps_cd " +
+            "WHERE d.department_name != '대표'; ")
     List<HrEmplMagDTO> getEmplManagement();
+
+    // 수정 필요/ 상태 가져오는 거
+    @Select("SELECT e.employee_code AS employeeCode, a.status " +
+            "FROM employee e " +
+            "JOIN attendance a ON e.employee_code = a.employee_code")
+    List<HrStatusDTO> getEmpStatus();
 
     // 사원번호에 해당하는 직원 상세 정보
     @Select("SELECT e.employee_code AS employeeCode, " +
@@ -67,20 +63,10 @@ public interface HrMapper {
             "e.birth_date AS birthDate, " +
             "e.hiredate, " +
             "d.department_name AS departmentName, " +
-            "p.ps_nm AS psNm, " +
-            "a.status " +
+            "p.ps_nm AS psNm " +
             "FROM employee e " +
             "JOIN department d ON e.department_id = d.department_id " +
             "JOIN positions p ON e.ps_cd = p.ps_cd " +
-            "LEFT JOIN ( " +
-            "    SELECT a1.employee_code, a1.status " +
-            "    FROM attendance a1 " +
-            "    WHERE a1.created_at = ( " +
-            "        SELECT MAX(a2.created_at) " +
-            "        FROM attendance a2 " +
-            "        WHERE a2.employee_code = a1.employee_code " +
-            "    ) " +
-            ") a ON e.employee_code = a.employee_code " +
             "WHERE e.employee_code = #{employeeCode}")
     HrEmplMagDTO getEmplInfo(String employeeCode);
 
@@ -96,9 +82,27 @@ public interface HrMapper {
     @Select("SELECT DISTINCT status FROM attendance")
     List<String> getStatuses();
 
+    // created_at을 기준으로 가져온 사원 코드의 상태
+    @Select("SELECT e.employee_code, a.status " +
+            "FROM employee e " +
+            "JOIN attendance a ON e.employee_code = a.employee_code " +
+            "JOIN (SELECT employee_code, MAX(created_at) AS latest_created_at " +
+            "FROM attendance " +
+            "GROUP BY employee_code) AS latest_attendance " +
+            "ON a.employee_code = latest_attendance.employee_code AND a.created_at = latest_attendance.latest_created_at;")
+    List<String> empStatues();
+
     // 사원 삭제
     @Delete("DELETE FROM employee WHERE employee_code = #{employeeCode}")
     void deleteEmployeeByCode(String employeeCode);
+
+    // 사원 정보 업데이트
+    @Update("UPDATE employee SET " +
+            "employee_code = #{newEmployeeCode}, " +
+            "department_id = (SELECT department_id FROM department WHERE department_name = #{departmentName}), " +
+            "ps_cd = (SELECT ps_cd FROM positions WHERE ps_nm = #{psNm}) " +
+            "WHERE employee_code = #{employeeCode}")
+    void updateEmployee(HrEmployeeUpdateDTO employeeUpdateDTO);
 
     // 검색
     @Select("SELECT * FROM employee WHERE name LIKE CONCAT('%', #{query}, '%')")

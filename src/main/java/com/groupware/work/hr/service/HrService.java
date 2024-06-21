@@ -1,11 +1,10 @@
 package com.groupware.work.hr.service;
 
-import com.groupware.work.hr.dto.HrEmplMagDTO;
-import com.groupware.work.hr.dto.HrEmployeeDTO;
-import com.groupware.work.hr.dto.TodayWorkerDTO;
+import com.groupware.work.hr.dto.*;
 import com.groupware.work.hr.mapper.HrMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,13 +40,12 @@ public class HrService {
 
     public List<HrEmplMagDTO> getEmplManagement() {
         List<HrEmplMagDTO> status = hrMapper.getEmplManagement();
-        // 'status'가 null인 경우 '출근전'으로 대체
-        for (HrEmplMagDTO empstatus : status) {
-            if (empstatus.getStatus() == null) {
-                empstatus.setStatus("퇴근");
-            }
-        }
+
         return status;
+    }
+
+    public List<HrStatusDTO> getEmpStatus(){
+        return hrMapper.getEmpStatus();
     }
 
     public HrEmplMagDTO getEmplInfo(String employeeCode){
@@ -66,8 +64,21 @@ public class HrService {
         return hrMapper.getStatuses();
     }
 
+    public List<String> empStatues(){
+        return hrMapper.empStatues();
+    }
+
     public void deleteEmployeeByCode(String employeeCode){
         hrMapper.deleteEmployeeByCode(employeeCode);
     }
+
+    @Transactional
+    public void updateEmployeeDetails(HrEmployeeUpdateDTO employeeUpdateDTO) {
+        // 사원 정보 업데이트
+        hrMapper.updateEmployee(employeeUpdateDTO);
+
+    }
+
+
 
 }

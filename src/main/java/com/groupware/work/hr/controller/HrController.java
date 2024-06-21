@@ -1,10 +1,12 @@
 package com.groupware.work.hr.controller;
 
 import com.groupware.work.hr.dto.HrEmplMagDTO;
+import com.groupware.work.hr.dto.HrEmployeeUpdateDTO;
 import com.groupware.work.hr.dto.TodayWorkerDTO;
 import com.groupware.work.hr.service.HrService;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +42,6 @@ public class HrController {
         Map<String, List<String>> modi = new HashMap<>();
         modi.put("departments", hrService.getDepartments());
         modi.put("positions", hrService.getPositions());
-        modi.put("statuses", hrService.getStatuses());
         return ResponseEntity.ok(modi);
     }
 
@@ -51,5 +52,20 @@ public class HrController {
         response.put("success", true);
         response.put("message", "사원 정보가 삭제되었습니다.");
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/empupdate")
+    public ResponseEntity<Map<String, Object>> updateEmployeeDetails(@RequestBody HrEmployeeUpdateDTO employeeUpdateDTO) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            hrService.updateEmployeeDetails(employeeUpdateDTO);
+            response.put("success", true);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();  // 예외 로그 출력
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 }

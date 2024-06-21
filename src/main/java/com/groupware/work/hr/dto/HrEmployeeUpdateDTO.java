@@ -3,12 +3,10 @@ package com.groupware.work.hr.dto;
 import lombok.Data;
 
 @Data
-public class HrEmplMagDTO {
+public class HrEmployeeUpdateDTO {
 
     private String employeeCode;
-    private String name;
+    private String newEmployeeCode;  // 새로 입력한 사원코드
     private String departmentName;
-    private String birthDate;
-    private String hiredate;
     private String psNm;
 }

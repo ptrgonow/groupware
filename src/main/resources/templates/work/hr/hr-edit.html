@@ -44,7 +44,15 @@
                             <td th:text="${emp.name}"></td>
                             <td th:text="${emp.departmentName}"></td>
                             <td th:text="${emp.psNm}"></td>
-                            <td th:text="${emp.status}"></td>
+                            <td>
+                                <select class="st-select" id="st-select">
+                                    <option th:each="st : ${status}"
+                                            th:value="${st}"
+                                            th:text="${st}"
+                                            th:selected="${emp.status} == st ? 'selected' : null"></option>
+                                </select>
+                                <button type="submit" class="st-btn">변경</button>
+                            </td>
                             <td>
                                 <button type="button" class="modi-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     수정
@@ -53,6 +61,7 @@
                             </td>
                         </tr>
                         </tbody>
+
                     </table>
                     </form>
                     <!-- 페이징 -->
@@ -73,7 +82,7 @@
 
 <!-- 사원 수정 버튼 모달 -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <form method="post" id="info" class="card-body">
+    <form method="post" action="/hr/empupdate" id="info" class="card-body">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -81,28 +90,28 @@
                 </div>
                 <div class="modal-body">
                     <label for="employeeCode">사원번호</label>
-                    <input type="text" class="form-control-sm" id="employeeCode" name="employee_code">
+                    <input type="text" class="form-control-sm" id="employeeCode" name="employeeCode" readonly>
+
+                    <label for="newEmployeeCode">새 사원번호</label>
+                    <input type="text" class="form-control-sm" id="newEmployeeCode" name="newEmployeeCode">
 
                     <label for="name">이름</label>
                     <input type="text" class="form-control-sm" id="name" name="name" readonly>
 
                     <label for="birth">생년월일</label>
-                    <input type="date" class="form-control-sm" id="birth" name="birth_date" readonly>
+                    <input type="date" class="form-control-sm" id="birth" name="birthDate" readonly>
 
                     <label for="hire">입사일</label>
-                    <input type="date" class="form-control-sm" id="hire" name="hire_date" readonly>
+                    <input type="date" class="form-control-sm" id="hire" name="hiredate" readonly>
 
                     <label for="department">부서</label>
                     <select class="form-control-sm" id="department" name="departmentName">
                     </select>
 
                     <label for="position">직급</label>
-                    <select class="form-control-sm" id="position" name="ps_cd">
+                    <select class="form-control-sm" id="position" name="psNm">
                     </select>
 
-                    <label for="status">상태</label>
-                    <select class="form-control-sm" id="status" name="status">
-                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">수정완료</button>
