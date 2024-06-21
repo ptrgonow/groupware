@@ -1,3 +1,11 @@
+/*
+                                                    = 차 례 =
+                                            1. CHART 관련 사항
+                                            2. SALARY including PAGINATION
+                                            3. DATA ENTRY 입력 관련 사항
+                                            4. DATA TRANSFER
+                                            5. 기타 등등 필요한거
+*/
 document.addEventListener('DOMContentLoaded', function() {
     // Chart Data
     const chartData = {
@@ -102,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
         chart.data.datasets[0].data = data;
         chart.update();
     }
-//------------------------------------------------CHART END------------------------------------------------//
+//------------------------------------------------CHART 관련 사항 END------------------------------------------------//
 
     // Function to format date to yyyy-MM-dd
     function formatDate(dateString) {
@@ -129,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 tableBody.innerHTML = '';  // 기존 내용을 초기화합니다
 
-                data.forEach((salary, index) => {
+                data.forEach(function(salary, index){
                     const row = tableBody.insertRow();
                     row.insertCell(0).textContent = index + 1;
                     row.insertCell(1).textContent = salary.hireDate ? formatDate(salary.hireDate) : 'N/A';
@@ -155,12 +163,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // PAGING
     $(document).ready(function () {
         let currentPage = 1;
-        let pageSize = 5;
+        const pageSize = 5;
         let allData = [];
 
         // Load departments dynamically
         $.get("/fm/departments", function (data) {
-            var departmentSelect = $("#salaryStatus");
+            const departmentSelect = $("#salaryStatus");
             data.forEach(function (department) {
                 departmentSelect.append(new Option(department.departmentName, department.departmentId));
             });
@@ -222,6 +230,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const accountSelect = document.getElementById('accountSelect');
     const formContent = document.getElementById('formContent');
 
+    const fields = [
+        'expenseType', 'issueDate', 'refNumber',
+        'recipient', 'totalCharge', 'paymentAmount',
+        'balance', 'memo'
+    ];
+
     const paymentForm = `
             <ul>
                 <label for="expenseType"></label>
@@ -229,49 +243,49 @@ document.addEventListener('DOMContentLoaded', function() {
                 분류 : 
                     <select id="expenseType" class="">
                         <option value="">- 선택 -</option>
-                            
+    
                             <option value="fixed_expenses">고정지출</option>
                                 <option value="fixed_expenses_utilities">-수도·전기·가스</option>
                                 <option value="fixed_expenses_rentOrLease">-임대료</option>
                                 <option value="fixed_expenses_officeSupplies">-(일반)사무용품</option>
                                 <option value="fixed_expenses_generalSalary">-(일반)급여</option>
-                            
+                           
                             <option value="variable_expenses">변동지출</option>
-                                <option value="fixed_expenses">-Miscellaneous</option>
+                                <option value="variable_expenses_miscellaneous">-Miscellaneous</option>
                     </select>
                 </li>
                     
                 <li>
                     <label for="issueDate">날짜 : </label>
-                    <input type="date" name="issue_date" id="issueDate">
+                    <input type="date" name="issue_date" id="issueDate" required>
                 </li>
                 <li>
                     <label for="refNumber">참조번호 : </label>
-                    <input type="text" name="ref_number" id="refNumber">
+                    <input type="text" name="ref_number" id="refNumber" placeholder="참조번호를 입력하세요">
                 </li>
                 <li>
                     <label for="recipient">수령인 : </label>
-                    <input type="text" name="recipient" id="recipient">
+                    <input type="text" name="recipient" id="recipient" required placeholder="수령인을 입력하세요 -필수">
                 </li>
                 <li>
                     <label for="totalCharge">지불금 : </label>
-                    <input type="number" name="total_charge" id="totalCharge"> 원
+                    <input type="number" name="total_charge" id="totalCharge" required placeholder="지불금을 입력하세요 -필수"> 원
                 </li>
                 <li>
                     <label for="paymentAmount">지급금 : </label>
-                    <input type="number" name="payment_amount" id="paymentAmount"> 원
+                    <input type="number" name="payment_amount" id="paymentAmount" placeholder="지급금을 입력하세요"> 원
                 </li>
                 <li>
                     <label for="balance">잔액 : </label>
-                    <input type="number" name="balance" id="balance"> 원
+                    <input type="number" name="balance" id="balance" placeholder=" = 지불금 - 지급금"> 원
                 </li>
                 <li>
                     <label for="memo">메모 : </label>
-                    <input type="text" name="memo" id="memo">
+                    <input type="text" name="memo" id="memo" placeholder="메모를 입력하세요">
                 </li>
             </ul>
         `;
-    var receiptForm = `
+    const receiptForm = `
         <ul>
             <li>
             분류 : 
@@ -285,49 +299,94 @@ document.addEventListener('DOMContentLoaded', function() {
             </li>
             <li>
                 <label for="receivableDate">날짜 : </label>
-                <input type="date" name="receive_date" id="receiveDate">
+                <input type="date" name="receive_date" id="receiveDate" required>
             </li>
             <li>
                 <label for="refNumber">참조번호 : </label>
-                <input type="text" name="ref_number" id="refNumber">
+                <input type="text" name="ref_number" id="refNumber" placeholder="참조번호를 입력하세요">
             </li>
             <li>
                 <label for="payer">지불인 : </label>
-                <input type="text" name="payer" id="payer">
+                <input type="text" name="payer" id="payer" required placeholder="필수 입력 사항">
             </li>
             <li>
                 <label for="receiptAmount">수납금 : </label>
-                <input type="number" name="receipt_amount" id="receiptAmount"> 원
+                <input type="number" name="receipt_amount" id="receiptAmount" required placeholder="필수 입력 사항"> 원
             </li>
             <li>
                 <label for="balance">추가 잔액 : </label>
-                <input type="number" name="balance" id="balance">
+                <input type="number" name="balance" id="balance" required placeholder="필수 입력 사항">
             </li>
             <li>
                 <label for="memo">메모 : </label>
-                <input type="text" name="memo" id="memo">
+                <input type="text" name="memo" id="memo" placeholder="메모를 입력하세요">
             </li>
         </ul>
         `;
 
-        accountSelect.addEventListener('change', function () {
+    // 예를 들어 지불 계정 이나 수납 계정 선택 안하고 데이터 미리 입력했다가
+    // 경고 메세지 떠서 계정 두 개 중 하나 선택 했더니 입력창에 입력한 데이터가 싹 날아가는거 방지
+    let formData = {};
+
+    function saveFormData() {
+        fields.forEach(function (field) {
+            const element = document.getElementById(field);
+            formData[field] = element ? element.value : '';
+        });
+    }
+
+    function loadFormData() {
+        fields.forEach(function (field) {
+            const element = document.getElementById(field);
+            if (element && formData[field] !== undefined) {
+                element.value = formData[field];
+            }
+        });
+    }
+
+    accountSelect.addEventListener('change', function () {
+        saveFormData();
             if (accountSelect.value === 'payment') {
                 formContent.innerHTML = paymentForm;
                 addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
             } else if (accountSelect.value === 'receipt') {
                 formContent.innerHTML = receiptForm;
             }
+            loadFormData();
         });
-
         // 초기 로딩 시 기본 폼 설정
         formContent.innerHTML = paymentForm;
         addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
+        loadFormData();
 
-//--------------------------------------------DATA ENTRY 입력 END---------------------------------------------//
+//--------------------------------------------DATA ENTRY 입력 관련 사항 END---------------------------------------------//
+// Reset 버튼 기능 추가
+    const resetBtn = document.getElementById('resetBtn');
+    resetBtn.addEventListener('click', function () {
+        clearFormFields();
+    });
 
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.addEventListener('click', function (event) {
         event.preventDefault();
+
+        // 필수 입력 필드 체크
+        const requiredFields = ['issueDate', 'recipient', 'totalCharge'];
+        for (let i = 0; i < requiredFields.length; i++) {
+            const fieldId = requiredFields[i];
+            const field = document.getElementById(fieldId);
+            if (!field || !field.value.trim()) {
+                alert('데이터를 입력하세요');
+                field.focus();
+                return;
+            }
+        }
+
+        const accountType = document.getElementById('accountSelect').value;
+        if (!accountType){
+            alert('계정을 선택하세요');
+            return;
+        }
 
         const formData = {
             accountType: document.getElementById('accountSelect').value,
@@ -352,7 +411,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(function(data) {
-                alert('Data saved successfully!');
+                alert('데이터가 성공적으로 입력되었습니다.');
+                clearFormFields();
             })
             .catch(function(error) {
                 console.error('Error:', error);
@@ -375,10 +435,27 @@ document.addEventListener('DOMContentLoaded', function() {
             const totalCharge = parseFloat(totalChargeInput.value) || 0;
             const paymentAmount = parseFloat(paymentAmountInput.value) || 0;
             balanceInput.value = totalCharge - paymentAmount;
+
+            if(paymentAmount > 0){
+                paymentAmount.style.color = 'red';
+            }else{
+                paymentAmount.style.color = 'green';
+            }
         });
     }
-
 //--------------------------------------------DATA TRANSFER 전송 END---------------------------------------------//
+
+    // 입력 필드 초기화 함수
+    function clearFormFields() {
+        for (let i = 0; i < fields.length; i++) {
+            const field = document.getElementById(fields[i]);
+            if (field) {
+                field.value = '';
+            }
+        }
+    }
+
+//--------------------------------------------기타 등등 필요한거 END---------------------------------------------//
 
 
 });

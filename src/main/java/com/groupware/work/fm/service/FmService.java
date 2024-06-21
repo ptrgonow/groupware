@@ -1,7 +1,7 @@
 package com.groupware.work.fm.service;
 
-import com.groupware.approval.dto.ApprovalDTO;
 import com.groupware.work.fm.dto.ExpenseDTO;
+import com.groupware.work.fm.dto.FmApprovedDTO;
 import com.groupware.work.fm.dto.SalaryDTO;
 import com.groupware.approval.dto.DeptTreeDTO;
 import com.groupware.work.fm.dto.FixedExpensesDTO;
@@ -37,10 +37,15 @@ public class FmService {
         return fmMapper.getCompletedFixedExpenses(fileCd);
     }
 
-    /* DATA ENTRY - 뷰 페이지 테이터 입력 - 구현중..*/
+    /* DATA ENTRY - 뷰 페이지 테이터 입력 */
     public void saveExpense(ExpenseDTO expenseDTO){
         fmMapper.insertExpense(expenseDTO);
     }
 
-
+    /* APPROVED ONLY VIEW PAGE */
+    public String getApprovedList(Model model) {
+        List<FmApprovedDTO> approvedList = fmService.getApprovedApprovals();
+        model.addAttribute("approvedList", approvedList);
+        return "main-finance";
+    }
 }
