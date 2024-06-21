@@ -25,25 +25,32 @@
                     <div class="col-xl-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">결재 목록</h5>
+                                <h5 class="card-title">결재 완료 목록</h5>
                             </div>
                             <div class="card-body">
                                 <table class="fm-tbl">
                                     <thead>
                                     <tr>
-                                        <th scope="col">번호</th>
-                                        <th scope="col">결재 양식명</th>
-                                        <th scope="col">기안자</th>
-                                        <th scope="col">진행 상태</th>
+                                        <th class="col-number">번호</th>
+                                        <th class="col-title">제목</th>
+                                        <th class="col-author">기안자</th>
+                                        <th class="col-date">기안일</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <!-- 결재 목록 데이터가 여기에 들어감 -->
+                                    <tbody id="fm-tbl-approved-list">
+                                    <!-- 완결 결재 목록 -->
+                                        <tr th:each="approval, stat : ${approvedList}">
+                                            <td th:text="${stat.index + 1}"></td>
+                                            <td th:text="${approval.title}"></td>
+                                            <td th:text="${approval.employeeName}"></td>
+                                            <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
 
                                 <div class="page">
                                     <!-- 페이지네이션 자리 -->
+
                                     <!-- 급여 현황 거랑 <nav> 태그 공유? 안 됨 -->
                                 </div>
                             </div>
@@ -134,10 +141,8 @@
                             <div class="card-body" id="formContent">
                                 <!-- 폼 컨텐츠가 여기에 동적으로 로드됨 -->
                             </div>
-
-                            <input type="submit" value="입력" id="submitBtn">
-                            <input type="reset" value="재입력">
-
+                                <input type="submit" id="submitBtn"></input>
+                                <input type="reset" id="resetBtn"></input>
                         </div>
                     </div>
                 </div>

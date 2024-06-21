@@ -1,5 +1,7 @@
 package com.groupware.work.fm.mapper;
 
+import com.groupware.approval.dto.ApprovalDTO;
+import com.groupware.work.fm.dto.FmApprovedDTO;
 import com.groupware.work.fm.dto.ExpenseDTO;
 import com.groupware.work.fm.dto.SalaryDTO;
 import com.groupware.approval.dto.DeptTreeDTO;
@@ -37,8 +39,7 @@ public interface FmMapper {
             "JOIN positions p ON e.ps_cd = p.ps_cd " +
             "WHERE e.department_id IN (SELECT department_id FROM SubDepartments)")
     List<SalaryDTO> getSalariesByDepartment(@Param("departmentId") int departmentId);
-
-    /*   -- SALARY BY DEPARTMENT END --   */
+/*   -- SALARY BY DEPARTMENT END --   */
 
 
     /* FIXED EXPENSES - 고정지출 관련 차트 업데이트 */
@@ -58,8 +59,7 @@ public interface FmMapper {
             "JOIN approval a ON fe.employee_code = a.employee_code AND fe.issue_date = a.created_at " +
             "WHERE a.status = '완료' AND a.file_cd = #{fileCd}")
     List<FixedExpensesDTO> getCompletedFixedExpenses(@Param("fileCd") String fileCd);
-
-    /*   -- FIXED EXPENSES END --   */
+/*   -- FIXED EXPENSES END --   */
 
 
     /* DATA ENTRY */
@@ -67,4 +67,13 @@ public interface FmMapper {
             "VALUES (#{accountType}, #{expenseType}, #{issueDate}, #{refNumber}, #{recipient}, #{totalCharge}, #{paymentAmount}, #{balance}, #{memo})")
     @Options(useGeneratedKeys = true, keyProperty = "expenseId")
     void insertExpense(ExpenseDTO expenseDTO);
+/*   -- DATA ENTRY END --   */
+
+
+    /* APPROVED VIEW PAGE BOARD */
+    @Select("SELECT a.approval_id, a.employee_code, a.status, a.created_at, t.title " +
+            "FROM approval a " +
+            "JOIN templates t ON a.file_cd = t.file_cd " +
+            "WHERE a.file_cd LIKE 'F%' AND a.status = '완결'")
+    List<FmApprovedDTO> getApprovedApprovals();
 }
