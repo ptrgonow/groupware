@@ -39,7 +39,7 @@ public class DevService {
     }
 
     @Transactional
-    public void updateProject(ProjectDTO projectDTO, List<ProjectMemberDTO> members, List<ProjectTaskDTO> tasks) {
+    public void updateProject(ProjectDTO projectDTO, List<ProjectMemberDTO> members, List<ProjectTaskDTO> tasks, List<Long> deletedMembers) {
         // 프로젝트 업데이트
         devMapper.updateProject(projectDTO);
 
@@ -54,6 +54,11 @@ public class DevService {
             }
         }
 
+        // 삭제된 멤버 처리
+        for (Long memberId : deletedMembers) {
+            devMapper.deleteProjectMember(memberId, projectDTO.getProjectId());
+        }
+
         // 작업 업데이트
         for (ProjectTaskDTO task : tasks) {
             ProjectTaskDTO taskDTO = new ProjectTaskDTO();
@@ -64,6 +69,7 @@ public class DevService {
             devMapper.updateProjectTask(projectDTO.getProjectId(), task);
         }
     }
+
 
 
     @Transactional

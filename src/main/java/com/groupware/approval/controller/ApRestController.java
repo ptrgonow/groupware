@@ -94,6 +94,15 @@ public class ApRestController {
         }
     }
 
+    @PostMapping("/reject")
+    public ResponseEntity<String> rejectApproval(@RequestParam int approvalId) {
+        try {
+            apService.rejectApproval(approvalId);
+            return ResponseEntity.ok("결재가 반려되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("반려 중 오류가 발생했습니다.");
+        }
+    }
 
 
 }

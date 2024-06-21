@@ -37,6 +37,18 @@ public class ApService {
         return false;
     }
 
+    public boolean checkIfConsensusStatus(UserDTO user, List<ApprovalConsensusDTO> approvalConsensuses) {
+
+            for (ApprovalConsensusDTO consensus : approvalConsensuses) {
+                if (consensus.getEmployeeCode().equals(user.getEmployeeCode())) {
+                    if (consensus.getStatus().equals("미결")) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+    }
+
     public List<EmployeeDTO> getEmployeeList() {
         return apMapper.selectAll();
     }
@@ -55,9 +67,11 @@ public class ApService {
     public List<ApprovalDTO> getMyPendingApprovals(String employeeCode) {
         return apMapper.selectMyPendingApprovals(employeeCode);
     }
+
     public List<ApprovalDTO> selectMyConsensusApprovals(String employeeCode) {
         return apMapper.selectMyConsensusApprovals(employeeCode);
     }
+
     public List<ApprovalDTO> selectMyCompletedApprovals(String employeeCode) {
         return apMapper.selectMyCompletedApprovals(employeeCode);
     }
@@ -124,7 +138,7 @@ public class ApService {
             // 현재 시퀀스보다 이전 시퀀스 중 결재가 완료되지 않은 경우 후열로 변경
             List<ApprovalPathDTO> previousPaths = apMapper.getPreviousApprovalPaths(approvalId, currentPath.getSequence());
             for (ApprovalPathDTO previousPath : previousPaths) {
-                if (!previousPath.getStatus().equals("완결")) {
+                if (previousPath.getStatus().equals("미결")) {
                     previousPath.setStatus("후열");
                     apMapper.updateApprovalPathStatus(previousPath);
                 }
@@ -148,5 +162,17 @@ public class ApService {
         currentConsensus.setStatus(newStatus);
         apMapper.updateApprovalConsensusStatus(currentConsensus);
     }
+
+    @Transactional
+    public void rejectApproval(int approvalId) {
+        // 반려 테이블로 데이터 이동
+        apMapper.insertRejectedApproval(approvalId);
+
+        // 결재 테이블에서 데이터 삭제
+        apMapper.deleteApproval(approvalId);
+
+    }
 }
+
+
 

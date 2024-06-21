@@ -3,6 +3,7 @@ package com.groupware.user.controller;
 import com.groupware.user.dto.DeptDTO;
 import com.groupware.user.dto.PositionDTO;
 import com.groupware.user.dto.UserDTO;
+import com.groupware.user.dto.UserUpdateDTO;
 import com.groupware.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -22,7 +23,6 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-
     private final UserService userService;
 
     @Autowired
@@ -31,8 +31,8 @@ public class UserController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<UserDTO> getUserInfo(@RequestParam String employee_code) {
-        UserDTO user = userService.getUserDetails(employee_code);
+    public ResponseEntity<UserDTO> getUserInfo(@RequestParam String employeeCode) {
+        UserDTO user = userService.getUserDetails(employeeCode);
         if (user != null) {
             return ResponseEntity.ok(user);
         } else {
@@ -90,7 +90,7 @@ public class UserController {
         Map<String, String> response = new HashMap<>();
         if (user != null) {
             session.setAttribute("user", user);
-            logger.info("User {} logged in. Session ID: {}", user.getUsername(), session.getId());
+            System.out.println(session.getAttribute("user"));
             response.put("message", "로그인 성공");
             response.put("username", user.getName());
             return ResponseEntity.ok(response);
@@ -135,7 +135,7 @@ public class UserController {
             @RequestParam("password") String password,
             HttpSession session) {
 
-        UserDTO user = new UserDTO();
+        UserUpdateDTO user = new UserUpdateDTO();
         user.setEmployeeCode(employeeCode);
         user.setBirthDate(birthDate);
         user.setAddress(address);
@@ -146,8 +146,10 @@ public class UserController {
 
         Map<String, String> response = new HashMap<>();
         if (updateSuccess) {
+
+            UserDTO newSessionUser = userService.getUserDetails(employeeCode);
             // 세션 업데이트
-            session.setAttribute("user", user);
+            session.setAttribute("user", newSessionUser);
             response.put("message", "업데이트 성공");
             return ResponseEntity.ok(response);
         } else {

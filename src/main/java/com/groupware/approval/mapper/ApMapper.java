@@ -261,4 +261,17 @@ public interface ApMapper {
             "JOIN department d on e.department_id = d.department_id " +
             "WHERE approval_id = #{approvalId} AND sequence < #{sequence}")
     List<ApprovalPathDTO> getPreviousApprovalPaths(int approvalId, int sequence);
+
+    // 결재를 반려하는 쿼리문
+    @Insert("INSERT INTO approval_rejected (approval_id, employee_code, content, status, created_at, duedate_at, file_cd) " +
+            "SELECT approval_id, employee_code, content, '반려', created_at, duedate_at, file_cd " +
+            "FROM approval WHERE approval_id = #{approvalId}")
+    void insertRejectedApproval(@Param("approvalId") int approvalId);
+
+    // 결재를 삭제하는 쿼리문
+    @Delete("DELETE FROM approval WHERE approval_id = #{approvalId}")
+    void deleteApproval(@Param("approvalId") int approvalId);
+
+
+
 }

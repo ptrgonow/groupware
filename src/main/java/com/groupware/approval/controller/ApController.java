@@ -86,8 +86,11 @@ public class ApController {
                 model.addAttribute("consensuses", approval.getApprovalConsensuses());
                 boolean isApprove = apService.checkIfUserIsApprove(user, approval.getApprovalPaths());
                 boolean isConsensus = apService.checkIfUserIsConsensus(user, approval.getApprovalConsensuses());
+                boolean isConsensusStatus = apService.checkIfConsensusStatus(user, approval.getApprovalConsensuses());
 
                 String userStatus;
+                String isConsensusStatusStr = isConsensusStatus ? "미결" : "합의";
+
                 if (isApprove) {
                     userStatus = "APPROVE";
                 } else if (isConsensus) {
@@ -96,8 +99,11 @@ public class ApController {
                     userStatus = "NONE";
                 }
 
+
+
                 model.addAttribute("userStatus", userStatus);
                 model.addAttribute("checkConsensus", isConsensus);
+                model.addAttribute("consensusStatus", isConsensusStatusStr);
                 return "approval/approval-detail";
             }
         }

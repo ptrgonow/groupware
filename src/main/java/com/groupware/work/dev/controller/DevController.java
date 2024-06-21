@@ -74,7 +74,8 @@ public class DevController {
             devService.updateProject(
                     projectUpdateRequest.getProjectDTO(),
                     projectUpdateRequest.getMembers(),
-                    projectUpdateRequest.getTasks()
+                    projectUpdateRequest.getTasks(),
+                    projectUpdateRequest.getDeletedMembers()
             );
             return ResponseEntity.ok("프로젝트 정보가 수정되었습니다.");
         } catch (Exception e) {

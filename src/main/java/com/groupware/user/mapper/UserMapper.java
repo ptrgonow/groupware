@@ -1,9 +1,6 @@
 package com.groupware.user.mapper;
 
-import com.groupware.user.dto.DeptDTO;
-import com.groupware.user.dto.PositionDTO;
-import com.groupware.user.dto.PrMemDTO;
-import com.groupware.user.dto.UserDTO;
+import com.groupware.user.dto.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -38,7 +35,7 @@ public interface UserMapper {
 
 
     // 사원번호를 통해 직원 정보를 조회하는 쿼리
-    @Select("SELECT employee_code AS employeeCode, name, birth_date AS birthDate, address, department_id AS departmentId, ps_cd, status, hiredate AS createdAt, username, password FROM employee WHERE employee_code = #{employeeCode}")
+    @Select("SELECT employee_code AS employeeCode, name AS name, birth_date AS birthDate, address, department_id AS departmentId, ps_cd AS ps_cd, status, hiredate AS createdAt, username AS username, password FROM employee WHERE employee_code = #{employeeCode}")
     UserDTO findUserByEmployeeCode(String employeeCode);
 
     // 직원 정보를 등록하는 쿼리
@@ -46,7 +43,7 @@ public interface UserMapper {
     int insertUser(UserDTO user);
 
     // 아이디를 통해 직원 정보를 조회하는 쿼리
-    @Select("SELECT employee_code AS employeeCode, name, birth_date AS birthDate, address, department_id AS departmentId, ps_cd, status, hiredate AS createdAt, username, password FROM employee WHERE username = #{username}")
+    @Select("SELECT employee_code AS employeeCode, name AS name, birth_date AS birthDate, address AS address, department_id AS departmentId, ps_cd AS ps_cd, status AS status, hiredate AS createdAt, username AS username, password FROM employee WHERE username = #{username}")
     UserDTO findByUsername(String username);
 
     // 부서 정보를 조회하는 쿼리
@@ -67,7 +64,7 @@ public interface UserMapper {
 
     // 직원 정보를 수정하는 쿼리
     @Update("UPDATE employee SET birth_date = #{birthDate}, address = #{address}, username = #{username}, password = #{password} WHERE employee_code = #{employeeCode}")
-    int updateUser(UserDTO user);
+    int updateUser(UserUpdateDTO user);
 
 
 }

@@ -5,6 +5,25 @@ $(document).ready(function () {
     initializeEventListeners();
 });
 
+// 이벤트 리스너 초기화
+function initializeEventListeners() {
+    $('#ap-submit-btn').on('click', function (event) {
+        event.preventDefault();
+        submitApproval();
+    });
+
+    $('#cs-submit-btn').on('click', function (event) {
+        event.preventDefault();
+        submitConsensus();
+    });
+
+    $('#ap-reject-btn').on('click', function (event) {
+        event.preventDefault();
+        const approvalId = $('#approvalId').val();
+        rejectApproval(approvalId);
+    });
+}
+
 // 에디터 초기화
 function initializeEditor() {
     ClassicEditor
@@ -37,18 +56,6 @@ function updateEditorContent(format, data) {
     }
 }
 
-// 이벤트 리스너 초기화
-function initializeEventListeners() {
-    $('#ap-submit-btn').on('click', function (event) {
-        event.preventDefault();
-        submitApproval();
-    });
-
-    $('#cs-submit-btn').on('click', function (event) {
-        event.preventDefault();
-        submitConsensus();
-    });
-}
 
 // 결재 제출 함수
 function submitApproval() {
@@ -89,6 +96,22 @@ function submitConsensus() {
         },
         error: function(error) {
             alert("합의에 실패하였습니다.");
+        }
+    });
+}
+
+
+function rejectApproval(approvalId) {
+    $.ajax({
+        type: "POST",
+        url: "/approval/reject",
+        data: { approvalId: approvalId },
+        success: function (response) {
+            alert("결재가 반려되었습니다.");
+            window.location.href = "/ap/amain";
+        },
+        error: function (error) {
+            alert("반려 중 오류가 발생했습니다: " + error.responseText);
         }
     });
 }

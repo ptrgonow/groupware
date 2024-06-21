@@ -1,9 +1,6 @@
 package com.groupware.user.service;
 
-import com.groupware.user.dto.DeptDTO;
-import com.groupware.user.dto.PositionDTO;
-import com.groupware.user.dto.PrMemDTO;
-import com.groupware.user.dto.UserDTO;
+import com.groupware.user.dto.*;
 import com.groupware.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,7 +63,7 @@ public class UserService {
         return positions;
     }
 
-    public boolean updateUser(UserDTO user) {
+    public boolean updateUser(UserUpdateDTO user) {
         int result = userMapper.updateUser(user);
         if (result == 1) {
             logger.info("유저 정보 수정 성공: {}", user);

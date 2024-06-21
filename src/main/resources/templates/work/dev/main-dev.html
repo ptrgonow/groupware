@@ -23,7 +23,7 @@
                     <h3 th:text="${user.departmentName}"></h3>
                 </div>
                 
-                <div class="pr-btn">
+                <div th:if="${user.ps_cd == 'P001'}" class="pr-btn">
                     <button id="pr-add-btn" class="cocoBtn" onclick="location.href='/dev/add'">프로젝트 생성</button>
                     <button id="pr-edit-btn" class="cocoBtn">프로젝트 수정</button>
                     <button id="pr-delete-btn" class="cocoBtn">프로젝트 삭제</button>

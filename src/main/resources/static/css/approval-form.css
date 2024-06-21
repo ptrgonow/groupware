@@ -241,3 +241,22 @@ p {
     border: 1px solid black;
     height: 38%;
 }
+
+.delete-btn {
+    width: 60px;
+    height: 40px;
+    background-color: #e80c0c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-btn:hover {
+    background-color: transparent;
+    padding: 5px;
+    color: #e80c0c;
+    border: 1px solid #e80c0c;
+    border-radius: 5px;
+    transition: all 0.2s;
+}

@@ -92,6 +92,9 @@ public interface DevMapper {
 
     @Delete("DELETE FROM projects WHERE project_id = #{projectId}")
     void deleteProject(int projectId);
+
+    @Delete("DELETE FROM project_members WHERE project_member_id = #{memberId} AND project_id = #{projectId}")
+    void deleteProjectMember(Long memberId, int projectId);
 }
 
 
