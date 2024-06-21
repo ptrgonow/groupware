@@ -31,6 +31,7 @@ public interface ApMapper {
                     "JOIN employee e ON a.employee_code = e.employee_code " +
                     "JOIN templates t ON a.file_cd = t.file_cd " +
                     "WHERE a.employee_code = #{employeeCode} " +
+                    "AND a.status = '미결'" +
                     "ORDER BY a.created_at DESC"
     )
     List<ApprovalDTO> selectMySubmittedApprovals(String employeeCode);
