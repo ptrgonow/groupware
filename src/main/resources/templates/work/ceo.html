@@ -2,7 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>그룹웨어</title>
-
 </head>
 <body>
 
@@ -11,7 +10,6 @@
   <div th:replace="~{include/side/main-side :: side}"></div>
   <link rel="stylesheet" href="/css/main-ms.css">
   <link rel="stylesheet" href="/css/ceo.css">
-
 
   <div class="page-wrapper">
     <div class="content container-fluid">
@@ -72,6 +70,7 @@
             <div class="card-header">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title">결재</h5>
+                <div class="moreInfo"><a href="/ap/amain"><button class="cocoBtn">More</button></a></div>
               </div>
             </div>
             <div class="card-body pb-0">
@@ -98,6 +97,7 @@
                   </tbody>
                 </table>
                 <div id="pagination-myAp"></div>
+
               </div>
             </div>
           </div>
@@ -108,6 +108,7 @@
             <div class="card-header">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title">인사</h5>
+                <div class="moreInfo"><a href="/ms"><button class="cocoBtn">More</button></a></div>
               </div>
             </div>
             <div class="card-body pb-0">
@@ -147,8 +148,10 @@
           <div class="card card-list flex-fill">
             <div class="card-header">
               <h4 class="card-title">재무</h4>
+              <div class="moreInfo"><a href="/file/fmain"><button class="cocoBtn">More</button></a></div>
             </div>
             <div class="card-body pb-0">
+
               <div id="approvalPagination-container"></div>
             </div>
           </div>
@@ -160,7 +163,27 @@
               <h4 class="card-title">개발</h4>
             </div>
             <div class="card-body pb-0">
-              <div id="fm-ApprovalPagination-container"></div>
+
+              <table class="ap-tbl">
+                <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>프로젝트명</th>
+                  <th>상태</th>
+                </tr>
+                </thead>
+                <tbody id="project_table_body">
+                <tr th:each="pr, stat : ${projects}">
+                  <td th:text="${stat.index + 1}"></td>
+                  <td th:text="${pr.projectName}"></td>
+                  <td th:text="${pr.status}"></td>
+                </tr>
+                </tbody>
+              </table>
+
+              <!-- 페이징 -->
+              <div id="pagination-pro"></div>
+
             </div>
           </div>
         </div>

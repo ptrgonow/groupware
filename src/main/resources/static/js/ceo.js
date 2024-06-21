@@ -69,4 +69,41 @@ document.addEventListener("DOMContentLoaded", function() {
             </tr>
         `).join('');
     }
-});
+
+
+
+
+
+        // 개발 테이블 페이징 처리
+        const projectTableBody = document.querySelector('#project_table_body');
+        const projectTableRows = Array.from(projectTableBody.querySelectorAll('tr'));
+        const projects = projectTableRows.map(row => ({
+            number: row.cells[0].innerText.trim(),
+            projectName: row.cells[1].innerText.trim(),
+            status: row.cells[2].innerText.trim()
+        }));
+
+        $('#pagination-pro').pagination({
+            dataSource: projects,
+            pageSize: pageSize,
+            callback: function(data, pagination) {
+                var html = renderProjectTable(data);
+                $('#project_table_body').html(html);
+            }
+        });
+
+        function renderProjectTable(data) {
+            return data.map(pr => `
+            <tr>
+                <td>${pr.number}</td>
+                <td>${pr.projectName}</td>
+                <td>${pr.status}</td>
+            </tr>
+        `).join('');
+        }
+
+    });
+
+
+
+
