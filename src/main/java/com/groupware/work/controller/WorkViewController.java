@@ -1,7 +1,7 @@
 package com.groupware.work.controller;
 
-
 import com.groupware.approval.dto.ApprovalDTO;
+import com.groupware.file.dto.FileDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.work.ceo.service.CeoService;
 import com.groupware.work.hr.dto.HrEmplMagDTO;
@@ -12,13 +12,12 @@ import com.groupware.work.ms.dto.MsApprovalDTO;
 import com.groupware.work.ms.service.MsService;
 import com.groupware.work.pm.dto.PmDTO;
 import com.groupware.work.pm.service.PmService;
-import jakarta.servlet.http.HttpSession;
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.service.DevService;
 import com.groupware.work.hr.dto.TodayWorkerDTO;
+import jakarta.activation.FileDataSource;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-
-import lombok.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +34,6 @@ public class WorkViewController {
     private final MsService msService;
     private final PmService pmService;
     private final CeoService ceoService;
-
 
     @GetMapping("/fm")
     public String fm(Model model, HttpSession session) {
@@ -54,7 +52,6 @@ public class WorkViewController {
 
     @GetMapping("/fm/eform-draft")
     public String eformDraft() {
-
         return "file/eform-draft";
     }
 
@@ -83,11 +80,11 @@ public class WorkViewController {
         for (HrEmployeeDTO manager : mList) {
             if (manager.getDepartmentId() == 9) {  //인사
                 hrManagers.add(manager);
-            }else if (manager.getDepartmentId() == 10) {  //재무
+            } else if (manager.getDepartmentId() == 10) {  //재무
                 financeManagers.add(manager);
-            }else if (manager.getDepartmentId() == 4) {  //개발1팀
+            } else if (manager.getDepartmentId() == 4) {  //개발1팀
                 developManagerF.add(manager);
-            }else if (manager.getDepartmentId() == 7) {  //개발2팀
+            } else if (manager.getDepartmentId() == 7) {  //개발2팀
                 developManagerS.add(manager);
             }
         }
@@ -100,7 +97,6 @@ public class WorkViewController {
         model.addAttribute("financeManagers", financeManagers);
         model.addAttribute("developManagerF", developManagerF);
         model.addAttribute("developManagerS", developManagerS);
-      
 
         List<TodayWorkerDTO> workers = hrService.getAllTodayWorkers();
 
@@ -122,7 +118,6 @@ public class WorkViewController {
         return "work/hr/hr-register";
     }
 
-
     @GetMapping("/dev")
     public String dev(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
@@ -141,14 +136,13 @@ public class WorkViewController {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null) {
             return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
-        };
+        }
         model.addAttribute("user", user);
         return "work/dev/add-dev";
     }
 
-
     @GetMapping("/ms")
-    public String ms(Model model, HttpSession session){
+    public String ms(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null) {
             return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
@@ -157,8 +151,11 @@ public class WorkViewController {
         List<MsApprovalDTO> getApproval = msService.getAllApprovals();
         List<MsApprovalDTO> getFmApproval = msService.getFmApproval();
         List<MsApprovalDTO> getNewApproval = msService.getNewApproval();
-        model.addAttribute("user", user).addAttribute("allEmployee", allEmployee).addAttribute("Approval", getApproval)
-                .addAttribute("FmApproval", getFmApproval).addAttribute("newApproval", getNewApproval);
+        model.addAttribute("user", user)
+                .addAttribute("allEmployee", allEmployee)
+                .addAttribute("Approval", getApproval)
+                .addAttribute("FmApproval", getFmApproval)
+                .addAttribute("newApproval", getNewApproval);
 
         return "work/ms/main-ms";
     }
@@ -171,32 +168,31 @@ public class WorkViewController {
         }
         List<ProjectDTO> projects = pmService.getProjects();
         List<PmDTO> meetings = pmService.getMeetings();
-        model.addAttribute("user", user).addAttribute("projects", projects)
+        model.addAttribute("user", user)
+                .addAttribute("projects", projects)
                 .addAttribute("meeting", meetings);
 
         return "work/pm/main-pm";
     }
 
-
     @GetMapping("/ceo")
-    public  String ceo(HttpSession session, Model model) {
-
+    public String ceo(HttpSession session, Model model) {
         UserDTO user = (UserDTO) session.getAttribute("user");
+
         if (user == null) {
             return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
         }
         // 내가 처리해야 할 결재 리스트
         List<ApprovalDTO> myPendingApprovals = ceoService.getMyPendingApprovals(user.getEmployeeCode());
         List<AllEmployeeDTO> employeeDTOList = ceoService.getAllEmployees();
+        List<ProjectDTO> projects = ceoService.getProjects();
 
         model.addAttribute("myPendingApprovals", myPendingApprovals)
-                .addAttribute("empList", employeeDTOList);
+                .addAttribute("empList", employeeDTOList).addAttribute("projects", projects);
 
         return "work/ceo";
     }
 
 
 
-
 }
-

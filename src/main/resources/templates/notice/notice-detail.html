@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
     <meta charset="UTF-8">
-    <title>공지사항 상세 보기</title>
+    <title>공지사항</title>
     <link rel="stylesheet" href="/css/notice-detail.css">
     <script th:src="@{/js/notice-detail.js}"></script>
+    <meta name="departmentId" th:content="${user.departmentId}">
+
 </head>
 <body>
 
@@ -15,7 +18,7 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
-                <h3>공지사항 상세 보기</h3>
+                <h3>공지사항</h3>
             </div>
 
             <div class="card-body-inner">
@@ -26,10 +29,15 @@
                     </div>
                     <div class="notice-content" th:utext="${notice.content}"></div>
 
-                    <div class="button-group">
+                    <div class="button-group" th:if="${user != null and user.departmentId == 3}">
+                        <!-- 수정 버튼 -->
                         <a th:href="@{/nt/update(id=${notice.noticeId})}" class="btn btn-primary">수정</a>
+
+                        <!-- 삭제 버튼 -->
                         <button class="btn btn-danger" th:onclick="'deleteNotice(' + ${notice.noticeId} + ')'" >삭제</button>
                     </div>
+
+
                 </div>
             </div>
         </div>
