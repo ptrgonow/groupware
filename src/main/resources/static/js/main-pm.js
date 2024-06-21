@@ -102,57 +102,154 @@ $(document).ready( function() {
     });
     $('#meetings-table tbody').on('click', 'tr', function () {
         const meetingId = $(this).data('meeting-id');
+        fetchMeetingDetail(meetingId);
+    });
 
-        // 클릭된 행에서 데이터 가져오기
-        const meetingTitle = $(this).find('td:nth-child(2)').text();
-        const formattedSchedule = $(this).find('td:nth-child(3)').text();
-
-        // 모달에 데이터 채우기
-        $('#meetingId').val(meetingId);
-        $('#meetingTitleDetail').val(meetingTitle);
-
+    // 회의 상세 정보 가져오기
+    function fetchMeetingDetail(meetingId) {
         fetch(`/pm/meetings/${meetingId}`)
             .then(response => response.json())
             .then(meeting => {
                 // 모달에 데이터 채우기
+                $('#meetingId').val(meeting.meetingId);
+                $('#meetingTitleDetail').val(meeting.meetingTitle);
                 $('#meetingContentDetail').val(meeting.meetingContent);
 
                 // LocalDateTime -> input type="datetime-local" 형식 변환
-                $('#meetingStartTimeDetail').val(meeting.meetingStartTime.replace(" ", "T")); // 공백을 'T'로 변경
+                $('#meetingStartTimeDetail').val(meeting.meetingStartTime.replace(" ", "T"));
                 $('#meetingEndTimeDetail').val(meeting.meetingEndTime.replace(" ", "T"));
+
+                // 기존 멤버 목록 표시
+                renderMeetingMembers(meeting.meetingMembers);
+
+                // 모달 열기
+                $('#meetingDetailModal').modal('show');
             })
             .catch(error => {
                 console.error('Error fetching meeting details:', error);
                 alert('회의 상세 정보를 가져오는 중 오류가 발생했습니다.');
             });
+    }
 
-        $('#meetingDetailModal').modal('show'); // 모달 열기
+    // 회의 멤버 표시
+    function renderMeetingMembers(members) {
+        const memberList = $('#member-list');
+        memberList.empty();
+
+        members.forEach(member => {
+            memberList.append(`
+                <tr>
+                    <td>${member.name}</td>
+                    <td>${member.departmentName}</td>
+                    <td>${member.positionName}</td>
+                    <td><button type="button" class="btn btn-sm btn-danger remove-member-btn" data-member-id="${member.meetingMemberId}">삭제</button></td>
+                </tr>
+            `);
+        });
+    }
+
+    // 회의 멤버 추가 버튼 클릭 이벤트 처리
+    $('#addMemberBtn').click(function () {
+        fetchTeamMembers(); // 팀원 목록 가져오는 함수 호출
     });
-    $('#updateMeetingForm').submit(function(event) {
+    $('#toggle-mem').on('click', fetchTeamMembers);
+    // 팀원 목록을 가져오는 함수
+    function fetchTeamMembers() {
+        $.ajax({
+            url: 'pm/meet/list', // 팀원 목록을 가져오는 API 엔드포인트
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#team-member-list').empty();
+                let memberRows = '';
+                data.members.forEach(function(member) {
+                    memberRows += `
+                    <tr>
+                        <td>${member.employeeName}</td>
+                        <td>${member.departmentName}</td>
+                        <td>${member.positionName}</td>
+                        <td>
+                        <button type="button" class="btn-info select-member-btn" 
+                            data-employee-code="${member.employeeCode}"
+                            data-name="${member.employeeName}"
+                            data-department="${member.departmentName}"
+                            data-position="${member.positionName}">선택</button>
+                        </td>
+                        
+                    </tr>
+                `;
+                });
+                $('#team-member-list').html(memberRows);
+                $('#addMemberModal').modal('show');
+            },
+            error: function(error) {
+                console.error('팀원 목록을 가져오는 중 오류 발생:', error);
+            }
+        });
+    }
+
+    // 팀원을 선택하는 함수
+    $(document).on('click', '.select-member-btn', selectTeamMember);
+    function selectTeamMember() {
+        var name = $(this).data('name');
+        var department = $(this).data('department');
+        var position = $(this).data('position');
+        var employeeCode = $(this).data('employee-code');
+
+        $('#member-list').append(`
+            <tr>
+                <td>${name}</td>
+                <td>${department}</td>
+                <td>${position}</td>
+                <td><button type="button" class="btn btn-sm btn-danger remove-member-btn" data-employee-code="${employeeCode}">삭제</button></td>
+            </tr>
+        `);
+
+        // 팀원 추가 모달 닫기
+        $('#addMemberModal').modal('hide');
+    }
+    let removedMembers = [];
+    $('#member-list').on('click', '.remove-member-btn', function () {
+
+        const employeeCode = $(this).data('employee-code');
+        const meetingId = $('#meetingId').val(); // 현재 회의 ID 가져오기
+
+        removedMembers.push({ meetingId, employeeCode });
+
+        $(this).closest('tr').remove();
+    });
+
+    $('#updateMeetingForm').submit(function (event) {
         event.preventDefault();
 
         const formData = new FormData(this);
         const meetingId = formData.get('meetingId');
+        const meetingMembers = [];
+        $('#member-list tr').each(function () {
+            const employeeCode = $(this).find('button').data('employee-code');
+            if (employeeCode) {
+                meetingMembers.push({ employeeCode });
+            }
+        });
+
         const meetingData = {
             meetingId: meetingId,
-
             meetingTitle: formData.get('meetingTitle'),
             meetingContent: formData.get('meetingContent'),
             meetingStartTime: formData.get('meetingStartTime'),
-            meetingEndTime: formData.get('meetingEndTime')
+            meetingEndTime: formData.get('meetingEndTime'),
+            meetingMembers: meetingMembers,
+            removedMembers: removedMembers // 삭제된 멤버
         };
-        console.log(meetingId);
-        console.log(meetingData); // 전송되는 데이터 확인
 
         // AJAX 요청으로 서버에 데이터 전송 (PUT 요청)
-        fetch(`/pm/editMeetings/${meetingId}`, { // 컨트롤러의 @PutMapping 경로에 맞게 수정
+        fetch(`/pm/editMeetings/${meetingId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(meetingData)
         })
-
             .then(response => {
                 if (response.ok) {
                     // 성공적으로 수정되었을 때 처리
@@ -166,23 +263,4 @@ $(document).ready( function() {
             });
     });
 
-    $('#meetingDetailModal').on('click', '#deleteMeetingBtn', function () {
-        const meetingId = $('#meetingId').val(); // 모달에서 meetingId 가져오기
-        console.log(meetingId);
-        if (confirm('정말로 회의를 삭제하시겠습니까?')) {
-            // AJAX 요청으로 회의 삭제
-            fetch(`/pm/deleteMeetings/${meetingId}`, {
-                method: 'DELETE'
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert('회의 일정이 성공적으로 삭제되었습니다.');
-                        $('#meetingDetailModal').modal('hide');
-                        location.reload(); // 페이지 새로고침
-                    } else {
-                        alert('회의 일정 삭제 중 오류가 발생했습니다.');
-                    }
-                });
-        }
-    });
 });

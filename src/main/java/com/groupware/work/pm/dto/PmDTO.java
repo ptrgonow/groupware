@@ -3,6 +3,7 @@ package com.groupware.work.pm.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class PmDTO {
@@ -16,5 +17,8 @@ public class PmDTO {
     private LocalDateTime meetingEndTime;
     private String name;
     private String formattedSchedule;
+
+    private List<MeetingMemberDTO> meetingMembers; // 추가된 멤버
+    private List<Long> removedMembers; // 삭제된 멤버
 
 }

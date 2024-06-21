@@ -103,7 +103,7 @@
 
 /* 회원 전체 리스트 테이블 */
 .table-responsive{
-    width: 100%;
+    width: 30%;
     table-layout: fixed;
     text-align: center;
 }
@@ -311,4 +311,24 @@
 
 .card-header{
     height: 100px;
+}
+
+.mem-table tbody,
+.task-edit-tbl tbody {
+    display: block;
+    max-height: 100px;
+    overflow-y: scroll;
+}
+.mem-table thead,
+.mem-table tbody tr,
+.task-edit-tbl thead,
+.task-edit-tbl tbody tr {
+    text-align: center;
+    display: table;
+    width: 90%;
+    margin-bottom: 1rem;
+}
+
+#team-member-list{
+    width: 100%;
 }
