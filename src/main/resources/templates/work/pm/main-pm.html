@@ -12,7 +12,6 @@
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    <link rel="stylesheet" href="/css/schedule.css">
     <link rel="stylesheet" href="/css/main-pm.css">
     <div class="page-wrapper">
         <div class="content">
@@ -151,6 +150,18 @@
                         <textarea class="form-control" id="meetingContentDetail" name="meetingContent" rows="3" required></textarea>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">회의 멤버</label>
+                        <span id="toggle-mem" class="plus-btn">+</span>
+                        <table class="mem-table">
+                            <tbody id="member-list">
+
+                            </tbody>
+                        </table>
+                        <div id="meetingMembersContainer">
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
                         <label for="meetingStartTimeDetail" class="form-label">시작 일시</label>
                         <input type="datetime-local" class="form-control" id="meetingStartTimeDetail" name="meetingStartTime" required>
                     </div>
@@ -165,6 +176,33 @@
                     <button type="button" class="btn btn-danger" id="deleteMeetingBtn">삭제</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMemberModalLabel">팀원 추가</h5>
+            </div>
+            <div class="modal-body">
+                <table class="mem-table">
+                    <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>부서</th>
+                        <th>직책</th>
+                        <th>선택</th>
+                    </tr>
+                    </thead>
+                    <tbody id="team-member-list">
+                    <!-- 팀원 목록이 동적으로 추가될 부분 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-bs-dismiss="modal" class="delete-btn">닫기</button>
+            </div>
         </div>
     </div>
 </div>
