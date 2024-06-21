@@ -6,6 +6,7 @@ import com.groupware.user.dto.UserDTO;
 import com.groupware.work.ceo.service.CeoService;
 import com.groupware.work.hr.dto.HrEmplMagDTO;
 import com.groupware.work.hr.dto.HrEmployeeDTO;
+import com.groupware.work.hr.dto.HrStatusDTO;
 import com.groupware.work.hr.service.HrService;
 import com.groupware.work.ms.dto.AllEmployeeDTO;
 import com.groupware.work.ms.dto.MsApprovalDTO;
@@ -58,9 +59,6 @@ public class WorkViewController {
     @GetMapping("/hr")
     public String hr(Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
-        }
         model.addAttribute("user", user);
 
         // 총 직원 수
@@ -108,7 +106,12 @@ public class WorkViewController {
     @GetMapping("/hr/edit")
     public String getEmployeeMag(Model model) {
         List<HrEmplMagDTO> empMag = hrService.getEmplManagement();
+        List<String> status = hrService.getStatuses();
+        //List<HrStatusDTO> empStatus = hrService.empStatues();
+
         model.addAttribute("empMag", empMag);
+        model.addAttribute("status", status);  // 휴가,근무중,퇴근 값
+        //model.addAttribute("empStatus", empStatus); // 출퇴근 기록 생성한 사원코드, 상태
 
         return "work/hr/hr-edit";
     }

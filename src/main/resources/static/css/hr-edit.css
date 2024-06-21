@@ -116,6 +116,18 @@ table.type11 td {
     padding: 7px;
 }
 
+/* 상태 변경 버튼 */
+.st-btn{
+    width: 70px;
+    border: none;
+    background-color: #e2e2e1;
+}
+
+.st-select{
+    width: 70px;
+    text-align: center;
+}
+
 /* 페이징 */
 .pagination-container {
     display: flex;
