@@ -54,12 +54,4 @@ public class FmController {
         return ResponseEntity.ok(response);
     }
 
-    /* APPROVED VIEW PAGE BOARD */
-    @GetMapping("/approved-list")
-    public String getApprovedList(Model model) {
-        List<FmApprovedDTO> approvedList = fmService.getApprovedApprovals();
-        model.addAttribute("approvedList", approvedList);
-        return "main-finance";
-    }
-
 }

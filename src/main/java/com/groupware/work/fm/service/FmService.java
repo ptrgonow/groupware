@@ -8,6 +8,7 @@ import com.groupware.work.fm.dto.FixedExpensesDTO;
 import com.groupware.work.fm.mapper.FmMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -42,10 +43,5 @@ public class FmService {
         fmMapper.insertExpense(expenseDTO);
     }
 
-    /* APPROVED ONLY VIEW PAGE */
-    public String getApprovedList(Model model) {
-        List<FmApprovedDTO> approvedList = fmService.getApprovedApprovals();
-        model.addAttribute("approvedList", approvedList);
-        return "main-finance";
-    }
+
 }
