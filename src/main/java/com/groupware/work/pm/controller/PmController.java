@@ -2,7 +2,9 @@ package com.groupware.work.pm.controller;
 
 import com.groupware.user.dto.PrMemDTO;
 import com.groupware.user.dto.UserDTO;
+import com.groupware.work.pm.dto.MeetingDetailsDTO;
 import com.groupware.work.pm.dto.MeetingMemberDTO;
+import com.groupware.work.pm.dto.MeetingUpdateRequestDTO;
 import com.groupware.work.pm.dto.PmDTO;
 import com.groupware.work.pm.service.PmService;
 import jakarta.servlet.http.HttpSession;
@@ -36,28 +38,40 @@ public class PmController {
         }
     }
 
-    @GetMapping("/meetings/{meetingId}")
-    public ResponseEntity<PmDTO> getMeetingDetail(@PathVariable int meetingId){
-        PmDTO meeting = pmService.getMeetingById(meetingId);
-        System.out.println(meeting);
-        return ResponseEntity.ok(meeting);
-    }
-    @PutMapping("/editMeetings/{meetingId}")
-    public ResponseEntity<String> updateMeeting(@PathVariable int meetingId, @RequestBody PmDTO pmDTO, HttpSession session) {
-        UserDTO user = (UserDTO) session.getAttribute("user");
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }
+    @GetMapping("/mem/list")
+    public ResponseEntity<Map<String, Object>> getMember(){
+        List<PrMemDTO> user = pmService.getAllEmployees();
+        Map<String, Object> response = new HashMap<>();
+        response.put("members", user);
 
-        pmDTO.setMeetingId(meetingId);
-        pmDTO.setEmployeeCode(user.getEmployeeCode());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/meetings/detail")
+    public ResponseEntity<Map<String, Object>> getMeetingDetail(@RequestParam int meetingId){
+        MeetingDetailsDTO meetingDetails = pmService.getMeetingById(meetingId);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("meeting", meetingDetails);
+        response.put("members", meetingDetails.getMeetingMembers());
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<String> updateMeeting(@RequestBody MeetingUpdateRequestDTO meetingUpdateRequest) {
 
         try {
-            List<MeetingMemberDTO> meetingMembers = pmDTO.getMeetingMembers(); // PmDTO에서 meetingMembers 가져오기
-            pmService.updateMeeting(pmDTO, meetingId, meetingMembers); // meetingMembers 전달
+            pmService.updateMeeting(
+                    meetingUpdateRequest.getPmDTO(),
+                    meetingUpdateRequest.getMeetingMembers(),
+                    meetingUpdateRequest.getDeletedMembers()
+            );
+
+
             return ResponseEntity.ok("회의 일정이 성공적으로 수정되었습니다.");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("미팅 일정 수정 중 오류가 발생했습니다.");
+            return ResponseEntity.status(500).body("미팅 일정 수정 중 오류가 발생했습니다.");
         }
     }
 

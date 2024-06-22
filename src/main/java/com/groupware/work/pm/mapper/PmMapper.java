@@ -2,6 +2,7 @@ package com.groupware.work.pm.mapper;
 
 import com.groupware.user.dto.PrMemDTO;
 import com.groupware.work.dev.dto.ProjectDTO;
+import com.groupware.work.pm.dto.MeetingDetailsDTO;
 import com.groupware.work.pm.dto.MeetingMemberDTO;
 import com.groupware.work.pm.dto.PmDTO;
 import org.apache.ibatis.annotations.*;
@@ -34,17 +35,22 @@ public interface PmMapper {
             "WHERE meeting_id = #{meetingId}")
     void updateMeeting(PmDTO pmDTO);
 
+    @Delete("DELETE FROM meeting_member WHERE meeting_member_id = #{meetingMemberId} AND meeting_id = #{meetingId}")
+    void deleteMeetingMember(Long meetingMemberId, int meetingId);
+
+    @Update("UPDATE meeting_member SET employee_code = #{member.employeeCode} " +
+            "WHERE meeting_member_id = #{member.meetingMemberId} AND meeting_id = #{meetingId}")
+    void updateMeetingMember(@Param("meetingId") int meetingId, @Param("member") MeetingMemberDTO member);
+
     @Insert("INSERT INTO meeting_member (meeting_id, employee_code) VALUES (#{meetingId}, #{employeeCode})")
     void insertMeetingMember(@Param("meetingId") int meetingId, @Param("employeeCode") String employeeCode);
 
-    @Delete("DELETE FROM meeting_member WHERE meeting_id = #{meetingId} AND employee_code = #{employeeCode}")
-    void deleteMeetingMember(@Param("meetingId") int meetingId, @Param("employeeCode") String employeeCode);
 
     @Select("select m.meeting_id as meetingId, m.meeting_title as meetingTitle, m.meeting_content as meetingContent, " +
             "m.created_at as createdAt, m.employee_code as employeeCode, m.meeting_start_time as meetingStartTime, " +
             "m.meeting_end_time as meetingEndTime , e.name from meetings m " +
             "join employee e on m.employee_code = e.employee_code where m.meeting_id = #{meetingId}")
-    PmDTO getMeetingById(@Param("meetingId") int meetingId);
+    List<MeetingDetailsDTO> getMeetingById(@Param("meetingId") int meetingId);
 
     @Select("SELECT mm.meeting_member_id AS meetingMemberId, mm.employee_code AS employeeCode, e.name AS name, " +
             "d.department_name AS departmentName, p.ps_nm AS positionName " +

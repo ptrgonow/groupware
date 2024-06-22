@@ -107,9 +107,11 @@ $(document).ready( function() {
 
     // 회의 상세 정보 가져오기
     function fetchMeetingDetail(meetingId) {
-        fetch(`/pm/meetings/${meetingId}`)
+        fetch(`/pm/meetings/detail?meetingId=${meetingId}`)
             .then(response => response.json())
-            .then(meeting => {
+            .then(data => {
+                const meeting = data.meeting;
+                const members = data.members;
                 // 모달에 데이터 채우기
                 $('#meetingId').val(meeting.meetingId);
                 $('#meetingTitleDetail').val(meeting.meetingTitle);
@@ -118,9 +120,19 @@ $(document).ready( function() {
                 // LocalDateTime -> input type="datetime-local" 형식 변환
                 $('#meetingStartTimeDetail').val(meeting.meetingStartTime.replace(" ", "T"));
                 $('#meetingEndTimeDetail').val(meeting.meetingEndTime.replace(" ", "T"));
-
-                // 기존 멤버 목록 표시
-                renderMeetingMembers(meeting.meetingMembers);
+                const memberList = $('#member-list');
+                memberList.empty();
+                members.forEach((member) => {
+                    memberList.append(`
+                    <tr>
+                        <td>${member.name}</td>
+                        <td>${member.departmentName}</td>
+                        <td>${member.positionName}</td>
+                        <td><button type="button" class="btn btn-sm btn-danger remove-member-btn" data-employee-code="${member.employeeCode}">삭제</button></td>
+                        <input type="hidden" id="eCode" value="${member.meetingMemberId}">
+                    </tr>
+                `);
+                });
 
                 // 모달 열기
                 $('#meetingDetailModal').modal('show');
@@ -131,29 +143,11 @@ $(document).ready( function() {
             });
     }
 
-    // 회의 멤버 표시
-    function renderMeetingMembers(members) {
-        const memberList = $('#member-list');
-        memberList.empty();
-
-        members.forEach(member => {
-            memberList.append(`
-                <tr>
-                    <td>${member.name}</td>
-                    <td>${member.departmentName}</td>
-                    <td>${member.positionName}</td>
-                    <td><button type="button" class="btn btn-sm btn-danger remove-member-btn" data-member-id="${member.meetingMemberId}">삭제</button></td>
-                </tr>
-            `);
-        });
-    }
-
     // 회의 멤버 추가 버튼 클릭 이벤트 처리
     $('#addMemberBtn').click(function () {
         fetchTeamMembers(); // 팀원 목록 가져오는 함수 호출
     });
     $('#toggle-mem').on('click', fetchTeamMembers);
-    // 팀원 목록을 가져오는 함수
     function fetchTeamMembers() {
         $.ajax({
             url: 'pm/meet/list', // 팀원 목록을 가져오는 API 엔드포인트
@@ -195,29 +189,30 @@ $(document).ready( function() {
         var department = $(this).data('department');
         var position = $(this).data('position');
         var employeeCode = $(this).data('employee-code');
-
+        var meetingId = $(this).data('id')
         $('#member-list').append(`
             <tr>
                 <td>${name}</td>
                 <td>${department}</td>
                 <td>${position}</td>
                 <td><button type="button" class="btn btn-sm btn-danger remove-member-btn" data-employee-code="${employeeCode}">삭제</button></td>
+                <input type="hidden" id="mCode" value="${meetingId}">
             </tr>
         `);
 
         // 팀원 추가 모달 닫기
         $('#addMemberModal').modal('hide');
     }
-    let removedMembers = [];
-    $('#member-list').on('click', '.remove-member-btn', function () {
+    let deletedMembers = [];
+    $('#member-list').on('click', '.remove-member-btn', function() {
+        const meetingMemberId = $(this).closest('tr').find('input[type="hidden"]').val();
 
-        const employeeCode = $(this).data('employee-code');
-        const meetingId = $('#meetingId').val(); // 현재 회의 ID 가져오기
-
-        removedMembers.push({ meetingId, employeeCode });
-
+        if (meetingMemberId !== 0) { // 0이 아니면 삭제 목록에 추가
+            deletedMembers.push(meetingMemberId);
+        }
         $(this).closest('tr').remove();
     });
+    console.log(deletedMembers);
 
     $('#updateMeetingForm').submit(function (event) {
         event.preventDefault();
@@ -226,41 +221,50 @@ $(document).ready( function() {
         const meetingId = formData.get('meetingId');
         const meetingMembers = [];
         $('#member-list tr').each(function () {
+            let meetingId = $(this).find('#mCode').val();
             const employeeCode = $(this).find('button').data('employee-code');
-            if (employeeCode) {
-                meetingMembers.push({ employeeCode });
-            }
-        });
 
-        const meetingData = {
+
+            meetingMembers.push({
+                meetingId : meetingId,
+                employeeCode : employeeCode
+
+            });
+
+        });
+        console.log(meetingMembers);
+        const pmDTO = {
             meetingId: meetingId,
             meetingTitle: formData.get('meetingTitle'),
             meetingContent: formData.get('meetingContent'),
             meetingStartTime: formData.get('meetingStartTime'),
             meetingEndTime: formData.get('meetingEndTime'),
-            meetingMembers: meetingMembers,
-            removedMembers: removedMembers // 삭제된 멤버
-        };
+        }
+        const meetingData = {
+            // PmDTO 객체로 감싸기
 
-        // AJAX 요청으로 서버에 데이터 전송 (PUT 요청)
-        fetch(`/pm/editMeetings/${meetingId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
+                pmDTO : pmDTO,
+                meetingMembers: meetingMembers,
+                deletedMembers: deletedMembers
+
+        };console.log("Data to be sent:", meetingData.pmDTO);
+        console.log("Data to be sent:", meetingData.meetingMembers);
+        console.log("Data to be sent:", meetingData.deletedMembers);
+
+        $.ajax({
+            type: "POST",
+            url: "/pm/edit",
+            contentType: "application/json",
+            data: JSON.stringify(meetingData),
+            success: function(response) {
+                alert("회의 일정이 수정되었습니다.");
+                $('#meetingDetailModal').modal('hide');
+                location.reload();
             },
-            body: JSON.stringify(meetingData)
-        })
-            .then(response => {
-                if (response.ok) {
-                    // 성공적으로 수정되었을 때 처리
-                    alert('회의 일정이 성공적으로 수정되었습니다.');
-                    $('#meetingDetailModal').modal('hide');
-                    location.reload(); // 페이지 새로고침
-                } else {
-                    // 오류 발생 시 처리
-                    alert('회의 일정 수정 중 오류가 발생했습니다.');
-                }
-            });
+            error: function(error) {
+                console.error('회의 일정 수정 오류:', error);
+                alert('회의 일정 수정 중 오류가 발생했습니다.');
+            }
+        });
     });
-
 });
