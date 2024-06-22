@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class PmDTO {
+public class MeetingDetailsDTO {
 
     private int meetingId;
     private String meetingTitle;
@@ -17,5 +17,6 @@ public class PmDTO {
     private LocalDateTime meetingEndTime;
     private String name;
     private String formattedSchedule;
+    private List<MeetingMemberDTO> meetingMembers;
 
 }
