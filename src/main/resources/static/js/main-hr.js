@@ -76,7 +76,7 @@ function initializeTodayWorkers() {
 
 function initializeHrApproval() {
     var hrApproval = [];
-    document.querySelectorAll('.team-view').forEach(function(view) {
+    document.querySelectorAll('.team-list').forEach(function(view) {
         var approval = {
             name: view.querySelector('.ap-name').innerText.trim(),
             department: view.querySelector('.ap-dep').innerText.trim(),
@@ -89,7 +89,7 @@ function initializeHrApproval() {
 
     $('#hrApproval-Pagination').pagination({
         dataSource: hrApproval,
-        pageSize: 5,
+        pageSize: 8,
         callback: function(data, pagination) {
             var html = renderApproval(data);
             $('#initial-hrApproval-container').html(html);
@@ -100,19 +100,13 @@ function initializeHrApproval() {
         var html = '';
         data.forEach(function(request) {
             html += `
-                <div class="team-list">
-                    <div class="team-view">
-                        <div class="team-content">
-                            <label class="ap-name">${request.name}</label>
-                            <span class="ap-dep">${request.department}</span>
-                        </div>
-                        <div class="ap-detail">
-                            <p class="ap-cont" id="ap-title">${request.title}</p>
-                            <p class="ap-cont" id="ap-date">${request.createdAt}</p>
-                            <p class="ap-cont" id="ap-status">${request.status}</p>
-                        </div>
-                    </div>
-                </div>`;
+                <tr>
+                   <td class="ap-name">${request.name}</td>
+                <td class="ap-dep">${request.department}</td>
+                <td class="ap-cont">${request.title}</td> 
+                <td class="ap-cont">${request.createdAt}</td>
+                <td class="ap-cont">${request.status}</td>
+                </tr>`;
         });
         return html;
     }

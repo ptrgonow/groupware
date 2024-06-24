@@ -15,29 +15,7 @@
             height: calc(100% - 56px); /* 카드 높이에서 헤더 높이를 뺀 나머지 높이 */
             overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
         }
-        
-        /* 미디어 쿼리 사용 */
-        @media (max-width: 768px) {
-            .card.w-100 {
-                min-height: 200px; /* 작은 화면에서 최소 높이 설정 */
-                max-height: 300px; /* 작은 화면에서 최대 높이 설정 */
-            }
-            
-            .card-body {
-                height: calc(100% - 48px); /* 작은 화면에서 카드 높이 조정 */
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .card.w-100 {
-                min-height: 150px; /* 더 작은 화면에서 최소 높이 설정 */
-                max-height: 200px; /* 더 작은 화면에서 최대 높이 설정 */
-            }
-            
-            .card-body {
-                height: calc(100% - 40px); /* 더 작은 화면에서 카드 높이 조정 */
-            }
-        }
+
     </style>
 
 </head>

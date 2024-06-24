@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const pageSize = 6; // 페이지당 항목 수
+    const pageSize = 8; // 페이지당 항목 수
 
     // 인원 현황 테이블 페이징 처리
     const allEmployeeTableBody = document.querySelector('#allEmployeeTableBody');
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     $('#pagination-container').pagination({
         dataSource: employees,
-        pageSize: pageSize,
+        pageSize: 10,
         callback: function(data, pagination) {
             var html = renderEmployeeTable(data);
             $('#allEmployeeTableBody').html(html);

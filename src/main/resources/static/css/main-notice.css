@@ -218,15 +218,21 @@ th {
 
 /* 페이징 */
 
-#pagination-notice {
+.card-body-inner {
     position: relative;
-    bottom: 0;
-    margin-top: 2rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    padding-bottom: 5rem;
+    height: 700px;
 }
 
+
+
+.notice-write{
+
+    position: absolute;
+    right: 40px;
+    bottom:30px;
+
+}
 .card-body-inner ul li {
     margin-right: 0;
 }

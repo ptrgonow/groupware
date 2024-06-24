@@ -35,7 +35,8 @@ body {
 
 .employee-search{
     display: flex;
-    justify-content: center;
+    justify-content: end;
+    margin-right: 100px;
 }
 
 .btn-outline-success {
@@ -48,11 +49,19 @@ body {
     border: 1px solid #879096;
     color: white;
 }
+.everything{
+    align-items: center;
+}
 
 /* 테이블 */
 .table-container {
     margin: 20px;
     position: relative;
+    align-items: center;
+
+    min-height: 600px;
+    max-height: 600px;
+
 }
 
 table.type11 {
@@ -60,8 +69,8 @@ table.type11 {
     border-spacing: 1px;
     text-align: center;
     line-height: 1.5;
-    margin: 20px 10px;
-    width: 1100px;
+    margin: 60px 10px;
+    width: 90%;
 }
 
 table.type11 th {
@@ -115,6 +124,7 @@ table.type11 td {
     display: flex;
     justify-content: flex-end;
     margin-right: 240px;
+    margin-bottom: 30px;
 }
 
 .btn.btn-primary{
@@ -138,11 +148,13 @@ table.type11 td {
 }
 
 /* 페이징 */
-.pagination-container {
+.pagination-mini {
+    position: absolute;
+    width: 100%;
     display: flex;
     justify-content: center;
+    bottom: 80px;
 }
-
 /* 모달 */
 .modal-body {
     display: grid;

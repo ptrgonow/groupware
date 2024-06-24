@@ -23,11 +23,12 @@ body {
 
 
 .card-body {
-
-    display: grid;
-    position: relative;
-    align-items: center;
-    padding: 25px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    padding: 1.25rem;
+    width: 100%;
+    height: 100%;
 }
 
 .card-img-top {
@@ -82,6 +83,11 @@ body {
     font-size: 0.8rem;
 }
 
+.remain{
+    display: block;
+    align-content: center;
+}
+
 .regi {
     text-align: center;
 }
@@ -124,7 +130,10 @@ body {
 }
 
 .form-group select, .form-group input[type="text"] {
+    align-items: center;
     height: 2rem;
+    display: block;
+    margin-bottom: 20px;
 }
 
 .form-text {

@@ -229,7 +229,93 @@ html.menu-opened {
 html.menu-opened body {
     overflow: hidden;
 }
+.card.board1 {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(137, 137, 137, 0.25);
+    color: #fff;
+    margin: 0;
+}
+.board1 .card-body {
+    padding: 15px;
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid transparent;
+}
 
+.ap-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ap-tbl thead tr th {
+    background-color: #879096;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-weight: 700;
+    border-bottom: 2px solid #495057;
+}
+
+.ap-tbl .col-number {
+    width: 12%;
+}
+
+.ap-tbl .col-title {
+    width: 30%;
+}
+
+.ap-tbl .col-author {
+    width: 15%;
+}
+
+.ap-tbl .col-date {
+    width: 25%;
+}
+
+.ap-tbl .col-status {
+    width: 18%;
+}
+
+.ap-tbl tbody tr td {
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px;
+    color: #495057;
+}
+
+.ap-tbl tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.ap-tbl tbody tr:hover {
+    background-color: #e6e6ea;
+}
+
+.ap-tbl tbody tr td:last-child {
+    text-align: center;
+}
+.card.w-100 {
+    min-height: 650px; /* 최소 높이 설정 */
+    max-height: 650px; /* 최대 높이 설정 */
+    overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+}
+.card-body {
+    height: calc(100% - 56px); /* 카드 높이에서 헤더 높이를 뺀 나머지 높이 */
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
+}
+
+.pagination-mini {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
 @media (min-width: 768px) {
     .avatar-xxl {
         width: 8rem;

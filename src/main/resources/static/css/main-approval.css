@@ -32,7 +32,6 @@ body {
 
 .card-body {
     display: flex;
-    justify-content: center;
     text-align: center;
     flex-direction: column;
     padding: 1.25rem;

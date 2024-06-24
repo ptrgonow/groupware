@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://www.w3.org/1999/html">
 <head>
 
     <title>그룹웨어</title>
@@ -73,8 +73,8 @@
 
             <!-- 인원현황 피드 -->
             <div class="row">
-                <div class="col-xl-6 d-flex mobile-h">
-                    <div class="card flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">인원현황</h5>
@@ -114,8 +114,8 @@
                 </div>
 
 
-                <div class="col-xl-6 d-flex">
-                    <div class="card flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">금일 근무자</h5>
@@ -151,36 +151,50 @@
             </div>
 
             <div class="row">
-                <div class="card card-list flex-fill">
-                    <div class="card-header">
-                        <h4 class="card-title">새로운 요청</h4>
-                    </div>
-                    <div class="card-body pb-0">
-                        <div id="initial-hrApproval-container" >
-                            <div class="team-list" th:each="hrAp:${hrApproval}">
-                                <div class="team-view">
-                                    <div class="team-content">
-                                        <label class="ap-name" th:text="${hrAp.name}"></label>
-                                        <span class="ap-dep" th:text="${hrAp.departmentName}"></span>
-                                    </div>
-                                    <div class="ap-detail">
-                                    <p class="ap-cont" id="ap-title" th:text="${hrAp.title}"></p>
-                                    <p class="ap-cont" id="ap-date" th:text="${#dates.format(hrAp.createdAt, 'yyyy-MM-dd')}"></p>
-                                    <p class="ap-cont" id="ap-status" th:text="${hrAp.status}"></p>
-                                    </div>
-                                </div>
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
+                        <div class="card-header">
+                            <h4 class="card-title">새로운 요청</h4>
+                        </div>
+
+
+                        <div class="card-body pb-0">
+                            <table class="ap-tbl">
+                                <thead >
+                                <tr class="team-view">
+                                    <th class="team-content">이름 </th>
+                                    <th class="team-content">부서명 </th>
+                                    <th class="team-content">제목 </th>
+                                    <th class="team-content">날짜 </th>
+                                    <th class="team-content">상태</th>
+                                </tr>
+                                </thead>
+                                <tbody id="initial-hrApproval-container">
+                                <tr class="team-list" th:each="hrAp:${hrApproval}">
+                                    <td class="ap-name" th:text="${hrAp.name}"></td>
+                                    <td class="ap-dep" th:text="${hrAp.departmentName}"></td>
+                                    <td class="ap-cont" id="ap-title" th:text="${hrAp.title}"></td>
+                                    <td class="ap-cont" id="ap-date" th:text="${#dates.format(hrAp.createdAt, 'yyyy-MM-dd')}"></td>
+                                    <td class="ap-cont" id="ap-status" th:text="${hrAp.status}"></td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                            <div class="pagination-mini">
+                            <div id="hrApproval-Pagination"></div>
                             </div>
                         </div>
-                        <div id="hrApproval-Pagination"></div>
                     </div>
                 </div>
 
                 <!-- 사원관리 피드 -->
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
                             <h4 class="card-title">사원 관리</h4>
                             <a class="edit_employee" href="/hr/edit"><i data-feather="edit"></i></a>
+                            </div>
                         </div>
                         <div class="card-body dash-activity">
                             <div class="activity_scroll">

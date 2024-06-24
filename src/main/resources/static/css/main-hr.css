@@ -1,5 +1,3 @@
-@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
-@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap";
 
 * {
     margin: 0;
@@ -7,19 +5,6 @@
     box-sizing: border-box;
 }
 
-html {
-    font-size: 16px;
-    height: 100%;
-}
-
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #333;
-    background-color: #f4f4f4;
-    height: 100%;
-}
 
 
 .card_member_img {
@@ -180,31 +165,4 @@ body {
     margin: 0 5px; /* 원하는 만큼의 간격 조절 */
 }
 
-.ap-detail{
-    display: flex;
-    justify-content: space-between;
-    margin-left: 80px;
-    width: 65%;
-}
-
-.ap-cont{
-    margin-right: 30px;
-    margin-bottom: 0;
-    width: 90px;
-}
-
-.team-content{
-    margin-left: 30px;
-    width: 90px;
-    text-align: center;
-}
-
-.team-list{
-    margin-bottom: 15px;
-}
-
-#hrApproval-Pagination{
-    display: flex;
-    justify-content: center;
-}
 

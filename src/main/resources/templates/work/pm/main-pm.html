@@ -19,8 +19,8 @@
                 <h3 th:text="${user.departmentName}"></h3>
             </div>
             <div class="row">
-                <div class="col-xl-6 d-flex mobile-h">
-                    <div class="card flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">프로젝트 목록</h5>
@@ -44,13 +44,15 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div id="pagination-container" class="pagination-mini"></div>
+                                <div class="pagination-mini">
+                                <div id="pagination-container"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 d-flex justify-content-center">
-                    <div class="card flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">회의 일정표</h5>
@@ -78,7 +80,9 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div id="meetings-pagination-container"></div>
+                                <div class="pagination-mini">
+                                    <div id="meetings-pagination-container"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -150,9 +154,13 @@
                         <textarea class="form-control" id="meetingContentDetail" name="meetingContent" rows="3" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">회의 멤버</label>
-                        <span id="toggle-mem" class="plus-btn">+</span>
                         <table class="mem-table">
+                            <thead>
+                            <tr>
+                                <th class="form-label">회의 멤버<span id="toggle-mem" class="plus-btn">+</span></th>
+
+                            </tr>
+                            </thead>
                             <tbody id="member-list">
 
                             </tbody>
