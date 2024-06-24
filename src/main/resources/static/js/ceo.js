@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const pageSize = 6;
+    const pageSize = 8;
 
     // 결재 테이블 페이징 처리
     const approvalTableBody = document.querySelector('#myAp-tbody');
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     $('#pagination-hr').pagination({
         dataSource: employees,
-        pageSize: pageSize,
+        pageSize: 10,
         callback: function(data, pagination) {
             var html = renderEmployeeTable(data);
             $('#allEmployeeTableBody').html(html);

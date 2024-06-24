@@ -53,6 +53,11 @@
     padding: 0;
     box-shadow: none;
     border: none;
+    margin-right: 20px;
+}
+.sidebar-menu ul.dropdown-menu.side li a{
+
+    text-decoration: none;
 }
 
 

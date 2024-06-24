@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/css/todo.css">
     <!--<link rel="stylesheet" href="/css/main-notice.css">-->
     <link rel="stylesheet" href="/css/schedule.css">
-    
+
     
     <div class="page-wrapper">
         <div class="content container-fluid">
@@ -27,8 +27,8 @@
             </div>
             
             <div class="row">
-                <div class="col-xl-6 d-flex mobile-h">
-                    <div class="card flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">근태 기록</h5>
@@ -55,8 +55,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 d-flex mobile-h">
-                    <div class="card flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">캘린더</h5>
@@ -70,8 +70,8 @@
             </div>
             
             <div class="row">
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <h4 class="card-title">공지 사항</h4>
                         </div>
@@ -94,20 +94,24 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div class="pagination-mini">
                             <div id="pagination-notice"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header text-center">
                             <h4 class="card-title">todo list</h4>
                         </div>
                         <div class="card-body">
                             <div class="list-group">
                                 <ul id="todolist" class="list-group"></ul>
+                                <div class="pagination-mini">
                                 <div id="pagination-mini"></div>
+                                </div>
                             </div>
                         </div>
                     </div>

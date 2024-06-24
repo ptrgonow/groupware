@@ -52,7 +52,7 @@
             <!-- 문서 등록, 삭제 버튼 -->
             <div class="file-btn" th:if="${user.departmentId == 3}">
                 <div class="btn-area">
-                        <button type="button" class="btn btn-outline"
+                        <button type="button" class="cocoBtn"
                                 data-bs-toggle="modal" data-bs-target="#fileRegModal">문서 등록</button>
 
                         <!-- 등록 모달 -->
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-danger" id="deleteButton">문서 삭제</button>
+                        <button type="button" class="cocoBtn delete-btn" id="deleteButton">문서 삭제</button>
                 </div>
             </div>
 

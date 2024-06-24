@@ -21,8 +21,8 @@
             </div>
             
             <div class="row">
-                <div class="col-xl-6 d-flex mobile-h">
-                    <div class="card flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">근태 기록</h5>
@@ -41,14 +41,14 @@
                     </div>
                 </div>
                 
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="card-title">잔여 연차 / 휴가</h4>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body remain">
                             <div class="card-header">
                                 <span th:text="${user != null} ? ${user.name} : '사용자'"></span> 님의 잔여 연차는 <span th:text="${user != null} ? ${holiday.dayoff} : '0'"></span>일 입니다.
                             </div>
@@ -62,8 +62,8 @@
             
             <div class="row">
                 
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="card-title">근태 기록</h4>
@@ -92,14 +92,16 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div class="pagination-mini">
                             <div id="pagination-work"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header ">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">내 정보</h5>
@@ -118,23 +120,23 @@
                                             
                                             <label for="birth">생년월일</label>
                                             <input type="date" class="form-control-sm" id="birth" name="birth_date">
-                                            
+
                                             <label for="address">주소</label>
                                             <input type="text" class="form-control-sm" id="address" name="address">
-                                            
+
                                             <label for="department">부서</label>
                                             <input type="text" class="form-control-sm" id="department" name="departmentName" readonly>
                                             
                                             <label for="position">직급</label>
                                             <input type="text" class="form-control-sm" id="position" name="ps_cd" readonly>
                                             
-                                            <label for="username">아이디</label>
+                                            <label for="userName">아이디</label>
                                             <input type="text" class="form-control-sm" id="userName" name="username">
                                             
                                             <label for="password">비밀번호</label>
                                             <input type="password" class="form-control-sm" id="password" name="password">
                                         </div>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="regi">

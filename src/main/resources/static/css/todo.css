@@ -44,7 +44,6 @@ body {
 
 
 .btn-info{
-    height: 40px;
     width: 80px;
     background-color: #2196F3;
     color: white;
@@ -128,7 +127,7 @@ body {
     position: relative;
     bottom: 0;
     margin-top: 2rem;
-    width: 100%;
+    width: fit-content;
     display: flex;
     justify-content: center;
 }
@@ -140,4 +139,9 @@ body {
 
 #list {
     height: 100%;
+}
+
+.card .w-100{
+    min-height: fit-content;
+    border: none;
 }
