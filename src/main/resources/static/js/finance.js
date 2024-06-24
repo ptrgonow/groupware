@@ -1,14 +1,28 @@
+var mySubmissions = []; // 상신 목록 데이터
 
 $(document).ready(function() {
     // 초기 화면 설정
     getSalaryList();
 
     // 변수 선언
+    // 결재 목록 데이터 수집 및 페이지네이션 초기화
+    collectTableData('#fm-tbl-approved-list', mySubmissions);
+    initializePagination(mySubmissions, '#fm-tbl-approved-list', '#pagination-fm-tbl');
 
 
 
     // 이벤트 리스너 등록
+    // 클릭 이벤트 리스너 등록
+    $(document).on('click', '#fm-tbl-approved-list tr', function () {
+        var approvalId = $(this).data('approval-id');
 
+        $.get({
+            url: `/ap/gt/${approvalId}`,
+            success: function (token) {
+                window.location.href = `/ap/detail/${token}`;
+            }
+        });
+    });
 });
 
 // ==================== 함수 정의 ==================== //
@@ -57,4 +71,43 @@ function paginate(totalItem, salList) {
     });
 }
 
+// 데이터 수집 함수
+function collectTableData(tableBodySelector, dataArray) {
+    $(tableBodySelector + ' tr').each(function () {
+        var row = $(this).children('td');
+        dataArray.push({
+            approvalId: $(this).data('approval-id'), // 고유 ID 추가
+            fileName: row.eq(1).text(),
+            employeeName: row.eq(2).text(),
+            createdAt: row.eq(3).text(),
+        });
+    });
+}
 
+// 페이지네이션 초기화 함수
+function initializePagination(dataSource, tableBodyId, paginationId) {
+    $(paginationId).pagination({
+        dataSource: dataSource,
+        pageSize: 6,
+        callback: function (data, pagination) {
+            var html = renderTable(data);
+            $(tableBodyId).html(html);
+        }
+    });
+}
+
+// 테이블 렌더링 함수
+function renderTable(data) {
+    var html = '';
+    data.forEach(function (item, index) {
+        html += `
+            <tr data-approval-id="${item.approvalId}">
+                <td>${index + 1}</td>
+                <td>${item.fileName}</td>
+                <td>${item.employeeName}</td>
+                <td>${item.createdAt}</td>
+            </tr>
+        `;
+    });
+    return html;
+}

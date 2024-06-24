@@ -26,38 +26,7 @@
             <div class="row">
                 <div class="col-xl-12 col-12 d-flex">
                     <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title">결재 완료 목록</h5>
-                            </div>
-                            <div class="card-body">
-                                <table class="fm-tbl">
-                                    <thead>
-                                    <tr>
-                                        <th class="col-number">번호</th>
-                                        <th class="col-title">제목</th>
-                                        <th class="col-author">기안자</th>
-                                        <th class="col-date">기안일</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="fm-tbl-approved-list">
-                                    <!-- 완결 결재 목록 -->
-                                    <tr th:each="approval, stat : ${approvedList}" class="fm-tbl-s" th:data-approval-id="${approval.approvalId}">
-                                        <td th:text="${stat.index + 1}"></td>
-                                        <td th:text="${approval.title}"></td>
-                                        <td th:text="${approval.employeeName}"></td>
-                                        <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-                                <div class="page">
-                                    <!-- 페이지네이션 자리 -->
-
-                                    <!-- 급여 현황 거랑 <nav> 태그 공유? 안 됨 -->
-                                </div>
-                            </div>
-                        </div>
+                    
                     </div>
 
                     <div class="col-xl-6">
@@ -89,21 +58,7 @@
                                     </tbody>
                                 </table>
                                 <div class="page">
-                                    <!-- 페이지네이션 자리 -->
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item">
-                                                <a class="page-link" id="prevPage" aria-label="Previous">
-                                                    <span aria-hidden="true">&laquo;</span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" id="nextPage" aria-label="Next">
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                                
                                 </div>
                             </div>
                         </div>
@@ -149,68 +104,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-xl-12 d-flex justify-content-center align-items-center">
-                    <!-- Profit and Loss Chart -->
-                    <div class="col-xl-6 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title">손익 현황</h5>
-                                <label for="profitLossSelect"></label>
-                                <select id="profitLossSelect" class="form-control form-control-sm w-auto float-right">
-                                    <option>Last Month</option>
-                                    <option>Last 3 Months</option>
-                                    <option>Last 6 Months</option>
-                                    <option>Last 12 Months</option>
-                                    <option>This Year</option>
-                                </select>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="profitLossChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title">청구서 현황</h5>
-                                <label for="invoicesSelect"></label>
-                                <select id="invoicesSelect" class="form-control form-control-sm w-auto float-right">
-                                    <option>Last Month</option>
-                                    <option>Last 3 Months</option>
-                                    <option>Last 6 Months</option>
-                                    <option>Last 12 Months</option>
-                                    <option>This Year</option>
-                                </select>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="invoicesChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-12 d-flex justify-content-center align-items-center">
-                    <!-- Sales Chart -->
-                    <div class="col-xl-6 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title">매출 현황</h5>
-                                <label for="salesSelect"></label>
-                                <select id="salesSelect" class="form-control form-control-sm w-auto float-right">
-                                    <option>Last Month</option>
-                                    <option>Last 3 Months</option>
-                                    <option>Last 6 Months</option>
-                                    <option>Last 12 Months</option>
-                                    <option>This Year</option>
-                                </select>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="salesChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>

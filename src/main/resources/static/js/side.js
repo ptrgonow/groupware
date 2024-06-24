@@ -65,7 +65,7 @@ function submitLogout() {
                     departmentMainPageUrl = '/hr';
                     break;
                 case 10:
-                    departmentMainPageUrl = '/fm';
+                    departmentMainPageUrl = '/fi/fmain';
                     break;
                 default:
                     departmentMainPageUrl = '/';

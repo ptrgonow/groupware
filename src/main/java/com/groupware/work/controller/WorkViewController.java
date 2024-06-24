@@ -1,11 +1,8 @@
 package com.groupware.work.controller;
 
 import com.groupware.approval.dto.ApprovalDTO;
-import com.groupware.file.dto.FileDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.work.ceo.service.CeoService;
-import com.groupware.work.fm.dto.FmApprovedDTO;
-import com.groupware.work.fm.service.FmService;
 import com.groupware.work.hr.dto.*;
 import com.groupware.work.hr.service.HrService;
 import com.groupware.work.ms.dto.AllEmployeeDTO;
@@ -15,7 +12,6 @@ import com.groupware.work.pm.dto.PmDTO;
 import com.groupware.work.pm.service.PmService;
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.service.DevService;
-import jakarta.activation.FileDataSource;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -36,26 +32,6 @@ public class WorkViewController {
     private final MsService msService;
     private final PmService pmService;
     private final CeoService ceoService;
-    private final FmService fmService;
-
-    @GetMapping("/fm")
-    public String fm(Model model, HttpSession session) {
-        UserDTO user = (UserDTO) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
-        }
-        List<FmApprovedDTO> approvedList = fmService.getApprovedList();
-        ArrayList<HashMap<String, Double>> expensesListMap = fmService.getExpensesListMap();
-        model.addAttribute("expensesListMap", expensesListMap);
-        model.addAttribute("approvedList", approvedList);
-        model.addAttribute("user", user);
-        return "work/fm/main-finance";
-    }
-
-    @GetMapping("/fm/eform")
-    public String eform() {
-        return "work/fm/eform-finance";
-    }
 
 
     @GetMapping("/hr")
@@ -206,17 +182,6 @@ public class WorkViewController {
         return "work/ceo";
     }
 
-
-
-    @GetMapping("/fi")
-    public String fi(Model model, HttpSession session) {
-        UserDTO user = (UserDTO) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
-        }
-        model.addAttribute("user", user);
-        return "work/fm/finance";
-    }
 
 
 }

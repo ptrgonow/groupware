@@ -1,6 +1,7 @@
 package com.groupware.work.fi.service;
 
 
+import com.groupware.approval.dto.ApprovalDTO;
 import com.groupware.work.fi.dto.SalDTO;
 import com.groupware.work.fi.mapper.FiMapper;
 
@@ -20,7 +21,8 @@ public class FiService {
     }
 
 
-
-
+    public List<ApprovalDTO> getFinanceApprovalList( ) {
+            return fiMapper.getFinanceApprovalList();
+    }
 }
 
