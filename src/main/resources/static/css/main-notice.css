@@ -1,3 +1,27 @@
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f4f4f4;
+    height: 100%;
+}
+
+
 
 .today {
     background-color: #f0f0f0;
@@ -206,66 +230,7 @@ th {
 .card-body-inner ul li {
     margin-right: 0;
 }
-@media (max-width: 768px) {
-    .row {
-        flex-direction: column; /* Stack the rows */
-    }
 
-    .col-xl-6 {
-        width: 100%; /* Make columns take full width */
-    }
-
-    .ap-tbl thead {
-        display: none;
-    }
-
-    .ap-tbl, .ap-tbl tbody, .ap-tbl tr, .ap-tbl td {
-        display: block;
-        width: 100%;
-    }
-
-    .ap-tbl tr {
-        margin-bottom: 15px;
-    }
-
-    .ap-tbl td {
-        text-align: left;
-        padding-left: 50%;
-        position: relative;
-    }
-
-    .ap-tbl td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 50%;
-        padding-left: 15px;
-        font-weight: bold;
-        text-align: left;
-    }
-
-    .ap-tbl .col-number {
-        background-color: #879096;
-        color: #fff;
-        width: 100%;
-    }
-
-    .ap-tbl .col-title {
-        width: 100%;
-    }
-
-    .ap-tbl .col-author {
-        width: 100%;
-    }
-
-    .ap-tbl .col-date {
-        width: 100%;
-    }
-
-    .ap-tbl .col-status {
-        width: 100%;
-    }
-}
 .ap-tbl {
     width: 100%;
     border-collapse: collapse;
@@ -319,7 +284,6 @@ th {
 .ap-tbl tbody tr td:last-child {
     text-align: center;
 }
-
 
 a {
     text-decoration: none;

@@ -131,10 +131,4 @@ public class FileController {
         return ResponseEntity.ok("삭제 성공");
     }
 
-
-    @GetMapping("/vac")
-    public String vac() {
-        return "file/eform-draft";
-    }
-
 }

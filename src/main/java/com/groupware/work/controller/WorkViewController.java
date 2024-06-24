@@ -57,10 +57,6 @@ public class WorkViewController {
         return "work/fm/eform-finance";
     }
 
-    @GetMapping("/fm/eform-draft")
-    public String eformDraft() {
-        return "file/eform-draft";
-    }
 
     @GetMapping("/hr")
     public String hr(Model model, HttpSession session) {
