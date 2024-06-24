@@ -16,7 +16,6 @@ $(document).ready(function(){
                                     <td>${item.fileCd}</td>
                                     <td>${item.title}</td>
                                     <td>${item.departmentName}</td>
-                                    <td></td>
                                     <td>${item.updatedAt.substring(0,10)}</td>
                                  </tr>`;
                     });
@@ -66,7 +65,6 @@ $(document).ready(function(){
                                     <td>${item.fileCd}</td>
                                     <td>${item.title}</td>
                                     <td>${item.departmentName}</td>
-                                    <td></td>
                                     <td>${item.updatedAt.substring(0, 10)}</td>
                                  </tr>`;
                             });
@@ -84,6 +82,7 @@ $(document).ready(function(){
             }
         });
     });
+
 
     // 문서 등록하기 버튼 클릭 시
     $('#fileRegForm').submit(function(event) {

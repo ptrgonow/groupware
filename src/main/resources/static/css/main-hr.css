@@ -115,7 +115,7 @@
 .table-responsive tr td:first-child, .table-responsive tr th:first-child {
     padding-left:0;
 .badge.bg-success {
-    color: white; /* '근무중' badge 글자색 흰색 */
+    color: black; /* '근무중' badge 글자색 흰색 */
 }
 
 .badge.bg-danger {
@@ -155,3 +155,32 @@
 .avatar-group p {
     margin: 0 5px; /* 원하는 만큼의 간격 조절 */
 }
+
+.ap-detail{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 80px;
+    width: 65%;
+}
+
+.ap-cont{
+    margin-right: 30px;
+    margin-bottom: 0;
+    width: 90px;
+}
+
+.team-content{
+    margin-left: 30px;
+    width: 90px;
+    text-align: center;
+}
+
+.team-list{
+    margin-bottom: 15px;
+}
+
+#hrApproval-Pagination{
+    display: flex;
+    justify-content: center;
+}
+

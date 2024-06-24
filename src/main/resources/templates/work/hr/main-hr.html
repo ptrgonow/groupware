@@ -50,7 +50,7 @@
                         <div class="card-body">
                             <div class="card_widget_header">
                                 휴가자
-                                <p class="widget">3</p>
+                                <p class="widget" th:text="${vacCount}"></p>
                             </div>
                             <div class="card_leave_img">
                             </div>
@@ -62,7 +62,7 @@
                         <div class="card-body">
                             <div class="card_widget_header">
                                 현재 근무중
-                                <p class="widget">27</p>
+                                <p class="widget" th:text="${workCount}"></p>
                             </div>
                             <div class="card_working_img">
                             </div>
@@ -151,28 +151,27 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
-                        <div class="card-header ">
-                            <h4 class="card-title">새로운 요청</h4>
-                            <button class="go-approval" value="결재하기"></button>
-                        </div>
-                        <div class="card-body pb-0">
-                            <div class="team-list">
+                <div class="card card-list flex-fill">
+                    <div class="card-header">
+                        <h4 class="card-title">새로운 요청</h4>
+                    </div>
+                    <div class="card-body pb-0">
+                        <div id="initial-hrApproval-container" >
+                            <div class="team-list" th:each="hrAp:${hrApproval}">
                                 <div class="team-view">
-                                    <div class="team-img">
-                                        <img src="" alt="avatar" />
-                                    </div>
                                     <div class="team-content">
-                                        <label>김유신</label>
-                                        <span>인사관리</span>
+                                        <label class="ap-name" th:text="${hrAp.name}"></label>
+                                        <span class="ap-dep" th:text="${hrAp.departmentName}"></span>
                                     </div>
-                                    <div class="request">
-                                        휴가신청_김유신
+                                    <div class="ap-detail">
+                                    <p class="ap-cont" id="ap-title" th:text="${hrAp.title}"></p>
+                                    <p class="ap-cont" id="ap-date" th:text="${#dates.format(hrAp.createdAt, 'yyyy-MM-dd')}"></p>
+                                    <p class="ap-cont" id="ap-status" th:text="${hrAp.status}"></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div id="hrApproval-Pagination"></div>
                     </div>
                 </div>
 

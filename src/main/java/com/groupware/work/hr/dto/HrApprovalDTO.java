@@ -2,14 +2,14 @@ package com.groupware.work.hr.dto;
 
 import lombok.Data;
 
-@Data
-public class HrEmplMagDTO {
+import java.util.Date;
 
-    private String employeeCode;
+@Data
+public class HrApprovalDTO {
+
+    private String title;
     private String name;
     private String departmentName;
-    private String birthDate;
-    private String hiredate;
-    private String psNm;
+    private Date createdAt;
     private String status;
 }
