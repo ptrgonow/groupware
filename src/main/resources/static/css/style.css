@@ -2982,6 +2982,7 @@ html.menu-opened body {
 	padding: 12px 25px;
 	position: relative;
 	transition: all 0.2s ease-in-out 0s;
+	text-decoration: none;
 }
 .sidebar-menu > ul > li > a:hover {
 	background: #f2f3f9;

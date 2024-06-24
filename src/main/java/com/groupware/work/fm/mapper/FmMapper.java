@@ -57,7 +57,7 @@ public interface FmMapper {
             "FROM fixed_expenses fe " +
             "JOIN expense_category_mapping ecm ON fe.item_name = ecm.item_name " +
             "JOIN approval a ON fe.employee_code = a.employee_code AND fe.issue_date = a.created_at " +
-            "WHERE a.status = '완료' AND a.file_cd = #{fileCd}")
+            "WHERE a.status = '완결' AND a.file_cd = #{fileCd}")
     List<FixedExpensesDTO> getCompletedFixedExpenses(@Param("fileCd") String fileCd);
 /*   -- FIXED EXPENSES END --   */
 

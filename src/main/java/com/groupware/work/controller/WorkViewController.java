@@ -198,4 +198,15 @@ public class WorkViewController {
 
 
 
+    @GetMapping("/fi")
+    public String fi(Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/loginPage"; // 로그인 페이지로 리다이렉트
+        }
+        model.addAttribute("user", user);
+        return "work/fm/finance";
+    }
+
+
 }

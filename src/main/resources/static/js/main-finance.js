@@ -346,18 +346,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     accountSelect.addEventListener('change', function () {
         saveFormData();
-            if (accountSelect.value === 'payment') {
-                formContent.innerHTML = paymentForm;
-                addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
-            } else if (accountSelect.value === 'receipt') {
-                formContent.innerHTML = receiptForm;
-            }
-            loadFormData();
-        });
-        // 초기 로딩 시 기본 폼 설정
-        formContent.innerHTML = paymentForm;
-        addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
+        if (accountSelect.value === 'payment') {
+            formContent.innerHTML = paymentForm;
+            addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
+        } else if (accountSelect.value === 'receipt') {
+            formContent.innerHTML = receiptForm;
+        }
         loadFormData();
+    });
+    // 초기 로딩 시 기본 폼 설정
+    formContent.innerHTML = paymentForm;
+    addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
+    loadFormData();
 
 //--------------------------------------------DATA ENTRY 입력 관련 사항 END---------------------------------------------//
 // Reset 버튼 기능 추가
