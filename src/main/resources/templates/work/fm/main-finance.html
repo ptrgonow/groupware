@@ -6,6 +6,9 @@
     <title>그룹웨어</title>
 </head>
 <body>
+<script th:inline="javascript">
+    const expensesListMap = /*[[${expensesListMap}]]*/ null;
+</script>
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
@@ -39,12 +42,12 @@
                                     </thead>
                                     <tbody id="fm-tbl-approved-list">
                                     <!-- 완결 결재 목록 -->
-                                        <tr th:each="approval, stat : ${approvedList}">
-                                            <td th:text="${stat.index + 1}"></td>
-                                            <td th:text="${approval.title}"></td>
-                                            <td th:text="${approval.employeeName}"></td>
-                                            <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
-                                        </tr>
+                                    <tr th:each="approval, stat : ${approvedList}" class="fm-tbl-s" th:data-approval-id="${approval.approvalId}">
+                                        <td th:text="${stat.index + 1}"></td>
+                                        <td th:text="${approval.title}"></td>
+                                        <td th:text="${approval.employeeName}"></td>
+                                        <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
+                                    </tr>
                                     </tbody>
                                 </table>
 
@@ -214,10 +217,9 @@
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
-
 <script src="/plugins/apexchart/apexcharts.min.js"></script>
 <script src="/plugins/apexchart/chart-data.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" th:inline="javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 <script src="/js/script.js"></script>
 <script src="/js/main-finance.js"></script>

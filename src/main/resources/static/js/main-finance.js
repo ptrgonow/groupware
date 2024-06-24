@@ -7,6 +7,19 @@
                                             5. 기타 등등 필요한거
 */
 document.addEventListener('DOMContentLoaded', function() {
+    console.log(expensesListMap);
+    // labels 배열 구성 (첫 번째 객체의 키를 labels로 사용)
+    const labelsExpenses = Object.keys(expensesListMap[0]);
+
+    // data 객체 구성
+    const periods = ['Last Month', 'Last 3 Months', 'Last 6 Months', 'Last 12 Months'];
+    const dataExpenses = {};
+
+    // 각 기간에 해당하는 데이터를 labels 순서에 맞게 배열로 변환
+    periods.forEach((period, index) => {
+        const expenseData = expensesListMap[index];
+        dataExpenses[period] = labelsExpenses.map(label => expenseData[label]);
+    });
     // Chart Data
     const chartData = {
         invoices: {
@@ -20,14 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         expenses: {
-            labels: ['Miscellaneous', 'Salary', 'Maintenance and Repairs', 'Rent or Lease', 'Utilities', 'General Supplies'],
-            data: {
-                'Last Month': [2666, 940, 900, 2447, 1940, 320],
-                'Last 3 Months': [5000, 2000, 1800, 6500, 940, 320],
-                'Last 6 Months': [1000, 3000, 5700, 6000, 940, 320],
-                'Last 12 Months': [10000, 4000, 6600, 8000, 940, 320],
-                'This Year': [12000, 5000, 4500, 10000, 940, 320]
-            }
+            labels: labelsExpenses,
+            data: dataExpenses
         },
         profitLoss: {
             labels: ['Income', 'Expenses'],
@@ -346,18 +353,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     accountSelect.addEventListener('change', function () {
         saveFormData();
-        if (accountSelect.value === 'payment') {
-            formContent.innerHTML = paymentForm;
-            addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
-        } else if (accountSelect.value === 'receipt') {
-            formContent.innerHTML = receiptForm;
-        }
+            if (accountSelect.value === 'payment') {
+                formContent.innerHTML = paymentForm;
+                addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
+            } else if (accountSelect.value === 'receipt') {
+                formContent.innerHTML = receiptForm;
+            }
+            loadFormData();
+        });
+        // 초기 로딩 시 기본 폼 설정
+        formContent.innerHTML = paymentForm;
+        addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
         loadFormData();
-    });
-    // 초기 로딩 시 기본 폼 설정
-    formContent.innerHTML = paymentForm;
-    addPaymentFormListeners(); // 초기 로딩 시에도 이벤트 리스너 추가
-    loadFormData();
 
 //--------------------------------------------DATA ENTRY 입력 관련 사항 END---------------------------------------------//
 // Reset 버튼 기능 추가

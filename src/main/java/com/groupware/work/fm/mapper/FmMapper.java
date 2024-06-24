@@ -1,6 +1,5 @@
 package com.groupware.work.fm.mapper;
 
-import com.groupware.approval.dto.ApprovalDTO;
 import com.groupware.work.fm.dto.FmApprovedDTO;
 import com.groupware.work.fm.dto.ExpenseDTO;
 import com.groupware.work.fm.dto.SalaryDTO;
@@ -42,22 +41,28 @@ public interface FmMapper {
 /*   -- SALARY BY DEPARTMENT END --   */
 
 
-    /* FIXED EXPENSES - 고정지출 관련 차트 업데이트 */
-    @Select("SELECT expense_id AS expenseId, item_name AS itemName, amount, issue_date AS date, employee_code AS employeeCode FROM fixed_expenses")
-    List<FixedExpensesDTO> getFixedExpenses();
+    /* EXPENSES - 고정지출 관련 차트 업데이트 - 자동으로 안됨 - 수동으로 다 연결해야됨. 이유 모름*/
+    @Select("SELECT * FROM expense WHERE issue_date >= DATE_SUB(CURDATE(), INTERVAL #{months} MONTH)")
+    @Results(id = "ExpenseMap", value = {
+            @Result(property = "expenseId", column = "expense_id"),
+            @Result(property = "accountType", column = "account_type"),
+            @Result(property = "expenseType", column = "expense_type"),
+            @Result(property = "issueDate", column = "issue_date"),
+            @Result(property = "refNumber", column = "ref_number"),
+            @Result(property = "recipient", column = "recipient"),
+            @Result(property = "totalCharge", column = "total_charge"),
+            @Result(property = "paymentAmount", column = "payment_amount"),
+            @Result(property = "balance", column = "balance"),
+            @Result(property = "memo", column = "memo")
+    })
+    List<ExpenseDTO> getExpensesList(@Param("months") int months);
 
-    /* FIXED EXPENSES - expense_category_mapping 라는 매핑 테이블을 활용하여 fixed_expenses 테이블의 데이터를 가져올 때 매핑된 카테고리로 변환 */
-    @Select("SELECT fe.expense_id, fe.item_name, fe.amount, fe.issue_date, fe.employee_code, ecm.category_name " +
-            "FROM fixed_expenses fe " +
-            "JOIN expense_category_mapping ecm ON fe.item_name = ecm.item_name")
-    List<FixedExpensesDTO> getFixedExpensesWithCategory();
-
-    /* FIXED EXPENSES - approval 테이블에 status 가 완료인 데이터 가져오기 */
+    /*요거 FIXED EXPENSES - approval 테이블에 status 가 완료인 데이터 가져오기 */
     @Select("SELECT fe.expense_id, fe.item_name, fe.amount, fe.issue_date, fe.employee_code, ecm.category_name " +
             "FROM fixed_expenses fe " +
             "JOIN expense_category_mapping ecm ON fe.item_name = ecm.item_name " +
             "JOIN approval a ON fe.employee_code = a.employee_code AND fe.issue_date = a.created_at " +
-            "WHERE a.status = '완결' AND a.file_cd = #{fileCd}")
+            "WHERE a.status = '완료' AND a.file_cd = #{fileCd}")
     List<FixedExpensesDTO> getCompletedFixedExpenses(@Param("fileCd") String fileCd);
 /*   -- FIXED EXPENSES END --   */
 
@@ -71,9 +76,11 @@ public interface FmMapper {
 
 
     /* APPROVED VIEW PAGE BOARD */
-    @Select("SELECT a.approval_id, a.employee_code, a.status, a.created_at, t.title " +
+    @Select("SELECT a.approval_id AS approvalId, a.employee_code AS employeeCode, e.name AS employeeName, a.created_at AS createdAt, t.title AS title " +
             "FROM approval a " +
             "JOIN templates t ON a.file_cd = t.file_cd " +
+            "JOIN employee e ON a.employee_code = e.employee_code " +
             "WHERE a.file_cd LIKE 'F%' AND a.status = '완결'")
-    List<FmApprovedDTO> getApprovedApprovals();
+    List<FmApprovedDTO> getApprovedList();
+
 }
