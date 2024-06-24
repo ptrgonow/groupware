@@ -4,9 +4,7 @@ import com.groupware.approval.dto.ApprovalDTO;
 import com.groupware.file.dto.FileDTO;
 import com.groupware.user.dto.UserDTO;
 import com.groupware.work.ceo.service.CeoService;
-import com.groupware.work.hr.dto.HrEmplMagDTO;
-import com.groupware.work.hr.dto.HrEmployeeDTO;
-import com.groupware.work.hr.dto.HrStatusDTO;
+import com.groupware.work.hr.dto.*;
 import com.groupware.work.hr.service.HrService;
 import com.groupware.work.ms.dto.AllEmployeeDTO;
 import com.groupware.work.ms.dto.MsApprovalDTO;
@@ -15,7 +13,6 @@ import com.groupware.work.pm.dto.PmDTO;
 import com.groupware.work.pm.service.PmService;
 import com.groupware.work.dev.dto.ProjectDTO;
 import com.groupware.work.dev.service.DevService;
-import com.groupware.work.hr.dto.TodayWorkerDTO;
 import jakarta.activation.FileDataSource;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -25,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -66,9 +64,12 @@ public class WorkViewController {
         // 인원현황 대시보드
         List<HrEmployeeDTO> eList = hrService.getAllEmployees();
         // 결재 요청 개수
-        int apCount = hrService.AllApprovalCount();
+        int apCount = hrService.HrApprovalCount();
         // P001에 해당하는 사원
         List<HrEmployeeDTO> mList = hrService.getManagerEmployee();
+        // 휴가, 근무중인 사원 수
+       Map<String, Integer> eStatus = hrService.getStatusCounts();
+
 
         List<HrEmployeeDTO> hrManagers = new ArrayList<>();
         List<HrEmployeeDTO> financeManagers = new ArrayList<>();
@@ -90,6 +91,8 @@ public class WorkViewController {
         model.addAttribute("eCount", eCount);
         model.addAttribute("eList", eList);
         model.addAttribute("apCount", apCount);
+        model.addAttribute("vacCount", eStatus.get("휴가"));
+        model.addAttribute("workCount", eStatus.get("근무중"));
         model.addAttribute("mList", mList);
         model.addAttribute("hrManagers", hrManagers);
         model.addAttribute("financeManagers", financeManagers);
@@ -97,21 +100,24 @@ public class WorkViewController {
         model.addAttribute("developManagerS", developManagerS);
 
         List<TodayWorkerDTO> workers = hrService.getAllTodayWorkers();
-
         model.addAttribute("workers", workers); // 모델에 데이터 추가
+
+        List<HrApprovalDTO> hrApproval = hrService.getHrApproval();
+        model.addAttribute("hrApproval", hrApproval);
+
         return "work/hr/main-hr";
     }
 
     // 직원 관리
     @GetMapping("/hr/edit")
     public String getEmployeeMag(Model model) {
+
         List<HrEmplMagDTO> empMag = hrService.getEmplManagement();
         List<String> status = hrService.getStatuses();
-        //List<HrStatusDTO> empStatus = hrService.empStatues();
+        List<HrStatusDTO> empStatus = hrService.getEmpStatus();
 
         model.addAttribute("empMag", empMag);
         model.addAttribute("status", status);  // 휴가,근무중,퇴근 값
-        //model.addAttribute("empStatus", empStatus); // 출퇴근 기록 생성한 사원코드, 상태
 
         return "work/hr/hr-edit";
     }

@@ -109,3 +109,16 @@
     justify-content: center;
     margin-top: 20px;
 }
+
+.all-btn-area{
+    display: flex;
+    justify-content: end;
+    margin-right: 140px;
+
+}
+
+.all-btn{
+    text-decoration-line: underline;
+    text-decoration-color: #2f47ba;
+    color: black;
+}
