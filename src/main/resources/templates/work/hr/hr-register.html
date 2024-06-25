@@ -35,47 +35,60 @@
 
                                 <div class="form-group">
 
-                                    <label for="EmployeeCode">사원번호</label>
-                                    <input type="text" class="form-control-sm" id="EmployeeCode" name="employee_code" required>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="EmployeeCode">사원번호</label>
+                                            <input type="text" class="form-control-sm" id="EmployeeCode" name="employee_code">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">이름</label>
+                                            <input type="text" class="form-control-sm" id="name" name="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="birth">생년월일</label>
+                                            <input type="date" class="form-control-sm" id="birth" name="birth_date">
+                                        </div>
 
-                                    <label for="name">이름</label>
-                                    <input type="text" class="form-control-sm" id="name" name="name" required>
+                                        <div class="form-group">
+                                            <label for="address">주소</label>
+                                            <div class="member-address">
+                                                <input type="hidden" class="form-control-sm" id="address_postal" name="address_postal">
+                                                <input type="button" onclick="sample6_execDaumPostcode()" value="주소 찾기">
+                                                <input type="text" id="address" name="address" placeholder="주소"><br>
+                                                <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
+                                                <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목">
+                                            </div>
+                                        </div>
+                                            <div class="form-group">
+                                                <label for="department">부서</label>
+                                                <select class="form-control-sm" id="department" name="department_id" required>
+                                                    <option value="">선택하세요</option>
+                                                </select>
+                                                <div class="form-text" id="departmentHelpBlock">부서를 선택하세요.</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="position">직급</label>
+                                                <select class="form-control-sm" id="position" name="ps_cd" required>
+                                                    <option value="">선택하세요</option>
+                                                </select>
+                                                <div class="form-text" id="positionHelpBlock">직급을 선택하세요.</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="userName">아이디</label>
+                                                <input type="text" class="form-control-sm" id="userName" name="username" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">비밀번호</label>
+                                                <input type="password" class="form-control-sm" id="password" name="password" required>
+                                            </div>
 
-                                    <label for="birth">생년월일</label>
-                                    <input type="date" class="form-control-sm" id="birth" name="birth_date" required>
-
-                                    <label for="address">주소</label>
-                                    <input type="hidden" class="form-control-sm" id="address_postal" name="address_postal">
-                                    <input type="button" onclick="sample6_execDaumPostcode()" value="주소 찾기">
-                                    <input type="text" id="address" name="address" placeholder="주소" required><br>
-                                    <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
-                                    <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목">
-
-                                    <label for="department">부서</label>
-                                    <select class="form-control-sm" id="department" name="department_id" required>
-                                        <option value="">선택하세요</option>
-                                    </select>
-                                    <div class="form-text" id="departmentHelpBlock">부서를 선택하세요.</div>
-
-                                    <label for="position">직급</label>
-                                    <select class="form-control-sm" id="position" name="ps_cd" required>
-                                        <option value="">선택하세요</option>
-                                    </select>
-                                    <div class="form-text" id="positionHelpBlock">직급을 선택하세요.</div>
-
-                                    <label for="username">아이디</label>
-                                    <input type="text" class="form-control-sm" id="username" name="username" required>
-
-                                    <label for="password">비밀번호</label>
-                                    <input type="password" class="form-control-sm" id="password" name="password" required>
-
-                                    <div class="row d-flex justify-content-center align-items-center">
-                                        <div class="form-btn">
-                                            <button id="regi-btn" type="submit" class="btn">등록</button>
-                                            <button id="back-btn" type="button" th:attr="onclick='history.back()'" class="btn">취소</button>
+                                        <div class="row d-flex justify-content-center align-items-center">
+                                            <div class="form-btn">
+                                                <button id="regi-btn" type="submit" class="btn">등록</button>
+                                                <button id="back-btn" type="button" th:attr="onclick='history.back()'" class="btn">취소</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                             </form>
                         </div>
                     </div>
