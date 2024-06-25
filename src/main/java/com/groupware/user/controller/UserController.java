@@ -45,6 +45,8 @@ public class UserController {
                                                             @RequestParam("name") String name,
                                                             @RequestParam("birth_date") String birthDate,
                                                             @RequestParam("address") String address,
+                                                            @RequestParam("detailAddress") String detailAddress,
+                                                            @RequestParam("extraAddress") String extraAddress,
                                                             @RequestParam("department_id") int departmentId,
                                                             @RequestParam("ps_cd") String position,
                                                             @RequestParam("username") String username,
@@ -54,6 +56,8 @@ public class UserController {
         user.setName(name);
         user.setBirthDate(birthDate);
         user.setAddress(address);
+        user.setDetailAddress(detailAddress);
+        user.setExtraAddress(extraAddress);
         user.setDepartmentId(departmentId);
         user.setPs_cd(position);
         user.setUsername(username);
@@ -131,6 +135,8 @@ public class UserController {
             @RequestParam("employee_code") String employeeCode,
             @RequestParam("birth_date") String birthDate,
             @RequestParam("address") String address,
+            @RequestParam("detailAddress") String detailAddress,
+            @RequestParam("extraAddress") String extraAddress,
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             HttpSession session) {
@@ -139,6 +145,8 @@ public class UserController {
         user.setEmployeeCode(employeeCode);
         user.setBirthDate(birthDate);
         user.setAddress(address);
+        user.setDetailAddress(detailAddress);
+        user.setExtraAddress(extraAddress);
         user.setUsername(username);
         user.setPassword(password);
 

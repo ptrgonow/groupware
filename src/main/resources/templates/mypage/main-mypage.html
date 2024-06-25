@@ -122,8 +122,11 @@
                                             <input type="date" class="form-control-sm" id="birth" name="birth_date">
 
                                             <label for="address">주소</label>
-                                            <input type="text" class="form-control-sm" id="address" name="address">
-
+                                            <input type="hidden" class="form-control-sm" id="address_postal" name="address_postal">
+                                            <input type="button" onclick="sample6_execDaumPostcode()" value="주소 찾기">
+                                            <input type="text" id="address" name="address" placeholder="주소"><br>
+                                            <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
+                                            <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목">
                                             <label for="department">부서</label>
                                             <input type="text" class="form-control-sm" id="department" name="departmentName" readonly>
                                             
@@ -155,5 +158,7 @@
 <script src="/js/attendance.js"></script>
 <script src="/js/mypage.js"></script>
 <script src="/js/hr-register.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 </body>
 </html>
