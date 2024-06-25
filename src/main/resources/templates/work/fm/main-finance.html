@@ -12,9 +12,9 @@
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-
+    
     <link rel="stylesheet" href="/css/main-finance.css">
-
+    
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4 d-flex justify-content-between align-items-center">
@@ -22,13 +22,13 @@
                     <h3 th:text="${user.departmentName}"></h3>
                 </div>
             </div>
-
+            
             <div class="row">
                 <div class="col-xl-12 col-12 d-flex">
                     <div class="col-xl-6">
                     
                     </div>
-
+                    
                     <div class="col-xl-6">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
@@ -40,7 +40,7 @@
                                     <option value="3">경영지원실</option>
                                 </select>
                             </div>
-
+                            
                             <div class="card-body">
                                 <table id="salaryTable" class="s-tbl">
                                     <thead>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="col-xl-12 d-flex justify-content-center align-items-center">
                     <div class="col-xl-6 col-md-6">
                         <div class="card">
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="col-xl-6 col-md-6">
                         <div class="card">
                             <div class="card-header">
@@ -99,12 +99,12 @@
                             <div class="card-body" id="formContent">
                                 <!-- 폼 컨텐츠가 여기에 동적으로 로드됨 -->
                             </div>
-                                <input type="submit" id="submitBtn"></input>
-                                <input type="reset" id="resetBtn"></input>
+                            <input type="submit" id="submitBtn">
+                            <input type="reset" id="resetBtn">
                         </div>
                     </div>
                 </div>
-                
+            
             </div>
         </div>
     </div>

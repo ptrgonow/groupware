@@ -1,6 +1,7 @@
 package com.groupware.work.fi.mapper;
 
 import com.groupware.approval.dto.ApprovalDTO;
+import com.groupware.work.fi.dto.ExpenseDTO;
 import com.groupware.work.fi.dto.SalDTO;
 import org.apache.ibatis.annotations.*;
 
@@ -20,8 +21,12 @@ public interface FiMapper {
             "ORDER BY p.ps_cd, d.department_id ")
     List<SalDTO> getAllMemberSalary();
 
-    @Select("SELECT a.approval_id AS approvalId, a.employee_code AS employeeCode, " +
-            "e.name AS employeeName, t.title AS fileName, a.created_at AS createAt " +
+    @Select("SELECT DISTINCT " +
+            "a.approval_id AS approvalId, " +
+            "a.employee_code AS employeeCode, " +
+            "e.name AS employeeName, " +
+            "t.title AS fileName, " +
+            "a.created_at AS createdAt " +
             "FROM approval a " +
             "JOIN employee e ON a.employee_code = e.employee_code " +
             "JOIN department d ON e.department_id = d.department_id " +
@@ -37,8 +42,7 @@ public interface FiMapper {
     List<ApprovalDTO> getFinanceApprovalList();
 
 
-
-
-
-
+    @Insert("INSERT INTO expense (account_type, expense_type, issue_date, ref_number, recipient, total_charge, payment_amount, balance, memo) " +
+            "VALUES (#{accountType}, #{expenseType}, #{issueDate}, #{refNumber}, #{recipient}, #{totalCharge}, #{paymentAmount}, #{balance}, #{memo})")
+    boolean saveExpense(ExpenseDTO expense);
 }

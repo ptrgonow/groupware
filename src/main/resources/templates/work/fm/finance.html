@@ -4,7 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
+
+ 
+
+</head>
+<body>
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    
     <link rel="stylesheet" href="/css/main-finance.css">
+    
     <style>
         .card.w-100 {
             min-height: 500px; /* 최소 높이 설정 */
@@ -15,15 +25,8 @@
             height: calc(100% - 56px); /* 카드 높이에서 헤더 높이를 뺀 나머지 높이 */
             overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
         }
-
-        
+    
     </style>
-
-</head>
-<body>
-<div class="main-wrapper">
-    <div th:replace="~{include/header/main-header :: header}"></div>
-    <div th:replace="~{include/side/main-side :: side}"></div>
     
     <div class="page-wrapper">
         <div class="content container-fluid">
@@ -58,6 +61,7 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div id="pagination-ap" class="pagination-mini"></div>
                         </div>
                     
                     </div>
@@ -83,7 +87,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div id="pagination-mini"></div>
+                        <div id="pagination-mini" class="pagination-mini"></div>
                     </div>
                 </div>
             </div>
@@ -94,39 +98,23 @@
                         <div class="card-header">
                             <h5 class="card-title">데이터 입력</h5>
                         </div>
-                        <div class="card-body" id="formContent"></div>
+                        <div class="card-body form" id="formContent"></div>
+                        <div class="btn-group d-flex justify-content-center align-content-center mb-3">
+                            <input type="submit" id="submitBtn" class="btn-info">
+                            <input type="reset" id="resetBtn" class="delete-btn">
+                        </div>
                     </div>
                 </div>
                 
                 <div class="col-xl-6 col-md-6 col-12 d-flex">
                     <div class="card w-100">
                         <div class="card-header">
-                            <h5 class="card-title">손익 현황</h5>
+                            <h5 class="card-title">차트</h5>
                         </div>
                         <div class="card-body"></div>
                     </div>
                 </div>
             </div>
-            
-            <div class="row">
-                <div class="col-xl-6 col-md-6 col-12 d-flex">
-                    <div class="card w-100">
-                        <div class="card-header">
-                            <h5 class="card-title">청구서 현황</h5>
-                        </div>
-                        <div class="card-body"></div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6 col-12 d-flex">
-                    <div class="card w-100">
-                        <div class="card-header">
-                            <h5 class="card-title">추가 현황</h5>
-                        </div>
-                        <div class="card-body"></div>
-                    </div>
-                </div>
-            </div>
-        
         </div>
     </div>
 </div>
@@ -134,7 +122,6 @@
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/js/script.js"></script>
 <script src="/js/finance.js"></script>
 </body>
 </html>
