@@ -50,7 +50,6 @@
                                 </tr>
                                 </thead>
                                 <tbody id="fm-tbl-approved-list">
-                                <!-- 완결 결재 목록 -->
                                 <tr th:each="approval, stat : ${fList}" class="fm-tbl-s" th:data-approval-id="${approval.approvalId}">
                                     <td th:text="${stat.index + 1}"></td>
                                     <td th:text="${approval.fileName}"></td>

@@ -25,7 +25,7 @@ $(document).ready(function () {
             success: function (token) {
                 window.location.href = `/ap/detail/${token}`;
             }
-        });
+        });``
     });
 });
 
