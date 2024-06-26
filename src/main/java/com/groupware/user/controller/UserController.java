@@ -94,7 +94,6 @@ public class UserController {
         Map<String, String> response = new HashMap<>();
         if (user != null) {
             session.setAttribute("user", user);
-            System.out.println(session.getAttribute("user"));
             response.put("message", "로그인 성공");
             response.put("username", user.getName());
             return ResponseEntity.ok(response);
