@@ -135,12 +135,18 @@ table.type11 td {
 
 }
 
-.btn.btn-primary{
+#emp-reg-btn{
     width: 100px;
     background-color: #6c757d;
     border: none;
     color: white;
     padding: 7px;
+}
+
+#emp-reg-btn:hover{
+    color: #6c757d;
+    background-color: #fff;
+    border: 1px solid #6c757d;
 }
 
 /* 상태 변경 버튼 */
@@ -183,4 +189,17 @@ table.type11 td {
 
 #enableNewEmployeeCode{
     margin-right: 5px;
+}
+
+.list-btn{
+    background-color: #3A3B3F;
+    color: #fff;
+    padding: 5px;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.list-btn:hover{
+    color: #3A3B3F;
+    background-color: lightgrey;
 }

@@ -7,6 +7,12 @@ $(document).ready(function() {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
 
         const formData = $(this).serialize(); // 폼 데이터를 직렬화
+        const address = $('#address_postal').val();
+
+        if(!address){
+            alert('주소를 입력하세요')
+            return;
+        }
 
         $.ajax({
             url: '/user/register',
@@ -15,9 +21,11 @@ $(document).ready(function() {
             success: function(response) {
                 alert(response.message);
                 // UI 업데이트가 필요하다면 여기에서 처리
+                window.location.href = '/hr/edit';
             },
             error: function(error) {
-                alert('등록 실패: ' + error.responseText);
+                const response = JSON.parse(error.responseText); // JSON 응답을 객체로 변환
+                alert(response.message); // 메시지만 표시
             }
         });
     });

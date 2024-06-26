@@ -1,10 +1,7 @@
 package com.groupware.user.mapper;
 
 import com.groupware.user.dto.*;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -37,6 +34,14 @@ public interface UserMapper {
     // 사원번호를 통해 직원 정보를 조회하는 쿼리
     @Select("SELECT employee_code AS employeeCode, name AS name, birth_date AS birthDate, address, detailAddress, extraAddress, department_id AS departmentId, ps_cd AS ps_cd, status, hiredate AS createdAt, username AS username, password FROM employee WHERE employee_code = #{employeeCode}")
     UserDTO findUserByEmployeeCode(String employeeCode);
+
+    // employee_code 중복 확인
+    @Select("SELECT COUNT(*) FROM employee WHERE employee_code = #{employeeCode}")
+    int countByEmployeeCode(@Param("employeeCode") String employeeCode);
+
+    // username 중복 확인
+    @Select("SELECT COUNT(*) FROM employee WHERE username = #{username}")
+    int countByUsername(@Param("username") String username);
 
     // 직원 정보를 등록하는 쿼리
     @Insert("INSERT INTO employee (employee_code, name, birth_date, address, detailAddress, extraAddress, department_id, ps_cd, status, hiredate, username, password, dayoff, vacation) VALUES (#{employeeCode}, #{name}, #{birthDate}, #{address}, #{detailAddress}, #{extraAddress}, #{departmentId}, #{ps_cd}, '재직중', NOW(), #{username}, #{password}, '15', '0')")
