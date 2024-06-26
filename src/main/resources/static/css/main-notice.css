@@ -160,7 +160,7 @@ th {
     margin-left: auto;     /* 왼쪽 마진 자동으로 설정하여 오른쪽 정렬 */
     align-self: flex-end;
     padding: 10px 20px;
-    width: 150px; /* 버튼의 너비를 조정 */
+    width: 100%; /* 버튼의 너비를 조정 */
     font-size: 16px;
     font-weight: bold;
     text-align: center;
