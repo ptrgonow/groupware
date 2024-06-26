@@ -105,3 +105,14 @@ a {
     background-color: transparent;
     border: none;
 }
+
+.btn-group {
+    position: relative;
+    display: flex;
+    vertical-align: middle;
+    width: 40%;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    margin-left: 9rem;
+    gap: 1rem;
+}
