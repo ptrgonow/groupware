@@ -24,7 +24,7 @@
             <div class="row mb-4">
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card board1 fill1 ">
-                        <div class="card-body">
+                        <div class="card-body w-100">
                             <div class="card_widget_header">
                                 임직원 수
                                 <p class="widget" th:text="${allEmployee.size()}"></p>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-xl-3 col-sm-6 col-12">
                     <div class="card board1 fill2 ">
-                        <div class="card-body">
+                        <div class="card-body w-100">
                             <div class="card_widget_header">
                                 새로운 요청
                                 <p class="widget" th:text="${newApproval.size()}"></p>
@@ -48,8 +48,8 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="card board1 fill3 ">
-                        <div class="card-body">
+                    <div class="card board1 fill3">
+                        <div class="card-body w-100">
                             <div class="card_widget_header">
                                 휴가자
                                     <p class="widget" th:text="${#lists.size(allEmployee.?[status == '휴가'])}"></p>
@@ -59,8 +59,8 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="card board1 fill4 ">
-                        <div class="card-body">
+                    <div class="card board1 fill4">
+                        <div class="card-body w-100">
                             <div class="card_widget_header">
                                 현재 근무중
                                 <p class="widget" th:text="${#lists.size(allEmployee.?[status == '근무중'])}"></p>
@@ -115,29 +115,30 @@
 
 
                 <div class="col-xl-6 d-flex">
-                    <div class="card flex-fill">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">CHART</h5>
                             </div>
                         </div>
-                        <div class="card-body">
-
+                        <div class="card-body w-100">
+                            <div class="chart d-flex justify-content-center align-content-center w-100 h-100">
+                                <canvas id="expenseChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
+            
             <div class="row">
 
 
                 <div class="col-xl-6 col-12 d-flex">
                     <div class="card w-100">
-                        <div class="card-header ">
+                        <div class="card-header">
                             <h4 class="card-title">인사 결재 요청</h4>
                         </div>
-                        <div class="card-body pb-0">
+                        <div class="card-body w-100">
                             <table class="ap-tbl" id="approvalTable">
                                 <thead>
                                 <tr>
@@ -164,9 +165,7 @@
                         </div>
                     </div>
                 </div>
-
-
-
+                
                 <div class="col-xl-6 col-12 d-flex">
                     <div class="card w-100">
                         <div class="card-header">
@@ -201,21 +200,17 @@
                                     <div class="pagination-mini">
                                     <DIV ID="fm-ApprovalPagination-container"></div>
                                 </div>
-
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
 </div>
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/chart.js"></script>
 <script src="/js/main-ms.js"></script>
 </body>
 </html>

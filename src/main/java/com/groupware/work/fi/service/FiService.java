@@ -2,6 +2,7 @@ package com.groupware.work.fi.service;
 
 
 import com.groupware.approval.dto.ApprovalDTO;
+import com.groupware.work.fi.dto.ChartDTO;
 import com.groupware.work.fi.dto.ExpenseDTO;
 import com.groupware.work.fi.dto.SalDTO;
 import com.groupware.work.fi.mapper.FiMapper;
@@ -28,6 +29,10 @@ public class FiService {
 
     public boolean saveExpense(ExpenseDTO expense) {
        return fiMapper.saveExpense(expense);
+    }
+
+    public List<ChartDTO> getChart( ) {
+        return fiMapper.getChart();
     }
 }
 

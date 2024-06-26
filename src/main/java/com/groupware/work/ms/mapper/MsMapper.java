@@ -26,7 +26,7 @@ public interface MsMapper {
             "         LEFT JOIN department d ON e.department_id = d.department_id " +
             "         LEFT JOIN positions p ON e.ps_cd = p.ps_cd " +
             "GROUP BY e.employee_code, e.name, d.department_name, p.ps_nm " +
-            "ORDER BY status desc;")
+            "ORDER BY status;")
     List<AllEmployeeDTO> getAllEmployee();
     
     @Select("SELECT " +

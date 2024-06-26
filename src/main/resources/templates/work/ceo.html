@@ -151,12 +151,13 @@
             <div class="card-header">
               <div class="d-flex justify-content-between align-items-center">
               <h4 class="card-title">재무</h4>
-              <div class="moreInfo"><a href="/ms"><button class="cocoBtn">More</button></a></div>
+              <div class="moreInfo"><a href="/fi"><button class="cocoBtn">More</button></a></div>
               </div>
             </div>
-            <div class="card-body pb-0">
-
-              <div id="approvalPagination-container"></div>
+            <div class="card-body">
+                <div class="chart d-flex justify-content-center align-content-center w-100 h-100">
+                    <canvas id="expenseChart"></canvas>
+                </div>
             </div>
           </div>
         </div>
@@ -197,6 +198,7 @@
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/chart.js"></script>
 <script src="/js/ceo.js"></script>
 </body>
 </html>

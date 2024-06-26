@@ -1,6 +1,7 @@
 package com.groupware.work.fi.mapper;
 
 import com.groupware.approval.dto.ApprovalDTO;
+import com.groupware.work.fi.dto.ChartDTO;
 import com.groupware.work.fi.dto.ExpenseDTO;
 import com.groupware.work.fi.dto.SalDTO;
 import org.apache.ibatis.annotations.*;
@@ -42,7 +43,12 @@ public interface FiMapper {
     List<ApprovalDTO> getFinanceApprovalList();
 
 
-    @Insert("INSERT INTO expense (account_type, expense_type, issue_date, ref_number, recipient, total_charge, payment_amount, balance, memo) " +
-            "VALUES (#{accountType}, #{expenseType}, #{issueDate}, #{refNumber}, #{recipient}, #{totalCharge}, #{paymentAmount}, #{balance}, #{memo})")
+    @Insert("INSERT INTO expense (account_type, expense_type, issue_date, ref_number, recipient, total_charge, memo) " +
+            "VALUES (#{accountType}, #{expenseType}, #{issueDate}, #{refNumber}, #{recipient}, #{totalCharge}, #{memo})")
     boolean saveExpense(ExpenseDTO expense);
+
+    @Select("SELECT expense_type AS expenseType, SUM(total_charge) AS totalCharge " +
+            "FROM expense " +
+            "GROUP BY expense_type")
+    List<ChartDTO> getChart();
 }
