@@ -109,37 +109,15 @@ public class HrService {
 
     @Transactional
     public Map<String, Object> updateEmployeeDetails(HrEmployeeUpdateDTO employeeUpdateDTO) {
-        System.out.println("employeeUpdateDTO = " + employeeUpdateDTO);
-        Map<String, Object> response = new HashMap<>();
-
-        // 사원 정보 업데이트
-        hrMapper.updateEmployee(employeeUpdateDTO);
-      
-        String oldEmployeeCode = employeeUpdateDTO.getEmployeeCode();
-        String newEmployeeCode = employeeUpdateDTO.getNewEmployeeCode();
-
-        // 새로운 employee_code가 기존의 것과 다른 경우 중복 여부 확인
-        if (!oldEmployeeCode.equals(newEmployeeCode)) {
-            int count = hrMapper.countEmployee(newEmployeeCode);
-            if (count > 0) {
-                response.put("error", "duplicate");
-                return response;
-            }
-
-            // 임시 employee_code로 변경
-            String tempEmployeeCode = "TEMP_" + oldEmployeeCode;
-            hrMapper.updateEmployeeCode(tempEmployeeCode, oldEmployeeCode);
-            hrMapper.updateAttendanceEmployeeCode(tempEmployeeCode, oldEmployeeCode);
-
-            // 최종 employee_code로 변경
-            hrMapper.updateEmployeeCode(newEmployeeCode, tempEmployeeCode);
-            hrMapper.updateAttendanceEmployeeCode(newEmployeeCode, tempEmployeeCode);
+        Map<String, Object> result = new HashMap<>();
+        try {
+            hrMapper.updateEmployeeDetails(employeeUpdateDTO);
+            result.put("success", true);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("error", e.getMessage());
         }
-
-        // employee 테이블의 나머지 정보 업데이트
-        hrMapper.updateEmployeeDetails(employeeUpdateDTO);
-        response.put("success", true);
-        return response;
+        return result;
     }
 
 
