@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,12 +65,16 @@ public class UserController {
         user.setPassword(password);
 
         Map<String, String> response = new HashMap<>();
-        if (userService.registerUser(user)) {
+        try {
+            userService.registerUser(user);
             response.put("message", "유저 등록 성공");
             return ResponseEntity.ok(response);
-        } else {
-            response.put("message", "유저 등록 실패");
-            return ResponseEntity.badRequest().body(response);
+        } catch (DuplicateKeyException e) {
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+        } catch (Exception e) {
+            response.put("message", "유저 등록 중 오류가 발생했습니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 

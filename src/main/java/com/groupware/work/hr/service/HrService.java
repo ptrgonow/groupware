@@ -98,17 +98,23 @@ public class HrService {
         return hrMapper.getHrApproval();
     }
 
-    public void deleteEmployeeByCode(String employeeCode){
+    @Transactional
+    public boolean deleteEmployee(String employeeCode) {
+        // attendance 테이블에서 해당 employee_code 레코드 삭제
+        hrMapper.deleteAttendanceByEmployeeCode(employeeCode);
+        // employee 테이블에서 해당 employee_code 레코드 삭제
         hrMapper.deleteEmployeeByCode(employeeCode);
+        return true;
     }
 
     @Transactional
     public Map<String, Object> updateEmployeeDetails(HrEmployeeUpdateDTO employeeUpdateDTO) {
-
         System.out.println("employeeUpdateDTO = " + employeeUpdateDTO);
-
         Map<String, Object> response = new HashMap<>();
 
+        // 사원 정보 업데이트
+        hrMapper.updateEmployee(employeeUpdateDTO);
+      
         String oldEmployeeCode = employeeUpdateDTO.getEmployeeCode();
         String newEmployeeCode = employeeUpdateDTO.getNewEmployeeCode();
 
@@ -137,16 +143,25 @@ public class HrService {
     }
 
 
+    @Transactional
     public boolean updateStatus(String employeeCode, String status) {
         int count = hrMapper.countByEmployeeCode(employeeCode);
-        if (count > 0) {  // attendance 테이블에 사원 코드가 있다면
-            hrMapper.updateStatus(employeeCode, status);
+        if (count > 0) {
+            if ("근무중".equals(status)) {
+                hrMapper.insertCheckIn(employeeCode);
+            } else if ("퇴근".equals(status)) {
+                hrMapper.updateCheckOut(employeeCode);
+            } else if ("휴가".equals(status)) {
+                hrMapper.insertVacation(employeeCode);
+            }
             return true;
         } else {
             return false;
         }
     }
 
-
+    public List<HrEmplMagDTO> searchUsers(String search) {
+        return hrMapper.searchUsers(search);
+    }
 
 }

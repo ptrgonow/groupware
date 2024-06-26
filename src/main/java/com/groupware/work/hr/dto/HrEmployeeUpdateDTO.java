@@ -6,7 +6,6 @@ import lombok.Data;
 public class HrEmployeeUpdateDTO {
 
     private String employeeCode;
-    private String newEmployeeCode;  // 새로 입력한 사원코드
     private String departmentName;
     private String psNm;
 }

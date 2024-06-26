@@ -1,9 +1,6 @@
 package com.groupware.work.hr.controller;
 
-import com.groupware.work.hr.dto.HrEmplMagDTO;
-import com.groupware.work.hr.dto.HrEmployeeUpdateDTO;
-import com.groupware.work.hr.dto.HrStatusDTO;
-import com.groupware.work.hr.dto.TodayWorkerDTO;
+import com.groupware.work.hr.dto.*;
 import com.groupware.work.hr.service.HrService;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +62,7 @@ public class HrController {
 
     @PostMapping("/empdelete")
     public ResponseEntity<Map<String, Object>> deleteEmployee(@RequestParam String employeeCode) {
-        hrService.deleteEmployeeByCode(employeeCode);
+        hrService.deleteEmployee(employeeCode);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("message", "사원 정보가 삭제되었습니다.");
@@ -76,6 +73,15 @@ public class HrController {
     public ResponseEntity<Map<String, Object>> updateEmployee(@RequestBody HrEmployeeUpdateDTO employeeUpdateDTO) {
         Map<String, Object> result = hrService.updateEmployeeDetails(employeeUpdateDTO);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<HrEmpSearchDTO> searchUsers(@RequestParam("search") String search) {
+        List<HrEmplMagDTO> users = hrService.searchUsers(search);
+        List<String> status = hrService.getStatuses();
+
+        HrEmpSearchDTO response = new HrEmpSearchDTO(users, status);
+        return ResponseEntity.ok(response);
     }
 
 }
