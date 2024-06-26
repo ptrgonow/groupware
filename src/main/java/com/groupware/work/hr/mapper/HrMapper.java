@@ -39,7 +39,7 @@ public interface HrMapper {
             "JOIN employee e ON a.employee_code = e.employee_code " +
             "WHERE DATE(a.check_in) = CURDATE() " +
             "GROUP BY a.employee_code, e.name " +
-            "ORDER BY status DESC, firstCheckIn desc")
+            "ORDER BY firstCheckIn desc")
     List<TodayWorkerDTO> getTodayWorkers();
 
     // 인사팀에 요청된 결재

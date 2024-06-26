@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="col-xl-6 col-12 d-flex">
-                    <div class="card w-100">
+                    <div class="card w-100 text-center">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">회의 일정표</h5>
@@ -141,7 +141,7 @@
                 <h5 class="modal-title" id="meetingDetailModalLabel">회의 상세 정보</h5>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
             </div>
-            <form id="updateMeetingForm">
+            <div id="updateMeetingForm">
                 <div class="modal-body">
 
                     <input type="hidden" id="meetingId" name="meetingId">
@@ -180,11 +180,11 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" form="updateMeetingForm">저장</button>
+                    <button type="submit" class="btn btn-primary" id="updateMeetingBtn">저장</button>
                     <button type="button" class="btn btn-danger" id="deleteMeetingBtn">삭제</button>
                 </div>
-            </form>
-        </div>
+            </div>
+            </div>
     </div>
 </div>
 
@@ -207,7 +207,6 @@
                     </tr>
                     </thead>
                     <tbody id="team-member-list">
-                    <!-- 팀원 목록이 동적으로 추가될 부분 -->
                     </tbody>
                 </table>
             </div>
