@@ -89,7 +89,7 @@ function initializeHrApproval() {
 
     $('#hrApproval-Pagination').pagination({
         dataSource: hrApproval,
-        pageSize: 8,
+        pageSize: 6,
         callback: function(data, pagination) {
             var html = renderApproval(data);
             $('#initial-hrApproval-container').html(html);

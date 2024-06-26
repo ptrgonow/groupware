@@ -35,8 +35,8 @@ public interface PmMapper {
             "WHERE meeting_id = #{meetingId}")
     void updateMeeting(PmDTO pmDTO);
 
-    @Delete("DELETE FROM meeting_member WHERE meeting_member_id = #{meetingMemberId} AND meeting_id = #{meetingId}")
-    void deleteMeetingMember(Long meetingMemberId, int meetingId);
+    @Delete("DELETE FROM meeting_member WHERE employee_code = #{employeeCode} AND meeting_id = #{meetingId}")
+    void deleteMeetingMember(String employeeCode, int meetingId);
 
     @Update("UPDATE meeting_member SET employee_code = #{member.employeeCode} " +
             "WHERE meeting_member_id = #{member.meetingMemberId} AND meeting_id = #{meetingId}")

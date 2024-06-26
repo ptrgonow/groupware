@@ -9,6 +9,6 @@ public class MeetingUpdateRequestDTO {
 
     private PmDTO pmDTO;
     private List<MeetingMemberDTO> meetingMembers;
-    private List<Long> deletedMembers;
+    private List<String> deletedMembers;
 
 }

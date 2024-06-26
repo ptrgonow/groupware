@@ -56,19 +56,19 @@ public class PmService {
     }
 
     @Transactional
-    public void updateMeeting(PmDTO pmDTO, List<MeetingMemberDTO> members, List<Long> deletedMembers) {
+    public void updateMeeting(PmDTO pmDTO, List<MeetingMemberDTO> members, List<String> deletedMembers) {
         pmMapper.updateMeeting(pmDTO); // 회의 정보 업데이트
 
         for (MeetingMemberDTO member : members) {
-            if (member.getMeetingMemberId() == 0) {
+            if (member.getMemberId() == 0) {
                 pmMapper.insertMeetingMember(pmDTO.getMeetingId(), member.getEmployeeCode());
             } else {
                 pmMapper.updateMeetingMember(pmDTO.getMeetingId(), member);
             }
         }
 
-        for (Long meetingMemberId : deletedMembers){
-            pmMapper.deleteMeetingMember(meetingMemberId, pmDTO.getMeetingId());
+        for (String employeeCode : deletedMembers){
+            pmMapper.deleteMeetingMember(employeeCode, pmDTO.getMeetingId());
         }
     }
 

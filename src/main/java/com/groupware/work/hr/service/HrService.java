@@ -104,18 +104,38 @@ public class HrService {
 
     @Transactional
     public Map<String, Object> updateEmployeeDetails(HrEmployeeUpdateDTO employeeUpdateDTO) {
+
+        System.out.println("employeeUpdateDTO = " + employeeUpdateDTO);
+
         Map<String, Object> response = new HashMap<>();
-        if (!employeeUpdateDTO.getEmployeeCode().equals(employeeUpdateDTO.getNewEmployeeCode())) {
-            int count = hrMapper.countEmployee(employeeUpdateDTO.getNewEmployeeCode());
+
+        String oldEmployeeCode = employeeUpdateDTO.getEmployeeCode();
+        String newEmployeeCode = employeeUpdateDTO.getNewEmployeeCode();
+
+        // 새로운 employee_code가 기존의 것과 다른 경우 중복 여부 확인
+        if (!oldEmployeeCode.equals(newEmployeeCode)) {
+            int count = hrMapper.countEmployee(newEmployeeCode);
             if (count > 0) {
                 response.put("error", "duplicate");
                 return response;
             }
+
+            // 임시 employee_code로 변경
+            String tempEmployeeCode = "TEMP_" + oldEmployeeCode;
+            hrMapper.updateEmployeeCode(tempEmployeeCode, oldEmployeeCode);
+            hrMapper.updateAttendanceEmployeeCode(tempEmployeeCode, oldEmployeeCode);
+
+            // 최종 employee_code로 변경
+            hrMapper.updateEmployeeCode(newEmployeeCode, tempEmployeeCode);
+            hrMapper.updateAttendanceEmployeeCode(newEmployeeCode, tempEmployeeCode);
         }
-        hrMapper.updateEmployee(employeeUpdateDTO);
+
+        // employee 테이블의 나머지 정보 업데이트
+        hrMapper.updateEmployeeDetails(employeeUpdateDTO);
         response.put("success", true);
         return response;
     }
+
 
     public boolean updateStatus(String employeeCode, String status) {
         int count = hrMapper.countByEmployeeCode(employeeCode);

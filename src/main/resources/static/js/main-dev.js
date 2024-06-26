@@ -53,7 +53,6 @@ function fetchTeamMembers() {
                             data-department="${member.departmentName}"
                             data-position="${member.positionName}">선택</button>
                         </td>
-                        
                     </tr>
                 `;
             });
@@ -79,11 +78,12 @@ function selectTeamMember() {
             <td>${name}</td>
             <td>${department}</td>
             <td>${position}</td>
-            <td class="delete-team-member">@</td>
+            <td class="delete-team-member">-</td>
             <input type="hidden" id="eCode" value="${employeeCode}">
         </tr>
     `);
 
+    console.log('Selected member:', name, department, position, employeeCode);
     // 팀원 추가 모달 닫기
     $('#addMemberModal').modal('hide');
 }
