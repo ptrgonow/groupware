@@ -373,7 +373,9 @@ input[type='radio']:checked {
 }
 
 .commit-details {
+    display: flex;
     width: 100%;
+    justify-content: end;
     margin-top: 10px;
 }
 

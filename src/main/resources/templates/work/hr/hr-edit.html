@@ -9,74 +9,75 @@
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
     <link rel="stylesheet" href="/css/hr-edit.css">
-
+    
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>사원 관리</h3>
             </div>
-            <div class="everything">
-            <div class="employee-search">
-                <form class="d-flex" name="file-search" id="fileSearchList">
-                    <span class="material-symbols-outlined">search</span>
-                    <input class="form-control me-2" id="file-search-form" placeholder="사원명을 입력하세요"
-                           aria-label="Search" onkeyup="filter()">
-                </form>
-            </div>
-
+            
             <!-- 사원 전체 리스트 테이블 -->
             <div class="row">
-                <div class="table-container">
-                    <table class="type11">
-                        <thead>
-                        <tr>
-                            <th scope="cols">사원 이름</th>
-                            <th scope="cols">담당 부서</th>
-                            <th scope="cols">직급</th>
-                            <th scope="cols">상태</th>
-                            <th scope="cols">사원 정보 관리</th>
-                        </tr>
-                        </thead>
-                        <tbody id="employeeTableBody">
-                        <tr th:each="emp : ${empMag}">
-                            <input type="hidden" class="employee-code" th:value="${emp.employeeCode}">
-                            <td th:text="${emp.name}"></td>
-                            <td th:text="${emp.departmentName}"></td>
-                            <td th:text="${emp.psNm}"></td>
-                            <td>
-                                <select class="st-select" id="st-select">
-                                    <option th:each="st : ${status}"
-                                            th:value="${emp.status}"
-                                            th:text="${emp.status}">
-                                    </option>
-                                </select>
-                                <button type="submit" class="st-btn">변경</button>
-                            </td>
-                            <td>
-                                <button type="button" class="modi-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    수정
-                                </button>
-                                <button type="button" class="dele-btn">삭제</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <!-- 페이징 -->
-
-                </div>
-
-                <div class="new-btn">
-                    <div class="pagination-mini">
-                        <div id="pagination-hr-empmag"></div>
+                <div class="col-xl-12 col-12 d-flex justify-content-center align-content-center">
+                    <div class="card w-100 h-100">
+                        <div class="card-header">
+                            <div class="employee-search">
+                                <form class="d-flex align-content-center" name="file-search" id="fileSearchList">
+                                    <span class="material-symbols-outlined search">search</span>
+                                    <input class="form-control me-2" id="file-search-form" placeholder="사원명을 입력하세요"
+                                           aria-label="Search" onkeyup="filter()">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table class="type11">
+                                    <thead>
+                                    <tr>
+                                        <th scope="cols">사원 이름</th>
+                                        <th scope="cols">담당 부서</th>
+                                        <th scope="cols">직급</th>
+                                        <th scope="cols">상태</th>
+                                        <th scope="cols">사원 정보 관리</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="employeeTableBody">
+                                    <tr th:each="emp : ${empMag}">
+                                        <input type="hidden" class="employee-code" th:value="${emp.employeeCode}">
+                                        <td th:text="${emp.name}"></td>
+                                        <td th:text="${emp.departmentName}"></td>
+                                        <td th:text="${emp.psNm}"></td>
+                                        <td>
+                                            <select class="st-select" id="st-select">
+                                                <option th:each="st : ${status}"
+                                                        th:value="${emp.status}"
+                                                        th:text="${emp.status}">
+                                                </option>
+                                            </select>
+                                            <button type="submit" class="st-btn">변경</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="modi-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                수정
+                                            </button>
+                                            <button type="button" class="dele-btn">삭제</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="new-btn">
+                                <div class="pagination-mini">
+                                    <div id="pagination-hr-empmag"></div>
+                                </div>
+                                <div class="btn-area">
+                                    <a href="/registerPage" class="btn btn-primary">사원 등록</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="btn-area">
-
-                        <a href="/registerPage" class="btn btn-primary">사원 등록</a>
-                    </div>
                 </div>
-            </div>
-            <!-- 사원 등록 버튼 -->
-
             </div>
         </div>
     </div>
@@ -93,28 +94,28 @@
                 <div class="modal-body">
                     <label for="employeeCode">사원번호</label>
                     <input type="text" class="form-control-sm" id="employeeCode" name="employeeCode" disabled>
-
+                    
                     <label for="newEmployeeCode"><input type="checkbox" id="enableNewEmployeeCode">새 사원번호 입력</label>
                     <input type="text" class="form-control-sm" id="newEmployeeCode"
                            name="newEmployeeCode" placeholder="변경 시 체크박스 클릭" disabled>
-
+                    
                     <label for="name">이름</label>
                     <input type="text" class="form-control-sm" id="name" name="name" disabled>
-
+                    
                     <label for="birth">생년월일</label>
                     <input type="date" class="form-control-sm" id="birth" name="birthDate" disabled>
-
+                    
                     <label for="hire">입사일</label>
                     <input type="date" class="form-control-sm" id="hire" name="hiredate" disabled>
-
+                    
                     <label for="department">부서</label>
                     <select class="form-control-sm" id="department" name="departmentName">
                     </select>
-
+                    
                     <label for="position">직급</label>
                     <select class="form-control-sm" id="position" name="psNm">
                     </select>
-
+                
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">수정완료</button>
