@@ -4,9 +4,11 @@ let currentMemberPage = 1;
 let currentTaskPage = 1;
 let currentFeedPage = 1;
 let projectsArray = [];
+let deletedMembers = [];
 let selectedProjectId = null;
 
 $(document).ready(function() {
+
     initializeProjectsArray();
     initializeProjectPagination();
     setInitialProjectDetails();
@@ -20,6 +22,7 @@ $(document).ready(function() {
     $('#feed-form-group').on('submit', handleFeedFormSubmit);
     $('#git-tab').on('shown.bs.tab', fetchWebhookData);
     $('#toggle-mem').on('click', fetchTeamMembers);
+    $('#member-list').on('click', '.delete-team-member', deleteTeamMember);
     $(document).on('click', '.select-member-btn', selectTeamMember);
     $(document).on('change', 'input[name="pr-radio"]', function() {
         selectedProjectId = $(this).closest('tr').data('project-id');
@@ -76,6 +79,7 @@ function selectTeamMember() {
             <td>${name}</td>
             <td>${department}</td>
             <td>${position}</td>
+            <td class="delete-team-member">@</td>
             <input type="hidden" id="eCode" value="${employeeCode}">
         </tr>
     `);
@@ -87,7 +91,7 @@ function selectTeamMember() {
 // AJAX 요청을 보내어 웹훅 데이터를 가져오는 함수
 function fetchWebhookData() {
     $.ajax({
-        url: 'https://2792-211-108-191-164.ngrok-free.app/github-webhook/data',
+        url: 'https://impala-intent-rarely.ngrok-free.app/github-webhook/data',
         method: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -118,9 +122,8 @@ function formatJsonToHtml(jsonData) {
                                     <a href="${commit.url}" target="_blank">커밋 확인</a>
                                 </div>
                             </div>
-                            
                         </div>
-                        <hr>`;
+                    <hr>`;
                 });
             }
         });
@@ -165,7 +168,6 @@ function setInitialProjectDetails() {
 
 function handleProjectRowClick() {
     const projectId = $(this).data('project-id');
-    console.log('프로젝트 ID:', projectId);
     clearProjectDetails();
     fetchProjectDetails(projectId);
 }
@@ -357,6 +359,7 @@ function editProject() {
                 <td>${member.memberName}</td>
                 <td>${member.memberDepartmentName}</td>
                 <td>${member.memberPosition}</td>
+                <td class="delete-team-member">@</td>
                 <input type="hidden" id="mCode" value="${member.memberId}">
                 <input type="hidden" id="eCode" value="${member.memberEmployeeCode}">
             </tr>
@@ -484,7 +487,8 @@ function submitEditProject() {
     const formData = {
         projectDTO: projectDTO,
         members: members,
-        tasks: tasks
+        tasks: tasks,
+        deletedMembers: deletedMembers
     };
 
     console.log("Data to be sent:", formData); // 데이터 확인용 로깅
@@ -634,3 +638,11 @@ function deleteProject() {
     });
 }
 
+
+function deleteTeamMember() {
+    const memberId = $(this).closest('tr').find('#mCode').val();
+    if (memberId) {
+        deletedMembers.push(memberId); // 삭제된 팀원의 ID를 배열에 추가
+    }
+    $(this).closest('tr').remove();
+}

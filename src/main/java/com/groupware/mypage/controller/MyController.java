@@ -40,10 +40,8 @@ public class MyController {
         UserDTO user = (UserDTO) session.getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("holiday", myService.getHolidayList(user.getEmployeeCode()));
-
         List<AttDTO> workRecords = attService.workTimeCal(user.getEmployeeCode());
         model.addAttribute("workRecord", workRecords);
-
 
         return "mypage/main-mypage";
     }

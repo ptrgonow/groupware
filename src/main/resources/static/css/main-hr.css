@@ -1,3 +1,12 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
 .card_member_img {
     width: 50px;
     height: 50px;
@@ -115,7 +124,7 @@
 .table-responsive tr td:first-child, .table-responsive tr th:first-child {
     padding-left:0;
 .badge.bg-success {
-    color: white; /* '근무중' badge 글자색 흰색 */
+    color: black; /* '근무중' badge 글자색 흰색 */
 }
 
 .badge.bg-danger {
@@ -154,4 +163,8 @@
 
 .avatar-group p {
     margin: 0 5px; /* 원하는 만큼의 간격 조절 */
+}
+
+.e-group{
+    margin-bottom: 20px;
 }

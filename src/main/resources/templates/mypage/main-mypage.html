@@ -4,25 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
-
+    <meta name="employeeCode" th:content="${user.employeeCode}">
 </head>
 <body>
 
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <link rel="stylesheet" href="/css/main-mypage.css">
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>안녕하세요, <span th:text="${user != null} ? ${user.name} : '사용자'"></span> 님 !</h3>
             </div>
-            
+
             <div class="row">
-                <div class="col-xl-6 d-flex mobile-h">
-                    <div class="card flex-fill">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">근태 기록</h5>
@@ -40,15 +40,15 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
+
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="card-title">잔여 연차 / 휴가</h4>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body remain">
                             <div class="card-header">
                                 <span th:text="${user != null} ? ${user.name} : '사용자'"></span> 님의 잔여 연차는 <span th:text="${user != null} ? ${holiday.dayoff} : '0'"></span>일 입니다.
                             </div>
@@ -59,11 +59,11 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
-                
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
+
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="card-title">근태 기록</h4>
@@ -79,7 +79,7 @@
                                     <th>근무시간</th>
                                 </tr>
                                 </thead>
-                                
+
                                 <tbody id="work_record_body">
                                 <tr th:each="work : ${workRecord}">
                                     <td th:text="${work.formattedAttendanceDate != null ? work.formattedAttendanceDate : 'N/A'}"></td>
@@ -92,14 +92,16 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <div id="pagination-work"></div>
+                            <div class="pagination-mini">
+                                <div id="pagination-work"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                
-                <div class="col-xl-6 col-sm-12 col-12 d-flex">
-                    <div class="card card-list flex-fill">
+
+
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
                         <div class="card-header ">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">내 정보</h5>
@@ -108,33 +110,55 @@
                         <div id="info" class="card-body">
                             <form id="updateForm" enctype="multipart/form-data">
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col-md-6"> <div class="form-group">
+                                        <label for="EmployeeCode">사원번호</label>
+                                        <input type="text" class="form-control-sm" id="EmployeeCode" name="employee_code" readonly>
+                                    </div>
                                         <div class="form-group">
-                                            <label for="EmployeeCode">사원번호</label>
-                                            <input type="text" class="form-control-sm" id="EmployeeCode" name="employee_code" th:value="${user != null} ? ${user.employeeCode} : ''" readonly>
-                                            
                                             <label for="name">이름</label>
-                                            <input type="text" class="form-control-sm" id="name" name="name" th:value="${user != null} ? ${user.name} : ''" readonly>
-                                            
-                                            <label for="birth">생년월일</label>
-                                            <input type="date" class="form-control-sm" id="birth" name="birth_date" th:value="${user != null} ? ${user.birthDate} : ''">
-                                            
-                                            <label for="address">주소</label>
-                                            <input type="text" class="form-control-sm" id="address" name="address" th:value="${user != null} ? ${user.address} : ''">
-                                            
-                                            <label for="department">부서</label>
-                                            <input type="text" class="form-control-sm" id="department" name="departmentName" th:value="${user != null} ? ${user.departmentName} : ''" readonly>
-                                            
-                                            <label for="position">직급</label>
-                                            <input type="text" class="form-control-sm" id="position" name="ps_cd" th:value="${user != null} ? ${user.ps_cd} : ''" readonly>
-                                            
-                                            <label for="username">아이디</label>
-                                            <input type="text" class="form-control-sm" id="username" name="username" th:value="${user != null} ? ${user.username} : ''">
-                                            
-                                            <label for="password">비밀번호</label>
-                                            <input type="password" class="form-control-sm" id="password" name="password" th:value="${user != null} ? ${user.password} : ''">
+                                            <input type="text" class="form-control-sm" id="name" name="name" readonly>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="birth">생년월일</label>
+                                        <input type="date" class="form-control-sm" id="birth" name="birth_date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">주소</label>
+                                        <div class="member-address">
+                                            <div class="form-group">
+                                            <input type="hidden" class="form-control-sm" id="address_postal" name="address_postal">
+                                            <input type="text" id="address" name="address" placeholder="주소">
+                                            <input type="button" onclick="sample6_execDaumPostcode()" class="btn" value="주소 찾기">
+                                            </div>
+                                            <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소"><br>
+                                            <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="department">부서</label>
+                                            <input type="text" class="form-control-sm" id="department" name="departmentName" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="position">직급</label>
+                                            <input type="text" class="form-control-sm" id="position" name="ps_cd" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="userName">아이디</label>
+                                        <input type="text" class="form-control-sm" id="userName" name="username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">비밀번호</label>
+                                        <input type="password" class="form-control-sm" id="password" name="password">
+                                    </div>
+
+
                                 </div>
                                 <div class="regi">
                                     <button type="submit" id="regi-btn" class="btn">수정</button>
@@ -152,5 +176,7 @@
 <script src="/js/attendance.js"></script>
 <script src="/js/mypage.js"></script>
 <script src="/js/hr-register.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 </body>
 </html>

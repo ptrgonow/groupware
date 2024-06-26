@@ -1,17 +1,18 @@
-package com.groupware.work.fm.dto;
+package com.groupware.work.fi.dto;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class ExpenseDTO {
-    private int expenseId;
+
     private String accountType;
     private String expenseType;
-    private String issueDate;
+    private Date issueDate;
     private String refNumber;
     private String recipient;
-    private double totalCharge;
-    private double paymentAmount;
-    private double balance;
+    private int totalCharge;
     private String memo;
+
 }

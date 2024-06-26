@@ -65,7 +65,7 @@ function submitLogout() {
                     departmentMainPageUrl = '/hr';
                     break;
                 case 10:
-                    departmentMainPageUrl = '/fm';
+                    departmentMainPageUrl = '/fi';
                     break;
                 default:
                     departmentMainPageUrl = '/';
@@ -74,6 +74,7 @@ function submitLogout() {
 
             // 해당 URL로 리디렉션
             window.location.href = departmentMainPageUrl;
+
         })
         .catch(error => {
             console.error('Error fetching department info:', error);

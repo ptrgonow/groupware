@@ -29,7 +29,7 @@ public interface AttMapper {
             "FROM attendance " +
             "WHERE employee_code = #{employeeCode} " +
             "GROUP BY employee_code, DATE(check_in) " +
-            "ORDER BY attendanceDate")
+            "ORDER BY attendanceDate DESC")
     List<AttDTO> getFirstAndLastAttendance(String employeeCode);
 
 }

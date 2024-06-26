@@ -1,10 +1,13 @@
 package com.groupware.work.hr.controller;
 
 import com.groupware.work.hr.dto.HrEmplMagDTO;
+import com.groupware.work.hr.dto.HrEmployeeUpdateDTO;
+import com.groupware.work.hr.dto.HrStatusDTO;
 import com.groupware.work.hr.dto.TodayWorkerDTO;
 import com.groupware.work.hr.service.HrService;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +32,23 @@ public class HrController {
         return ResponseEntity.ok(workers);
     }
 
+    @GetMapping("/statuses")
+    public List<String> getStatuses() {
+        return hrService.getStatuses();
+    }
+
+    @PostMapping("/updatestatus")
+    public ResponseEntity<Map<String, Object>> updateStatus(@RequestBody HrStatusDTO hrStatusDTO) {
+        boolean updated = hrService.updateStatus(hrStatusDTO.getEmployeeCode(), hrStatusDTO.getStatus());
+        Map<String, Object> response = new HashMap<>();
+        if (updated) {
+            response.put("success", true);
+        } else {
+            response.put("error", "not_found");
+        }
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/empdetail")
     public ResponseEntity<HrEmplMagDTO> getEmpInfo(@RequestParam String employeeCode){
         HrEmplMagDTO empinfo = hrService.getEmplInfo(employeeCode);
@@ -40,7 +60,6 @@ public class HrController {
         Map<String, List<String>> modi = new HashMap<>();
         modi.put("departments", hrService.getDepartments());
         modi.put("positions", hrService.getPositions());
-        modi.put("statuses", hrService.getStatuses());
         return ResponseEntity.ok(modi);
     }
 
@@ -52,4 +71,11 @@ public class HrController {
         response.put("message", "사원 정보가 삭제되었습니다.");
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/empupdate")
+    public ResponseEntity<Map<String, Object>> updateEmployee(@RequestBody HrEmployeeUpdateDTO employeeUpdateDTO) {
+        Map<String, Object> result = hrService.updateEmployeeDetails(employeeUpdateDTO);
+        return ResponseEntity.ok(result);
+    }
+
 }

@@ -2,7 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>그룹웨어</title>
-
 </head>
 <body>
 
@@ -11,7 +10,6 @@
   <div th:replace="~{include/side/main-side :: side}"></div>
   <link rel="stylesheet" href="/css/main-ms.css">
   <link rel="stylesheet" href="/css/ceo.css">
-
 
   <div class="page-wrapper">
     <div class="content container-fluid">
@@ -25,7 +23,7 @@
             <div class="card-body">
               <div class="card_widget_header">
                 임직원 수
-                <p></p>
+                <p class="widget" th:text="${empList.size()}"></p>
               </div>
               <div class="card_member_img"></div>
             </div>
@@ -35,8 +33,9 @@
           <div class="card board1 fill2">
             <div class="card-body">
               <div class="card_widget_header">
-                새로운 요청
-                <p></p>
+                미결재 요청
+                <p class="widget" th:text="${myPendingApprovals.size()}"></p>
+
               </div>
               <div class="card_notify_img"></div>
             </div>
@@ -47,7 +46,7 @@
             <div class="card-body">
               <div class="card_widget_header">
                 휴가자
-                <p class="widget"></p>
+                <p class="widget" th:text="${#lists.size(empList.?[status == '휴가'])}"></p>
               </div>
               <div class="card_leave_img"></div>
             </div>
@@ -58,7 +57,7 @@
             <div class="card-body">
               <div class="card_widget_header">
                 현재 근무중
-                <p class="widget">27</p>
+                <p class="widget" th:text="${#lists.size(empList.?[status == '근무중'])}"></p>
               </div>
               <div class="card_working_img"></div>
             </div>
@@ -67,11 +66,12 @@
       </div>
 
       <div class="row">
-        <div class="col-xl-6 d-flex mobile-h">
-          <div class="card flex-fill">
+        <div class="col-xl-6 col-12 d-flex">
+          <div class="card w-100">
             <div class="card-header">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title">결재</h5>
+                <div class="moreInfo"><a href="/ap/amain"><button class="cocoBtn">More</button></a></div>
               </div>
             </div>
             <div class="card-body pb-0">
@@ -97,17 +97,20 @@
                   </tr>
                   </tbody>
                 </table>
+                <div class="pagination-mini">
                 <div id="pagination-myAp"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-xl-6 d-flex">
-          <div class="card flex-fill">
+        <div class="col-xl-6 col-12 d-flex">
+          <div class="card w-100">
             <div class="card-header">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title">인사</h5>
+                <div class="moreInfo"><a href="/hr"><button class="cocoBtn">More</button></a></div>
               </div>
             </div>
             <div class="card-body pb-0">
@@ -135,7 +138,9 @@
                   </tbody>
                 </table>
                 <!-- 페이징 -->
+                <div class="pagination-mini">
                 <div id="pagination-hr"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -143,24 +148,49 @@
       </div>
 
       <div class="row">
-        <div class="col-xl-6 col-sm-12 col-12 d-flex">
-          <div class="card card-list flex-fill">
+        <div class="col-xl-6 col-12 d-flex">
+          <div class="card w-100">
             <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
               <h4 class="card-title">재무</h4>
+              <div class="moreInfo"><a href="/fi"><button class="cocoBtn">More</button></a></div>
+              </div>
             </div>
-            <div class="card-body pb-0">
-              <div id="approvalPagination-container"></div>
+            <div class="card-body">
+                <div class="chart d-flex justify-content-center align-content-center w-100 h-100">
+                    <canvas id="expenseChart"></canvas>
+                </div>
             </div>
           </div>
         </div>
 
-        <div class="col-xl-6 col-sm-12 col-12 d-flex">
-          <div class="card card-list flex-fill">
+        <div class="col-xl-6 col-12 d-flex">
+          <div class="card w-100">
             <div class="card-header">
               <h4 class="card-title">개발</h4>
             </div>
             <div class="card-body pb-0">
-              <div id="fm-ApprovalPagination-container"></div>
+
+              <table class="ap-tbl">
+                <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>프로젝트명</th>
+                  <th>상태</th>
+                </tr>
+                </thead>
+                <tbody id="project_table_body">
+                <tr th:each="pr, stat : ${projects}">
+                  <td th:text="${stat.index + 1}"></td>
+                  <td th:text="${pr.projectName}"></td>
+                  <td th:text="${pr.status}"></td>
+                </tr>
+                </tbody>
+              </table>
+
+              <div class="pagination-mini">
+              <div id="pagination-pro"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -170,6 +200,7 @@
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="/js/chart.js"></script>
 <script src="/js/ceo.js"></script>
 </body>
 </html>

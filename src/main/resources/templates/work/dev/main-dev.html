@@ -23,7 +23,7 @@
                     <h3 th:text="${user.departmentName}"></h3>
                 </div>
                 
-                <div class="pr-btn">
+                <div th:if="${user.ps_cd == 'P001'}" class="pr-btn">
                     <button id="pr-add-btn" class="cocoBtn" onclick="location.href='/dev/add'">프로젝트 생성</button>
                     <button id="pr-edit-btn" class="cocoBtn">프로젝트 수정</button>
                     <button id="pr-delete-btn" class="cocoBtn">프로젝트 삭제</button>
@@ -35,10 +35,10 @@
                 <div class="col-xl-12 col-12 d-flex">
                     <div class="col-xl-8">
                         <div class="card">
-                            <div class="card-header bg-white py-4">
+                            <div class="card-header bg-white">
                                 <h4 class="card-title">프로젝트</h4>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body projectList">
                                 <div class="tbl">
                                     <table id="project_table" class="pr-tbl">
                                         <thead>
@@ -128,7 +128,10 @@
                     </div>
                     
                     <div class="col-xl-4">
-                        <div class="card mb-5 bg-primary ">
+                        <div class="card mb-5 bg-primary d-day">
+                            <div class="card-header">
+                                <h4 class="card-title text-white">납기일</h4>
+                            </div>
                             <div class="card-body">
                                 <h4 class="mb-0 text-white">D + day</h4>
                                 <div class="d-flex justify-content-between align-items-center mt-8">
@@ -159,7 +162,7 @@
                             <div class="card-header">
                                 <h4 class="card-title">팀원</h4>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body task">
                                 <div class="tbl">
                                     <table id="member_table" class="mem-tbl">
                                         <thead>
@@ -182,7 +185,6 @@
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="card-title">담당 작업</h4>
-                                
                                 </div>
                             </div>
                             <div class="card-body task">
@@ -288,7 +290,7 @@
                 <h5 class="modal-title" id="addMemberModalLabel">팀원 추가</h5>
             </div>
             <div class="modal-body">
-                <table class="mem-table">
+                <table class="mem-table" style="width: 200px">
                     <thead>
                     <tr>
                         <th>이름</th>

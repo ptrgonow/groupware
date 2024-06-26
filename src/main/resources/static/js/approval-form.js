@@ -143,6 +143,7 @@ function handleNodeSelection(data, containerSelector, requiredPsCd, excludeDefau
     const node = data.node;
     const nodeType = node.original.type;
     const psCd = node.original.original.psCd;
+    const ownEmployeeCode = $('meta[name="employeeCode"]').attr('content');
 
     if (excludeDefault && nodeType === 'default') {
         $(containerSelector).jstree(true).deselect_node(node);
@@ -151,6 +152,11 @@ function handleNodeSelection(data, containerSelector, requiredPsCd, excludeDefau
 
     if (requiredPsCd && psCd !== requiredPsCd) {
         showMessage('관리자만 선택할 수 있습니다.');
+        return;
+    }
+
+    if (node.id === ownEmployeeCode) {
+        showMessage('본인을 결재선에 추가할 수 없습니다.');
         return;
     }
 
@@ -372,8 +378,11 @@ function submitApprovalForm() {
             formData.approvalConsensus.push(employeeCode);
         }
     });
-
-    console.log("Data to be sent:", formData);
+    // 결재선 정보가 있는지 확인
+    if (formData.approvalPath.length === 0) {
+        alert("결재선을 추가해주세요.");
+        return;
+    }
 
     $.ajax({
         type: "POST",

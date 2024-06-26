@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>그룹웨어</title>
+
+ 
+
+</head>
+<body>
+<div class="main-wrapper">
+    <div th:replace="~{include/header/main-header :: header}"></div>
+    <div th:replace="~{include/side/main-side :: side}"></div>
+    
+    <link rel="stylesheet" href="/css/main-finance.css">
+    
+    <style>
+        .card.w-100 {
+            min-height: 500px; /* 최소 높이 설정 */
+            max-height: 500px; /* 최대 높이 설정 */
+            overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+        }
+        .card-body {
+            height: calc(100% - 56px); /* 카드 높이에서 헤더 높이를 뺀 나머지 높이 */
+            overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
+        }
+    
+    </style>
+    
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-name mb-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 th:text="${user.departmentName}"></h3>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
+                        <div class="card-header">
+                            <h5 class="card-title">결재 목록</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="fm-tbl">
+                                <thead>
+                                <tr>
+                                    <th class="col-number">번호</th>
+                                    <th class="col-title">제목</th>
+                                    <th class="col-author">기안자</th>
+                                    <th class="col-date">기안일</th>
+                                </tr>
+                                </thead>
+                                <tbody id="fm-tbl-approved-list">
+                                <tr th:each="approval, stat : ${fList}" class="fm-tbl-s" th:data-approval-id="${approval.approvalId}">
+                                    <td th:text="${stat.index + 1}"></td>
+                                    <td th:text="${approval.fileName}"></td>
+                                    <td th:text="${approval.employeeName}"></td>
+                                    <td th:text="${#dates.format(approval.createdAt, 'yyyy-MM-dd')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="pagination-ap" class="pagination-mini"></div>
+                        </div>
+                    
+                    </div>
+                </div>
+                
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title">급여 현황</h5>
+                        </div>
+                        <div class="card-body sal">
+                            <div class="fm-tbl">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>이름</th>
+                                        <th>부서</th>
+                                        <th>직급</th>
+                                        <th>급여</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="salTbl"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="pagination-mini" class="pagination-mini"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-6 col-md-6 col-12 d-flex">
+                    <div class="card w-100">
+                        <div class="card-header">
+                            <h5 class="card-title">지출 내역 입력</h5>
+                        </div>
+                        <div class="card-body form" id="formContent"></div>
+                        <div class="btn-group d-flex justify-content-center align-content-center mb-3">
+                            <input type="submit" id="submitBtn" class="btn-info">
+                            <input type="reset" id="resetBtn" class="delete-btn">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-6 col-md-6 col-12 d-flex">
+                    <div class="card w-100">
+                        <div class="card-header">
+                            <h5 class="card-title">차트</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart d-flex justify-content-center align-content-center w-100 h-100">
+                                <canvas id="expenseChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{include/footer/scriptfooter :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="/js/finance.js"></script>
+</body>
+</html>

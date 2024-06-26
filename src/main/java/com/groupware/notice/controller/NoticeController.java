@@ -50,9 +50,10 @@ public class NoticeController {
     }
 
     @GetMapping("/detail")
-    public String noticeDetail(@RequestParam("id") int noticeId, Model model) {
+    public String noticeDetail(@RequestParam("id") int noticeId, Model model, HttpSession session) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
         NoticeDTO notice = noticeService.getNoticeById(noticeId);
-        model.addAttribute("notice", notice);
+        model.addAttribute("notice", notice).addAttribute("user", user);
         return "notice/notice-detail";
     }
 

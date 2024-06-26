@@ -1,3 +1,27 @@
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f4f4f4;
+    height: 100%;
+}
+
+
 
 #edit-btn {
     width: 60px;
@@ -20,7 +44,6 @@
 
 
 .btn-info{
-    height: 40px;
     width: 80px;
     background-color: #2196F3;
     color: white;
@@ -104,7 +127,7 @@
     position: relative;
     bottom: 0;
     margin-top: 2rem;
-    width: 100%;
+    width: fit-content;
     display: flex;
     justify-content: center;
 }
@@ -118,16 +141,7 @@
     height: 100%;
 }
 
-
-
-@media screen and (max-width: 992px) {
-
-    .row {
-        height: 100vh;
-    }
-
-    .col-xl-12 {
-        height: 100%
-    }
-
+.card .w-100{
+    min-height: fit-content;
+    border: none;
 }

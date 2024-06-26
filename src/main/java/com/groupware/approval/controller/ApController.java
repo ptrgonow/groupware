@@ -3,8 +3,9 @@ package com.groupware.approval.controller;
 
 import com.groupware.approval.dto.ApprovalDTO;
 import com.groupware.approval.dto.ApprovalDetailsDTO;
-import com.groupware.approval.dto.ApprovalRequest;
+import com.groupware.approval.dto.ApprovalPathDTO;
 import com.groupware.approval.service.ApService;
+import com.groupware.approval.service.TokenService;
 import com.groupware.user.dto.UserDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ import java.util.List;
 public class ApController {
 
     private final ApService apService;
+    private final TokenService tokenService;
 
 
     @GetMapping("/amain")
@@ -61,20 +64,52 @@ public class ApController {
         return "redirect:/loginPage";
     }
 
-    @GetMapping("/detail/{approvalId}")
-    public String detail(@PathVariable("approvalId") int approvalId, Model model, HttpSession session) {
+    @GetMapping("/gt/{approvalId}")
+    @ResponseBody
+    public String generateToken(@PathVariable("approvalId") int approvalId) {
+        return tokenService.generateToken(approvalId);
+    }
+
+
+    @GetMapping("/detail/{token}")
+    public String detail(@PathVariable("token") String token, Model model, HttpSession session) {
         UserDTO user = (UserDTO) session.getAttribute("user");
 
         if (user != null) {
-            ApprovalDetailsDTO approval = apService.getApprovalDetail(approvalId);
-            model.addAttribute("approval", approval.getApprovalDTO());
-            model.addAttribute("paths", approval.getApprovalPaths());
-            model.addAttribute("references", approval.getApprovalReferences());
-            model.addAttribute("consensuses", approval.getApprovalConsensuses());
-            model.addAttribute("user", user);
-            return "/approval/approval-detail";
+            Integer approvalId = tokenService.getApprovalIdFromToken(token);
+            if (approvalId != null) {
+                model.addAttribute("user", user);
+                ApprovalDetailsDTO approval = apService.getApprovalDetail(approvalId);
+                model.addAttribute("approval", approval.getApprovalDTO());
+                model.addAttribute("paths", approval.getApprovalPaths());
+                model.addAttribute("references", approval.getApprovalReferences());
+                model.addAttribute("consensuses", approval.getApprovalConsensuses());
+                boolean isApprove = apService.checkIfUserIsApprove(user, approval.getApprovalPaths());
+                boolean isConsensus = apService.checkIfUserIsConsensus(user, approval.getApprovalConsensuses());
+                boolean isConsensusStatus = apService.checkIfConsensusStatus(user, approval.getApprovalConsensuses());
+
+                String userStatus;
+                String isConsensusStatusStr = isConsensusStatus ? "미결" : "합의";
+
+                if (isApprove) {
+                    userStatus = "APPROVE";
+                } else if (isConsensus) {
+                    userStatus = "CONSENSUS";
+                } else {
+                    userStatus = "NONE";
+                }
+
+
+
+                model.addAttribute("userStatus", userStatus);
+                model.addAttribute("checkConsensus", isConsensus);
+                model.addAttribute("consensusStatus", isConsensusStatusStr);
+                return "approval/approval-detail";
+            }
         }
-        return "redirect:/loginPage";
+        return "redirect:/ap/amain";
     }
+
+
 
 }

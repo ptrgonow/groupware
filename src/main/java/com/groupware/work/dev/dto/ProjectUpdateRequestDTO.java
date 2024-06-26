@@ -10,5 +10,6 @@ public class ProjectUpdateRequestDTO {
     private ProjectDTO projectDTO;
     private List<ProjectMemberDTO> members;
     private List<ProjectTaskDTO> tasks;
+    private List<Long> deletedMembers;
 
 }

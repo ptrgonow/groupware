@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // 테이블의 데이터를 JavaScript 배열로 가져오기
+    initializeEmployees();
+    initializeTodayWorkers();
+    initializeHrApproval();
+});
+
+function initializeEmployees() {
     var employees = [];
     document.querySelectorAll('#e_list_table tr').forEach(function(row) {
         var employee = {
@@ -10,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function() {
         employees.push(employee);
     });
 
-    // 페이지네이션 설정
     $('#pagination-hr').pagination({
         dataSource: employees,
         pageSize: 6,
@@ -20,27 +24,29 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // 테이블을 렌더링
     function renderTable(data) {
         var html = '';
         data.forEach(function(item) {
-            html +=
-                `<tr>
-                <td>
-                    <div class="table-img">
-                        <label>${item.name}</label>
-                    </div>
-                </td>
-                <td>
-                    <label class="action_label2">${item.departmentName}</label>
-                </td>
-                <td>
-                    <label>${item.psNm}</label>
-                </td>
-            </tr>`;
+            html += `
+                <tr>
+                    <td>
+                        <div class="table-img">
+                            <label>${item.name}</label>
+                        </div>
+                    </td>
+                    <td>
+                        <label class="action_label2">${item.departmentName}</label>
+                    </td>
+                    <td>
+                        <label>${item.psNm}</label>
+                    </td>
+                </tr>`;
         });
         return html;
     }
+}
+
+function initializeTodayWorkers() {
     const todayWorkers = [];
     document.querySelectorAll('#today-workers-table #today-workers-data tr').forEach(row => {
         todayWorkers.push({
@@ -50,12 +56,10 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Pagination.js 설정 (금일 근무자 테이블)
     $('#pagination-today-workers-pagination-hr').pagination({
         dataSource: todayWorkers,
         pageSize: 6,
         callback: function(data, pagination) {
-            // 페이지 변경 시 테이블 내용 업데이트
             $('#today-workers-table #today-workers-data').empty();
             data.forEach(worker => {
                 $('#today-workers-table #today-workers-data').append(`
@@ -68,4 +72,42 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
     });
-});
+}
+
+function initializeHrApproval() {
+    var hrApproval = [];
+    document.querySelectorAll('.team-list').forEach(function(view) {
+        var approval = {
+            name: view.querySelector('.ap-name').innerText.trim(),
+            department: view.querySelector('.ap-dep').innerText.trim(),
+            title: view.querySelector('#ap-title').innerText.trim(),
+            createdAt: view.querySelector('#ap-date').innerText.trim(),
+            status: view.querySelector('#ap-status').innerText.trim()
+        };
+        hrApproval.push(approval);
+    });
+
+    $('#hrApproval-Pagination').pagination({
+        dataSource: hrApproval,
+        pageSize: 8,
+        callback: function(data, pagination) {
+            var html = renderApproval(data);
+            $('#initial-hrApproval-container').html(html);
+        }
+    });
+
+    function renderApproval(data) {
+        var html = '';
+        data.forEach(function(request) {
+            html += `
+                <tr>
+                   <td class="ap-name">${request.name}</td>
+                <td class="ap-dep">${request.department}</td>
+                <td class="ap-cont">${request.title}</td> 
+                <td class="ap-cont">${request.createdAt}</td>
+                <td class="ap-cont">${request.status}</td>
+                </tr>`;
+        });
+        return html;
+    }
+}

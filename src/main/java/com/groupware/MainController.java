@@ -27,7 +27,6 @@ public class MainController {
         UserDTO user = (UserDTO) session.getAttribute("user");
         List<NoticeDTO> nDTO = noticeService.getAllNotices();
 
-
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("employeeCode", user.getEmployeeCode());
@@ -37,7 +36,6 @@ public class MainController {
         } else {
             return "redirect:/loginPage";
         }
-
         return "index";
     }
 

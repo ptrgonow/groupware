@@ -1,11 +1,24 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap";
+
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f7f6;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f4f4f4;
+    height: 100%;
 }
 
 .write_title {
@@ -63,9 +76,10 @@ input[type="submit"]:hover, a.button:hover {
     text-align: center;
 }
 #title-input {
-    width: 100%;
+    width: 118%;
     padding: 10px;
     margin-bottom: 15px;
+    margin-left: 1rem;
     border: 1px solid #ced4da;
     border-radius: 4px;
 }

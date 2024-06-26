@@ -1,14 +1,15 @@
 package com.groupware.work.hr.service;
 
-import com.groupware.user.dto.UserDTO;
-import com.groupware.work.hr.dto.HrEmplMagDTO;
-import com.groupware.work.hr.dto.HrEmployeeDTO;
-import com.groupware.work.hr.dto.TodayWorkerDTO;
+import com.groupware.work.hr.dto.*;
 import com.groupware.work.hr.mapper.HrMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class HrService {
@@ -28,8 +29,8 @@ public class HrService {
         return hrMapper.getAllEmployees();
     }
 
-    public int AllApprovalCount(){
-        return hrMapper.AllApprovalCount();
+    public int HrApprovalCount(){
+        return hrMapper.HrApprovalCount();
     }
 
     public List<TodayWorkerDTO> getAllTodayWorkers() {
@@ -41,13 +42,20 @@ public class HrService {
     }
 
     public List<HrEmplMagDTO> getEmplManagement() {
-        List<HrEmplMagDTO> status = hrMapper.getEmplManagement();
-        // 'status'가 null인 경우 '출근전'으로 대체
-        for (HrEmplMagDTO empstatus : status) {
-            if (empstatus.getStatus() == null) {
-                empstatus.setStatus("퇴근");
+        return hrMapper.getEmplManagement();
+    }
+
+    public List<HrStatusDTO> getEmpStatus(){
+        List<HrStatusDTO> status = hrMapper.getEmpStatus();
+
+        if (status != null) {
+            for (HrStatusDTO empStatus : status) {
+                if (empStatus.getStatus() == null) {
+                    empStatus.setStatus("퇴근");
+                }
             }
         }
+
         return status;
     }
 
@@ -67,8 +75,58 @@ public class HrService {
         return hrMapper.getStatuses();
     }
 
+    public Map<String, Integer> getStatusCounts() {
+        List<HrStatusDTO> statuses = hrMapper.empStatues();
+        int vacationCount = 0;
+        int workingCount = 0;
+
+        for (HrStatusDTO status : statuses) {
+            if ("휴가".equals(status.getStatus())) {
+                vacationCount++;
+            } else if ("근무중".equals(status.getStatus())) {
+                workingCount++;
+            }
+        }
+
+        Map<String, Integer> statusCounts = new HashMap<>();
+        statusCounts.put("휴가", vacationCount);
+        statusCounts.put("근무중", workingCount);
+        return statusCounts;
+    }
+
+    public List<HrApprovalDTO> getHrApproval() {
+        return hrMapper.getHrApproval();
+    }
+
     public void deleteEmployeeByCode(String employeeCode){
         hrMapper.deleteEmployeeByCode(employeeCode);
     }
+
+    @Transactional
+    public Map<String, Object> updateEmployeeDetails(HrEmployeeUpdateDTO employeeUpdateDTO) {
+        Map<String, Object> response = new HashMap<>();
+        if (!employeeUpdateDTO.getEmployeeCode().equals(employeeUpdateDTO.getNewEmployeeCode())) {
+            int count = hrMapper.countEmployee(employeeUpdateDTO.getNewEmployeeCode());
+            if (count > 0) {
+                response.put("error", "duplicate");
+                return response;
+            }
+        }
+        hrMapper.updateEmployee(employeeUpdateDTO);
+        response.put("success", true);
+        return response;
+    }
+
+    public boolean updateStatus(String employeeCode, String status) {
+        int count = hrMapper.countByEmployeeCode(employeeCode);
+        if (count > 0) {  // attendance 테이블에 사원 코드가 있다면
+            hrMapper.updateStatus(employeeCode, status);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
 }
