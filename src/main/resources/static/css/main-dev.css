@@ -339,14 +339,6 @@ input[type='radio']:checked {
     margin-right: 1rem;
 }
 
-.pagination-mini {
-    position: relative;
-    bottom: 0;
-    margin-top: 2rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
 
 .commit-div {
     overflow-y: scroll;
@@ -418,3 +410,29 @@ input[type='radio']:checked {
     color: #2196F3;
 }
 
+.projectList{
+    min-height: 400px;
+    max-height: 400px;
+}
+
+.feed{
+    min-height: 427px;
+    max-height: 427px;
+}
+
+.des{
+    min-height: 320px;
+    max-height: 320px;
+}
+
+
+
+.task{
+    min-height: 400px;
+    max-height: 400px;
+
+}
+
+.d-day-header{
+    color: white;
+}
