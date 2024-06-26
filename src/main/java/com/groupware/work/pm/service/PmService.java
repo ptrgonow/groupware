@@ -60,15 +60,15 @@ public class PmService {
         pmMapper.updateMeeting(pmDTO); // 회의 정보 업데이트
 
         for (MeetingMemberDTO member : members) {
-            if (member.getMeetingMemberId() == 0) {
+            if (member.getMemberId() == 0) {
                 pmMapper.insertMeetingMember(pmDTO.getMeetingId(), member.getEmployeeCode());
             } else {
                 pmMapper.updateMeetingMember(pmDTO.getMeetingId(), member);
             }
         }
 
-        for (Long meetingMemberId : deletedMembers){
-            pmMapper.deleteMeetingMember(meetingMemberId, pmDTO.getMeetingId());
+        for (Long memberId : deletedMembers){
+            pmMapper.deleteMeetingMember(memberId, pmDTO.getMeetingId());
         }
     }
 

@@ -39,7 +39,7 @@ public interface HrMapper {
             "JOIN employee e ON a.employee_code = e.employee_code " +
             "WHERE DATE(a.check_in) = CURDATE() " +
             "GROUP BY a.employee_code, e.name " +
-            "ORDER BY status DESC, firstCheckIn desc")
+            "ORDER BY firstCheckIn desc")
     List<TodayWorkerDTO> getTodayWorkers();
 
     // 인사팀에 요청된 결재
@@ -136,16 +136,25 @@ public interface HrMapper {
     @Delete("DELETE FROM employee WHERE employee_code = #{employeeCode}")
     void deleteEmployeeByCode(String employeeCode);
 
+
     // 사원 정보 업데이트 (코드 변경 없음)
+    // 임시 employee_code로 업데이트
+    @Update("UPDATE employee SET employee_code = #{newEmployeeCode} WHERE employee_code = #{employeeCode}")
+    void updateEmployeeCode(@Param("newEmployeeCode") String newEmployeeCode, @Param("employeeCode") String employeeCode);
+
+    @Update("UPDATE attendance SET employee_code = #{newEmployeeCode} WHERE employee_code = #{employeeCode}")
+    void updateAttendanceEmployeeCode(@Param("newEmployeeCode") String newEmployeeCode, @Param("employeeCode") String employeeCode);
+
+    // employee 테이블의 나머지 정보 업데이트
     @Update("UPDATE employee SET " +
             "department_id = (SELECT department_id FROM department WHERE department_name = #{departmentName}), " +
             "ps_cd = (SELECT ps_cd FROM positions WHERE ps_nm = #{psNm}) " +
-            "WHERE employee_code = #{employeeCode}")
-    void updateEmployee(HrEmployeeUpdateDTO employeeUpdateDTO);
+            "WHERE employee_code = #{newEmployeeCode}")
+    void updateEmployeeDetails(HrEmployeeUpdateDTO employeeUpdateDTO);
 
-    // 사원코드 존재여부 확인
+    // 특정 employee_code가 존재하는지 확인
     @Select("SELECT COUNT(*) FROM employee WHERE employee_code = #{employeeCode}")
-    int countEmployee(@Param("employeeCode") String employeeCode);
+    int countEmployee(String employeeCode);
 
     // 해당 사원코드의 상태 변경
     @Update("UPDATE attendance SET status = #{status}, created_at = NOW() WHERE employee_code = #{employeeCode} AND created_at = (SELECT MAX(created_at) FROM attendance WHERE employee_code = #{employeeCode})")
