@@ -56,7 +56,7 @@ public class PmService {
     }
 
     @Transactional
-    public void updateMeeting(PmDTO pmDTO, List<MeetingMemberDTO> members, List<String> deletedMembers) {
+    public void updateMeeting(PmDTO pmDTO, List<MeetingMemberDTO> members, List<Long> deletedMembers) {
         pmMapper.updateMeeting(pmDTO); // 회의 정보 업데이트
 
         for (MeetingMemberDTO member : members) {
@@ -67,8 +67,8 @@ public class PmService {
             }
         }
 
-        for (String employeeCode : deletedMembers){
-            pmMapper.deleteMeetingMember(employeeCode, pmDTO.getMeetingId());
+        for (Long memberId : deletedMembers){
+            pmMapper.deleteMeetingMember(memberId, pmDTO.getMeetingId());
         }
     }
 

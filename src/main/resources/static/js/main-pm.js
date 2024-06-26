@@ -188,6 +188,7 @@ $(document).ready( function() {
         var department = $(this).data('department');
         var position = $(this).data('position');
         var employeeCode = $(this).data('employee-code');
+        var memberId = $(this).data('memberId');
         $('#member-list').append(`
             <tr>
                 <td>${name}</td>
@@ -207,32 +208,33 @@ $(document).ready( function() {
 
     let deletedMembers = [];
     $('#member-list').on('click', '.remove-member-btn', function() {
-        const meetingMemberId = $(this).closest('tr').find('input[type="hidden"]').val();
+        const memberId = $(this).closest('tr').find('#mCode').val();
 
-        console.log("meetingMemberId",meetingMemberId);
 
-        if (meetingMemberId !== 0) { // 0이 아니면 삭제 목록에 추가
-            deletedMembers.push(meetingMemberId);
+
+        if (memberId) { // 0이 아니면 삭제 목록에 추가
+            deletedMembers.push(memberId);
+            console.log("meetingMemberId",memberId);
         }
         $(this).closest('tr').remove();
     });
 
 
-    $('#updateMeetingForm').submit(function (event) {
-        event.preventDefault();
+    $('#updateMeetingBtn').on('click',function (event) {
 
+
+        const meetingId = $('#meetingId').val();
+        const meetingTitle = $('#meetingTitleDetail').val();
+        const meetingContent = $('#meetingContentDetail').val();
+        const meetingStartTime = $('#meetingStartTimeDetail').val();
+        const meetingEndTime = $('#meetingEndTimeDetail').val();
 
         const meetingMembers = [];
-
-        let memberId = $(this).find('#mCode').val();
-        const employeeCode = $(this).find('#eCode').val();
-
-        $('#member-list tr').each(function () {
-
+        $('#member-list tr').each(function (data) {
+            let memberId = $(this).find('#mCode').val();
+            const employeeCode = $(this).find('#eCode').val();
             // memberId가 null인 경우 0으로 설정
-            if (memberId == null || memberId === "") {
-                memberId = 0;
-            }
+
 
             console.log("============================");
             console.log("포문",memberId);
@@ -245,12 +247,6 @@ $(document).ready( function() {
 
             });
         });
-
-        const meetingId = $('#meetingId').val();
-        const meetingTitle = $('#meetingTitleDetail').val();
-        const meetingContent = $('#meetingContentDetail').val();
-        const meetingStartTime = $('#meetingStartTimeDetail').val();
-        const meetingEndTime = $('#meetingEndTimeDetail').val();
 
 
         const pmDTO = {
