@@ -78,7 +78,7 @@ function selectTeamMember() {
             <td>${name}</td>
             <td>${department}</td>
             <td>${position}</td>
-            <td class="delete-team-member">-</td>
+            <td class="delete-team-member"><button type="button" class="btn btn-sm btn-danger">삭제</button></td>
             <input type="hidden" id="eCode" value="${employeeCode}">
         </tr>
     `);
@@ -359,7 +359,7 @@ function editProject() {
                 <td>${member.memberName}</td>
                 <td>${member.memberDepartmentName}</td>
                 <td>${member.memberPosition}</td>
-                <td class="delete-team-member">@</td>
+                <td class="delete-team-member"><button type="button" class="btn btn-sm btn-danger">삭제</button></td>
                 <input type="hidden" id="mCode" value="${member.memberId}">
                 <input type="hidden" id="eCode" value="${member.memberEmployeeCode}">
             </tr>
