@@ -35,7 +35,7 @@ function initializeEditor() {
         .then(editor => {
             editorInstance = editor;
             editor.enableReadOnlyMode('read-only-lock');
-            $('style').append('.ck-content { height: 600px; }');
+            $('style').append('.ck-content { height: 900px; }');
             updateEditorContent();
         })
         .catch(error => {
