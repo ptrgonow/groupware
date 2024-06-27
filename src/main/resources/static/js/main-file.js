@@ -89,21 +89,8 @@ $(document).ready(function(){
         event.preventDefault(); // 폼의 기본 제출 동작을 막음
 
         // 필수 입력값
-        const fileCd = $('#fileCd').val().trim();
-        const title = $('#title').val().trim();
         const departmentName = $('#departmentSelect').val().trim();
 
-        // 입력값 유효성 검사
-        if (!fileCd) {
-            alert('문서번호를 입력하세요.');
-            $('#fileCd').focus();
-            return false;
-        }
-        if (!title) {
-            alert('결재 양식명을 입력하세요.');
-            $('#title').focus();
-            return false;
-        }
         if (!departmentName) {
             alert('결재 담당 부서를 선택하세요.');
             $('#departmentSelect').focus();
@@ -126,8 +113,12 @@ $(document).ready(function(){
                     alert('문서가 등록되었습니다.');
                     location.reload();
                 } else {
-                    alert('이미 등록된 문서번호입니다.');
-                    $('#fileCd').val('');
+                    alert(data.message);
+                    if (data.message === "이미 등록된 문서번호입니다.") {
+                        $('#fileCd').val('');
+                    } else if (data.message === "이미 등록된 문서명입니다.") {
+                        $('#title').val('');
+                    }
                 }
             },
             error: function(xhr, status, error) {
