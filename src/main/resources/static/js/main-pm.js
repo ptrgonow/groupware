@@ -181,8 +181,6 @@ $(document).ready( function() {
 
     // 팀원을 선택하는 함수
     $(document).on('click', '.select-member-btn', selectTeamMember);
-
-
     function selectTeamMember() {
         var name = $(this).data('name');
         var department = $(this).data('department');
@@ -198,10 +196,6 @@ $(document).ready( function() {
                 <input type="hidden" id="eCode" value="${employeeCode}">
             </tr>
         `);
-
-        // 팀원 추가 모달 닫기
-        console.log(name)
-        console.log(employeeCode)
         $('#addMemberModal').modal('hide');
     }
 
@@ -209,12 +203,8 @@ $(document).ready( function() {
     let deletedMembers = [];
     $('#member-list').on('click', '.remove-member-btn', function() {
         const memberId = $(this).closest('tr').find('#mCode').val();
-
-
-
-        if (memberId) { // 0이 아니면 삭제 목록에 추가
+        if (memberId) {
             deletedMembers.push(memberId);
-            console.log("meetingMemberId",memberId);
         }
         $(this).closest('tr').remove();
     });
@@ -233,13 +223,6 @@ $(document).ready( function() {
         $('#member-list tr').each(function (data) {
             let memberId = $(this).find('#mCode').val();
             const employeeCode = $(this).find('#eCode').val();
-            // memberId가 null인 경우 0으로 설정
-
-
-            console.log("============================");
-            console.log("포문",memberId);
-            console.log("포문",employeeCode);
-            console.log("============================");
 
             meetingMembers.push({
                 memberId : memberId,
@@ -247,8 +230,6 @@ $(document).ready( function() {
 
             });
         });
-
-
         const pmDTO = {
             meetingId: meetingId,
             meetingTitle: meetingTitle,
@@ -256,19 +237,12 @@ $(document).ready( function() {
             meetingStartTime: meetingStartTime,
             meetingEndTime: meetingEndTime
         }
-        const meetingData = {
-            // PmDTO 객체로 감싸기
 
+        const meetingData = {
             pmDTO : pmDTO,
             meetingMembers: meetingMembers,
             deletedMembers: deletedMembers
-
         };
-
-        console.log("DTO:", meetingData.pmDTO);
-        console.log("MEMBER:", meetingData.meetingMembers);
-        console.log("D-MEMBER:", meetingData.deletedMembers);
-
         $.ajax({
             type: "POST",
             url: "/pm/edit",
@@ -283,5 +257,24 @@ $(document).ready( function() {
                 alert('회의 일정 수정 중 오류가 발생했습니다.');
             }
         });
+    });
+    $('#meetingDetailModal').on('click', '#deleteMeetingBtn', function () {
+        const meetingId = $('#meetingId').val(); // 모달에서 meetingId 가져오기
+        console.log(meetingId);
+        if (confirm('정말로 회의를 삭제하시겠습니까?')) {
+            // AJAX 요청으로 회의 삭제
+            fetch(`/pm/deleteMeetings/${meetingId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('회의 일정이 성공적으로 삭제되었습니다.');
+                        $('#meetingDetailModal').modal('hide');
+                        location.reload(); // 페이지 새로고침
+                    } else {
+                        alert('회의 일정 삭제 중 오류가 발생했습니다.');
+                    }
+                });
+        }
     });
 });

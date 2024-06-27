@@ -34,7 +34,7 @@ $(document).ready(function () {
                                 <input type="checkbox" class="form-check-input todo-checkbox" ${todo.completed ? 'checked' : ''}>
                                 <span class="todo-txt ${todo.completed ? 'text-decoration-line-through' : ''}">${todo.content}</span>
                             </div>
-                            <div class="btn-group">
+                            <div class="btn-group-todo">
                                 <button id="edit-btn" class="edit-btn btn" style="${todo.completed ? 'display:none;' : ''}" data-todo-id="${todo.todoId}">수정</button>
                                 <button id="delete-btn" class="delete-btn btn" style="${!todo.completed ? 'display:none;' : ''}" data-todo-id="${todo.todoId}">삭제</button>
                             </div>

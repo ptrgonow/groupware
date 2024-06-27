@@ -65,6 +65,9 @@ public interface PmMapper {
     @Delete("DELETE FROM meetings WHERE meeting_id = #{meetingId}")
     void deleteMeeting(@Param("meetingId") int meetingId);
 
+    @Delete("DELETE FROM meeting_member WHERE meeting_id = #{meetingId}")
+    void deleteMeetingMembersByMeetingId(@Param("meetingId") int meetingId);
+
     @Select("WITH RECURSIVE SubDepartments AS (" +
             "    SELECT department_id " +
             "    FROM department " +
