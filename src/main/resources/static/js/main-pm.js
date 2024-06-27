@@ -28,7 +28,7 @@ $(document).ready( function() {
         var html = '';
         data.forEach(function (item, index) {
             html += `<tr>
-                        <td>${index + 1}</td>
+                        <td>${item.index}</td>
                         <td>${item.projectName}</td>
                         <td>${item.status}</td>
                     </tr>`;
