@@ -21,7 +21,6 @@ body {
     height: 100%;
 }
 
-
 #edit-btn {
     width: 80px;
     height: 40px;
@@ -122,14 +121,13 @@ body {
     text-decoration: line-through;
 }
 
-.col-xl-12 {
-    height: 600px;
-}
-
-.card {
-    height: 100%;
+.card.w-100 {
     display: flex;
     flex-direction: column;
+    border: none;
+    min-height: 800px;
+    max-height: 800px;
+    overflow: hidden;
 }
 
 .card-body {
@@ -137,25 +135,14 @@ body {
     overflow-y: auto;
 }
 
-#pagination-mini {
-    position: relative;
-    bottom: 0;
-    margin-top: 2rem;
-    width: fit-content;
+.pagination-mini {
+    position: absolute;
+    width: 100%;
+    bottom: 30px;
     display: flex;
     justify-content: center;
 }
 
-#td-con {
-    height: 400px;
-    min-height: 400px;
-}
-
 #list {
     height: 100%;
-}
-
-.card .w-100{
-    min-height: fit-content;
-    border: none;
 }

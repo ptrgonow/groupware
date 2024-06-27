@@ -22,7 +22,6 @@ $(document).ready(function () {
         $('#pagination-mini').pagination({
             dataSource: todoList,
             pageSize: 6,
-            showNavigator: true,
             callback: function(data, pagination) {
                 var todoContainer = $('#todolist');
                 todoContainer.empty();

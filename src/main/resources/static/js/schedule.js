@@ -2,11 +2,6 @@ $(document).ready(function() {
     var employee_code = $('meta[name="employee-code"]').attr('content');
     var department_id = $('meta[name="department-id"]').attr('content');
     var currentEvent;
-
-    // 세션 값 로그 출력
-    console.log("Employee Code: ", employee_code);
-    console.log("Department ID: ", department_id);
-
     var calendarEl = $('#calendar')[0];
     var dayCalendarEl = $('#day-calendar')[0];
 
@@ -42,12 +37,14 @@ $(document).ready(function() {
                     });
                 });
             },
+
             select: selectHandler,
             eventClick: eventClickHandler,
             eventDidMount: function(info) {
                 var eventType = info.event.extendedProps.type;
                 info.el.style.backgroundColor = getColorForType(eventType);
             },
+            eventTextColor: '#fff',
             datesSet: function() {
                 calendar.refetchEvents();
             }
@@ -134,11 +131,11 @@ $(document).ready(function() {
 
     function getColorForType(type) {
         switch (type) {
-            case '회의': return 'red';
-            case '업무': return 'purple';
-            case '연차': return 'green';
-            case '출장': return 'blue';
-            case '휴가': return 'orange';
+            case '회의': return '#cbe9f5';
+            case '업무': return '#cbf5d4';
+            case '연차': return '#f5e4cb';
+            case '출장': return '#dbf5cb';
+            case '휴가': return '#f5cecb';
             default: return 'grey';
         }
     }
