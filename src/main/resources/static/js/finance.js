@@ -168,14 +168,12 @@ const paymentForm = `
             </div>
         </div>
         <div>
-         
             <div class="fi-input">
-                <textarea type="text" name="memo" id="memo"></textarea>
                 <label for="memo">메모</label>
+                <textarea type="text" name="memo" id="memo"></textarea>
             </div>
         </div>
     </div>
-    
 `;
 
 // 폼 데이터 저장 객체
