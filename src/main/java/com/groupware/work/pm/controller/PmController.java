@@ -60,15 +60,12 @@ public class PmController {
 
     @PostMapping("/edit")
     public ResponseEntity<String> updateMeeting(@RequestBody MeetingUpdateRequestDTO meetingUpdateRequest) {
-
         try {
             pmService.updateMeeting(
                     meetingUpdateRequest.getPmDTO(),
                     meetingUpdateRequest.getMeetingMembers(),
                     meetingUpdateRequest.getDeletedMembers()
             );
-
-
             return ResponseEntity.ok("회의 일정이 성공적으로 수정되었습니다.");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("미팅 일정 수정 중 오류가 발생했습니다.");

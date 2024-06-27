@@ -641,6 +641,7 @@ function deleteProject() {
 
 function deleteTeamMember() {
     const memberId = $(this).closest('tr').find('#mCode').val();
+    console.log(memberId)
     if (memberId) {
         deletedMembers.push(memberId); // 삭제된 팀원의 ID를 배열에 추가
     }

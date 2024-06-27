@@ -85,7 +85,9 @@ public class PmService {
 
     @Transactional
     public void deleteMeeting(int meetingId) {
+        pmMapper.deleteMeetingMembersByMeetingId(meetingId);
         pmMapper.deleteMeeting(meetingId);
+
     }
 
     public List<PrMemDTO> getAllEmployees() {
@@ -93,6 +95,4 @@ public class PmService {
         logger.info("Fetched all employees: {}", employees);
         return employees;
     }
-
-
 }
