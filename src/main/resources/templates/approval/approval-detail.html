@@ -14,6 +14,7 @@
     <div th:replace="~{include/side/main-side :: side}"></div>
     <input type="hidden" id="approvalId" th:value="${approval.approvalId}">
     <input type="hidden" id="employeeCode" th:value="${user.employeeCode}">
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.0/ckeditor5.css">
     <link rel="stylesheet" href="/css/approval-form.css">
     
     <div class="page-wrapper">
@@ -106,7 +107,14 @@
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
-<script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
-<script src="/js/approval-detail.js"></script>
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/42.0.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/42.0.0/"
+        }
+    }
+</script>
+<script type="module" src="/js/approval-detail.js"></script>
 </body>
 </html>

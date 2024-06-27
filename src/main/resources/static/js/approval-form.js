@@ -1,3 +1,104 @@
+import {
+    ClassicEditor,
+    AccessibilityHelp,
+    Alignment,
+    AutoLink,
+    Autosave,
+    BlockQuote,
+    Bold,
+    Code,
+    CodeBlock,
+    Essentials,
+    FontColor,
+    FontFamily,
+    FontSize,
+    GeneralHtmlSupport,
+    HorizontalLine,
+    HtmlComment,
+    HtmlEmbed,
+    Indent,
+    IndentBlock,
+    Italic,
+    Link,
+    Paragraph,
+    SelectAll,
+    SourceEditing,
+    Strikethrough,
+    Table,
+    TableCaption,
+    TableCellProperties,
+    TableColumnResize,
+    TableProperties,
+    TableToolbar,
+    Underline,
+    Undo
+} from 'ckeditor5';
+
+import translations from 'ckeditor5/translations/ko.js';
+
+const editorConfig = {
+    toolbar: {
+        items: [
+            'undo', 'redo', '|',
+            'sourceEditing', 'selectAll', '|',
+            'fontSize', 'fontFamily', 'fontColor', '|',
+            'bold', 'italic', 'underline', 'strikethrough', 'code', '|',
+            'horizontalLine', 'link', 'insertTable', 'blockQuote', 'codeBlock', 'htmlEmbed', '|',
+            'alignment', '|',
+            'indent', 'outdent', '|'
+
+        ],
+        shouldNotGroupWhenFull: false
+    },
+    plugins: [
+        AccessibilityHelp, Alignment, AutoLink, Autosave, BlockQuote, Bold, Code, CodeBlock, Essentials,
+        GeneralHtmlSupport, HorizontalLine, HtmlComment, HtmlEmbed, Indent, IndentBlock, Italic, Link,
+        Paragraph, SelectAll, SourceEditing, Strikethrough, Table, TableCaption, TableCellProperties,
+        TableColumnResize, TableProperties, TableToolbar, Underline, Undo, FontColor, FontFamily, FontSize,
+    ],
+    fontFamily: {
+        supportAllValues: true
+    },
+    fontSize: {
+        options: [10, 12, 14, 'default', 18, 20, 22],
+        supportAllValues: true
+    },
+    htmlSupport: {
+        allow: [
+            {
+                name: /^.*$/,
+                styles: true,
+                attributes: true,
+                classes: true
+            }
+        ]
+    },
+    language: 'ko',
+    link: {
+        addTargetToExternalLinks: true,
+        defaultProtocol: 'https://',
+        decorators: {
+            toggleDownloadable: {
+                mode: 'manual',
+                label: 'Downloadable',
+                attributes: {
+                    download: 'file'
+                }
+            }
+        }
+    },
+    placeholder: 'Type or paste your content here!',
+    table: {
+        contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
+    },
+    translations: [translations]
+};
+
+let editorInstance;
+let isTreeReady = false;
+let isApTreeReady = false;
+let isCcTreeReady = false;
+
 $(document).ready(function () {
     const employeeCode = $('meta[name="employeeCode"]').attr('content');
 
@@ -5,20 +106,12 @@ $(document).ready(function () {
     initializeEventListeners();
     fetchData('/approval/tree', 'json', (data) => initializeTrees(data, employeeCode));
     fetchData('/approval/docno', 'json', populateDocNoDropdown);
-});
 
-let editorInstance;
-let isTreeReady = false;
-let isApTreeReady = false;
-let isCcTreeReady = false;
+});
 
 function initializeEditor() {
     ClassicEditor
-        .create(document.querySelector('#ap-editor'), {
-            removePlugins: ['Heading'],
-            language: "ko",
-            toolbar: ['bold', 'italic', 'link'],
-        })
+        .create(document.querySelector('#ap-editor'), editorConfig)
         .then(editor => {
             editorInstance = editor;
             $('style').append('.ck-content { height: 600px; }');
@@ -185,6 +278,10 @@ function addNewInput(containerSelector, employeeName, employeeCode) {
         </div>
     `;
     $(containerSelector).append(newInput);
+
+    $(containerSelector).find('.remove-btn').last().on('click', function () {
+        removeInput(this);
+    });
 }
 
 function fetchData(url, dataType, successCallback) {

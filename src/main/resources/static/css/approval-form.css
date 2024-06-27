@@ -58,6 +58,10 @@ body {
     height: 100%;
 }
 
+.card-body {
+    height: 100%;
+}
+
 .col-xl-5 .col-12 .mb-3,
 .form-group, .editor-label{
     height: 100%;
