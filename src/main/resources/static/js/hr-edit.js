@@ -300,5 +300,5 @@ function filter() {
     });
 
     // 검색어가 있으면 페이징 숨기기
-    document.querySelector('.pagination-hr-empmag').style.display = 'none';
+    document.querySelector('#pagination-hr-empmag').style.display = 'none';
 }
