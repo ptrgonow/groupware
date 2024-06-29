@@ -81,6 +81,16 @@ public interface HrMapper {
             "WHERE a2.employee_code = e.employee_code);")
     List<HrStatusDTO> getEmpStatus();
 
+    // 사원번호에 해당하는 직원 군무 상태
+    @Select("SELECT e.employee_code AS employeeCode, e.name, a.status, a.created_at AS createdAt " +
+            "FROM employee e " +
+            "LEFT JOIN attendance a ON e.employee_code = a.employee_code " +
+            "AND a.created_at = (SELECT MAX(a2.created_at) " +
+            "FROM attendance a2 " +
+            "WHERE a2.employee_code = e.employee_code) " +
+            "WHERE e.employee_code = #{employeeCode}")
+    HrStatusDTO getEmpStatusByCode(@Param("employeeCode") String employeeCode);
+
     // 사원번호에 해당하는 직원 상세 정보
     @Select("SELECT e.employee_code AS employeeCode, " +
             "e.name, " +
@@ -107,15 +117,20 @@ public interface HrMapper {
     List<String> getStatuses();
 
     // 새로운 출근 기록 추가
-    @Insert("INSERT INTO attendance (employee_code, check_in, status, created_at) VALUES (#{employeeCode}, NOW(), '근무중', NOW())")
+    @Insert("INSERT INTO attendance (employee_code, check_in, status, created_at) " +
+            "VALUES (#{employeeCode}, NOW(), '근무중', NOW())")
     void insertCheckIn(@Param("employeeCode") String employeeCode);
 
-    // 퇴근 시간 업데이트
-    @Update("UPDATE attendance SET check_out = NOW(), status = '퇴근' WHERE employee_code = #{employeeCode} AND check_out IS NULL AND status = '근무중'")
+    // 퇴근 기록 추가
+    @Update("UPDATE attendance SET check_out = NOW(), status = '퇴근' " +
+            "WHERE employee_code = #{employeeCode} " +
+            "AND created_at = (SELECT MAX(created_at) FROM attendance " +
+            "WHERE employee_code = #{employeeCode} AND check_out IS NULL AND status = '근무중')")
     void updateCheckOut(@Param("employeeCode") String employeeCode);
 
     // 새로운 휴가 기록 추가
-    @Insert("INSERT INTO attendance (employee_code, status, created_at) VALUES (#{employeeCode}, '휴가', NOW())")
+    @Insert("INSERT INTO attendance (employee_code, status, created_at) " +
+            "VALUES (#{employeeCode}, '휴가', NOW())")
     void insertVacation(@Param("employeeCode") String employeeCode);
 
     // created_at을 기준으로 가져온 사원 코드의 상태
@@ -143,13 +158,6 @@ public interface HrMapper {
             "WHERE employee_code = #{employeeCode}")
     void updateEmployeeDetails(HrEmployeeUpdateDTO employeeUpdateDTO);
 
-    // 특정 employee_code가 존재하는지 확인
-    @Select("SELECT COUNT(*) FROM employee WHERE employee_code = #{employeeCode}")
-    int countEmployee(String employeeCode);
-
-    // 해당 사원코드의 상태 변경
-    @Update("UPDATE attendance SET status = #{status}, created_at = NOW() WHERE employee_code = #{employeeCode} AND created_at = (SELECT MAX(created_at) FROM attendance WHERE employee_code = #{employeeCode})")
-    void updateStatus(@Param("employeeCode") String employeeCode, @Param("status") String status);
 
     // attendance 테이블에 employeeCode 존재 여부 확인
     @Select("SELECT COUNT(*) FROM attendance WHERE employee_code = #{employeeCode}")
