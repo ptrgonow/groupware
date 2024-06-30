@@ -55,8 +55,6 @@ body {
 .header .header-left .logo img {
     max-height: 45px;
     width: auto;
-    margin-left: 2.5rem;
-    margin-bottom: 0.5rem;
 }
 .header-left .logo.logo-small {
     display: none;

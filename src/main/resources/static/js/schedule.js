@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    var employee_code = $('meta[name="employee-code"]').attr('content');
-    var department_id = $('meta[name="department-id"]').attr('content');
+    var employee_code = $('meta[name="employeeCode"]').attr('content');
+    var department_id = $('meta[name="departmentId"]').attr('content');
     var currentEvent;
     var calendarEl = $('#calendar')[0];
     var dayCalendarEl = $('#day-calendar')[0];
@@ -57,7 +57,7 @@ $(document).ready(function() {
     function waitForSession() {
         return new Promise(function(resolve) {
             var checkSession = function() {
-                if ($('meta[name="employee-code"]').attr('content') && $('meta[name="department-id"]').attr('content')) {
+                if ($('meta[name="employeeCode"]').attr('content') && $('meta[name="departmentId"]').attr('content')) {
                     resolve();
                 } else {
                     setTimeout(checkSession, 100); // 100ms 후에 다시 확인

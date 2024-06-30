@@ -55,7 +55,9 @@ $(document).ready(function () {
             return;
         }
 
-        const employeeCode = $('input[name="employeeCode"]').val();
+        const employeeCode = $('meta[name="employeeCode"]').attr('content');
+        console.log(employeeCode);
+        console.log(typeof employeeCode);
 
         const requestData = {
             content: content,
