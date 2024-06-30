@@ -93,17 +93,16 @@ public class FileController {
     @PostMapping("/reg")
     public ResponseEntity<Map<String, Object>> reg(@RequestParam String fileCd,
                                                    @RequestParam String title,
-                                                   @RequestParam String department_name,
-                                                   HttpSession session) {
+                                                   @RequestParam String department_name) {
 
         List<DeptDTO> deptList = userService.getAllDepartments();
-        UserDTO user = (UserDTO) session.getAttribute("user");
+        Map<String, Object> response = new HashMap<>();
 
-        // 문서 번호 존재 확인 여부
-        boolean isFileExists = fileService.existFileCd(fileCd);
-        if(isFileExists) {
-            Map<String, Object> response = new HashMap<>();
+        // 중복 확인
+        String duplicationMessage = fileService.checkFileDuplication(fileCd, title);
+        if (duplicationMessage != null) {
             response.put("success", false);
+            response.put("message", duplicationMessage);
             return ResponseEntity.ok(response);
         }
 
@@ -114,7 +113,6 @@ public class FileController {
 
         fileService.insertFile(file);
 
-        Map<String, Object> response = new HashMap<>();
         response.put("deptList", deptList);
         response.put("success", true);
 

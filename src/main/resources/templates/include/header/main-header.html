@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>그룹웨어</title>
+    <meta name="employeeCode" th:content="${session.user != null} ? ${session.user.employeeCode} : ''">
     <link rel="icon" href="/img/icons8.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,10 +22,10 @@
     
     <div class="header-left">
         <a href="/" class="logo">
-            <img src="/img/logo.jpeg" alt="Logo">
+            <img src="/img/cut.png" alt="Logo">
         </a>
         <a href="/" class="logo logo-small">
-            <img src="/img/logo.jpeg" alt="Logo">
+            <img src="/img/cut.png" alt="Logo">
         </a>
         <a href="javascript:void(0);" id="toggle_btn">
             <span class="bar-icon">

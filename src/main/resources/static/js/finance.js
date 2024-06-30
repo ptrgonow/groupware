@@ -168,14 +168,12 @@ const paymentForm = `
             </div>
         </div>
         <div>
-         
             <div class="fi-input">
-                <textarea type="text" name="memo" id="memo"></textarea>
                 <label for="memo">메모</label>
+                <textarea type="text" name="memo" id="memo"></textarea>
             </div>
         </div>
     </div>
-    
 `;
 
 // 폼 데이터 저장 객체
@@ -283,8 +281,8 @@ function renderChart(chartData) {
     const colorMap = {
         '공과금': '#61a4ec',
         '임대료': '#f5cf58',
-        '일반': '#28a745',
-        '긴급': '#dc3545',
+        '일반 지출': '#28a745',
+        '긴급 지출': '#dc3545',
         // 필요한 경우 더 많은 매핑 추가
     };
 

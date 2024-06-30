@@ -22,7 +22,6 @@ $(document).ready(function () {
         $('#pagination-mini').pagination({
             dataSource: todoList,
             pageSize: 6,
-            showNavigator: true,
             callback: function(data, pagination) {
                 var todoContainer = $('#todolist');
                 todoContainer.empty();
@@ -34,7 +33,7 @@ $(document).ready(function () {
                                 <input type="checkbox" class="form-check-input todo-checkbox" ${todo.completed ? 'checked' : ''}>
                                 <span class="todo-txt ${todo.completed ? 'text-decoration-line-through' : ''}">${todo.content}</span>
                             </div>
-                            <div class="btn-group">
+                            <div class="btn-group-todo">
                                 <button id="edit-btn" class="edit-btn btn" style="${todo.completed ? 'display:none;' : ''}" data-todo-id="${todo.todoId}">수정</button>
                                 <button id="delete-btn" class="delete-btn btn" style="${!todo.completed ? 'display:none;' : ''}" data-todo-id="${todo.todoId}">삭제</button>
                             </div>
@@ -56,7 +55,9 @@ $(document).ready(function () {
             return;
         }
 
-        const employeeCode = $('input[name="employeeCode"]').val();
+        const employeeCode = $('meta[name="employeeCode"]').attr('content');
+        console.log(employeeCode);
+        console.log(typeof employeeCode);
 
         const requestData = {
             content: content,

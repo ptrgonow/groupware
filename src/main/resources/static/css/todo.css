@@ -21,10 +21,8 @@ body {
     height: 100%;
 }
 
-
-
 #edit-btn {
-    width: 60px;
+    width: 80px;
     height: 40px;
     background-color: #525252;
     color: white;
@@ -62,7 +60,7 @@ body {
 }
 
 #delete-btn {
-    width: 60px;
+    width: 80px;
     height: 40px;
     background-color: #f44336;
     color: white;
@@ -80,12 +78,27 @@ body {
     transition: all 0.3s ease-in;
 }
 
+.btn-group-todo{
+    width: 15%;
+
+}
+.btn-group>.btn {
+    flex: 0 auto;
+
+}
+
+.list-group{
+    height: 500px;
+    align-items: stretch;
+}
+
 .list-group-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: none;
     border-bottom: 1px solid #eee9e9;
+    height: 84px;
 }
 .list-group-item:hover {
     background-color: #f9f9f9;
@@ -96,7 +109,7 @@ body {
 }
 
 .input-group {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .todo-checkbox {
@@ -108,14 +121,13 @@ body {
     text-decoration: line-through;
 }
 
-.col-xl-12 {
-    height: 600px;
-}
-
-.card {
-    height: 100%;
+.card.w-100 {
     display: flex;
     flex-direction: column;
+    border: none;
+    min-height: 800px;
+    max-height: 800px;
+    overflow: hidden;
 }
 
 .card-body {
@@ -123,25 +135,14 @@ body {
     overflow-y: auto;
 }
 
-#pagination-mini {
-    position: relative;
-    bottom: 0;
-    margin-top: 2rem;
-    width: fit-content;
+.pagination-mini {
+    position: absolute;
+    width: 100%;
+    bottom: 30px;
     display: flex;
     justify-content: center;
 }
 
-#td-con {
-    height: 400px;
-    min-height: 400px;
-}
-
 #list {
     height: 100%;
-}
-
-.card .w-100{
-    min-height: fit-content;
-    border: none;
 }

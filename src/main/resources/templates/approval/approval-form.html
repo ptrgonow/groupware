@@ -18,6 +18,7 @@
     <div th:replace="~{include/side/main-side :: side}"></div>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" />
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.0/ckeditor5.css">
     <link rel="stylesheet" href="/css/approval-form.css">
     
     <div class="page-wrapper">
@@ -117,8 +118,15 @@
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
-<script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/42.0.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/42.0.0/"
+        }
+    }
+</script>
+<script type="module" src="/js/approval-form.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
-<script src="/js/approval-form.js"></script>
 </body>
 </html>

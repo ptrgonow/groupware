@@ -72,7 +72,7 @@
             </div>
 
             <!-- 인원현황 피드 -->
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-xl-6 col-12 d-flex">
                     <div class="card w-100">
                         <div class="card-header">
@@ -152,91 +152,71 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-xl-6 col-12 d-flex">
-                        <div class="card w-100">
-                            <div class="card-header">
-                                <h4 class="card-title">새로운 요청</h4>
-                            </div>
-
-
-                            <div class="card-body pb-0">
-                                <table class="ap-tbl">
-                                    <thead >
-                                    <tr class="team-view">
-                                        <th class="team-content">이름 </th>
-                                        <th class="team-content">부서명 </th>
-                                        <th class="team-content">제목 </th>
-                                        <th class="team-content">날짜 </th>
-                                        <th class="team-content">상태</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="initial-hrApproval-container">
-                                    <tr class="team-list" th:each="hrAp:${hrApproval}">
-                                        <td class="ap-name" th:text="${hrAp.name}"></td>
-                                        <td class="ap-dep" th:text="${hrAp.departmentName}"></td>
-                                        <td class="ap-cont" id="ap-title" th:text="${hrAp.title}"></td>
-                                        <td class="ap-cont" id="ap-date" th:text="${#dates.format(hrAp.createdAt, 'yyyy-MM-dd')}"></td>
-                                        <td class="ap-cont" id="ap-status" th:text="${hrAp.status}"></td>
-                                    </tr>
-                                    </tbody>
-
-                                </table>
-                                <div class="pagination-mini">
-                                    <div id="hrApproval-Pagination"></div>
-                                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100 text-center">
+                        <div class="card-header">
+                            <h4 class="card-title">새로운 요청</h4>
+                        </div>
+                        
+                        
+                        <div class="card-body pb-0">
+                            <table class="ap-tbl">
+                                <thead >
+                                <tr class="team-view">
+                                    <th class="team-content">이름 </th>
+                                    <th class="team-content">부서명 </th>
+                                    <th class="team-content">제목 </th>
+                                    <th class="team-content">날짜 </th>
+                                    <th class="team-content">상태</th>
+                                </tr>
+                                </thead>
+                                <tbody id="initial-hrApproval-container">
+                                <tr class="team-list" th:each="hrAp:${hrApproval}">
+                                    <td class="ap-name" th:text="${hrAp.name}"></td>
+                                    <td class="ap-dep" th:text="${hrAp.departmentName}"></td>
+                                    <td class="ap-cont" id="ap-title" th:text="${hrAp.title}"></td>
+                                    <td class="ap-cont" id="ap-date" th:text="${#dates.format(hrAp.createdAt, 'yyyy-MM-dd')}"></td>
+                                    <td class="ap-cont" id="ap-status" th:text="${hrAp.status}"></td>
+                                </tr>
+                                </tbody>
+                            
+                            </table>
+                            <div class="pagination-mini">
+                                <div id="hrApproval-Pagination"></div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- 사원관리 피드 -->
-                    <div class="col-xl-6 col-12 d-flex">
-                        <div class="card w-100">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">사원 관리</h4>
-                                    <a class="edit_employee" href="/hr/edit"><i data-feather="edit"></i></a>
-                                </div>
+                </div>
+                
+                <!-- 사원관리 피드 -->
+                <div class="col-xl-6 col-12 d-flex">
+                    <div class="card w-100">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title">사원 관리</h4>
+                                <a class="edit_employee" href="/hr/edit"><i data-feather="edit"></i></a>
                             </div>
-                            <div class="card-body dash-activity">
-                                <div class="activity_scroll">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-xl-6 e-group">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <div class="employee-head">
-                                                            <h2>인사관리팀</h2>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="employee-content">
-                                                            <div class="employee-image">
-                                                                <div class="avatar-group">
-                                                                    <div th:each="hrm : ${hrManagers}" class="manager-item">
-                                                                        <p>관리자</p><p th:text="${hrm.name}"></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                        </div>
+                        <div class="card-body dash-activity">
+                            <div class="activity_scroll">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-xl-6 e-group">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <div class="employee-head">
+                                                        <h2>인사관리팀</h2>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xl-6 e-group">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <div class="employee-head">
-                                                            <h2>재무관리팀</h2>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="employee-content">
-                                                            <div class="employee-image">
-                                                                <div class="avatar-group">
-                                                                    <div th:each="fim : ${financeManagers}" class="manager-item">
-                                                                        <p>관리자</p><p th:text="${fim.name}"></p>
-                                                                    </div>
+                                                <div class="card-body">
+                                                    <div class="employee-content">
+                                                        <div class="employee-image">
+                                                            <div class="avatar-group">
+                                                                <div th:each="hrm : ${hrManagers}" class="manager-item">
+                                                                    <p>관리자</p><p th:text="${hrm.name}"></p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -244,41 +224,61 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-xl-6 e-group">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <div class="employee-head">
-                                                            <h2>개발 1팀</h2>
-                                                        </div>
+                                        <div class="col-xl-6 e-group">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <div class="employee-head">
+                                                        <h2>재무관리팀</h2>
                                                     </div>
-                                                    <div class="card-body">
-                                                        <div class="employee-content">
-                                                            <div class="employee-image">
-                                                                <div class="avatar-group">
-                                                                    <div th:each="devF : ${developManagerF}" class="manager-item">
-                                                                        <p>관리자</p><p th:text="${devF.name}"></p>
-                                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="employee-content">
+                                                        <div class="employee-image">
+                                                            <div class="avatar-group">
+                                                                <div th:each="fim : ${financeManagers}" class="manager-item">
+                                                                    <p>관리자</p><p th:text="${fim.name}"></p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-6 e-group">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <div class="employee-head">
-                                                            <h2>개발 2팀</h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-6 e-group">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <div class="employee-head">
+                                                        <h2>개발 1팀</h2>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="employee-content">
+                                                        <div class="employee-image">
+                                                            <div class="avatar-group">
+                                                                <div th:each="devF : ${developManagerF}" class="manager-item">
+                                                                    <p>관리자</p><p th:text="${devF.name}"></p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-body">
-                                                        <div class="employee-content">
-                                                            <div class="employee-image">
-                                                                <div class="avatar-group">
-                                                                    <div th:each="devS : ${developManagerS}" class="manager-item">
-                                                                        <p>관리자</p><p th:text="${devS.name}"></p>
-                                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 e-group">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <div class="employee-head">
+                                                        <h2>개발 2팀</h2>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="employee-content">
+                                                        <div class="employee-image">
+                                                            <div class="avatar-group">
+                                                                <div th:each="devS : ${developManagerS}" class="manager-item">
+                                                                    <p>관리자</p><p th:text="${devS.name}"></p>
                                                                 </div>
                                                             </div>
                                                         </div>

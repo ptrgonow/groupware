@@ -200,6 +200,9 @@ body {
     cursor: pointer;
     padding: 10px 20px;
     margin-left: 5px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .delete-btn:hover {

@@ -15,7 +15,7 @@ public interface NoticeMapper {
          "FROM notice n " +
          "JOIN employee e ON n.employee_code = e.employee_code " +
          "JOIN department d ON e.department_id = d.department_id " +
-         "ORDER BY n.notice_id DESC")
+         "ORDER BY created_at DESC")
  List<NoticeDTO> getAllNotices();
 
 

@@ -66,11 +66,11 @@
                                         <form id="fileRegForm" method="post" th:action="@{/file/reg}">
                                             <div class="mb-3">
                                                 <label for="title" class="col-form-label">문서번호:</label>
-                                                <input type="text" class="form-control" id="fileCd" name="fileCd">
+                                                <input type="text" class="form-control" id="fileCd" name="fileCd" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="title" class="col-form-label">결재 양식명:</label>
-                                                <input type="text" class="form-control" id="title" name="title">
+                                                <input type="text" class="form-control" id="title" name="title" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="departmentSelect" class="col-form-label">결재 담당 부서:</label>

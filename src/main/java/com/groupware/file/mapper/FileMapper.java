@@ -32,6 +32,11 @@ public interface FileMapper {
             "WHERE file_cd = #{fileCd}")
     boolean existFileCd(@Param("fileCd") String fileCd);
 
+    // 문서 등록 시 중복된 문서명 확인
+    @Select("SELECT count(*) > 0 FROM templates " +
+            "WHERE title = #{title}")
+    boolean existFileTitle(@Param("title") String title);
+
     // 문서 삭제
     @Delete("DELETE FROM templates WHERE id=#{id}")
     void deleteFile(int id);

@@ -1,3 +1,93 @@
+import {
+    ClassicEditor,
+    AccessibilityHelp,
+    Alignment,
+    AutoLink,
+    Autosave,
+    BlockQuote,
+    Bold,
+    Code,
+    CodeBlock,
+    Essentials,
+    FontColor,
+    FontFamily,
+    FontSize,
+    GeneralHtmlSupport,
+    HorizontalLine,
+    HtmlComment,
+    HtmlEmbed,
+    Indent,
+    IndentBlock,
+    Italic,
+    Link,
+    Paragraph,
+    SelectAll,
+    SourceEditing,
+    Strikethrough,
+    Table,
+    TableCaption,
+    TableCellProperties,
+    TableColumnResize,
+    TableProperties,
+    TableToolbar,
+    Underline,
+    Undo
+} from 'ckeditor5';
+
+import translations from 'ckeditor5/translations/ko.js';
+
+const editorConfig = {
+    toolbar: {
+        items: [
+        ],
+    },
+    plugins: [
+        AccessibilityHelp, Alignment, AutoLink, Autosave, BlockQuote, Bold, Code, CodeBlock, Essentials,
+        GeneralHtmlSupport, HorizontalLine, HtmlComment, HtmlEmbed, Indent, IndentBlock, Italic, Link,
+        Paragraph, SelectAll, SourceEditing, Strikethrough, Table, TableCaption, TableCellProperties,
+        TableColumnResize, TableProperties, TableToolbar, Underline, Undo, FontColor, FontFamily, FontSize,
+    ],
+    fontFamily: {
+        supportAllValues: true
+    },
+    fontSize: {
+        options: [10, 12, 14, 'default', 18, 20, 22],
+        supportAllValues: true
+    },
+    htmlSupport: {
+        allow: [
+            {
+                name: /^.*$/,
+                styles: true,
+                attributes: true,
+                classes: true
+            }
+        ]
+    },
+    language: 'ko',
+    link: {
+        addTargetToExternalLinks: true,
+        defaultProtocol: 'https://',
+        decorators: {
+            toggleDownloadable: {
+                mode: 'manual',
+                label: 'Downloadable',
+                attributes: {
+                    download: 'file'
+                }
+            }
+        }
+    },
+    placeholder: 'Type or paste your content here!',
+    table: {
+        contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
+    },
+    translations: [translations]
+};
+
+
+
+
 let editorInstance;
 
 $(document).ready(function () {
@@ -27,15 +117,11 @@ function initializeEventListeners() {
 // 에디터 초기화
 function initializeEditor() {
     ClassicEditor
-        .create(document.querySelector('#ap-editor'), {
-            removePlugins: ['Heading'],
-            language: 'ko',
-            toolbar: [], // 툴바 비활성화
-        })
+        .create(document.querySelector('#ap-editor'), editorConfig)
         .then(editor => {
             editorInstance = editor;
             editor.enableReadOnlyMode('read-only-lock');
-            $('style').append('.ck-content { height: 600px; }');
+            $('style').append('.ck-content { height: 900px; }');
             updateEditorContent();
         })
         .catch(error => {

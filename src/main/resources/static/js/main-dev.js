@@ -53,7 +53,6 @@ function fetchTeamMembers() {
                             data-department="${member.departmentName}"
                             data-position="${member.positionName}">선택</button>
                         </td>
-                        
                     </tr>
                 `;
             });
@@ -79,11 +78,12 @@ function selectTeamMember() {
             <td>${name}</td>
             <td>${department}</td>
             <td>${position}</td>
-            <td class="delete-team-member">@</td>
+            <td class="delete-team-member"><button type="button" class="btn btn-sm btn-danger">삭제</button></td>
             <input type="hidden" id="eCode" value="${employeeCode}">
         </tr>
     `);
 
+    console.log('Selected member:', name, department, position, employeeCode);
     // 팀원 추가 모달 닫기
     $('#addMemberModal').modal('hide');
 }
@@ -359,7 +359,7 @@ function editProject() {
                 <td>${member.memberName}</td>
                 <td>${member.memberDepartmentName}</td>
                 <td>${member.memberPosition}</td>
-                <td class="delete-team-member">@</td>
+                <td class="delete-team-member"><button type="button" class="btn btn-sm btn-danger">삭제</button></td>
                 <input type="hidden" id="mCode" value="${member.memberId}">
                 <input type="hidden" id="eCode" value="${member.memberEmployeeCode}">
             </tr>
@@ -641,6 +641,7 @@ function deleteProject() {
 
 function deleteTeamMember() {
     const memberId = $(this).closest('tr').find('#mCode').val();
+    console.log(memberId)
     if (memberId) {
         deletedMembers.push(memberId); // 삭제된 팀원의 ID를 배열에 추가
     }

@@ -13,8 +13,8 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="row">
-                <div class="col-xl-12">
-                    <div class="card flex-fill">
+                <div class="col-xl-12 col-12 h-100">
+                    <div class="card w-100">
                         <div class="card-header text-center">
                             <h5 class="card-title">Todo</h5>
                         </div>
@@ -38,13 +38,12 @@
                                 <div id="list" class="col-xl-5 col-12">
                                     <h4>List</h4>
                                     <div class="card w-100">
-                                    <div class="list-group">
-                                        <ul id="todolist" class="list-group"></ul>
-                                        
-                                    </div>
-                                    <div class="pagination-mini">
-                                    <div id="pagination-mini"></div>
-                                    </div>
+                                        <div class="list-group">
+                                            <ul id="todolist" class="list-group"></ul>
+                                        </div>
+                                        <div class="pagination-mini">
+                                            <div id="pagination-mini"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -54,9 +53,6 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
 <script src="/js/todo.js"></script>

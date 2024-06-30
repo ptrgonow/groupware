@@ -67,7 +67,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="eventModalLabel">이벤트 등록</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="eventForm">
@@ -99,8 +99,11 @@
                             <option value="휴가">휴가</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary" id="submitEventBtn">등록</button>
-                    <button type="button" class="btn btn-danger" id="deleteEventBtn" style="display: none;">삭제</button>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary" id="submitEventBtn">등록</button>
+                        <button type="button" class="btn btn-danger" id="deleteEventBtn" style="display: none;">삭제</button>
+                    </div>
+                    
                 </form>
             </div>
         </div>

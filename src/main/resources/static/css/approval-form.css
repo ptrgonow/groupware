@@ -21,6 +21,10 @@ body {
     height: 100%;
 }
 
+.page-wrapper > .content {
+    height: 1294px;
+}
+
 #btn-group {
     gap: 1rem;
 }
@@ -51,6 +55,10 @@ body {
 }
 
 .card {
+    height: 100%;
+}
+
+.card-body {
     height: 100%;
 }
 

@@ -42,7 +42,16 @@ public class HrService {
     }
 
     public List<HrEmplMagDTO> getEmplManagement() {
-        return hrMapper.getEmplManagement();
+        List<HrEmplMagDTO> nowStatus = hrMapper.getEmplManagement();
+
+        if(nowStatus != null){
+            for(HrEmplMagDTO allStatus : nowStatus){
+                if(allStatus.getStatus() == null){
+                    allStatus.setStatus("퇴근");
+                }
+            }
+        }
+        return nowStatus;
     }
 
     public List<HrStatusDTO> getEmpStatus(){
@@ -98,35 +107,61 @@ public class HrService {
         return hrMapper.getHrApproval();
     }
 
-    public void deleteEmployeeByCode(String employeeCode){
+    @Transactional
+    public boolean deleteEmployee(String employeeCode) {
+        // attendance 테이블에서 해당 employee_code 레코드 삭제
+        hrMapper.deleteAttendanceByEmployeeCode(employeeCode);
+        // employee 테이블에서 해당 employee_code 레코드 삭제
         hrMapper.deleteEmployeeByCode(employeeCode);
+        return true;
     }
 
     @Transactional
     public Map<String, Object> updateEmployeeDetails(HrEmployeeUpdateDTO employeeUpdateDTO) {
-        Map<String, Object> response = new HashMap<>();
-        if (!employeeUpdateDTO.getEmployeeCode().equals(employeeUpdateDTO.getNewEmployeeCode())) {
-            int count = hrMapper.countEmployee(employeeUpdateDTO.getNewEmployeeCode());
-            if (count > 0) {
-                response.put("error", "duplicate");
-                return response;
-            }
+        Map<String, Object> result = new HashMap<>();
+        try {
+            hrMapper.updateEmployeeDetails(employeeUpdateDTO);
+            result.put("success", true);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("error", e.getMessage());
         }
-        hrMapper.updateEmployee(employeeUpdateDTO);
-        response.put("success", true);
+        return result;
+    }
+
+
+    @Transactional
+    public Map<String, String> updateStatus(String employeeCode, String status) {
+        Map<String, String> response = new HashMap<>();
+        HrStatusDTO currentStatusDTO = hrMapper.getEmpStatusByCode(employeeCode);
+        if (currentStatusDTO != null) {
+            String currentStatus = currentStatusDTO.getStatus();
+            if ("근무중".equals(currentStatus) && "휴가".equals(status)) {
+                response.put("error", "check_out_first");
+            } else if ("휴가".equals(currentStatus) && "퇴근".equals(status)) {
+                response.put("error", "no_check_in");
+            } else {
+                if ("근무중".equals(status)) {
+                    hrMapper.insertCheckIn(employeeCode);
+                } else if ("퇴근".equals(status)) {
+                    hrMapper.updateCheckOut(employeeCode);
+                } else if ("휴가".equals(status)) {
+                    hrMapper.insertVacation(employeeCode);
+                }
+                response.put("success", "true");
+            }
+        } else {
+            response.put("error", "not_found");
+        }
         return response;
     }
 
-    public boolean updateStatus(String employeeCode, String status) {
-        int count = hrMapper.countByEmployeeCode(employeeCode);
-        if (count > 0) {  // attendance 테이블에 사원 코드가 있다면
-            hrMapper.updateStatus(employeeCode, status);
-            return true;
-        } else {
-            return false;
-        }
+    public HrStatusDTO getEmpStatusByCode(String employeeCode) {
+        return hrMapper.getEmpStatusByCode(employeeCode);
     }
 
-
+    public List<HrEmplMagDTO> searchUsers(String search) {
+        return hrMapper.searchUsers(search);
+    }
 
 }

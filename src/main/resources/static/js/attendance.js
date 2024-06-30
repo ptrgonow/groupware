@@ -4,7 +4,8 @@ $(document).ready(function() {
     const endButton = $('#end-button');
     const actionInput = $('#action');
     const form = $('#attendance-form');
-    const employeeCodeInput = $('input[name="employee_code"]');
+    // 메타로 넘겨준 거 가져오기
+    const employeeCodeInput = $('meta[name="employeeCode"]').attr('content');
 
     function handleButtonClick(action) {
         actionInput.val(action);
@@ -50,7 +51,7 @@ $(document).ready(function() {
 
     // 초기 로드 시 버튼 상태를 설정합니다.
     $.ajax({
-        url: `/att/status?employee_code=${employeeCodeInput.val()}`,
+        url: `/att/status?employee_code=${employeeCodeInput}`,
         type: 'GET',
         success: function(data) {
             if (data && data.status === '근무중') {
@@ -69,7 +70,7 @@ $(document).ready(function() {
     // 실시간으로 프로그레스 바를 업데이트합니다.
     function updateAttendanceRecords() {
         $.ajax({
-            url: `/att/records?employee_code=${employeeCodeInput.val()}`,
+            url: `/att/records?employee_code=${employeeCodeInput}`,
             type: 'GET',
             success: function(data) {
                 if (data && data.length > 0) {

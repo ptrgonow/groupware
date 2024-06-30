@@ -25,6 +25,14 @@ body {
     height: 100%;
 }
 
+textarea {
+    width: 100%;
+    height: 300px;
+    resize: none;
+    border: none;
+    outline: none;
+}
+
 
 input[type='radio'] {
     -webkit-appearance: none;
@@ -112,7 +120,9 @@ input[type='radio']:checked {
 }
 
 .task-edit-tbl .col-t2 {
-    width: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .task-edit-tbl .col-t3 {
     width: 10%;
@@ -373,7 +383,9 @@ input[type='radio']:checked {
 }
 
 .commit-details {
+    display: flex;
     width: 100%;
+    justify-content: end;
     margin-top: 10px;
 }
 

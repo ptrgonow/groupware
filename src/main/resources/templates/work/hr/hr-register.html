@@ -38,15 +38,15 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="EmployeeCode">사원번호</label>
-                                            <input type="text" class="form-control-sm" id="EmployeeCode" name="employee_code">
+                                            <input type="text" class="form-control-sm" id="EmployeeCode" name="employee_code" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">이름</label>
-                                            <input type="text" class="form-control-sm" id="name" name="name">
+                                            <input type="text" class="form-control-sm" id="name" name="name" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="birth">생년월일</label>
-                                            <input type="date" class="form-control-sm" id="birth" name="birth_date">
+                                            <input type="date" class="form-control-sm" id="birth" name="birth_date" required>
                                         </div>
 
                                         <div class="form-group">
@@ -85,7 +85,7 @@
                                         <div class="row d-flex justify-content-center align-items-center">
                                             <div class="form-btn">
                                                 <button id="regi-btn" type="submit" class="btn">등록</button>
-                                                <button id="back-btn" type="button" th:attr="onclick='history.back()'" class="btn">취소</button>
+                                                <button id="cancel-btn" type="button" th:attr="onclick='history.back()'" class="btn">취소</button>
                                             </div>
                                         </div>
                                     </div>

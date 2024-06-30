@@ -1,9 +1,6 @@
 package com.groupware.work.hr.controller;
 
-import com.groupware.work.hr.dto.HrEmplMagDTO;
-import com.groupware.work.hr.dto.HrEmployeeUpdateDTO;
-import com.groupware.work.hr.dto.HrStatusDTO;
-import com.groupware.work.hr.dto.TodayWorkerDTO;
+import com.groupware.work.hr.dto.*;
 import com.groupware.work.hr.service.HrService;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,18 +30,28 @@ public class HrController {
     }
 
     @GetMapping("/statuses")
-    public List<String> getStatuses() {
-        return hrService.getStatuses();
+    public List<HrStatusDTO> getEmpStatus() {
+        return hrService.getEmpStatus();
+    }
+
+    @GetMapping("/status/{employeeCode}")
+    public ResponseEntity<HrStatusDTO> getCurrentStatus(@PathVariable String employeeCode) {
+        HrStatusDTO status = hrService.getEmpStatusByCode(employeeCode);
+        if (status != null) {
+            return ResponseEntity.ok(status);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @PostMapping("/updatestatus")
     public ResponseEntity<Map<String, Object>> updateStatus(@RequestBody HrStatusDTO hrStatusDTO) {
-        boolean updated = hrService.updateStatus(hrStatusDTO.getEmployeeCode(), hrStatusDTO.getStatus());
+        Map<String, String> result = hrService.updateStatus(hrStatusDTO.getEmployeeCode(), hrStatusDTO.getStatus());
         Map<String, Object> response = new HashMap<>();
-        if (updated) {
+        if ("true".equals(result.get("success"))) {
             response.put("success", true);
         } else {
-            response.put("error", "not_found");
+            response.put("error", result.get("error"));
         }
         return ResponseEntity.ok(response);
     }
@@ -65,7 +72,7 @@ public class HrController {
 
     @PostMapping("/empdelete")
     public ResponseEntity<Map<String, Object>> deleteEmployee(@RequestParam String employeeCode) {
-        hrService.deleteEmployeeByCode(employeeCode);
+        hrService.deleteEmployee(employeeCode);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("message", "사원 정보가 삭제되었습니다.");
@@ -76,6 +83,15 @@ public class HrController {
     public ResponseEntity<Map<String, Object>> updateEmployee(@RequestBody HrEmployeeUpdateDTO employeeUpdateDTO) {
         Map<String, Object> result = hrService.updateEmployeeDetails(employeeUpdateDTO);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<HrEmpSearchDTO> searchUsers(@RequestParam("search") String search) {
+        List<HrEmplMagDTO> users = hrService.searchUsers(search);
+        List<String> status = hrService.getStatuses();
+
+        HrEmpSearchDTO response = new HrEmpSearchDTO(users, status);
+        return ResponseEntity.ok(response);
     }
 
 }

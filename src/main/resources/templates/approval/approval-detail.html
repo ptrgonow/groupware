@@ -14,13 +14,14 @@
     <div th:replace="~{include/side/main-side :: side}"></div>
     <input type="hidden" id="approvalId" th:value="${approval.approvalId}">
     <input type="hidden" id="employeeCode" th:value="${user.employeeCode}">
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.0/ckeditor5.css">
     <link rel="stylesheet" href="/css/approval-form.css">
     
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="row d-flex justify-content-center">
-                <div class="col-xl-8">
-                    <div class="card flex-fill">
+                <div class="col-xl-8 col-12 h-100">
+                    <div class="card h-100">
                         <div class="card-header sign">
                             <div class="sign-container" th:each="con, stat : ${consensuses}">
                                 <div class="sign-box">
@@ -67,8 +68,8 @@
                         </div>
                         <div class="card-body d-flex justify-content-center">
                             <div class="col-xl-8 col-12 mb-3">
-                                <form id="form-group" class="w-100">
-                                    <div class="form-floating flex-grow-1">
+                                <form id="form-group" class="w-100 h-100">
+                                    <div class="form-floating flex-grow-1 h-100">
                                         <div class="editor-label">
                                             <label for="ap-editor" id="apLabel"></label>
                                             <textarea id="ap-editor" class="form-control-editor" aria-describedby="apLabel"></textarea>
@@ -106,7 +107,14 @@
 </div>
 
 <div th:replace="~{include/footer/scriptfooter :: footer}"></div>
-<script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
-<script src="/js/approval-detail.js"></script>
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/42.0.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/42.0.0/"
+        }
+    }
+</script>
+<script type="module" src="/js/approval-detail.js"></script>
 </body>
 </html>

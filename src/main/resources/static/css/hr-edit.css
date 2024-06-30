@@ -21,6 +21,12 @@ body {
     height: 100%;
 }
 
+.card.w-100 {
+
+    min-height: 100%;
+    max-height: 100%;
+}
+
 .form-control.me-2{
     width: 200px;
     height: 32px;
@@ -36,7 +42,11 @@ body {
 .employee-search{
     display: flex;
     justify-content: end;
-    margin-right: 100px;
+}
+
+.material-symbols-outlined.search {
+    margin-top: 5px;
+    margin-right: 5px;
 }
 
 .btn-outline-success {
@@ -69,8 +79,7 @@ table.type11 {
     border-spacing: 1px;
     text-align: center;
     line-height: 1.5;
-    margin: 60px 10px;
-    width: 90%;
+    width: 100%;
 }
 
 table.type11 th {
@@ -123,16 +132,21 @@ table.type11 td {
 .btn-area{
     display: flex;
     justify-content: flex-end;
-    margin-right: 240px;
-    margin-bottom: 30px;
+
 }
 
-.btn.btn-primary{
+#emp-reg-btn{
     width: 100px;
     background-color: #6c757d;
     border: none;
     color: white;
     padding: 7px;
+}
+
+#emp-reg-btn:hover{
+    color: #6c757d;
+    background-color: #fff;
+    border: 1px solid #6c757d;
 }
 
 /* 상태 변경 버튼 */
@@ -149,11 +163,11 @@ table.type11 td {
 
 /* 페이징 */
 .pagination-mini {
-    position: absolute;
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
-    bottom: 80px;
+    bottom: 0;
 }
 /* 모달 */
 .modal-body {
@@ -175,4 +189,17 @@ table.type11 td {
 
 #enableNewEmployeeCode{
     margin-right: 5px;
+}
+
+.list-btn{
+    background-color: #3A3B3F;
+    color: #fff;
+    padding: 5px;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.list-btn:hover{
+    color: #3A3B3F;
+    background-color: lightgrey;
 }

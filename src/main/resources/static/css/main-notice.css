@@ -218,7 +218,7 @@ th {
 
 /* 페이징 */
 
-.card-body-inner {
+.card-body {
     position: relative;
     padding-bottom: 5rem;
     height: 700px;
@@ -233,7 +233,7 @@ th {
     bottom:30px;
 
 }
-.card-body-inner ul li {
+.card-body ul li {
     margin-right: 0;
 }
 

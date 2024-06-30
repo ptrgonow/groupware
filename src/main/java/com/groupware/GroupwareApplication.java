@@ -9,15 +9,15 @@ import java.io.IOException;
 
 @SpringBootApplication
 @EnableJdbcHttpSession
-public class GroupwareApplication /*implements CommandLineRunner*/ {
+public class GroupwareApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(GroupwareApplication.class, args);
     }
 
-   /* @Override
+    @Override
     public void run(String... args) throws Exception {
-        *//*startNgrok();*//*
+        startNgrok();
     }
 
     private void startNgrok( ) {
@@ -36,5 +36,5 @@ public class GroupwareApplication /*implements CommandLineRunner*/ {
             System.out.println("ngrok 실행에 실패했습니다.");
             System.out.println(e);
         }
-    }*/
+    }
 }

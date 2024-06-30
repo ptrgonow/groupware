@@ -99,8 +99,6 @@ public class ApController {
                     userStatus = "NONE";
                 }
 
-
-
                 model.addAttribute("userStatus", userStatus);
                 model.addAttribute("checkConsensus", isConsensus);
                 model.addAttribute("consensusStatus", isConsensusStatusStr);

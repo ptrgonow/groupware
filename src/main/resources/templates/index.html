@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    
+
     <title>그룹웨어</title>
     <link rel="icon" href="/img/icons8.png" type="image/x-icon">
-    <meta name="employee-code" th:content="${user.employeeCode}">
-    <meta name="department-id" th:content="${user.departmentId}">
+    <meta name="employeeCode" th:content="${user.employeeCode}">
+    <meta name="departmentId" th:content="${user.departmentId}">
 
 </head>
 
@@ -13,19 +13,18 @@
 <div class="main-wrapper">
     <div th:replace="~{include/header/main-header :: header}"></div>
     <div th:replace="~{include/side/main-side :: side}"></div>
-    
+
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/todo.css">
-    <!--<link rel="stylesheet" href="/css/main-notice.css">-->
     <link rel="stylesheet" href="/css/schedule.css">
 
-    
+
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name mb-4">
                 <h3>대시보드</h3>
             </div>
-            
+
             <div class="row">
                 <div class="col-xl-6 col-12 d-flex">
                     <div class="card w-100">
@@ -68,7 +67,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-xl-6 col-12 d-flex">
                     <div class="card w-100">
@@ -100,7 +99,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-xl-6 col-12 d-flex">
                     <div class="card w-100">
                         <div class="card-header text-center">

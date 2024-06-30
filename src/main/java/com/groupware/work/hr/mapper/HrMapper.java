@@ -39,7 +39,7 @@ public interface HrMapper {
             "JOIN employee e ON a.employee_code = e.employee_code " +
             "WHERE DATE(a.check_in) = CURDATE() " +
             "GROUP BY a.employee_code, e.name " +
-            "ORDER BY status DESC, firstCheckIn desc")
+            "ORDER BY firstCheckIn desc")
     List<TodayWorkerDTO> getTodayWorkers();
 
     // 인사팀에 요청된 결재
@@ -81,6 +81,16 @@ public interface HrMapper {
             "WHERE a2.employee_code = e.employee_code);")
     List<HrStatusDTO> getEmpStatus();
 
+    // 사원번호에 해당하는 직원 군무 상태
+    @Select("SELECT e.employee_code AS employeeCode, e.name, a.status, a.created_at AS createdAt " +
+            "FROM employee e " +
+            "LEFT JOIN attendance a ON e.employee_code = a.employee_code " +
+            "AND a.created_at = (SELECT MAX(a2.created_at) " +
+            "FROM attendance a2 " +
+            "WHERE a2.employee_code = e.employee_code) " +
+            "WHERE e.employee_code = #{employeeCode}")
+    HrStatusDTO getEmpStatusByCode(@Param("employeeCode") String employeeCode);
+
     // 사원번호에 해당하는 직원 상세 정보
     @Select("SELECT e.employee_code AS employeeCode, " +
             "e.name, " +
@@ -106,6 +116,23 @@ public interface HrMapper {
     @Select("SELECT DISTINCT status FROM attendance")
     List<String> getStatuses();
 
+    // 새로운 출근 기록 추가
+    @Insert("INSERT INTO attendance (employee_code, check_in, status, created_at) " +
+            "VALUES (#{employeeCode}, NOW(), '근무중', NOW())")
+    void insertCheckIn(@Param("employeeCode") String employeeCode);
+
+    // 퇴근 기록 추가
+    @Update("UPDATE attendance SET check_out = NOW(), status = '퇴근' " +
+            "WHERE employee_code = #{employeeCode} " +
+            "AND created_at = (SELECT MAX(created_at) FROM attendance " +
+            "WHERE employee_code = #{employeeCode} AND check_out IS NULL AND status = '근무중')")
+    void updateCheckOut(@Param("employeeCode") String employeeCode);
+
+    // 새로운 휴가 기록 추가
+    @Insert("INSERT INTO attendance (employee_code, status, created_at) " +
+            "VALUES (#{employeeCode}, '휴가', NOW())")
+    void insertVacation(@Param("employeeCode") String employeeCode);
+
     // created_at을 기준으로 가져온 사원 코드의 상태
     @Select("SELECT e.employee_code, a.status " +
             "FROM employee e " +
@@ -116,29 +143,40 @@ public interface HrMapper {
             "ON a.employee_code = latest_attendance.employee_code AND a.created_at = latest_attendance.latest_created_at;")
     List<HrStatusDTO> empStatues();
 
+    // attendance 테이블에서 employee_code 레코드 삭제
+    @Delete("DELETE FROM attendance WHERE employee_code = #{employeeCode}")
+    void deleteAttendanceByEmployeeCode(@Param("employeeCode") String employeeCode);
+
     // 사원 삭제
     @Delete("DELETE FROM employee WHERE employee_code = #{employeeCode}")
     void deleteEmployeeByCode(String employeeCode);
 
-    // 사원 정보 업데이트
+    // employee 테이블의 나머지 정보 업데이트
     @Update("UPDATE employee SET " +
-            "employee_code = #{newEmployeeCode}, " +
             "department_id = (SELECT department_id FROM department WHERE department_name = #{departmentName}), " +
             "ps_cd = (SELECT ps_cd FROM positions WHERE ps_nm = #{psNm}) " +
             "WHERE employee_code = #{employeeCode}")
-    void updateEmployee(HrEmployeeUpdateDTO employeeUpdateDTO);
+    void updateEmployeeDetails(HrEmployeeUpdateDTO employeeUpdateDTO);
 
-    // 사원코드 존재여부 확인
-    @Select("SELECT COUNT(*) FROM employee WHERE employee_code = #{employeeCode}")
-    int countEmployee(@Param("employeeCode") String employeeCode);
-
-    // 해당 사원코드의 상태 변경
-    @Update("UPDATE attendance SET status = #{status}, created_at = NOW() WHERE employee_code = #{employeeCode} AND created_at = (SELECT MAX(created_at) FROM attendance WHERE employee_code = #{employeeCode})")
-    int updateStatus(@Param("employeeCode") String employeeCode, @Param("status") String status);
 
     // attendance 테이블에 employeeCode 존재 여부 확인
     @Select("SELECT COUNT(*) FROM attendance WHERE employee_code = #{employeeCode}")
     int countByEmployeeCode(@Param("employeeCode") String employeeCode);
+
+    // 검색
+    @Select("SELECT e.employee_code AS employeeCode, e.name, d.department_name AS departmentName, p.ps_nm AS psNm, a.status " +
+            "FROM employee e " +
+            "JOIN department d ON e.department_id = d.department_id " +
+            "JOIN positions p ON e.ps_cd = p.ps_cd " +
+            "LEFT JOIN (SELECT a1.employee_code, a1.status " +
+            "FROM attendance a1 " +
+            "JOIN (SELECT employee_code, MAX(created_at) AS latest " +
+            "FROM attendance " +
+            "GROUP BY employee_code) a2 ON a1.employee_code = a2.employee_code " +
+            "AND a1.created_at = a2.latest) a ON e.employee_code = a.employee_code " +
+            "WHERE d.department_name != '대표' " +
+            "AND e.name LIKE CONCAT('%', #{search}, '%')")
+    List<HrEmplMagDTO> searchUsers(String search);
 
 
 }
