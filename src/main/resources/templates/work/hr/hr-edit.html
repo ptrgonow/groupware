@@ -48,11 +48,10 @@
                                         <td th:text="${emp.departmentName}"></td>
                                         <td th:text="${emp.psNm}"></td>
                                         <td>
-                                            <select class="st-select" id="st-select">
-                                                <option th:each="st : ${status}"
-                                                        th:value="${emp.status}"
-                                                        th:text="${emp.status}">
-                                                </option>
+                                            <select class="st-select" id="st-select" th:value="${emp.status}">
+                                                <option value="휴가" th:selected="${emp.status == '휴가'}"></option>
+                                                <option value="근무중" th:selected="${emp.status == '근무중'}"></option>
+                                                <option value="퇴근" th:selected="${emp.status == '퇴근'}"></option>
                                             </select>
                                             <button type="submit" class="st-btn">변경</button>
                                         </td>

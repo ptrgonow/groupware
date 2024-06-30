@@ -44,9 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
         var html = '';
 
         data.forEach(function(row) {
-            var statusOptions = statuses.map(function(status) {
-                var selected = row.status === status ? 'selected' : '';
-                return `<option value="${status}" ${selected}>${status}</option>`;
+            var status = row.status || '퇴근';
+
+            var statusOptions = statuses.map(function(statusOption) {
+                var selected = status === statusOption ? 'selected' : '';
+                return `<option value="${statusOption}" ${selected}>${statusOption}</option>`;
             }).join('');
 
             html += `
@@ -57,7 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <td>${row.psNm}</td>
             <td>
                 <select class="st-select">
-                    ${statusOptions}
+                    <option value="휴가" ${row.status === '휴가' ? 'selected' : ''}>휴가</option>
+                    <option value="근무중" ${row.status === '근무중' ? 'selected' : ''}>근무중</option>
+                    <option value="퇴근" ${row.status === '퇴근' ? 'selected' : ''}>퇴근</option>
                 </select>
                 <button type="submit" class="st-btn">변경</button>
             </td>
@@ -81,28 +85,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 const employeeCode = tr.querySelector('.employee-code').value.trim();
                 const newStatus = tr.querySelector('.st-select').value.trim();
 
-                fetch('/hr/updatestatus', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ employeeCode: employeeCode, status: newStatus })
-                })
+                fetch(`/hr/status/${employeeCode}`)
                     .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            alert('상태 변경 완료.');
-                            window.location.reload();
-                        } else if (result.error === 'not_found') {
-                            alert('해당 사원의 출근 기록이 없습니다.');
-                            window.location.reload();
-                        } else {
-                            alert('상태 변경에 실패했습니다.');
+                    .then(currentStatusDTO => {
+                        const currentStatus = currentStatusDTO.status;
+                        if (currentStatus === '근무중' && newStatus === '휴가') {
+                            alert('퇴근 기록을 저장한 후 다시 시도하세요.');
+                            location.reload();
+                            return;
+                        } else if (currentStatus === '휴가' && newStatus === '퇴근') {
+                            alert('출근 기록이 없어 퇴근 상태로 변경할 수 없습니다.');
+                            location.reload();
+                            return;
                         }
+
+                        return fetch('/hr/updatestatus', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ employeeCode: employeeCode, status: newStatus })
+                        })
+                            .then(response => response.json())
+                            .then(result => {
+                                if (result.success) {
+                                    alert('상태 변경 완료.');
+                                    location.reload();
+                                } else if (result.error === 'not_found') {
+                                    alert('해당 사원의 출근 기록이 없습니다.');
+                                    location.reload();
+                                } else {
+                                    alert('상태 변경에 실패했습니다.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('상태 변경 중 오류가 발생했습니다.');
+                            });
                     })
                     .catch(error => {
-                        console.error('Error:', error);
-                        alert('상태 변경 중 오류가 발생했습니다.');
+                        console.error('Error fetching current status:', error);
+                        alert('상태 확인 중 오류가 발생했습니다.');
                     });
             }
         }
@@ -148,8 +171,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         })
                             .then(response => response.json())
                             .then(result => {
-                                // 디버깅: 서버 응답 데이터 확인
-                                console.log('Result:', result);
                                 if (result.success) {
                                     alert('사원이 삭제되었습니다.');
                                     location.reload();

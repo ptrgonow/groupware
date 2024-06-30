@@ -93,11 +93,8 @@ public class WorkViewController {
     public String getEmployeeMag(Model model) {
 
         List<HrEmplMagDTO> empMag = hrService.getEmplManagement();
-        List<String> status = hrService.getStatuses();
-        List<HrStatusDTO> empStatus = hrService.getEmpStatus();
 
         model.addAttribute("empMag", empMag);
-        model.addAttribute("status", status);  // 휴가,근무중,퇴근 값
 
         return "work/hr/hr-edit";
     }

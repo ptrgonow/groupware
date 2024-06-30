@@ -30,18 +30,28 @@ public class HrController {
     }
 
     @GetMapping("/statuses")
-    public List<String> getStatuses() {
-        return hrService.getStatuses();
+    public List<HrStatusDTO> getEmpStatus() {
+        return hrService.getEmpStatus();
+    }
+
+    @GetMapping("/status/{employeeCode}")
+    public ResponseEntity<HrStatusDTO> getCurrentStatus(@PathVariable String employeeCode) {
+        HrStatusDTO status = hrService.getEmpStatusByCode(employeeCode);
+        if (status != null) {
+            return ResponseEntity.ok(status);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @PostMapping("/updatestatus")
     public ResponseEntity<Map<String, Object>> updateStatus(@RequestBody HrStatusDTO hrStatusDTO) {
-        boolean updated = hrService.updateStatus(hrStatusDTO.getEmployeeCode(), hrStatusDTO.getStatus());
+        Map<String, String> result = hrService.updateStatus(hrStatusDTO.getEmployeeCode(), hrStatusDTO.getStatus());
         Map<String, Object> response = new HashMap<>();
-        if (updated) {
+        if ("true".equals(result.get("success"))) {
             response.put("success", true);
         } else {
-            response.put("error", "not_found");
+            response.put("error", result.get("error"));
         }
         return ResponseEntity.ok(response);
     }

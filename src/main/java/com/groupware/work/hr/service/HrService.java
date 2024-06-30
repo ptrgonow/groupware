@@ -42,7 +42,16 @@ public class HrService {
     }
 
     public List<HrEmplMagDTO> getEmplManagement() {
-        return hrMapper.getEmplManagement();
+        List<HrEmplMagDTO> nowStatus = hrMapper.getEmplManagement();
+
+        if(nowStatus != null){
+            for(HrEmplMagDTO allStatus : nowStatus){
+                if(allStatus.getStatus() == null){
+                    allStatus.setStatus("퇴근");
+                }
+            }
+        }
+        return nowStatus;
     }
 
     public List<HrStatusDTO> getEmpStatus(){
@@ -122,20 +131,33 @@ public class HrService {
 
 
     @Transactional
-    public boolean updateStatus(String employeeCode, String status) {
-        int count = hrMapper.countByEmployeeCode(employeeCode);
-        if (count > 0) {
-            if ("근무중".equals(status)) {
-                hrMapper.insertCheckIn(employeeCode);
-            } else if ("퇴근".equals(status)) {
-                hrMapper.updateCheckOut(employeeCode);
-            } else if ("휴가".equals(status)) {
-                hrMapper.insertVacation(employeeCode);
+    public Map<String, String> updateStatus(String employeeCode, String status) {
+        Map<String, String> response = new HashMap<>();
+        HrStatusDTO currentStatusDTO = hrMapper.getEmpStatusByCode(employeeCode);
+        if (currentStatusDTO != null) {
+            String currentStatus = currentStatusDTO.getStatus();
+            if ("근무중".equals(currentStatus) && "휴가".equals(status)) {
+                response.put("error", "check_out_first");
+            } else if ("휴가".equals(currentStatus) && "퇴근".equals(status)) {
+                response.put("error", "no_check_in");
+            } else {
+                if ("근무중".equals(status)) {
+                    hrMapper.insertCheckIn(employeeCode);
+                } else if ("퇴근".equals(status)) {
+                    hrMapper.updateCheckOut(employeeCode);
+                } else if ("휴가".equals(status)) {
+                    hrMapper.insertVacation(employeeCode);
+                }
+                response.put("success", "true");
             }
-            return true;
         } else {
-            return false;
+            response.put("error", "not_found");
         }
+        return response;
+    }
+
+    public HrStatusDTO getEmpStatusByCode(String employeeCode) {
+        return hrMapper.getEmpStatusByCode(employeeCode);
     }
 
     public List<HrEmplMagDTO> searchUsers(String search) {
