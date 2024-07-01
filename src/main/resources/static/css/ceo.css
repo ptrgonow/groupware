@@ -90,4 +90,14 @@ body {
     transform: translateY(2px);
 }
 
+.ap-tbl tbody tr td.col-t1 {
+    width: 15%;
+}
 
+.ap-tbl tbody tr td.col-t2 {
+    width: 70%;
+}
+
+.ap-tbl tbody tr td.col-t3 {
+    width: 20%;
+}
