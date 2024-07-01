@@ -95,9 +95,9 @@ document.addEventListener("DOMContentLoaded", function() {
         function renderProjectTable(data) {
             return data.map(pr => `
             <tr>
-                <td>${pr.number}</td>
-                <td>${pr.projectName}</td>
-                <td>${pr.status}</td>
+                <td class="col-t1" >${pr.number}</td>
+                <td class="col-t2">${pr.projectName}</td>
+                <td class="col-t3">${pr.status}</td>
             </tr>
         `).join('');
         }
