@@ -3,40 +3,40 @@ $(document).ready(function() {
     initializeDisplay();
     updateDisplayedUserInfo();
 
-    $('#registerForm').on('submit', function(event) {
-        event.preventDefault(); // 폼의 기본 제출 동작을 방지
-
-        const formData = $(this).serialize(); // 폼 데이터를 직렬화
-        const address = $('#address_postal').val();
-
-        if(!address){
-            alert('주소를 입력하세요')
-            return;
-        }
-
-        $.ajax({
-            url: '/user/register',
-            method: 'POST',
-            data: formData,
-            success: function(response) {
-                alert(response.message);
-                // UI 업데이트가 필요하다면 여기에서 처리
-                window.location.href = '/hr/edit';
-            },
-            error: function(error) {
-                const response = JSON.parse(error.responseText); // JSON 응답을 객체로 변환
-                alert(response.message); // 메시지만 표시
-
-                if (response.message === '이미 존재하는 사원번호입니다.') {
-                    $('#EmployeeCode').val('');
-                }
-
-                if (response.message === '이미 존재하는 아이디입니다.') {
-                    $('#userName').val('');
-                }
-            }
-        });
-    });
+    // $('#registerForm').on('submit', function(event) {
+    //     event.preventDefault(); // 폼의 기본 제출 동작을 방지
+    //
+    //     const formData = $(this).serialize(); // 폼 데이터를 직렬화
+    //     const address = $('#address_postal').val();
+    //
+    //     if(!address){
+    //         alert('주소를 입력하세요')
+    //         return;
+    //     }
+    //
+    //     $.ajax({
+    //         url: '/user/register',
+    //         method: 'POST',
+    //         data: formData,
+    //         success: function(response) {
+    //             alert(response.message);
+    //             // UI 업데이트가 필요하다면 여기에서 처리
+    //             window.location.href = '/hr/edit';
+    //         },
+    //         error: function(error) {
+    //             const response = JSON.parse(error.responseText); // JSON 응답을 객체로 변환
+    //             alert(response.message); // 메시지만 표시
+    //
+    //             if (response.message === '이미 존재하는 사원번호입니다.') {
+    //                 $('#EmployeeCode').val('');
+    //             }
+    //
+    //             if (response.message === '이미 존재하는 아이디입니다.') {
+    //                 $('#userName').val('');
+    //             }
+    //         }
+    //     });
+    // });
 
     $('#updateForm').on('submit', function(event) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
